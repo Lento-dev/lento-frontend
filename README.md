@@ -1,1 +1,1 @@
-# lento-fontend
+# lento-frontend
