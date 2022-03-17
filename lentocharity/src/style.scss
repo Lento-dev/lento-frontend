@@ -3,6 +3,11 @@
   font-family: "Vazir";
   src: local("Vazir"), url(./a/fonts/Vazir.ttf) format("truetype");
 }
+@import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500|Jost:400,500,600&display=swap");
+@font-face {
+  font-family: "icofont";
+  src: local("icofont"), url(./a/fonts/icofont.ttf) format("truetype");
+}
 
 * {
   box-sizing: border-box;

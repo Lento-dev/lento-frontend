@@ -41,16 +41,20 @@ class App extends Component {
         <h1 >
           {/* Fatemeh jalalvand */}
           {/* {this.state.firstname + " " + this.state.lastname} */}
-          <h3 style={{left:'117px',position:'absolute',bottom:'-460px',fontFamily:'unset',color:'rgb(54, 53, 53)'}}>Basic info</h3>
-          
-          <h5 style={{left:'120px',position:'absolute',bottom:'-510px',fontFamily:'cursive',color:'rgb(54, 53, 53)'}}>Name</h5>
-          <p style={{left:'350px',position:'absolute',bottom:'-502px',fontFamily:'cursive',color:'rgb(54, 53, 53)'}}>:</p>
-          <h5 style={{left:'120px',position:'absolute',bottom:'-570px',fontFamily:'cursive',color:'rgb(54, 53, 53)'}}>Family name</h5>
-          <p style={{left:'350px',position:'absolute',bottom:'-560px',fontFamily:'cursive',color:'rgb(54, 53, 53)'}}>:</p>
-          <h5 style={{left:'120px',position:'absolute',bottom:'-630px',fontFamily:'cursive',color:'rgb(54, 53, 53)'}}>Region</h5>
-          <p style={{left:'350px',position:'absolute',bottom:'-620px',fontFamily:'cursive',color:'rgb(54, 53, 53)'}}>:</p>
-          <h5 style={{left:'120px',position:'absolute',bottom:'-690px',fontFamily:'cursive',color:'rgb(54, 53, 53)'}}>Job</h5>
-          <p style={{left:'350px',position:'absolute',bottom:'-680px',fontFamily:'cursive',color:'rgb(54, 53, 53)'}}>:</p>
+          <h3 style={{left:'116px',position:'absolute',bottom:'-460px',fontFamily:'icofont',color:'rgb(54, 53, 53)',fontStyle:'bold',fontSize:'37px'}}>Basic info</h3>
+         
+          <h5 style={{left:'120px',position:'absolute',bottom:'-530px',fontFamily:'icofont',color:'rgb(54, 53, 53)'}}>Name</h5>
+          <p style={{left:'295px',position:'absolute',bottom:'-522px',fontFamily:'icofont',color:'rgb(54, 53, 53)'}}>:</p>
+          <h5 style={{left:'350px',position:'absolute',bottom:'-530px',fontFamily:'icofont',color:'rgb(54, 53, 53)'}}>Raya</h5>
+          <h5 style={{left:'120px',position:'absolute',bottom:'-590px',fontFamily:'icofont',color:'rgb(54, 53, 53)'}}>Family name</h5>
+          <p style={{left:'295px',position:'absolute',bottom:'-580px',fontFamily:'icofont',color:'rgb(54, 53, 53)'}}>:</p>
+          <h5 style={{left:'350px',position:'absolute',bottom:'-590px',fontFamily:'icofont',color:'rgb(54, 53, 53)'}}>Rayani</h5>
+          <h5 style={{left:'120px',position:'absolute',bottom:'-650px',fontFamily:'icofont',color:'rgb(54, 53, 53)'}}>Region</h5>
+          <p style={{left:'295px',position:'absolute',bottom:'-640px',fontFamily:'icofont',color:'rgb(54, 53, 53)'}}>:</p>
+          <h5 style={{left:'350px',position:'absolute',bottom:'-650px',fontFamily:'icofont',color:'rgb(54, 53, 53)'}}>Mexico</h5>
+          <h5 style={{left:'120px',position:'absolute',bottom:'-710px',fontFamily:'icofont',color:'rgb(54, 53, 53)'}}>Job</h5>
+          <p style={{left:'295px',position:'absolute',bottom:'-700px',fontFamily:'icofont',color:'rgb(54, 53, 53)'}}>:</p>
+          <h5 style={{left:'350px',position:'absolute',bottom:'-710px',fontFamily:'icofont',color:'rgb(54, 53, 53)'}}>nurse</h5>
           
       
           </h1>  

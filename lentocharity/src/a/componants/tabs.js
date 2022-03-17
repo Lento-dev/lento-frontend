@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import InfoIcon from '@mui/icons-material/Info';
+import RecipeReviewCard from './postcard';
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -78,24 +80,41 @@ export default function ScrollableTabsButtonForce() {
           // aria-label="scrollable force tabs example"
           centered
         >
-          <Tab label="Posts" icon={<AppRegistrationIcon />} {...a11yProps(0)} />
-          <Tab label="About" icon={<InfoIcon />} {...a11yProps(1)} />
-          <Tab label="Followers" icon={<PersonPinIcon />} {...a11yProps(2)} />
-          <Tab label="Following" icon={<PersonPinIcon />} {...a11yProps(3)} />
+          <Tab label={<div style={{fontFamily:'icofont',fontSize:'21px'}}>Posts</div>} icon={<AppRegistrationIcon />} {...a11yProps(0)} />
+          <Tab label={<div style={{fontFamily:'icofont',fontSize:'21px'}}>About</div>} icon={<InfoIcon />} {...a11yProps(1)} />
+          <Tab label={<div style={{fontFamily:'icofont',fontSize:'21px'}}>Followers</div>} icon={<PersonPinIcon />} {...a11yProps(2)} />
+          <Tab label={<div style={{fontFamily:'icofont',fontSize:'21px'}}>Followings</div>} icon={<PersonPinIcon />} {...a11yProps(3)} />
           {/* <Tab label="Item Five" icon={<ShoppingBasket />} {...a11yProps(4)} />
           <Tab label="Item Six" icon={<ThumbDown />} {...a11yProps(5)} />
           <Tab label="Item Seven" icon={<ThumbUp />} {...a11yProps(6)} /> */}
         </Tabs>
       {/* </AppBar> */}
-      {/* <TabPanel value={value} index={0}>
-        Item One
+      <TabPanel value={value} index={0}>
+        {/* Item One */}
+        <div style={{paddingLeft:'800px',paddingTop:'50px'}}>
+          <RecipeReviewCard></RecipeReviewCard>
+        </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+      <div style={{paddingLeft:'850px',paddingTop:'10px',width:'1700px'}}>
+      <p style={{fontFamily:'icofont' , fontSize:'30px',fontWeight:'bold'}}>About me : 
+          
+          <p style={{fontFamily:'icofont' , fontSize:'25px',fontWeight:'normal'}}>I love helping others in any way I can. This is why I am studying nursing. Here I share my experiences of caring for animals and helping others.</p>
+        </p>
+        <p style={{fontFamily:'icofont' , fontSize:'30px',fontWeight:'bold'}}>Education : 
+          
+          <p style={{fontFamily:'icofont' , fontSize:'25px',fontWeight:'normal'}}>studying nursing at Columbia uni</p>
+        </p>
+        <p style={{fontFamily:'icofont' , fontSize:'30px',fontWeight:'bold'}}>Volunteering work experience : 
+          <p style={{fontFamily:'icofont' , fontSize:'25px',fontWeight:'normal'}}>worked at refugees' camp in Poland</p>
+        </p>
+    
+        <p></p>
+      </div>
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Three
-      </TabPanel> */}
+      </TabPanel>
       <TabPanel value={value} index={3}>
         Item Four
       </TabPanel>
