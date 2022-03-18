@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Route, BrowserRouter, Routes } from "react-router-dom";
+import SignUp from "./components/signup";
+import SignIn from "./components/signin";
+import ForgotPassword from "./components/forgotpassword";
+import { ThemeProvider, createTheme } from "@mui/material";
+import { Provider } from "react-redux";
+import store from "./store";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: ["Nunito"].join(","),
+  },
+  palette: {
+    background: {
+      default: "#f5f5f5",
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          test 
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <div className="App">
+          <BrowserRouter>
+            <Routes>
+              <Route exact path="/signup" element={<SignUp/>} />
+              <Route exact path="/signin" element={<SignIn/>} />
+              <Route exact path="/forgot-password" element={<ForgotPassword/>} />
+            </Routes>
+          </BrowserRouter>
+        </div>
+      </Provider>
+    </ThemeProvider>
   );
 }
 
