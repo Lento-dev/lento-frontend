@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, BrowserRouter, Routes } from "react-router-dom";
+import { Route, BrowserRouter, Switch } from "react-router-dom";
 import SignUp from "./components/signup";
 import SignIn from "./components/signin";
 import ForgotPassword from "./components/forgotpassword";
@@ -24,11 +24,11 @@ function App() {
       <Provider store={store}>
         <div className="App">
           <BrowserRouter>
-            <Routes>
-              <Route exact path="/signup" element={<SignUp/>} />
-              <Route exact path="/signin" element={<SignIn/>} />
-              <Route exact path="/forgot-password" element={<ForgotPassword/>} />
-            </Routes>
+            <Switch>
+              <Route exact path="/signup" component = { SignUp }/>
+              <Route exact path="/signin" component = { SignIn }/>
+              <Route exact path="/forgot-password" component = { ForgotPassword }/>
+            </Switch>
           </BrowserRouter>
         </div>
       </Provider>

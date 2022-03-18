@@ -172,7 +172,6 @@ function Signup() {
 
                     <Grid item xs={12} md={6}>
                       <TextField
-                        autoFocus
                         label="First Name"
                         name="firstname"
                         id="firstname"
