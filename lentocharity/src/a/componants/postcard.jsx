@@ -47,8 +47,8 @@ export default function RecipeReviewCard() {
           </IconButton>
         }
         
-        title={<div style={{fontFamily:'icofont' , fontSize:'27px',fontWeight:'bold'}}>Help the homeless dog</div>}
-        subheader={<div style={{fontFamily:'icofont' , fontSize:'23px',fontWeight:'normal'}}>September 14, 2022</div>}
+        title={<div style={{fontFamily:'icofont' , fontSize:'27px',fontWeight:'bold',color:'#465832'}}>Help the homeless dog</div>}
+        subheader={<div style={{fontFamily:'icofont' , fontSize:'23px',color:'#e6835a',fontWeight:'normal'}}>September 14, 2022</div>}
       />
       <CardMedia
         component="img"

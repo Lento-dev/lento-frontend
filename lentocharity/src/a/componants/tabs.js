@@ -14,7 +14,50 @@ import Box from '@material-ui/core/Box';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import InfoIcon from '@mui/icons-material/Info';
 import RecipeReviewCard from './postcard';
+import { purple,green } from '@mui/material/colors';
+import { createTheme } from '@mui/material/styles';
+// import { styled } from '@mui/material/styles';
+// color: #20b2aa;
+// const CustomizedTabs = styled(Tabs)`
+//   indicatorColor : #6d9736;
+//   textColor : #6d9736;
+// `;
 
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper
+  },
+  tabs: {
+    "& .MuiButtonBase-root.MuiTab-root": {
+      fontSize: 20,
+      // color : "#6d9736"
+    },
+    "& .MuiTabs-indicator": {
+      // display: "none",
+      backgroundColor: "#6d9736"
+    },
+    // "& .Mui-selected": {
+    //   textDecoration: "underline"
+    // }
+  },
+ 
+}));
+
+
+
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: purple[500],
+    },
+    secondary: {
+      main: '#6d9736',
+    },
+  },
+});
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,13 +92,13 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    width: '100%',
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     flexGrow: 1,
+//     width: '100%',
+//     backgroundColor: theme.palette.background.paper,
+//   },
+// }));
 
 export default function ScrollableTabsButtonForce() {
   const classes = useStyles();
@@ -66,18 +109,18 @@ export default function ScrollableTabsButtonForce() {
   };
 
   return (
-    <div class="tabs">
+    <div >
     {/* // <div className={classes.root}> */}
       {/* <AppBar position="static" color="white"> */}
         <Tabs
-        className='tabs'
           value={value}
           onChange={handleChange}
           // variant="scrollable"
           // scrollButtons="on"
-          indicatorColor="primary"
-          textColor="primary"
-          // aria-label="scrollable force tabs example"
+          // indicatorColor=	'primary'
+          // textColor="primary"
+          style={{color:'#465832'}}
+          className={classes.tabs}
           centered
         >
           <Tab label={<div style={{fontFamily:'icofont',fontSize:'21px'}}>Posts</div>} icon={<AppRegistrationIcon />} {...a11yProps(0)} />
@@ -89,7 +132,7 @@ export default function ScrollableTabsButtonForce() {
           <Tab label="Item Seven" icon={<ThumbUp />} {...a11yProps(6)} /> */}
         </Tabs>
       {/* </AppBar> */}
-      <TabPanel value={value} index={0}>
+      <TabPanel className='tabs' value={value} index={0}>
         {/* Item One */}
         <div style={{paddingLeft:'800px',paddingTop:'50px'}}>
           <RecipeReviewCard></RecipeReviewCard>
