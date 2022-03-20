@@ -46,23 +46,23 @@ class App extends Component {
         <h1 >
           
           {/* {this.state.firstname + " " + this.state.lastname} */}
-          <h3 style={{left:'116px',position:'absolute',bottom:'-460px',fontFamily:'icofont',color:'#465832',fontStyle:'bold',fontSize:'37px'}}>Basic info</h3>
+          <h3 style={{left:'116px',position:'absolute',bottom:'-460px',fontFamily:'icofont',fontStyle:'bold',fontSize:'37px',color:'rgba(103,103,103,255)'}}>Basic info</h3>
          
-          <h5 style={{left:'120px',position:'absolute',bottom:'-530px',fontFamily:'icofont',color:'#465832'}}>Name</h5>
-          <p style={{left:'295px',position:'absolute',bottom:'-522px',fontFamily:'icofont',color:'#465832'}}>:</p>
-          <h5 style={{left:'350px',position:'absolute',bottom:'-530px',fontFamily:'icofont',color:'#465832'}}>Raya</h5>
-          <h5 style={{left:'120px',position:'absolute',bottom:'-590px',fontFamily:'icofont',color:'#465832'}}>Family name</h5>
-          <p style={{left:'295px',position:'absolute',bottom:'-580px',fontFamily:'icofont',color:'#465832'}}>:</p>
-          <h5 style={{left:'350px',position:'absolute',bottom:'-590px',fontFamily:'icofont',color:'#465832'}}>Rayani</h5>
-          <h5 style={{left:'120px',position:'absolute',bottom:'-650px',fontFamily:'icofont',color:'#465832'}}>Region</h5>
-          <p style={{left:'295px',position:'absolute',bottom:'-640px',fontFamily:'icofont',color:'#465832'}}>:</p>
-          <h5 style={{left:'350px',position:'absolute',bottom:'-650px',fontFamily:'icofont',color:'#465832'}}>Mexico</h5>
-          <h5 style={{left:'120px',position:'absolute',bottom:'-710px',fontFamily:'icofont',color:'#465832'}}>Job</h5>
-          <p style={{left:'295px',position:'absolute',bottom:'-700px',fontFamily:'icofont',color:'#465832'}}>:</p>
-          <h5 style={{left:'350px',position:'absolute',bottom:'-710px',fontFamily:'icofont',color:'#465832'}}>nurse</h5>
-          <h5 style={{left:'120px',position:'absolute',bottom:'-770px',fontFamily:'icofont',color:'#465832'}}>Birth Date</h5>
-          <p style={{left:'295px',position:'absolute',bottom:'-760px',fontFamily:'icofont',color:'#465832'}}>:</p>
-          <h5 style={{left:'350px',position:'absolute',bottom:'-770px',fontFamily:'icofont',color:'#465832'}}>10 Mar 1996</h5>
+          <h5 style={{left:'120px',position:'absolute',bottom:'-530px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Name</h5>
+          <p style={{left:'295px',position:'absolute',bottom:'-522px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>:</p>
+          <h5 style={{left:'350px',position:'absolute',bottom:'-530px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Raya</h5>
+          <h5 style={{left:'120px',position:'absolute',bottom:'-590px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Family name</h5>
+          <p style={{left:'295px',position:'absolute',bottom:'-580px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>:</p>
+          <h5 style={{left:'350px',position:'absolute',bottom:'-590px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Rayani</h5>
+          <h5 style={{left:'120px',position:'absolute',bottom:'-650px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Region</h5>
+          <p style={{left:'295px',position:'absolute',bottom:'-640px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>:</p>
+          <h5 style={{left:'350px',position:'absolute',bottom:'-650px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Mexico</h5>
+          <h5 style={{left:'120px',position:'absolute',bottom:'-710px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Job</h5>
+          <p style={{left:'295px',position:'absolute',bottom:'-700px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>:</p>
+          <h5 style={{left:'350px',position:'absolute',bottom:'-710px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>nurse</h5>
+          <h5 style={{left:'120px',position:'absolute',bottom:'-770px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Birth Date</h5>
+          <p style={{left:'295px',position:'absolute',bottom:'-760px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>:</p>
+          <h5 style={{left:'350px',position:'absolute',bottom:'-770px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>10 Mar 1996</h5>
           
       
           </h1>  
