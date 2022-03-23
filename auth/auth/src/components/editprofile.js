@@ -293,7 +293,7 @@ function UserInfo(props) {
 
                                 
                                     <Avatar
-                                        alt="m"
+                                        alt="z"
                                         src={Image}
                                         sx={{ width: 130, height: 130 }}
                                     />
