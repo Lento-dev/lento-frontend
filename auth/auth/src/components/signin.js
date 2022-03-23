@@ -24,7 +24,7 @@ const validationSchema = yup.object({
   password: yup.string().required("Please enter your password."),
 });
 
-function Signin() {
+function SignIn() {
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -190,4 +190,4 @@ function Signin() {
   );
 }
 
-export default Signin;
+export default SignIn;

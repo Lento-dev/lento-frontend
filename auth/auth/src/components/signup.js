@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
+
 import {
   Button,
   TextField,
@@ -7,8 +9,11 @@ import {
   Paper,
   Typography,
   Divider,
-  Container,
+  Container,Snackbar,Alert,CircularProgress
 } from "@mui/material";
+import { connect } from 'react-redux';
+import { register } from "../actions/auth";
+import { clearMessage } from '../actions/message';
 
 import Helmet from "react-helmet";
 import * as yup from "yup";
@@ -32,20 +37,38 @@ const validationSchema = yup.object({
     .oneOf([yup.ref("password")], "Passwords don't match!"),
 });
 
-function Signup() {
-  // const [validation , setValidation] = useState(false)
+function SignUp(props) {
+  const history = useHistory();
+  const [loading, setLoading] = React.useState(false);
 
-  const handleSignUpButton = () => {
-    console.log("firstname", formik.values.firstname);
-    console.log("we are in handle signup button");
-    console.log(formik.errors);
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <Alert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    props.clearMessage();
   };
-  // const startValidate = (e) => {
-  //   e.preventDefault()
-  //   console.log('in start validation function');
-  //   setValidation(true);
-  //   return formik.handleSubmit();
-  // }
+
+  const handleSignUpButton = (e) => {
+    let filled = !Boolean(formik.errors.firstname) 
+    && !Boolean(formik.errors.lastname) && !Boolean(formik.errors.email)
+    && !Boolean(formik.errors.password) && !Boolean(formik.errors.confirmpassword);
+
+    if  (filled) 
+    {
+      setLoading(true);
+      props.register(formik.values.firstname, formik.values.lastname, formik.values.email,
+         formik.values.password, formik.values.confirmpassword, history,loading, setLoading);
+    }
+
+    console.log(formik.errors);
+    console.log('length : ',formik.errors.count);
+    
+  }
+
 
   const formik = useFormik({
     initialValues: {
@@ -275,6 +298,7 @@ function Signup() {
                       <Button
                         variant="contained"
                         size="large"
+                        disabled={loading}
                         onClick={handleSignUpButton}
                         sx={{
                           textTransform: "unset",
@@ -282,8 +306,10 @@ function Signup() {
                         }}
                         fullWidth
                       >
-                        Sign up
-                      </Button>
+                    {loading ? 
+                        <CircularProgress style={{color: "#fff"}} size="3"/>
+                        : "Sign up"}
+                  </Button>
                     </Grid>
                     <Grid item xs={12}>
                       <Divider>Or</Divider>
@@ -303,6 +329,11 @@ function Signup() {
                         Continue with Google
                       </Button>
                     </Grid>
+                    <Snackbar open={props.openMessage} autoHideDuration={4000} onClose={handleClose}>
+                  <Alert onClose={handleClose} severity={props.message == "Signed up successfully!" ? "success" : "error"} sx={{ width: '100%' }}>
+                    {props.message}
+                  </Alert>
+                </Snackbar>
                   </Grid>
                 </Grid>
               </Grid>
@@ -314,4 +345,12 @@ function Signup() {
   );
 }
 
-export default Signup;
+const mapDispatchToProps = { register, clearMessage };
+const mapStateToProps = ( state ) => {
+  return{
+    message: state.message.message,
+    openMessage: state.message.openMessage,
+  }
+}
+
+export default connect(mapStateToProps ,mapDispatchToProps)(SignUp);
