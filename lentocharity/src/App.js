@@ -2,7 +2,7 @@ import "./App.css";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { Provider } from "react-redux";
-import UserProfile from "./componants/profile";
+import UserProfile from "./components/profile";
 
 const theme = createTheme({
   typography: {
