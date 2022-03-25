@@ -14,7 +14,6 @@ import {
 import { connect } from 'react-redux';
 import { register } from "../actions/auth";
 import { clearMessage } from '../actions/message';
-
 import Helmet from "react-helmet";
 import * as yup from "yup";
 import { useFormik, Formik } from "formik";
@@ -27,6 +26,7 @@ const validationSchema = yup.object({
     .string()
     .email("Please enter a valid email address.")
     .required("Please enter your email address."),
+  username: yup.string().required("Please write your user name."),
   password: yup
     .string()
     .min(6, "Passwords must at least be 6 characters.")
@@ -60,7 +60,7 @@ function SignUp(props) {
     if  (filled) 
     {
       setLoading(true);
-      props.register(formik.values.firstname, formik.values.lastname, formik.values.email,
+      props.register(formik.values.firstname, formik.values.lastname, formik.values.email,formik.values.username,
          formik.values.password, formik.values.confirmpassword, history,loading, setLoading);
     }
 
@@ -75,6 +75,7 @@ function SignUp(props) {
       firstname: "",
       lastname: "",
       email: "",
+      username:"",
       password: "",
       confirmpassword: "",
     },
@@ -117,40 +118,36 @@ function SignUp(props) {
                   <Typography
                     fontWeight="bold"
                     textAlign="left"
-                    fontSize="1.5rem"
+                    fontSize="2rem"
                   >
-                    Welcome to our site.
+                    Welcome to
                   </Typography>
                 </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography>Sign up to have an account.</Typography>
+
+                <Grid item xs={12}>
+                  <Typography
+                    fontWeight="bold"
+                    textAlign="left"
+                    fontSize="2.5rem"
+                  >
+                    Lento Charity
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={12} textAlign="left" sx={{ marginTop: '18vh'}}>
+                <Typography fontSize="1.3rem">You can communicate with others.</Typography>
                 </Grid>
                 <Grid item xs={12} textAlign="left">
-                  <Typography>You can communicate with others.</Typography>
+                <Typography fontSize="1.3rem">You can share your experiences with our charity.</Typography>
                 </Grid>
                 <Grid item xs={12} textAlign="left">
-                  <Typography>You can communicate with others.</Typography>
+                <Typography fontSize="1.3rem">You can be helpful for the hurted animal.</Typography>
                 </Grid>
                 <Grid item xs={12} textAlign="left">
-                  <Typography>You can chat.</Typography>
+                <Typography fontSize="1.3rem">You can help people with what you don't need.</Typography>
                 </Grid>
                 <Grid item xs={12} textAlign="left">
-                  <Typography>You can get foods.</Typography>
-                </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography>You can help animals.</Typography>
-                </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography>You can communicate with others.</Typography>
-                </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography>You can be so helpful</Typography>
-                </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography>You can chat.</Typography>
-                </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography>You can post experiences.</Typography>
+                <Typography fontSize="1.8rem">Enjoy using our app.</Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -249,6 +246,26 @@ function SignUp(props) {
                           formik.touched.email && Boolean(formik.errors.email)
                         }
                         helperText={formik.touched.email && formik.errors.email}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        label="User Name"
+                        name="username"
+                        id="username"
+                        variant="outlined"
+                        required
+                        fullWidth
+                        value={formik.values.username}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={
+                          formik.touched.username &&
+                          Boolean(formik.errors.username)
+                        }
+                        helperText={
+                          formik.touched.username && formik.errors.username
+                        }
                       />
                     </Grid>
                     <Grid item xs={12}>

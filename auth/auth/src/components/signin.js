@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useHistory } from 'react-router-dom';
+
 import {
   Button,
   TextField,
@@ -9,12 +11,14 @@ import {
   Divider,
   Container,
 } from "@mui/material";
-
+import { connect } from 'react-redux';
 import Helmet from "react-helmet";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { FcGoogle } from "react-icons/fc";
 import Image from "../assets/illustrations/signin.svg";
+import { login } from "../actions/auth";
+import { clearMessage } from '../actions/message';
 
 const validationSchema = yup.object({
   email: yup
@@ -24,7 +28,12 @@ const validationSchema = yup.object({
   password: yup.string().required("Please enter your password."),
 });
 
-function SignIn() {
+function SignIn(props) {
+  const history = useHistory();
+  const [loading, setLoading] = React.useState(false);
+
+
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -32,6 +41,20 @@ function SignIn() {
     },
     validationSchema: validationSchema,
   });
+  const handleSignInButton = (e) => {
+    let filled = !Boolean(formik.errors.email) 
+    && !Boolean(formik.errors.password);
+
+    if  (filled) 
+    {
+      setLoading(true);
+      props.login(formik.values.email, formik.values.password);
+    }
+
+    console.log(formik.errors);
+    console.log('length : ',formik.errors.count);
+    
+  }
   return (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #fff" }} />
@@ -152,6 +175,7 @@ function SignIn() {
                       <Button
                         variant="contained"
                         size="large"
+                        onClick={handleSignInButton}
                         sx={{
                           textTransform: "unset",
                           backgroundColor: "#e6835a",
@@ -161,6 +185,27 @@ function SignIn() {
                         Sign in
                       </Button>
                     </Grid>
+
+                    {/* <Grid item xs={12} sx={{ marginTop: "2vh" }}>
+                      <Button
+                        variant="contained"
+                        size="large"
+                        disabled={loading}
+                        onClick={handleSignUpButton}
+                        sx={{
+                          textTransform: "unset",
+                          backgroundColor: "#e6835a",
+                        }}
+                        fullWidth
+                      >
+                    {loading ? 
+                        <CircularProgress style={{color: "#fff"}} size="3"/>
+                        : "Sign up"}
+                  </Button>
+                    </Grid> */}
+
+
+
                     <Grid item xs={12}>
                       <Divider>Or</Divider>
                     </Grid>
@@ -190,4 +235,15 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+
+
+const mapDispatchToProps = { login, clearMessage };
+const mapStateToProps = ( state ) => {
+  return{
+    message: state.message.message,
+    openMessage: state.message.openMessage,
+  }
+}
+
+export default connect(mapStateToProps ,mapDispatchToProps)(SignIn);
+// export default SignIn;
