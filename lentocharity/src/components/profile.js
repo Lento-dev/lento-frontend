@@ -1,10 +1,10 @@
-import './styles.scss';
+import '../styles/profile.scss';
 import {React,Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ScrollableTabsButtonForce from './tabs';
 import {SocialMediaIconsReact} from 'social-media-icons-react';
 import Follow from './follow'
-import './follow.css'
+import '../styles/follow.css'
 
 
 // https://some-website.com/my-social-media-url

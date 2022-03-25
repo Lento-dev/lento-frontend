@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './follow.css'
+import '../styles/follow.css'
 
 class Follow extends Component {
 state = { followed: false };
