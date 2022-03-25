@@ -1,0 +1,139 @@
+
+.follow-button {
+    text-align: center;
+    padding: 10px;
+    width: 180px;
+    height: 45px;
+    border-radius: 5px;
+    background-color: white;
+    border: solid 2px #465832;
+    color: #465832;
+    font-weight: bold;
+    font-size: 16px;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    border-radius: 20px;
+   
+  }
+  
+  .follow-button span {
+    display: block;
+    position: absolute;
+    width: 100px;
+    height: 20px;
+    top: 10px;
+    left: 10px;
+    opacity: 0;
+  }
+  
+  .follow-button .following-text {
+    color: #fff;
+  }
+  
+  .follow-button.follow .follow-text,
+  .follow-button.following .following-text {
+    opacity: 1;
+  }
+  
+  .follow-button.anim.follow .follow-text,
+  .follow-button.anim.following .following-text {
+      animation-name: toggleInAnim;
+    animation-duration: 0.2s;
+    animation-delay: 0.4s;
+    animation-fill-mode: backwards;
+  }
+  
+  .follow-button.anim.following .follow-text,
+  .follow-button.anim.follow .following-text {
+      animation-name: toggleOutAnim;
+    animation-duration: 0.2s;
+  }
+  
+  .follow-button {
+    overflow: hidden;
+  }
+  
+  .follow-button:before {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background-color: #55acee;
+    left: 50%;
+    top: 50%;
+    height: 0;
+    width: 0;
+    
+  }
+  .follow-button.anim.following:before {
+      width: 120px;
+    height: 120px;
+    margin-top: -60px;
+    margin-left: -60px;
+    
+    animation-name: toggleInBackground;
+    animation-duration: 0.2s;
+    animation-delay: 0.2s;
+    animation-fill-mode: backwards;
+  }
+  
+  .follow-button.anim.follow:before {
+    animation-name: toggleOutBackground;
+    animation-duration: 0.2s;
+    animation-delay: 0.2s;
+    animation-fill-mode: backwards;
+  }
+  
+  
+  @keyframes toggleInAnim {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes toggleOutAnim {
+    0% {
+        opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+  }
+  
+  @keyframes toggleInBackground {
+      0% {
+          width: 0px;
+      height: 0px;
+      margin-top: 0;
+      margin-left: 0;
+    }
+    100% {
+      width: 120px;
+      height: 120px;
+      margin-top: -60px;
+      margin-left: -60px;
+    }
+  }
+  
+  @keyframes toggleOutBackground {
+      0% {
+      width: 120px;
+      height: 120px;
+      margin-top: -60px;
+      margin-left: -60px;
+    }
+    100% {
+          width: 0px;
+      height: 0px;
+      margin-top: 0;
+      margin-left: 0;
+    }
+  }
+  
