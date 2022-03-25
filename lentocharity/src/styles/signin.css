@@ -1,0 +1,41 @@
+/* 
+.responsive {
+width: auto;
+height: auto;
+}
+
+@media only screen and (max-width: 599.9px){
+  .signin-img {
+    width: 45%;
+  }
+
+}
+
+@media only screen and (min-width: 600px) and (max-width: 899.9px){
+  .signin-img {
+    width: 50%;
+  }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1199.9px){ 
+  .signin-img {
+    width: 70%;
+  } 
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1535.9px){
+  .signin-img {
+    width: 85%;
+  }
+}
+
+@media only screen and (min-width: 1536px){
+  .signin-img {
+    width: 100%;
+  }
+} */
+
+/* 
+.signupPage{
+  width: 80%;
+} */
