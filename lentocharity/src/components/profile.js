@@ -66,7 +66,7 @@ class UserProfile extends Component {
       
           </h1>  
       </div>      
-      <br/><br/><br/><br/><br/><br/><br/><br/>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
        <ScrollableTabsButtonForce></ScrollableTabsButtonForce>
        <div className='icons' style={{right:'250px'}} >
         

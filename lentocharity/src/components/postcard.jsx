@@ -47,8 +47,8 @@ export default function RecipeReviewCard() {
           </IconButton>
         }
         
-        title={<div style={{fontFamily:'icofont' , fontSize:'27px',fontWeight:'bold'}}>Help the homeless dog</div>}
-        subheader={<div style={{fontFamily:'icofont' , fontSize:'23px',color:'#e6835a',fontWeight:'normal'}}>September 14, 2022</div>}
+        title={<div style={{fontFamily:'icofont' , fontSize:'27px',fontWeight:'bold',textAlign:'left'}}>Help the homeless dog</div>}
+        subheader={<div style={{fontFamily:'icofont' , fontSize:'23px',color:'#e6835a',fontWeight:'normal',textAlign:'left'}}>September 14, 2022</div>}
       />
       <CardMedia
         component="img"
@@ -57,7 +57,7 @@ export default function RecipeReviewCard() {
         alt="Paella dish"
       />
       <CardContent >
-        <Typography variant="body2" color="text.secondary" style={{fontFamily:'icofont' , fontSize:'20px',fontWeight:'bold'}}>
+        <Typography variant="body2" color="text.secondary" style={{fontFamily:'icofont' , fontSize:'20px',fontWeight:'bold',textAlign:'left'}}>
         Darly's family were not able to take care of him anymore. so my freind and I decided to bring him to our home.
         Darly is now our close friend. we are a family and love each other.
         </Typography>

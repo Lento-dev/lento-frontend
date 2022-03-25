@@ -142,7 +142,7 @@ export default function ScrollableTabsButtonForce() {
       <div style={{paddingLeft:'850px',paddingTop:'10px',width:'1700px',textAlign:'left'}}>
       <p style={{fontFamily:'icofont' , fontSize:'30px',fontWeight:'bold'}}>About me : 
           
-          <p style={{fontFamily:'icofont' , fontSize:'25px',fontWeight:'normal'}}>I love helping others in any way I can. This is why I am studying nursing. Here I share my experiences of caring for animals and helping others.</p>
+          <p style={{fontFamily:'icofont' , fontSize:'25px',fontWeight:'normal',width:'800px'}}>I love helping others in any way I can. This is why I am studying nursing. Here I share my experiences of caring for animals and helping others.</p>
         </p>
         <p style={{fontFamily:'icofont' , fontSize:'30px',fontWeight:'bold'}}>Education : 
           
