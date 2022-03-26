@@ -8,6 +8,7 @@ import { createTheme } from '@mui/material/styles';
 // import '../signup.css';
 import Helmet from 'react-helmet';
 import { useFormik } from 'formik';
+import axios from 'axios';
 import * as yup from 'yup';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -127,13 +128,8 @@ function UserInfo(props) {
       phone: '',
       birthdate: '',
       aboutme: '',
-      experience: '',
       marital_status: '',
       gender: '',
-      website: '',
-      linkedin: '',
-      facebook: '',
-      twitter: '',
       career: '',
       
     },
@@ -159,106 +155,91 @@ function UserInfo(props) {
   const [value, setValue] = useState(0);
   const email = "amirizahraza@gmail.com";
   const token = props.a
-  // useEffect(() => {
-  //     axios.get('http://185.190.39.17:8888/profile/getuserprofilebyuser',
-  //         {
-  //             headers: {
-  //                 "Authorization": `Bearer ${token}`
-  //             }
-  //         })
-  //         .then(res => {
-  //             console.log(res.data);
-  //             setState(res.data);
-  //             formik.setValues({
-  //               city: res.data.city || '',
-  //               aboutme: res.data.aboutme || '',
-  //               birthdate: res.data.birthdate || '',
-  //               email: res.data.email || '',
-  //               experience: res.data.experience || '',
-  //               facebook: res.data.facebook || '',
-  //               firstname: res.data.firstname || '',
-  //               lastname: res.data.lastname || '',
-  //               linkedin: res.data.linkedin || '', 
-  //               // phone: res.data.phone || '',
-  //               twitter: res.data.twitter || '',
-  //               website: res.data.website || '',
-  //             });
-  //             setCountrry(res.data.country)
-  //             setGennder(res.data.gender)
-  //             setmarital(res.data.marital_status)
-  //             setspez(res.data.career)
-  //             setPhone(res.data.phone || '')
-  //         })
-  //         }, [])
+  useEffect(() => {
+      axios.get('http://185.190.39.17:8888/profile/getuserprofilebyuser',
+          {
+              headers: {
+                  "Authorization": `Bearer ${token}`
+              }
+          })
+          .then(res => {
+              console.log(res.data);
+              setState(res.data);
+              formik.setValues({
+                city: res.data.city || '',
+                aboutme: res.data.aboutme || '',
+                birthdate: res.data.birthdate || '',
+                firstname: res.data.firstname || '',
+                lastname: res.data.lastname || '',
+                career: res.data.career || '',
+                // phone: res.data.phone || '',
+              });
+              setCountrry(res.data.country)
+              setGennder(res.data.gender)
+              setmarital(res.data.marital_status)
+              setPhone(res.data.phone || '')
+          })
+          }, [])
 
 
+  useEffect(() => {
+    if (selectedImage) {
+      setImageUrl(URL.createObjectURL(selectedImage));
+    }
+  }, [selectedImage]);
 
 
-
-  // useEffect(() => {
-  //   if (selectedImage) {
-  //     setImageUrl(URL.createObjectURL(selectedImage));
-  //   }
-  // }, [selectedImage]);
-
-
-  // const onClickSubmit = () => {
-  //   const headers = {"Authorization": `Bearer ${props.a}`}
-  //   let filled = 
-  //   !Boolean(formik.errors.firstname) && !Boolean(formik.errors.lastname) &&
-  //   (Countrry) && !Boolean(formik.errors.city) &&
-  //   (Gennder) && (phone.length != 0 ) &&
-  //   !Boolean(formik.errors.birthdate);
-  //   console.log('filled: ' ,filled);
-  //   if (filled){
-  //     setLoading(true);
-  //   axios.put('http://185.190.39.17:8888/profile/edit/', 
-  //     { firstname: formik.values.firstname,
-  //       lastname: formik.values.lastname,
-  //       country: Countrry,
-  //       city: formik.values.city,
-  //       phone: phone,
-  //       birthdate: formik.values.birthdate,
-  //       aboutme: formik.values.aboutme,
-  //       experience: formik.values.experience,
-  //       marital_status: marital,
-  //       gender: Gennder,
-  //       website: formik.values.website,
-  //       linkedin: formik.values.linkedin,
-  //       career: spez,
-  //       facebook: formik.values.facebook,
-  //       // userimage: selectedImage,
-  //       twitter: formik.values.twitter} , {headers})
-  //       .then(function (response) {
-  //         setOpen(true);
-  //         setLoading(false);
-  //         console.log('status :', response.status);
-  //         if (response.status === 200){
-  //           setResstatus(response.status);
-  //           setMessage('Your informations was updated successfully!');
-  //           setResstatus(response.status);
-  //         }
-  //         console.log(response);
-  //       })
-  //       .catch(function (error) {
-  //         setOpen(true);
-  //         setMessage('Please fill in the blanks.');
-  //         // setResstatus(error);
-  //         console.log(error);
-  //       });
-  //   }
+  const onClickSubmit = () => {
+    const headers = {"Authorization": `Bearer ${props.a}`}
+    let filled = 
+    !Boolean(formik.errors.firstname) && !Boolean(formik.errors.lastname) &&
+    (Countrry) && !Boolean(formik.errors.city) &&
+    (Gennder) && (phone.length != 0 ) &&
+    !Boolean(formik.errors.birthdate);
+    console.log('filled: ' ,filled);
+    if (filled){
+      setLoading(true);
+    axios.put('http://185.190.39.17:8888/profile/edit/', 
+      { firstname: formik.values.firstname,
+        lastname: formik.values.lastname,
+        country: Countrry,
+        city: formik.values.city,
+        phone: phone,
+        birthdate: formik.values.birthdate,
+        aboutme: formik.values.aboutme,
+        marital_status: marital,
+        gender: Gennder,
+        career: formik.values.career} , {headers})
+        .then(function (response) {
+          setOpen(true);
+          setLoading(false);
+          console.log('status :', response.status);
+          if (response.status === 200){
+            setResstatus(response.status);
+            setMessage('Your informations was updated successfully!');
+            setResstatus(response.status);
+          }
+          console.log(response);
+        })
+        .catch(function (error) {
+          setOpen(true);
+          setMessage('Please fill in the blanks.');
+          // setResstatus(error);
+          console.log(error);
+        });
+    }
     
-  //   console.log(formik.values.firstname, formik.values.lastname, Countrry,
-  //       formik.values.city, marital,
-  //       phone, formik.values.birthdate, Gennder, spez,
-  //   )
-  //     // .then(function (response) {
-  //     //   console.log(response);
-  //     // })
-  //     // .catch(function (error) {
-  //     //   console.log(error);
-  //     // });
-  // }  
+    console.log(formik.values.firstname, formik.values.lastname, Countrry,
+        formik.values.city, marital,
+        phone, formik.values.birthdate, Gennder, formik.values.career,
+    )
+      // .then(function (response) {
+      //   console.log(response);
+      // })
+      // .catch(function (error) {
+      //   console.log(error);
+      // });
+  }  
 
 
   function handleOnChange(value) {
@@ -273,8 +254,8 @@ function UserInfo(props) {
   });
 
   return (
-    <div style={{ backgroundColor: ' #e5ecdf', backgroundSize:'cover', height: '150vh'}}>
-      <Helmet bodyAttributes={{ style: 'background-color : #f5f5f5' }}></Helmet>
+    <div style={{ backgroundColor: '#e5ecdf', backgroundSize:'cover'}}>
+      <Helmet bodyAttributes={{ style: 'background-color : #e5ecdf' }}></Helmet>
       {/* <ThemeProvider theme={theme}> */}
       <Container component="main" maxWidth="md">
         <CssBaseline />
@@ -608,7 +589,7 @@ function UserInfo(props) {
                 <Button
                   type="submit"
                   variant="contained"
-                  sx={{ mt: 4, mb: 0 }}
+                  sx={{ mt: 4, mb: 6 }}
                   // onClick={onClickSubmit}
                   style={{ backgroundColor: '#e6835a', color: '#FFFFFF', textTransform: 'unset', width: '110px' }}
                 >
@@ -654,41 +635,41 @@ const Maritalstatus = [
   { label: 'Married' },
 ]
 
-const career = [
+// const career = [
 
-  { label: 'actress' },
-  { label: 'actor' },
-  { label: 'architect ' },
-  { label: 'singer' },
-  { label: 'dentist' },
-  { label: 'detective' },
-  { label: 'writer' },
-  { label: 'farmer' },
-  { label: 'nurse' },
-  { label: 'pilot' },
-  { label: 'engineer' },
-  { label: 'accountant' },
-  { label: 'butcher' },
-  { label: 'cashier' },
-  { label: 'barber' },
-  { label: 'carpenter' },
-  { label: 'lifeguard' },
-  { label: 'baker' },
-  { label: 'electrician' },
-  { label: 'receptionist' },
-  { label: 'researcher' },
-  { label: 'scientist' },
-  { label: 'bus driver' },
-  { label: 'photographer' },
-  { label: 'musician' },
-  { label: 'painter' },
-  { label: 'model' },
-  { label: 'mechanic' },
-  { label: 'florist' },
-  { label: 'dancer' },
-  { label: 'travel guide' },
-  { label: 'programmer' },
-  { label: 'hairdresser' },
+//   { label: 'actress' },
+//   { label: 'actor' },
+//   { label: 'architect ' },
+//   { label: 'singer' },
+//   { label: 'dentist' },
+//   { label: 'detective' },
+//   { label: 'writer' },
+//   { label: 'farmer' },
+//   { label: 'nurse' },
+//   { label: 'pilot' },
+//   { label: 'engineer' },
+//   { label: 'accountant' },
+//   { label: 'butcher' },
+//   { label: 'cashier' },
+//   { label: 'barber' },
+//   { label: 'carpenter' },
+//   { label: 'lifeguard' },
+//   { label: 'baker' },
+//   { label: 'electrician' },
+//   { label: 'receptionist' },
+//   { label: 'researcher' },
+//   { label: 'scientist' },
+//   { label: 'bus driver' },
+//   { label: 'photographer' },
+//   { label: 'musician' },
+//   { label: 'painter' },
+//   { label: 'model' },
+//   { label: 'mechanic' },
+//   { label: 'florist' },
+//   { label: 'dancer' },
+//   { label: 'travel guide' },
+//   { label: 'programmer' },
+//   { label: 'hairdresser' },
 
 
 
@@ -743,7 +724,7 @@ const career = [
   // { label: 'Database manager' },
   // { label: 'Software engineer' },
 
-]
+// ]
 
 
 
