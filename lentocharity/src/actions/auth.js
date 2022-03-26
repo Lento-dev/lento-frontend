@@ -65,6 +65,7 @@ import {
         (response) => {
           localStorage.setItem("user", JSON.stringify(response.data));
           localStorage.setItem("userType", JSON.stringify("user"));
+          localStorage.setItem("token", response.data.token);
           dispatch({
             type: LOGIN_SUCCESS,
             payload: { user: response.data},

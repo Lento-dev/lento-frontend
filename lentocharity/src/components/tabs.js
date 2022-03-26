@@ -100,7 +100,8 @@ function a11yProps(index) {
 //   },
 // }));
 
-export default function ScrollableTabsButtonForce() {
+export default function ScrollableTabsButtonForce(props) {
+  console.log(props.data);
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -142,14 +143,17 @@ export default function ScrollableTabsButtonForce() {
       <div style={{paddingLeft:'850px',paddingTop:'10px',width:'1700px',textAlign:'left'}}>
       <p style={{fontFamily:'icofont' , fontSize:'30px',fontWeight:'bold'}}>About me : 
           
-          <p style={{fontFamily:'icofont' , fontSize:'25px',fontWeight:'normal'}}>I love helping others in any way I can. This is why I am studying nursing. Here I share my experiences of caring for animals and helping others.</p>
+          <p style={{fontFamily:'icofont' , fontSize:'25px',fontWeight:'normal'}}>{props.data.bio}</p>
+          {/* I love helping others in any way I can. This is why I am studying nursing. Here I share my experiences of caring for animals and helping others. */}
         </p>
         <p style={{fontFamily:'icofont' , fontSize:'30px',fontWeight:'bold'}}>Education : 
           
-          <p style={{fontFamily:'icofont' , fontSize:'25px',fontWeight:'normal'}}>studying nursing at Columbia uni</p>
+          <p style={{fontFamily:'icofont' , fontSize:'25px',fontWeight:'normal'}}>{props.data.education}</p>
+          {/* studying nursing at Columbia uni */}
         </p>
         <p style={{fontFamily:'icofont' , fontSize:'30px',fontWeight:'bold'}}>Volunteering work experience : 
-          <p style={{fontFamily:'icofont' , fontSize:'25px',fontWeight:'normal'}}>worked at refugees' camp in Poland</p>
+          <p style={{fontFamily:'icofont' , fontSize:'25px',fontWeight:'normal'}}>{props.data.experience}</p>
+          {/* worked at refugees' camp in Poland */}
         </p>
     
         <p></p>

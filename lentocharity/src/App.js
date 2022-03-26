@@ -6,8 +6,6 @@ import UserProfile from "./components/profile";
 import SignUp from "./components/signup";
 import SignIn from "./components/signin";
 import ForgotPassword from "./components/forgotpassword";
-import { ThemeProvider, createTheme } from "@mui/material";
-import { Provider } from "react-redux";
 import store from "./store";
 import UserInfo from './components/editprofile';
 
