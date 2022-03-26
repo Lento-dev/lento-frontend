@@ -61,7 +61,7 @@ const validationSchema = yup.object({
     .oneOf([yup.ref('password'), null], 'Passwords don\'t match!'),
   marital_status: yup.string()
     .required('Required!'),
-  birthdate: yup.string()
+  date_birth: yup.string()
     .required('Required!'),
   gender: yup.string()
     .required('Required!'),
@@ -69,7 +69,7 @@ const validationSchema = yup.object({
     .required('Required!'),
   phone: yup.string()
     .required('Required!'),
-  career: yup.string()
+  job: yup.string()
     .required('Required!'),
   website: yup.string()
     .required('Required')
@@ -126,11 +126,11 @@ function UserInfo(props) {
       country: '',
       city: '',
       phone: '',
-      birthdate: '',
+      date_birth: '',
       aboutme: '',
       marital_status: '',
       gender: '',
-      career: '',
+      job: '',
       
     },
     validationSchema: validationSchema,
@@ -168,10 +168,10 @@ function UserInfo(props) {
               formik.setValues({
                 city: res.data.city || '',
                 aboutme: res.data.aboutme || '',
-                birthdate: res.data.birthdate || '',
+                date_birth: res.data.date_birth || '',
                 firstname: res.data.firstname || '',
                 lastname: res.data.lastname || '',
-                career: res.data.career || '',
+                job: res.data.job || '',
                 // phone: res.data.phone || '',
               });
               setCountrry(res.data.country)
@@ -195,7 +195,7 @@ function UserInfo(props) {
     !Boolean(formik.errors.firstname) && !Boolean(formik.errors.lastname) &&
     (Countrry) && !Boolean(formik.errors.city) &&
     (Gennder) && (phone.length != 0 ) &&
-    !Boolean(formik.errors.birthdate);
+    !Boolean(formik.errors.date_birth);
     console.log('filled: ' ,filled);
     if (filled){
       setLoading(true);
@@ -205,11 +205,11 @@ function UserInfo(props) {
         country: Countrry,
         city: formik.values.city,
         phone: phone,
-        birthdate: formik.values.birthdate,
+        date_birth: formik.values.date_birth,
         aboutme: formik.values.aboutme,
         marital_status: marital,
         gender: Gennder,
-        career: formik.values.career} , {headers})
+        job: formik.values.job} , {headers})
         .then(function (response) {
           setOpen(true);
           setLoading(false);
@@ -231,7 +231,7 @@ function UserInfo(props) {
     
     console.log(formik.values.firstname, formik.values.lastname, Countrry,
         formik.values.city, marital,
-        phone, formik.values.birthdate, Gennder, formik.values.career,
+        phone, formik.values.date_birth, Gennder, formik.values.job,
     )
       // .then(function (response) {
       //   console.log(response);
@@ -376,17 +376,17 @@ function UserInfo(props) {
 
               <Grid item xs={12} sm={6}>
                 <TextField
-                  name="birthdate"
+                  name="date_birth"
                   label="birthdate"
                   type="date"
                   style={{ width: '100%' }}
                   required
-                  value={formik.values.birthdate}
+                  value={formik.values.date_birth}
                   onChange={formik.handleChange}
                   InputLabelProps={{ shrink: true }}
                   onBlur={formik.handleBlur}
-                  error={formik.touched.birthdate && Boolean(formik.errors.birthdate)}
-                  helperText={formik.touched.birthdate && formik.errors.birthdate}
+                  error={formik.touched.date_birth && Boolean(formik.errors.date_birth)}
+                  helperText={formik.touched.date_birth && formik.errors.date_birth}
                 />
               </Grid>
 
@@ -446,22 +446,22 @@ function UserInfo(props) {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  autoComplete="career"
-                  name="career"
-                  id="career"
+                  autoComplete="job"
+                  name="job"
+                  id="job"
                   label="Select your job"
-                  value={formik.values.career}
+                  value={formik.values.job}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  error={formik.touched.career && Boolean(formik.errors.career)}
-                  helperText={formik.touched.career && formik.errors.career}
+                  error={formik.touched.job && Boolean(formik.errors.job)}
+                  helperText={formik.touched.job && formik.errors.job}
                 />
               </Grid>
 
               {/* <Grid item xs={12}>
               <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label" name='career'>Select your job</InputLabel>
+        <InputLabel id="demo-simple-select-label" name='job'>Select your job</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -469,7 +469,7 @@ function UserInfo(props) {
           value={spez}
           onChange={e => setspez(e.target.value)}
         >
-        {career.map((c) => (
+        {job.map((c) => (
           <MenuItem value={c.label}>{c.label}</MenuItem>
         ))}
 
@@ -635,7 +635,7 @@ const Maritalstatus = [
   { label: 'Married' },
 ]
 
-// const career = [
+// const job = [
 
 //   { label: 'actress' },
 //   { label: 'actor' },
