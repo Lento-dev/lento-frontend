@@ -127,7 +127,7 @@ function UserInfo(props) {
       city: '',
       phone: '',
       date_birth: '',
-      aboutme: '',
+      bio: '',
       marital_status: '',
       gender: '',
       job: '',
@@ -167,7 +167,7 @@ function UserInfo(props) {
               setState(res.data);
               formik.setValues({
                 city: res.data.city || '',
-                aboutme: res.data.aboutme || '',
+                bio: res.data.bio || '',
                 date_birth: res.data.date_birth || '',
                 firstname: res.data.firstname || '',
                 lastname: res.data.lastname || '',
@@ -206,7 +206,7 @@ function UserInfo(props) {
         city: formik.values.city,
         phone: phone,
         date_birth: formik.values.date_birth,
-        aboutme: formik.values.aboutme,
+        bio: formik.values.bio,
         marital_status: marital,
         gender: Gennder,
         job: formik.values.job} , {headers})
@@ -482,17 +482,17 @@ function UserInfo(props) {
  <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  autoComplete="aboutme"
-                  name="aboutme"
-                  id="aboutme"
+                  autoComplete="bio"
+                  name="bio"
+                  id="bio"
                   label="About me"
                   type="text"
                   multiline
-                  value={formik.values.aboutme}
+                  value={formik.values.bio}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  error={formik.touched.aboutme && Boolean(formik.errors.aboutme)}
-                  helperText={formik.touched.aboutme && formik.errors.aboutme}
+                  error={formik.touched.bio && Boolean(formik.errors.bio)}
+                  helperText={formik.touched.bio && formik.errors.bio}
                 />
               </Grid>
 
