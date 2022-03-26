@@ -47,20 +47,8 @@ const validationSchema = yup.object({
     .max(25, 'Must be 25 characters or less')
     .min(2, 'Must be at least 2 characters')
     .required('Required!'),
-  username: yup.string()
-    .max(15, 'Must be 20 characters or less')
-    .min(2, 'Must be at least 2 characters')
-    .required('Required!'),
-  password: yup.string()
-    .max(15, 'Must be 15 characters or less')
-    .min(6, 'Must be at least 6 characters')
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/, 'Your password should contain at least 1 lowercase letter, 1 uppercase letter and a number.')
-    .required('Required!'),
-  confirmpassword: yup.string()
-    .required('Required!')
-    .oneOf([yup.ref('password'), null], 'Passwords don\'t match!'),
-  marital_status: yup.string()
-    .required('Required!'),
+  // marital_status: yup.string()
+  //   .required('Required!'),
   date_birth: yup.string()
     .required('Required!'),
   gender: yup.string()
@@ -71,31 +59,6 @@ const validationSchema = yup.object({
     .required('Required!'),
   job: yup.string()
     .required('Required!'),
-  website: yup.string()
-    .required('Required')
-    .matches(
-      /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-      'Enter correct url!'
-    ),
-  linkedin: yup.string()
-    .matches(
-      /^(ftp|http|https):\/\/?((www|\w\w)\.)?linkedin.com(\w+:{0,1}\w*@)?(\S+)(:([0-9])+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?$/,
-      'Not a valid linkedin link!'
-    ),
-  twitter: yup.string()
-    .matches(
-      /http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/,
-      'Not a valid twitter link!'
-    ),
-  facebook: yup.string()
-    .matches(
-      /(?:https?:\/\/)?(?:www\.)?(?:facebook|fb|m\.facebook)\.(?:com|me)\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-\.]+)(?:\/)?/i,
-      'Not a valid facebook link!'
-    ),
-
-
-
-
 });
 
 
@@ -128,7 +91,7 @@ function UserInfo(props) {
       phone: '',
       date_birth: '',
       bio: '',
-      marital_status: '',
+      // marital_status: '',
       gender: '',
       job: '',
       
@@ -176,7 +139,7 @@ function UserInfo(props) {
               });
               setCountrry(res.data.country)
               setGennder(res.data.gender)
-              setmarital(res.data.marital_status)
+              // setmarital(res.data.marital_status)
               setPhone(res.data.phone || '')
           })
           }, [])
@@ -207,7 +170,7 @@ function UserInfo(props) {
         phone: phone,
         date_birth: formik.values.date_birth,
         bio: formik.values.bio,
-        marital_status: marital,
+        // marital_status: marital,
         gender: Gennder,
         job: formik.values.job} , {headers})
         .then(function (response) {
@@ -230,7 +193,7 @@ function UserInfo(props) {
     }
     
     console.log(formik.values.firstname, formik.values.lastname, Countrry,
-        formik.values.city, marital,
+        formik.values.city,
         phone, formik.values.date_birth, Gennder, formik.values.job,
     )
       // .then(function (response) {

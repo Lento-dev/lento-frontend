@@ -22,6 +22,7 @@ import {
     // { firstname, lastname, email,username, password, confirmpassword }
       .then((response) => {
         console.log("***",response.data);
+        setLoading(false);
         // dispatch({
         //   type: REGISTER_SUCCESS,
         // });

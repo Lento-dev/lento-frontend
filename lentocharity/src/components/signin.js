@@ -9,6 +9,7 @@ import {
   Paper,
   Typography,
   Divider,
+  CircularProgress,
   Container,
 } from "@mui/material";
 import { connect } from 'react-redux';
@@ -181,9 +182,12 @@ function SignIn(props) {
                           backgroundColor: "#e6835a",
                         }}
                         fullWidth
+                        disabled = {loading}
                       >
-                        Sign in
-                      </Button>
+                    {loading ? 
+                        <CircularProgress style={{color: "#fff"}} size="1.6rem"/>
+                        : "Sign in"}
+                  </Button>
                     </Grid>
 
                     {/* <Grid item xs={12} sx={{ marginTop: "2vh" }}>
