@@ -146,40 +146,79 @@ export default function ScrollableTabsButtonForce(props) {
 </TabPanel>
 
         <TabPanel value={value} index={1}>
-  
+        {/* <Grid container direction="column" item xs={4}>
+  <Grid
+    item
+    className={classes.outerColumn}
+    container
+    direction="column"
+    alignItems="flex-end"
+    justify="flex-start" //in MUI v5 this prop is renamed justifyContent
+  >
+    <Typography>Top R.</Typography>
+  </Grid>
+  <Grid
+    item
+    className={classes.outerColumn}
+    container
+    direction="row"
+    alignItems="center"
+    justify="flex-end"
+  >
+    <Typography>Center R.</Typography>
+  </Grid>
+  <Grid
+    item
+    className={classes.outerColumn}
+    container
+    direction="column"
+    alignItems="flex-end"
+    justify="flex-end"
+  >
+    <Typography>Bottom R.</Typography>
+  </Grid>
+</Grid> */}
 
-        <Grid container>
-            <Grid item xs={12} md={8} style={{ marginLeft:"50rem", marginTop: "-37rem" }}>
-                        {/* <Container component="main"> */}
-                        <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ marginTop: "1rem", marginBottom: "1rem", padding: "2rem" }}>
-                                <Grid container style={{ padding: "4px" }}>
-                                    <Grid item xs={12}>
-                                        <Typography component="h3" style={{ fontWeight: "bold" }}>About me</Typography>
-                                        <Divider style={{ width: '100%', marginTop: "0.5rem",marginBottom:"1rem",alignItems: "center" }}/>
-                                        <h4></h4>
-                                    </Grid>
-                                    <Typography style={{ textAlign: "justify" }}>
-                                    {props.data.bio}
-                                    </Typography>
-                                </Grid>
-                            </Paper>
-                            <h1></h1>
+<Grid
+  item
+  container
+  // direction="row"
+  alignItems="center"
+  justifyContent="flex-end"
+  // sx={{marginRight:"50rem"}}
+>
+                    <Grid item xs={8} md={4} direction="column" display="flex" style={{alignItems: "center", marginTop: "2rem" }}>
+                            <Container component="main">
                             <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ marginTop: "1rem", marginBottom: "1rem", padding: "2rem" }}>
-                                <Grid container style={{ padding: "4px" }}>
-                                    <Grid item xs={12}>
-                                        <Typography component="h3" style={{ fontWeight: "bold" }}>Experience</Typography>
-                                        <Divider style={{ width: '100%', marginTop: "0.5rem",marginBottom:"1rem",alignItems: "center" }}/>
-                                        <h4></h4>
+                                    <Grid container style={{ padding: "4px" }}>
+                                        <Grid item xs={12}>
+                                            <Typography component="h3" style={{ fontWeight: "bold" }}>About me</Typography>
+                                            <Divider style={{ width: '100%', marginTop: "0.5rem",marginBottom:"1rem",alignItems: "center" }}/>
+                                            <h4></h4>
+                                        </Grid>
+                                        <Typography style={{ textAlign: "justify" }}>
+                                            {props.data.bio}
+                                        </Typography>
                                     </Grid>
-                                    <Typography style={{ textAlign: "justify" }}>
-                                    {props.data.experience}
-                                    </Typography>
-                                </Grid>
-                            </Paper>
-                            {/* </Container> */}
-                        </Grid>
-                    </Grid>
+                                </Paper>
+                                <h1></h1>
+                                <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ marginTop: "1rem", marginBottom: "1rem", padding: "2rem" }}>
+                                    <Grid container style={{ padding: "4px" }}>
+                                        <Grid item xs={12}>
+                                            <Typography component="h3" style={{ fontWeight: "bold" }}>Experience</Typography>
+                                            <Divider style={{ width: '100%', marginTop: "0.5rem",marginBottom:"1rem",alignItems: "center" }}/>
+                                            <h4></h4>
+                                        </Grid>
+                                        <Typography style={{ textAlign: "justify" }}>
+                                            {props.data.experience}
+                                        </Typography>
+                                    </Grid>
+                                </Paper>
 
+                            </Container>
+
+</Grid>
+                        </Grid>
       </TabPanel>
 
 
