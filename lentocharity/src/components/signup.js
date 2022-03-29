@@ -62,6 +62,7 @@ function SignUp(props) {
       setLoading(true);
       props.register(formik.values.firstname, formik.values.lastname, formik.values.email,formik.values.username,
          formik.values.password, formik.values.confirmpassword, history,loading, setLoading);
+      history.push('/signin')
     }
 
     console.log(formik.errors);
@@ -324,7 +325,7 @@ function SignUp(props) {
                         fullWidth
                       >
                     {loading ? 
-                        <CircularProgress style={{color: "#fff"}} size="3"/>
+                        <CircularProgress style={{color: "#fff"}} size="1.6rem"/>
                         : "Sign up"}
                   </Button>
                     </Grid>

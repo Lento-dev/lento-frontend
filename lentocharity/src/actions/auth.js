@@ -22,6 +22,7 @@ import {
     // { firstname, lastname, email,username, password, confirmpassword }
       .then((response) => {
         console.log("***",response.data);
+<<<<<<< HEAD
         dispatch({
           type: REGISTER_SUCCESS,
         });
@@ -30,6 +31,17 @@ import {
           type: SET_MESSAGE,
           payload: "You have signed up successfully!",
         });
+=======
+        setLoading(false);
+        // dispatch({
+        //   type: REGISTER_SUCCESS,
+        // });
+  
+        // dispatch({
+        //   type: SET_MESSAGE,
+        //   payload: "You have signed up successfully!",
+        // });
+>>>>>>> ddc5b4aa542bd35a93e5f7b97f7ae4c738714bac
 
         setLoading(false);
         history.push("/Verificate");
