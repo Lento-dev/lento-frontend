@@ -6,8 +6,122 @@ import {SocialMediaIconsReact} from 'social-media-icons-react';
 import Follow from './follow'
 import '../styles/follow.css'
 import axios from 'axios'
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import {
+    Avatar, CssBaseline, Link, Grid, Box, Button,
+    Typography, Container, Stack
+} from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import TelegramIcon from '@mui/icons-material/Telegram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import Image from '../assets/img/helpHand.jpg';
+import Paper from "@material-ui/core/Paper";
+import { useState, useEffect } from "react";
+import { useHistory, useParams } from 'react-router-dom';
+import Chip from '@mui/material/Chip';
+import DoneIcon from '@mui/icons-material/Done';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Tab from '@mui/material/Tab';
+import Tabs from "@material-ui/core/Tabs";
+import CircularProgress from '@mui/material/CircularProgress';
+import { connect } from "react-redux";
+import Helmet from 'react-helmet';
+import EmailIcon from '@mui/icons-material/Email';
+import PlaceIcon from '@mui/icons-material/Place';
+import PhoneIcon from '@mui/icons-material/Phone';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import LanguageIcon from '@mui/icons-material/Language';
+import Image1 from '../assets/img/helpHand.jpg';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import Divider from '@mui/material/Divider';
+import PropTypes from 'prop-types';
+import AppBar from '@material-ui/core/AppBar';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import PersonPinIcon from '@material-ui/icons/PersonPin';
+// import AppRegistrationIcon from '@material-ui/icons/AppRegistration';
+import HelpIcon from '@material-ui/icons/Help';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import InfoIcon from '@mui/icons-material/Info';
+import RecipeReviewCard from './postcard';
+import { purple,green } from '@mui/material/colors';
+
+
+
+
 
 // https://some-website.com/my-social-media-url
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper
+  },
+  tabs: {
+    "& .MuiButtonBase-root.MuiTab-root": {
+      fontSize: 20,
+      // color : "#6d9736"
+    },
+    "& .MuiTabs-indicator": {
+      // display: "none",
+      backgroundColor: "#6d9736"
+    },
+    // "& .Mui-selected": {
+    //   textDecoration: "underline"
+    // }
+  },
+ 
+}));
+
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: purple[500],
+    },
+    secondary: {
+      main: '#6d9736',
+    },
+  },
+});
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`scrollable-force-tabpanel-${index}`}
+      aria-labelledby={`scrollable-force-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `scrollable-force-tab-${index}`,
+    'aria-controls': `scrollable-force-tabpanel-${index}`,
+  };
+}
 
 
 class UserProfile extends Component {
@@ -24,8 +138,9 @@ class UserProfile extends Component {
     joineddate:"",
     proimageurl:"",
     res:"",
+    value : 0,
    }
-
+  
   componentDidMount()
   {
     var token = localStorage.getItem("token");
@@ -38,6 +153,7 @@ class UserProfile extends Component {
         'Authorization': 'Token '+ token, 
       }
     };
+
 
     axios(config)
     .then((response) => {
@@ -61,37 +177,138 @@ class UserProfile extends Component {
   
   }
 
+  handleChange = (event, newValue) => {
+    this.setState({value:newValue});
+  };
+
+
+
+
   render() {
     return (
-      <div className="App">
-      <div class="card-header">
-        {/* <div 
-        // class="card-cover" 
-        style={{ 
-      backgroundImage: `url("https://i.picsum.photos/id/278/200/300.jpg?blur=2&hmac=ZtPHlBPBNcWsksht64oMFQZdHvzG_DrcuEyHKerWmKI")` 
-      backgroundImage:`url(${pic})`
-    }}
-    // style={{backgroundImage:"url('https://i.picsum.photos/id/278/200/300.jpg?blur=2&hmac=ZtPHlBPBNcWsksht64oMFQZdHvzG_DrcuEyHKerWmKI')"}}
-    // style ={ { backgroundImage: "url('https://lh3.googleusercontent.com/MOf9Kxxkj7GvyZlTZOnUzuYv0JAweEhlxJX6gslQvbvlhLK5_bSTK6duxY2xfbBsj43H=w300')" } }
-    >
-      </div> */}
-
-      <div className="backgroundimagehome"> 
-      </div>
       <div >
-        <img style={{left:'300px'}} class="card-avatar" src={this.state.proimageurl} alt="avatar" />
-        {/* "https://s6.uupload.ir/files/photo-1494790108377-be9c29b29330_i7a7.jpg" */}
-      </div>
-      {/* <h3 style={{left:'496px',position:'absolute',bottom:'-290px',fontFamily:'icofont',color:'#465832',fontStyle:'bold',fontSize:'37px',background:'white',fontStyle:'oblique'}}>Raya Rayani&ensp; </h3> */}
-      <h4 style={{left:'496px',position:'absolute',bottom:'-270px',fontFamily:'icofont',color:'#8b9b74',background:'white',fontStyle:'italic',fontSize:'22px'}}>joined january 2020</h4>{/* this.state.joineddate */}
-      <div style={{left:'500px',position:'absolute',bottom:'-175px',fontFamily:'icofont'}}><Follow ></Follow></div>
+<Grid item >
+              <div className="backgroundimagehome"> 
+              </div>        
+              </Grid>
+          <Grid item xs={12} container>
+          <Stack direction="row" sx={{ maxWidth: 345 }} style={{ marginTop: "-8rem" }}>
+              <Stack direction="photo" spacing={2} sx={{ maxWidth: 345 }} style={{ marginLeft: "8.5rem", marginTop: "-2.4rem" }}>               
+
+              {/* <Grid item xs={10}>
+                <Stack   style={{ marginLeft: "15rem", marginTop: "-14rem", marginBottom:"2rem" }}>
+                    <Stack spacing={2} style={{ marginTop: "1rem" }}> */}
+                  <Avatar
+                      alt="Remy Sharp"
+                      src={this.state.proimageurl}
+                      sx={{ width: 330, height: 330 }}
+                  />
+              </Stack>
+          </Stack>
+      </Grid>
+
+
+<Grid item xs={12}>
+       <ScrollableTabsButtonForce data={this.state.res}></ScrollableTabsButtonForce>
+        </Grid>
+
+        <Grid container>
+                        <Grid item xs={12} md={4}>
+                            {/* <Grid item xs={4} style={{ alignItems: "left", marginTop: "2rem", marginBottom: "1rem", marginLeft: "2rem" }}>
+                                <Avatar variant="rounded"
+                                    sx={{ bgcolor: "#f2f2f2", width: "100%", height: "100%" }}
+                                    src={Image}>
+                                </Avatar>
+                            </Grid> */}
+
+                            <Card className="card-profile shadow" style={{ marginTop: "3rem", marginLeft: "1.6rem" }}>
+                                <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "1rem", fontWeight: "bold" }}>
+                                    {this.state.firstname + " "}
+                                    {this.state.lastname}
+                                </Typography>
+                                <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "0", fontWeight: "bold" }}>
+                                    {this.state.job}
+                                </Typography>
+
+                                <CardContent>
+                                    <Grid container style={{ padding: "1rem" }}>
+                                        <Grid container sx={{ color: 'text.primary' }}>
+                                            <Grid item xs={1.3}>
+                                                <EmailIcon sx={{ fontSize: 24 }} color="action" gutterBottom />
+                                            </Grid>
+                                            <Grid item xs={5}>
+                                                {/* <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom> */}
+                                                <Typography sx={{ fontSize: 16 }} gutterBottom>
+                                                <Link sx={{ color: 'black', cursor: 'pointer' }} 
+                                underline="hover" 
+                                className="communicate"
+                                // onClick={() => { navigator.clipboard.writeText(state.email);
+                                //  handleCopiedClick(); }}
+                                 >
+                                    {this.state.email}</Link>
+                                                </Typography>
+                                            </Grid>
+                                        </Grid>
+
+                                        <Grid container sx={{ color: 'text.primary' }}>
+                                            <Grid item xs={1.3}>
+                                                <PlaceIcon sx={{ fontSize: 24 }} color="action" />
+                                            </Grid>
+                                            <Grid item xs={5}>
+                                                <Typography sx={{ fontSize: 16 }} gutterBottom>
+                                                    {/* {state.country},
+                                                    
+                                                    {" " + state.city} */}
+                                                    {this.state.region}
+                                                </Typography>
+                                            </Grid>
+                                        </Grid>
+
+
+                                        {/* <Grid container sx={{ color: 'text.primary' }}>
+                                            <Grid item xs={1.3}>
+                                                <PhoneIcon sx={{ fontSize: 24 }} color="action" />
+                                            </Grid>
+                                            <Grid item xs={5}>
+                                                <Typography sx={{ fontSize: 16 }} gutterBottom>
+                                                <Link sx={{ color: 'black', cursor: 'pointer' }} 
+                                underline="hover" 
+                                className="communicate"
+                                onClick={() => { navigator.clipboard.writeText(state.phonenumber);
+                                 handleCopiedClick(); }}> {state.phone}</Link>
+                                                </Typography>
+                                            </Grid>
+                                        </Grid> */}
+                                        <h3>
+                                            <h6></h6>
+                                        </h3>
+                                        <Grid item xs={50} style={{ textAlign: "center", marginBottom: "-20px" }}>
+                                            <Typography>
+                                                <LinkedInIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.linkedin.com/in/shahab-induction-co-0ab165140/')} className="communicate" />
+                                                <h7> </h7>
+                                                <FacebookIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://t.me/shahabinductionco')} className="communicate" />
+                                                <h7> </h7>
+                                                <TwitterIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
+                                                <h7> </h7>
+                                                <LanguageIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
+                                            </Typography>
+                                        </Grid>
+
+                                    </Grid>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+
+</Grid>
+
+      
+      {/* <h4 style={{left:'496px',position:'absolute',bottom:'-270px',fontFamily:'icofont',color:'#8b9b74',background:'white',fontStyle:'italic',fontSize:'22px'}}>joined january 2020</h4>this.state.joineddate */}
+      {/* <div style={{left:'500px',position:'absolute',bottom:'-175px',fontFamily:'icofont'}}><Follow ></Follow></div> */}
          
 
-        {/* 'url(' + profilePic + ')' */}
         
-        <h1 >
+        {/* <h1 >
           
-          {/* {this.state.firstname + " " + this.state.lastname} */}
           <h3 style={{left:'116px',position:'absolute',bottom:'-460px',fontFamily:'icofont',fontStyle:'bold',fontSize:'37px',color:'rgba(103,103,103,255)'}}>Basic info</h3>
          
           <h5 style={{left:'120px',position:'absolute',bottom:'-530px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Name</h5>
@@ -111,38 +328,30 @@ class UserProfile extends Component {
           <h5 style={{left:'350px',position:'absolute',bottom:'-770px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>{this.state.birthdate}</h5>
           
       
-          </h1>  
-      </div>      
-      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-       <ScrollableTabsButtonForce data={this.state.res}></ScrollableTabsButtonForce>
-       <div className='icons' style={{right:'250px'}} >
+          </h1>   */}
+      {/* </div>       */}
+      {/* <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+       <ScrollableTabsButtonForce data={this.state.res}></ScrollableTabsButtonForce> */}
+       {/* <div className='icons' style={{right:'250px'}} >
         
-{/* color code : #6D9736 */}
-        {/* <SocialMediaIconsReact className="icon" borderColor="rgba(0,0,0,0.25)" borderWidth="0" borderStyle="solid" icon="twitter" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(26,166,233,1)" iconSize="4" roundness="50%" url="https://some-website.com/my-social-media-url" size="42" /> */}
         <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="5" borderStyle="solid" icon="twitter" iconColor="rgba(109,151,54,1)" backgroundColor="" iconSize="4" roundness="50%" url="https://some-website.com/my-social-media-url" size="42" />
         &ensp;&ensp;&ensp;
-        {/* <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="0" borderStyle="solid" icon="instagram" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(26,166,233,1)" iconSize="4" roundness="50%" url="https://some-website.com/my-social-media-url" size="42" /> */}
+        
         <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="5" borderStyle="solid" icon="instagram" iconColor="rgba(109,151,54,1)" backgroundColor="" iconSize="4" roundness="50%" url="https://some-website.com/my-social-media-url" size="42" />
         &ensp;&ensp;&ensp;
-        {/* <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="0" borderStyle="solid" icon="linkedin" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(26,166,233,1)" iconSize="4" roundness="50%" url="https://some-website.com/my-social-media-url" size="42" /> */}
+       
         <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="5" borderStyle="solid" icon="linkedin" iconColor="rgba(109,151,54,1)" backgroundColor="" iconSize="4" roundness="50%" url="https://some-website.com/my-social-media-url" size="42" />
         &ensp;&ensp;&ensp;
-        {/* <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="0" borderStyle="solid" icon="skype" iconColor="rgba(255,255,255,1)" backgroundColor="rgba(26,166,233,1)" iconSize="4" roundness="50%" url="https://some-website.com/my-social-media-url" size="42" /> */}
+        
         <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="5" borderStyle="solid" icon="skype" iconColor="rgba(109,151,54,1)" backgroundColor="" iconSize="4" roundness="50%" url="https://some-website.com/my-social-media-url" size="42" />  
-        </div>
- 
-       
+        </div>       */}
+        {/* </Container> */}
+      
       </div>
     );
   }
 }
 
-
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-  },
-});
 
 
 export default UserProfile;
@@ -152,3 +361,30 @@ export default UserProfile;
 
 
 // https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fimages%2Fsearch%2Fnature%2F&psig=AOvVaw3kvKmCZq97qcIN_smTymBH&ust=1646767950583000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJDOkOnetPYCFQAAAAAdAAAAABAD
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

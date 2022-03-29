@@ -22,18 +22,18 @@ import {
     // { firstname, lastname, email,username, password, confirmpassword }
       .then((response) => {
         console.log("***",response.data);
-        // dispatch({
-        //   type: REGISTER_SUCCESS,
-        // });
+        dispatch({
+          type: REGISTER_SUCCESS,
+        });
   
-        // dispatch({
-        //   type: SET_MESSAGE,
-        //   payload: "You have signed up successfully!",
-        // });
+        dispatch({
+          type: SET_MESSAGE,
+          payload: "You have signed up successfully!",
+        });
 
-        // setLoading(false);
-        // history.push("/Verificate");
-        // console.log(response);
+        setLoading(false);
+        history.push("/Verificate");
+        console.log(response);
         return Promise.resolve();
       }).catch((error) => {
         dispatch({

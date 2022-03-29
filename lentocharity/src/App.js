@@ -8,7 +8,8 @@ import SignIn from "./components/signin";
 import ForgotPassword from "./components/forgotpassword";
 import store from "./store";
 import UserInfo from './components/editprofile';
-
+import ComplexGrid from './components/Gride';
+import User_Profile from "./components/User_Profile";
 const theme = createTheme({
   typography: {
     fontFamily: ["Nunito"].join(","),
@@ -35,6 +36,8 @@ function App() {
               <Route exact path="/signin" component = { SignIn }/>
               <Route exact path="/forgot-password" component = { ForgotPassword }/>
               <Route exact path="/edit-profile" component = { UserInfo }/>
+              <Route exact path="/cg" component = { User_Profile }/>
+
             </Switch>
           </BrowserRouter>
         </div>

@@ -9,19 +9,26 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 // import AppRegistrationIcon from '@material-ui/icons/AppRegistration';
 import HelpIcon from '@material-ui/icons/Help';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import InfoIcon from '@mui/icons-material/Info';
 import RecipeReviewCard from './postcard';
 import { purple,green } from '@mui/material/colors';
-import { createTheme } from '@mui/material/styles';
-// import { styled } from '@mui/material/styles';
-// color: #20b2aa;
-// const CustomizedTabs = styled(Tabs)`
-//   indicatorColor : #6d9736;
-//   textColor : #6d9736;
-// `;
+import {
+  Avatar, CssBaseline, Link, Grid, Box, Button,
+  Typography, Container, Stack
+} from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import Paper from "@material-ui/core/Paper";
+import Divider from '@mui/material/Divider';
+import EmailIcon from '@mui/icons-material/Email';
+import PlaceIcon from '@mui/icons-material/Place';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import LanguageIcon from '@mui/icons-material/Language';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -101,7 +108,6 @@ function a11yProps(index) {
 // }));
 
 export default function ScrollableTabsButtonForce(props) {
-  console.log(props.data);
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -110,16 +116,12 @@ export default function ScrollableTabsButtonForce(props) {
   };
 
   return (
-    <div >
-    {/* // <div className={classes.root}> */}
-      {/* <AppBar position="static" color="white"> */}
+    <div>
+      
+      <Paper elevation={3} sx={{borderRadius: 4, display: 'flex' }} style={{marginTop: "-10rem"}}>
         <Tabs
           value={value}
           onChange={handleChange}
-          // variant="scrollable"
-          // scrollButtons="on"
-          // indicatorColor=	'primary'
-          // textColor="primary"
           style={{color:'#465832'}}
           className={classes.tabs}
           centered
@@ -128,37 +130,60 @@ export default function ScrollableTabsButtonForce(props) {
           <Tab label={<div style={{fontFamily:'icofont',fontSize:'21px'}}>About</div>} icon={<InfoIcon />} {...a11yProps(1)} />
           <Tab label={<div style={{fontFamily:'icofont',fontSize:'21px'}}>Followers</div>} icon={<PersonPinIcon />} {...a11yProps(2)} />
           <Tab label={<div style={{fontFamily:'icofont',fontSize:'21px'}}>Followings</div>} icon={<PersonPinIcon />} {...a11yProps(3)} />
-          {/* <Tab label="Item Five" icon={<ShoppingBasket />} {...a11yProps(4)} />
-          <Tab label="Item Six" icon={<ThumbDown />} {...a11yProps(5)} />
-          <Tab label="Item Seven" icon={<ThumbUp />} {...a11yProps(6)} /> */}
         </Tabs>
-      {/* </AppBar> */}
+      </Paper>
       <TabPanel className='tabs' value={value} index={0}>
         {/* Item One */}
-        <div style={{paddingLeft:'800px',paddingTop:'50px'}}>
-          <RecipeReviewCard></RecipeReviewCard>
-        </div>
+        {/* <div style={{paddingLeft:'800px',paddingTop:'50px'}}> */}
+        {/* <Grid container> */}
+ 
+
+<Grid item xs={8} md={4} style={{marginLeft:"50rem"}}>
+    <RecipeReviewCard></RecipeReviewCard>
+</Grid>
+
+
+</TabPanel>
+
+        <TabPanel value={value} index={1}>
+  
+
+        <Grid container>
+            <Grid item xs={12} md={8} style={{ marginLeft:"50rem", marginTop: "-37rem" }}>
+                        {/* <Container component="main"> */}
+                        <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ marginTop: "1rem", marginBottom: "1rem", padding: "2rem" }}>
+                                <Grid container style={{ padding: "4px" }}>
+                                    <Grid item xs={12}>
+                                        <Typography component="h3" style={{ fontWeight: "bold" }}>About me</Typography>
+                                        <Divider style={{ width: '100%', marginTop: "0.5rem",marginBottom:"1rem",alignItems: "center" }}/>
+                                        <h4></h4>
+                                    </Grid>
+                                    <Typography style={{ textAlign: "justify" }}>
+                                    {props.data.bio}
+                                    </Typography>
+                                </Grid>
+                            </Paper>
+                            <h1></h1>
+                            <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ marginTop: "1rem", marginBottom: "1rem", padding: "2rem" }}>
+                                <Grid container style={{ padding: "4px" }}>
+                                    <Grid item xs={12}>
+                                        <Typography component="h3" style={{ fontWeight: "bold" }}>Experience</Typography>
+                                        <Divider style={{ width: '100%', marginTop: "0.5rem",marginBottom:"1rem",alignItems: "center" }}/>
+                                        <h4></h4>
+                                    </Grid>
+                                    <Typography style={{ textAlign: "justify" }}>
+                                    {props.data.experience}
+                                    </Typography>
+                                </Grid>
+                            </Paper>
+                            {/* </Container> */}
+                        </Grid>
+                    </Grid>
+
       </TabPanel>
-      <TabPanel value={value} index={1}>
-      <div style={{paddingLeft:'850px',paddingTop:'10px',width:'1700px',textAlign:'left'}}>
-      <p style={{fontFamily:'icofont' , fontSize:'30px',fontWeight:'bold'}}>About me : 
-          
-          <p style={{fontFamily:'icofont' , fontSize:'25px',fontWeight:'normal'}}>{props.data.bio}</p>
-          {/* I love helping others in any way I can. This is why I am studying nursing. Here I share my experiences of caring for animals and helping others. */}
-        </p>
-        <p style={{fontFamily:'icofont' , fontSize:'30px',fontWeight:'bold'}}>Education : 
-          
-          <p style={{fontFamily:'icofont' , fontSize:'25px',fontWeight:'normal'}}>{props.data.education}</p>
-          {/* studying nursing at Columbia uni */}
-        </p>
-        <p style={{fontFamily:'icofont' , fontSize:'30px',fontWeight:'bold'}}>Volunteering work experience : 
-          <p style={{fontFamily:'icofont' , fontSize:'25px',fontWeight:'normal'}}>{props.data.experience}</p>
-          {/* worked at refugees' camp in Poland */}
-        </p>
-    
-        <p></p>
-      </div>
-      </TabPanel>
+
+
+
       <TabPanel value={value} index={2}>
         Item Three
       </TabPanel>
@@ -174,7 +199,7 @@ export default function ScrollableTabsButtonForce(props) {
       <TabPanel value={value} index={6}>
         Item Seven
       </TabPanel>
-    {/* // </div> */}
+      
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { createTheme } from '@mui/material/styles';
 // import '../signup.css';
 import Helmet from 'react-helmet';
 import { useFormik } from 'formik';
+import axios from 'axios';
 import * as yup from 'yup';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -60,7 +61,7 @@ const validationSchema = yup.object({
     .oneOf([yup.ref('password'), null], 'Passwords don\'t match!'),
   marital_status: yup.string()
     .required('Required!'),
-  birthdate: yup.string()
+  date_birth: yup.string()
     .required('Required!'),
   gender: yup.string()
     .required('Required!'),
@@ -68,7 +69,7 @@ const validationSchema = yup.object({
     .required('Required!'),
   phone: yup.string()
     .required('Required!'),
-  career: yup.string()
+  job: yup.string()
     .required('Required!'),
   website: yup.string()
     .required('Required')
@@ -125,16 +126,11 @@ function UserInfo(props) {
       country: '',
       city: '',
       phone: '',
-      birthdate: '',
-      aboutme: '',
-      experience: '',
+      date_birth: '',
+      bio: '',
       marital_status: '',
       gender: '',
-      website: '',
-      linkedin: '',
-      facebook: '',
-      twitter: '',
-      career: '',
+      job: '',
       
     },
     validationSchema: validationSchema,
@@ -159,106 +155,91 @@ function UserInfo(props) {
   const [value, setValue] = useState(0);
   const email = "amirizahraza@gmail.com";
   const token = props.a
-  // useEffect(() => {
-  //     axios.get('http://185.190.39.17:8888/profile/getuserprofilebyuser',
-  //         {
-  //             headers: {
-  //                 "Authorization": `Bearer ${token}`
-  //             }
-  //         })
-  //         .then(res => {
-  //             console.log(res.data);
-  //             setState(res.data);
-  //             formik.setValues({
-  //               city: res.data.city || '',
-  //               aboutme: res.data.aboutme || '',
-  //               birthdate: res.data.birthdate || '',
-  //               email: res.data.email || '',
-  //               experience: res.data.experience || '',
-  //               facebook: res.data.facebook || '',
-  //               firstname: res.data.firstname || '',
-  //               lastname: res.data.lastname || '',
-  //               linkedin: res.data.linkedin || '', 
-  //               // phone: res.data.phone || '',
-  //               twitter: res.data.twitter || '',
-  //               website: res.data.website || '',
-  //             });
-  //             setCountrry(res.data.country)
-  //             setGennder(res.data.gender)
-  //             setmarital(res.data.marital_status)
-  //             setspez(res.data.career)
-  //             setPhone(res.data.phone || '')
-  //         })
-  //         }, [])
+  useEffect(() => {
+      axios.get('http://185.190.39.17:8888/profile/getuserprofilebyuser',
+          {
+              headers: {
+                  "Authorization": `Bearer ${token}`
+              }
+          })
+          .then(res => {
+              console.log(res.data);
+              setState(res.data);
+              formik.setValues({
+                city: res.data.city || '',
+                bio: res.data.bio || '',
+                date_birth: res.data.date_birth || '',
+                firstname: res.data.firstname || '',
+                lastname: res.data.lastname || '',
+                job: res.data.job || '',
+                // phone: res.data.phone || '',
+              });
+              setCountrry(res.data.country)
+              setGennder(res.data.gender)
+              setmarital(res.data.marital_status)
+              setPhone(res.data.phone || '')
+          })
+          }, [])
 
 
+  useEffect(() => {
+    if (selectedImage) {
+      setImageUrl(URL.createObjectURL(selectedImage));
+    }
+  }, [selectedImage]);
 
 
-
-  // useEffect(() => {
-  //   if (selectedImage) {
-  //     setImageUrl(URL.createObjectURL(selectedImage));
-  //   }
-  // }, [selectedImage]);
-
-
-  // const onClickSubmit = () => {
-  //   const headers = {"Authorization": `Bearer ${props.a}`}
-  //   let filled = 
-  //   !Boolean(formik.errors.firstname) && !Boolean(formik.errors.lastname) &&
-  //   (Countrry) && !Boolean(formik.errors.city) &&
-  //   (Gennder) && (phone.length != 0 ) &&
-  //   !Boolean(formik.errors.birthdate);
-  //   console.log('filled: ' ,filled);
-  //   if (filled){
-  //     setLoading(true);
-  //   axios.put('http://185.190.39.17:8888/profile/edit/', 
-  //     { firstname: formik.values.firstname,
-  //       lastname: formik.values.lastname,
-  //       country: Countrry,
-  //       city: formik.values.city,
-  //       phone: phone,
-  //       birthdate: formik.values.birthdate,
-  //       aboutme: formik.values.aboutme,
-  //       experience: formik.values.experience,
-  //       marital_status: marital,
-  //       gender: Gennder,
-  //       website: formik.values.website,
-  //       linkedin: formik.values.linkedin,
-  //       career: spez,
-  //       facebook: formik.values.facebook,
-  //       // userimage: selectedImage,
-  //       twitter: formik.values.twitter} , {headers})
-  //       .then(function (response) {
-  //         setOpen(true);
-  //         setLoading(false);
-  //         console.log('status :', response.status);
-  //         if (response.status === 200){
-  //           setResstatus(response.status);
-  //           setMessage('Your informations was updated successfully!');
-  //           setResstatus(response.status);
-  //         }
-  //         console.log(response);
-  //       })
-  //       .catch(function (error) {
-  //         setOpen(true);
-  //         setMessage('Please fill in the blanks.');
-  //         // setResstatus(error);
-  //         console.log(error);
-  //       });
-  //   }
+  const onClickSubmit = () => {
+    const headers = {"Authorization": `Bearer ${props.a}`}
+    let filled = 
+    !Boolean(formik.errors.firstname) && !Boolean(formik.errors.lastname) &&
+    (Countrry) && !Boolean(formik.errors.city) &&
+    (Gennder) && (phone.length != 0 ) &&
+    !Boolean(formik.errors.date_birth);
+    console.log('filled: ' ,filled);
+    if (filled){
+      setLoading(true);
+    axios.put('http://185.190.39.17:8888/profile/edit/', 
+      { firstname: formik.values.firstname,
+        lastname: formik.values.lastname,
+        country: Countrry,
+        city: formik.values.city,
+        phone: phone,
+        date_birth: formik.values.date_birth,
+        bio: formik.values.bio,
+        marital_status: marital,
+        gender: Gennder,
+        job: formik.values.job} , {headers})
+        .then(function (response) {
+          setOpen(true);
+          setLoading(false);
+          console.log('status :', response.status);
+          if (response.status === 200){
+            setResstatus(response.status);
+            setMessage('Your informations was updated successfully!');
+            setResstatus(response.status);
+          }
+          console.log(response);
+        })
+        .catch(function (error) {
+          setOpen(true);
+          setMessage('Please fill in the blanks.');
+          // setResstatus(error);
+          console.log(error);
+        });
+    }
     
-  //   console.log(formik.values.firstname, formik.values.lastname, Countrry,
-  //       formik.values.city, marital,
-  //       phone, formik.values.birthdate, Gennder, spez,
-  //   )
-  //     // .then(function (response) {
-  //     //   console.log(response);
-  //     // })
-  //     // .catch(function (error) {
-  //     //   console.log(error);
-  //     // });
-  // }  
+    console.log(formik.values.firstname, formik.values.lastname, Countrry,
+        formik.values.city, marital,
+        phone, formik.values.date_birth, Gennder, formik.values.job,
+    )
+      // .then(function (response) {
+      //   console.log(response);
+      // })
+      // .catch(function (error) {
+      //   console.log(error);
+      // });
+  }  
 
 
   function handleOnChange(value) {
@@ -273,8 +254,8 @@ function UserInfo(props) {
   });
 
   return (
-    <div style={{ backgroundColor: ' #e5ecdf', backgroundSize:'cover', height: '150vh'}}>
-      <Helmet bodyAttributes={{ style: 'background-color : #f5f5f5' }}></Helmet>
+    <div style={{ backgroundColor: '#e5ecdf', backgroundSize:'cover'}}>
+      <Helmet bodyAttributes={{ style: 'background-color : #e5ecdf' }}></Helmet>
       {/* <ThemeProvider theme={theme}> */}
       <Container component="main" maxWidth="md">
         <CssBaseline />
@@ -290,16 +271,11 @@ function UserInfo(props) {
                         <Grid item xs={10}>
                             <Stack direction="row" sx={{ maxWidth: 345 }} style={{ marginLeft: "19rem", marginTop: "-4rem", marginBottom:"2rem" }}>
                                 <Stack direction="photo" spacing={2} sx={{ maxWidth: 345 }} style={{ marginTop: "1rem" }}>
-
-                                
                                     <Avatar
                                         alt="m"
                                         src={Image}
                                         sx={{ width: 130, height: 130 }}
                                     />
-
-{/* <EditIcon fontSize="small" sx={{ maxWidth: 345 }} style={{ marginTop: "3rem", marginLeft:"-18px" }} /> */}
-
                                                     <Grid item xs={12} style={{ marginTop: "5rem", marginLeft:"-37px" }}>
                   <input accept="image/*" type="file" id="select-image"
                     style={{ display: 'none' }} onChange={e => setSelectedImage(e.target.files[0])} />
@@ -307,9 +283,6 @@ function UserInfo(props) {
                   <IconButton aria-label="delete" size="5" variant="contained" component="span" style={{ backgroundColor: '#e6835a', color: '#FFFFFF', textTransform: 'unset' }}>
         <EditIcon fontSize="inherit" />
       </IconButton>
-                    {/* <Button  variant="contained" component="span" style={{ backgroundColor: '#000066', color: '#FFFFFF', textTransform: 'unset' }}>
-                    <EditIcon fontSize="small" />
-                    </Button> */}
                   </label>
                     {imageUrl && selectedImage && (
                     <Box mt={2} textAlign="left">
@@ -395,17 +368,17 @@ function UserInfo(props) {
 
               <Grid item xs={12} sm={6}>
                 <TextField
-                  name="birthdate"
+                  name="date_birth"
                   label="birthdate"
                   type="date"
                   style={{ width: '100%' }}
                   required
-                  value={formik.values.birthdate}
+                  value={formik.values.date_birth}
                   onChange={formik.handleChange}
                   InputLabelProps={{ shrink: true }}
                   onBlur={formik.handleBlur}
-                  error={formik.touched.birthdate && Boolean(formik.errors.birthdate)}
-                  helperText={formik.touched.birthdate && formik.errors.birthdate}
+                  error={formik.touched.date_birth && Boolean(formik.errors.date_birth)}
+                  helperText={formik.touched.date_birth && formik.errors.date_birth}
                 />
               </Grid>
 
@@ -465,22 +438,22 @@ function UserInfo(props) {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  autoComplete="career"
-                  name="career"
-                  id="career"
+                  autoComplete="job"
+                  name="job"
+                  id="job"
                   label="Select your job"
-                  value={formik.values.career}
+                  value={formik.values.job}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  error={formik.touched.career && Boolean(formik.errors.career)}
-                  helperText={formik.touched.career && formik.errors.career}
+                  error={formik.touched.job && Boolean(formik.errors.job)}
+                  helperText={formik.touched.job && formik.errors.job}
                 />
               </Grid>
 
               {/* <Grid item xs={12}>
               <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label" name='career'>Select your job</InputLabel>
+        <InputLabel id="demo-simple-select-label" name='job'>Select your job</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -488,7 +461,7 @@ function UserInfo(props) {
           value={spez}
           onChange={e => setspez(e.target.value)}
         >
-        {career.map((c) => (
+        {job.map((c) => (
           <MenuItem value={c.label}>{c.label}</MenuItem>
         ))}
 
@@ -501,17 +474,17 @@ function UserInfo(props) {
  <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  autoComplete="aboutme"
-                  name="aboutme"
-                  id="aboutme"
+                  autoComplete="bio"
+                  name="bio"
+                  id="bio"
                   label="About me"
                   type="text"
                   multiline
-                  value={formik.values.aboutme}
+                  value={formik.values.bio}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  error={formik.touched.aboutme && Boolean(formik.errors.aboutme)}
-                  helperText={formik.touched.aboutme && formik.errors.aboutme}
+                  error={formik.touched.bio && Boolean(formik.errors.bio)}
+                  helperText={formik.touched.bio && formik.errors.bio}
                 />
               </Grid>
 
@@ -608,7 +581,7 @@ function UserInfo(props) {
                 <Button
                   type="submit"
                   variant="contained"
-                  sx={{ mt: 4, mb: 0 }}
+                  sx={{ mt: 4, mb: 6 }}
                   // onClick={onClickSubmit}
                   style={{ backgroundColor: '#e6835a', color: '#FFFFFF', textTransform: 'unset', width: '110px' }}
                 >
@@ -654,41 +627,41 @@ const Maritalstatus = [
   { label: 'Married' },
 ]
 
-const career = [
+// const job = [
 
-  { label: 'actress' },
-  { label: 'actor' },
-  { label: 'architect ' },
-  { label: 'singer' },
-  { label: 'dentist' },
-  { label: 'detective' },
-  { label: 'writer' },
-  { label: 'farmer' },
-  { label: 'nurse' },
-  { label: 'pilot' },
-  { label: 'engineer' },
-  { label: 'accountant' },
-  { label: 'butcher' },
-  { label: 'cashier' },
-  { label: 'barber' },
-  { label: 'carpenter' },
-  { label: 'lifeguard' },
-  { label: 'baker' },
-  { label: 'electrician' },
-  { label: 'receptionist' },
-  { label: 'researcher' },
-  { label: 'scientist' },
-  { label: 'bus driver' },
-  { label: 'photographer' },
-  { label: 'musician' },
-  { label: 'painter' },
-  { label: 'model' },
-  { label: 'mechanic' },
-  { label: 'florist' },
-  { label: 'dancer' },
-  { label: 'travel guide' },
-  { label: 'programmer' },
-  { label: 'hairdresser' },
+//   { label: 'actress' },
+//   { label: 'actor' },
+//   { label: 'architect ' },
+//   { label: 'singer' },
+//   { label: 'dentist' },
+//   { label: 'detective' },
+//   { label: 'writer' },
+//   { label: 'farmer' },
+//   { label: 'nurse' },
+//   { label: 'pilot' },
+//   { label: 'engineer' },
+//   { label: 'accountant' },
+//   { label: 'butcher' },
+//   { label: 'cashier' },
+//   { label: 'barber' },
+//   { label: 'carpenter' },
+//   { label: 'lifeguard' },
+//   { label: 'baker' },
+//   { label: 'electrician' },
+//   { label: 'receptionist' },
+//   { label: 'researcher' },
+//   { label: 'scientist' },
+//   { label: 'bus driver' },
+//   { label: 'photographer' },
+//   { label: 'musician' },
+//   { label: 'painter' },
+//   { label: 'model' },
+//   { label: 'mechanic' },
+//   { label: 'florist' },
+//   { label: 'dancer' },
+//   { label: 'travel guide' },
+//   { label: 'programmer' },
+//   { label: 'hairdresser' },
 
 
 
@@ -743,7 +716,7 @@ const career = [
   // { label: 'Database manager' },
   // { label: 'Software engineer' },
 
-]
+// ]
 
 
 
