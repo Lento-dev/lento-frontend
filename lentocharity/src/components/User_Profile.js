@@ -190,12 +190,12 @@ const Userpro = (props) => {
 
                     <Grid container>
                         <Grid item xs={12} md={4}>
-                            {/* <Grid item xs={4} style={{ alignItems: "left", marginTop: "2rem", marginBottom: "1rem", marginLeft: "2rem" }}>
+                            <Grid item xs={4} style={{ alignItems: "left", marginTop: "2rem", marginBottom: "1rem", marginLeft: "2rem" }}>
                                 <Avatar variant="rounded"
                                     sx={{ bgcolor: "#f2f2f2", width: "100%", height: "100%" }}
                                     src={Image}>
                                 </Avatar>
-                            </Grid> */}
+                            </Grid>
 
                             <Card className="card-profile shadow" style={{ marginTop: "3rem", marginLeft: "1.6rem" }}>
                                 <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "1rem", fontWeight: "bold" }}>

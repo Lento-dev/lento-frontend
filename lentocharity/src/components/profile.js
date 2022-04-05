@@ -187,166 +187,29 @@ class UserProfile extends Component {
   render() {
     return (
       <div >
-<Grid item >
+        
+            <Grid item>
               <div className="backgroundimagehome"> 
               </div>        
-              </Grid>
-          <Grid item xs={12} container>
-          <Stack direction="row" sx={{ maxWidth: 345 }} style={{ marginTop: "-8rem" }}>
-              <Stack direction="photo" spacing={2} sx={{ maxWidth: 345 }} style={{ marginLeft: "8.5rem", marginTop: "-2.4rem" }}>               
+            </Grid>
+                    
+            <Grid item xs={10} container>
+                <Grid direction="row" sx={{ maxWidth: 345 }} >
+                    <Grid direction="photo" spacing={2} sx={{ maxWidth: 345 }} style={{ marginLeft: "10.5rem", marginTop: "-10.4rem" }}>               
+                        <Avatar
+                            alt="Remy Sharp"
+                            src={this.state.proimageurl}
+                            sx={{ width: 330, height: 330 }}
+                        />
+                    </Grid>
+                </Grid>
+          </Grid>
 
-              {/* <Grid item xs={10}>
-                <Stack   style={{ marginLeft: "15rem", marginTop: "-14rem", marginBottom:"2rem" }}>
-                    <Stack spacing={2} style={{ marginTop: "1rem" }}> */}
-                  <Avatar
-                      alt="Remy Sharp"
-                      src={this.state.proimageurl}
-                      sx={{ width: 330, height: 330 }}
-                  />
-              </Stack>
-          </Stack>
-      </Grid>
-
-
-<Grid item xs={12}>
-       <ScrollableTabsButtonForce data={this.state.res}></ScrollableTabsButtonForce>
-        </Grid>
-
-        <Grid container>
-                        <Grid item xs={12} md={4}>
-                            {/* <Grid item xs={4} style={{ alignItems: "left", marginTop: "2rem", marginBottom: "1rem", marginLeft: "2rem" }}>
-                                <Avatar variant="rounded"
-                                    sx={{ bgcolor: "#f2f2f2", width: "100%", height: "100%" }}
-                                    src={Image}>
-                                </Avatar>
-                            </Grid> */}
-
-                            <Card className="card-profile shadow" style={{ marginTop: "3rem", marginLeft: "1.6rem" }}>
-                                <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "1rem", fontWeight: "bold" }}>
-                                    {this.state.firstname + " "}
-                                    {this.state.lastname}
-                                </Typography>
-                                <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "0", fontWeight: "bold" }}>
-                                    {this.state.job}
-                                </Typography>
-
-                                <CardContent>
-                                    <Grid container style={{ padding: "1rem" }}>
-                                        <Grid container sx={{ color: 'text.primary' }}>
-                                            <Grid item xs={1.3}>
-                                                <EmailIcon sx={{ fontSize: 24 }} color="action" gutterBottom />
-                                            </Grid>
-                                            <Grid item xs={5}>
-                                                {/* <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom> */}
-                                                <Typography sx={{ fontSize: 16 }} gutterBottom>
-                                                <Link sx={{ color: 'black', cursor: 'pointer' }} 
-                                underline="hover" 
-                                className="communicate"
-                                // onClick={() => { navigator.clipboard.writeText(state.email);
-                                //  handleCopiedClick(); }}
-                                 >
-                                    {this.state.email}</Link>
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
-
-                                        <Grid container sx={{ color: 'text.primary' }}>
-                                            <Grid item xs={1.3}>
-                                                <PlaceIcon sx={{ fontSize: 24 }} color="action" />
-                                            </Grid>
-                                            <Grid item xs={5}>
-                                                <Typography sx={{ fontSize: 16 }} gutterBottom>
-                                                    {/* {state.country},
-                                                    
-                                                    {" " + state.city} */}
-                                                    {this.state.region}
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
+          {/* <Grid item > */}
+          <ScrollableTabsButtonForce data={this.state.res}></ScrollableTabsButtonForce>
+          {/* </Grid> */}
 
 
-                                        {/* <Grid container sx={{ color: 'text.primary' }}>
-                                            <Grid item xs={1.3}>
-                                                <PhoneIcon sx={{ fontSize: 24 }} color="action" />
-                                            </Grid>
-                                            <Grid item xs={5}>
-                                                <Typography sx={{ fontSize: 16 }} gutterBottom>
-                                                <Link sx={{ color: 'black', cursor: 'pointer' }} 
-                                underline="hover" 
-                                className="communicate"
-                                onClick={() => { navigator.clipboard.writeText(state.phonenumber);
-                                 handleCopiedClick(); }}> {state.phone}</Link>
-                                                </Typography>
-                                            </Grid>
-                                        </Grid> */}
-                                        <h3>
-                                            <h6></h6>
-                                        </h3>
-                                        <Grid item xs={50} style={{ textAlign: "center", marginBottom: "-20px" }}>
-                                            <Typography>
-                                                <LinkedInIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.linkedin.com/in/shahab-induction-co-0ab165140/')} className="communicate" />
-                                                <h7> </h7>
-                                                <FacebookIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://t.me/shahabinductionco')} className="communicate" />
-                                                <h7> </h7>
-                                                <TwitterIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
-                                                <h7> </h7>
-                                                <LanguageIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
-                                            </Typography>
-                                        </Grid>
-
-                                    </Grid>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-
-</Grid>
-
-      
-      {/* <h4 style={{left:'496px',position:'absolute',bottom:'-270px',fontFamily:'icofont',color:'#8b9b74',background:'white',fontStyle:'italic',fontSize:'22px'}}>joined january 2020</h4>this.state.joineddate */}
-      {/* <div style={{left:'500px',position:'absolute',bottom:'-175px',fontFamily:'icofont'}}><Follow ></Follow></div> */}
-         
-
-        
-        {/* <h1 >
-          
-          <h3 style={{left:'116px',position:'absolute',bottom:'-460px',fontFamily:'icofont',fontStyle:'bold',fontSize:'37px',color:'rgba(103,103,103,255)'}}>Basic info</h3>
-         
-          <h5 style={{left:'120px',position:'absolute',bottom:'-530px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Name</h5>
-          <p style={{left:'295px',position:'absolute',bottom:'-522px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>:</p>
-          <h5 style={{left:'350px',position:'absolute',bottom:'-530px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>{this.state.firstname}</h5>
-          <h5 style={{left:'120px',position:'absolute',bottom:'-590px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Family name</h5>
-          <p style={{left:'295px',position:'absolute',bottom:'-580px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>:</p>
-          <h5 style={{left:'350px',position:'absolute',bottom:'-590px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>{this.state.lastname}</h5>
-          <h5 style={{left:'120px',position:'absolute',bottom:'-650px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Region</h5>
-          <p style={{left:'295px',position:'absolute',bottom:'-640px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>:</p>
-          <h5 style={{left:'350px',position:'absolute',bottom:'-650px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>{this.state.region}</h5>
-          <h5 style={{left:'120px',position:'absolute',bottom:'-710px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Job</h5>
-          <p style={{left:'295px',position:'absolute',bottom:'-700px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>:</p>
-          <h5 style={{left:'350px',position:'absolute',bottom:'-710px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>{this.state.job}</h5>
-          <h5 style={{left:'120px',position:'absolute',bottom:'-770px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Birth Date</h5>
-          <p style={{left:'295px',position:'absolute',bottom:'-760px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>:</p>
-          <h5 style={{left:'350px',position:'absolute',bottom:'-770px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>{this.state.birthdate}</h5>
-          
-      
-          </h1>   */}
-      {/* </div>       */}
-      {/* <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-       <ScrollableTabsButtonForce data={this.state.res}></ScrollableTabsButtonForce> */}
-       {/* <div className='icons' style={{right:'250px'}} >
-        
-        <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="5" borderStyle="solid" icon="twitter" iconColor="rgba(109,151,54,1)" backgroundColor="" iconSize="4" roundness="50%" url="https://some-website.com/my-social-media-url" size="42" />
-        &ensp;&ensp;&ensp;
-        
-        <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="5" borderStyle="solid" icon="instagram" iconColor="rgba(109,151,54,1)" backgroundColor="" iconSize="4" roundness="50%" url="https://some-website.com/my-social-media-url" size="42" />
-        &ensp;&ensp;&ensp;
-       
-        <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="5" borderStyle="solid" icon="linkedin" iconColor="rgba(109,151,54,1)" backgroundColor="" iconSize="4" roundness="50%" url="https://some-website.com/my-social-media-url" size="42" />
-        &ensp;&ensp;&ensp;
-        
-        <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="5" borderStyle="solid" icon="skype" iconColor="rgba(109,151,54,1)" backgroundColor="" iconSize="4" roundness="50%" url="https://some-website.com/my-social-media-url" size="42" />  
-        </div>       */}
-        {/* </Container> */}
-      
       </div>
     );
   }
@@ -373,6 +236,73 @@ export default UserProfile;
 
 
 
+// <Grid container >
+//                         <Grid item xs={4} md={4}>
+
+//                             <Card className="card-profile shadow" style={{ marginTop: "1rem", marginLeft: "1.6rem" }}>
+//                                 <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "1rem", fontWeight: "bold" }}>
+//                                     {this.state.firstname + " "}
+//                                     {this.state.lastname}
+//                                 </Typography>
+
+//                                 <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "0", fontWeight: "bold" }}>
+//                                     {this.state.job}
+//                                 </Typography>
+
+//                                 <CardContent>
+//                                     <Grid container style={{ padding: "1rem" }}>
+//                                         <Grid container sx={{ color: 'text.primary' }}>
+//                                             <Grid item xs={1.3}>
+//                                                 <EmailIcon sx={{ fontSize: 24 }} color="action" gutterBottom />
+//                                             </Grid>
+//                                             <Grid item xs={5}>
+//                                                 {/* <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom> */}
+//                                                 <Typography sx={{ fontSize: 16 }} gutterBottom>
+//                                                 <Link sx={{ color: 'black', cursor: 'pointer' }} 
+//                                 underline="hover" 
+//                                 className="communicate"
+//                                 // onClick={() => { navigator.clipboard.writeText(state.email);
+//                                 //  handleCopiedClick(); }}
+//                                  >
+//                                     {this.state.email}</Link>
+//                                                 </Typography>
+//                                             </Grid>
+//                                         </Grid>
+
+//                                         <Grid container sx={{ color: 'text.primary' }}>
+//                                             <Grid item xs={1.3}>
+//                                                 <PlaceIcon sx={{ fontSize: 24 }} color="action" />
+//                                             </Grid>
+//                                             <Grid item xs={5}>
+//                                                 <Typography sx={{ fontSize: 16 }} gutterBottom>
+//                                                     {/* {state.country},
+                                                    
+//                                                     {" " + state.city} */}
+//                                                     {this.state.region}
+//                                                 </Typography>
+//                                             </Grid>
+//                                         </Grid>
+//                                         <h3>
+//                                             <h6></h6>
+//                                         </h3>
+//                                         <Grid item xs={50} style={{ textAlign: "center", marginBottom: "-20px" }}>
+//                                             <Typography>
+//                                                 <LinkedInIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.linkedin.com/in/shahab-induction-co-0ab165140/')} className="communicate" />
+//                                                 <h7> </h7>
+//                                                 <FacebookIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://t.me/shahabinductionco')} className="communicate" />
+//                                                 <h7> </h7>
+//                                                 <TwitterIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
+//                                                 <h7> </h7>
+//                                                 <LanguageIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
+//                                             </Typography>
+//                                         </Grid>
+
+//                                     </Grid>
+//                                 </CardContent>
+//                             </Card>
+//                         </Grid>
+
+// </Grid>
 
 
 
@@ -388,3 +318,47 @@ export default UserProfile;
 
 
 
+      // {/* <h4 style={{left:'496px',position:'absolute',bottom:'-270px',fontFamily:'icofont',color:'#8b9b74',background:'white',fontStyle:'italic',fontSize:'22px'}}>joined january 2020</h4>this.state.joineddate */}
+      // {/* <div style={{left:'500px',position:'absolute',bottom:'-175px',fontFamily:'icofont'}}><Follow ></Follow></div> */}
+         
+
+        
+      //   {/* <h1 >
+          
+      //     <h3 style={{left:'116px',position:'absolute',bottom:'-460px',fontFamily:'icofont',fontStyle:'bold',fontSize:'37px',color:'rgba(103,103,103,255)'}}>Basic info</h3>
+         
+      //     <h5 style={{left:'120px',position:'absolute',bottom:'-530px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Name</h5>
+      //     <p style={{left:'295px',position:'absolute',bottom:'-522px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>:</p>
+      //     <h5 style={{left:'350px',position:'absolute',bottom:'-530px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>{this.state.firstname}</h5>
+      //     <h5 style={{left:'120px',position:'absolute',bottom:'-590px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Family name</h5>
+      //     <p style={{left:'295px',position:'absolute',bottom:'-580px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>:</p>
+      //     <h5 style={{left:'350px',position:'absolute',bottom:'-590px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>{this.state.lastname}</h5>
+      //     <h5 style={{left:'120px',position:'absolute',bottom:'-650px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Region</h5>
+      //     <p style={{left:'295px',position:'absolute',bottom:'-640px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>:</p>
+      //     <h5 style={{left:'350px',position:'absolute',bottom:'-650px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>{this.state.region}</h5>
+      //     <h5 style={{left:'120px',position:'absolute',bottom:'-710px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Job</h5>
+      //     <p style={{left:'295px',position:'absolute',bottom:'-700px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>:</p>
+      //     <h5 style={{left:'350px',position:'absolute',bottom:'-710px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>{this.state.job}</h5>
+      //     <h5 style={{left:'120px',position:'absolute',bottom:'-770px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>Birth Date</h5>
+      //     <p style={{left:'295px',position:'absolute',bottom:'-760px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>:</p>
+      //     <h5 style={{left:'350px',position:'absolute',bottom:'-770px',fontFamily:'icofont',color:'rgba(103,103,103,255)'}}>{this.state.birthdate}</h5>
+          
+      
+      //     </h1>   */}
+      // {/* </div>       */}
+      // {/* <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      //  <ScrollableTabsButtonForce data={this.state.res}></ScrollableTabsButtonForce> */}
+      //  {/* <div className='icons' style={{right:'250px'}} >
+        
+      //   <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="5" borderStyle="solid" icon="twitter" iconColor="rgba(109,151,54,1)" backgroundColor="" iconSize="4" roundness="50%" url="https://some-website.com/my-social-media-url" size="42" />
+      //   &ensp;&ensp;&ensp;
+        
+      //   <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="5" borderStyle="solid" icon="instagram" iconColor="rgba(109,151,54,1)" backgroundColor="" iconSize="4" roundness="50%" url="https://some-website.com/my-social-media-url" size="42" />
+      //   &ensp;&ensp;&ensp;
+       
+      //   <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="5" borderStyle="solid" icon="linkedin" iconColor="rgba(109,151,54,1)" backgroundColor="" iconSize="4" roundness="50%" url="https://some-website.com/my-social-media-url" size="42" />
+      //   &ensp;&ensp;&ensp;
+        
+      //   <SocialMediaIconsReact borderColor="rgba(0,0,0,0.25)" borderWidth="5" borderStyle="solid" icon="skype" iconColor="rgba(109,151,54,1)" backgroundColor="" iconSize="4" roundness="50%" url="https://some-website.com/my-social-media-url" size="42" />  
+      //   </div>       */}
+      //   {/* </Container> */}
