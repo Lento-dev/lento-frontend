@@ -10,7 +10,7 @@ import store from "./store";
 import UserInfo from './components/editprofile';
 import ComplexGrid from './components/Gride';
 import User_Profile from "./components/User_Profile";
-import Foodadvertisment from "./components/foodadvertisment";
+// import Foodadvertisment from "./components/foodadvertisment";
 import Clothadvertisement from "./components/clothadvertisement"
 
 const theme = createTheme({
@@ -39,7 +39,7 @@ function App() {
               <Route exact path="/signin" component = { SignIn }/>
               <Route exact path="/forgot-password" component = { ForgotPassword }/>
               <Route exact path="/edit-profile" component = { UserInfo }/>
-              <Route exact path="/cg" component = { Foodadvertisment }/>
+              {/* <Route exact path="/cg" component = { Foodadvertisment }/> */}
               <Route exact path="/cloth" component = { Clothadvertisement }/>
 
             </Switch>
