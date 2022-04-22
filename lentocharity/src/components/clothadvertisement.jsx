@@ -95,6 +95,7 @@ function Foodadvertisment(props) {
         // marital_status: '',
         gender: '',
         job: '',
+        address:'',
         
       },
     //   validationSchema: validationSchema,
@@ -284,17 +285,17 @@ function Foodadvertisment(props) {
               <Grid item xs={12}>
               <TextField
                 fullWidth
-                autoComplete="bio"
-                name="bio"
-                id="bio"
+                autoComplete="address"
+                name="address"
+                id="address"
                 label="Neighborhood address"
                 type="text"
                 multiline
-                value={formik.values.bio}
+                value={formik.values.address}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.bio && Boolean(formik.errors.bio)}
-                helperText={formik.touched.bio && formik.errors.bio}
+                error={formik.touched.address && Boolean(formik.errors.address)}
+                helperText={formik.touched.address && formik.errors.address}
               />
             </Grid>
 
@@ -489,7 +490,8 @@ function Foodadvertisment(props) {
                                 <IconButton 
                                   style={{color:'#465832'}} 
                                   aria-label="upload picture" 
-                                  component="span"
+                                  // component="span"
+                                  component="label"
                                 >
                                   <PhotoCamera 
                                   style={isDragging ? { color: 'red' } : undefined}
@@ -527,10 +529,10 @@ function Foodadvertisment(props) {
       </label> */}
     </Stack>
 
-    <br/><br/><br/><br/><br/><br/><br/>
+    <br/>
 
     <Grid container >
-                <Button
+    &nbsp;<Button
                   type="submit"
                   variant="contained"
                   sx={{ mt: 4, mb: 6 }}
@@ -559,8 +561,7 @@ function Foodadvertisment(props) {
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<br/><br/><br/><br/>
+
 
 
 
