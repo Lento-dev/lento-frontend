@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 import {
   Button,
   TextField,
@@ -9,37 +10,67 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Helmet from "react-helmet";
-import * as yup from "yup";
-import { useFormik } from "formik";
-import { FcGoogle } from "react-icons/fc";
 import Image from "../assets/img/forgotpassword.png";
+import { connect } from 'react-redux';
+import { login } from "../actions/auth";
+import { clearMessage } from '../actions/message';
 
-const validationSchema = yup.object({
-  email: yup
-    .string()
-    .email("Please enter a valid email address.")
-    .required("Please enter your email address!"),
-});
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   Title: {
-    color: "orange",
-    fontSize: "3rem",
+    color: 'orange',
+    fontSize: '3rem'
   },
   Descp: {
-    color: "black",
-    fontSize: "1.5rem",
-  },
-}));
+    color: 'black',
+    fontSize: '1.5rem'
+  }
+}))
 
-function ForgotPassword() {
+
+function ForgotPassword(props) {
   const classes = useStyles();
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-    },
-    validationSchema: validationSchema,
+  const history = useHistory();
+  const [loading, setLoading] = React.useState(false);
+  const [errors, setErrors] = useState({});
+  const [values, setValues] = useState({
+    email: ''
   });
+  const handleChange = name => event => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+
+  const validate = () => {
+    let tmpErrors = {};
+
+    switch (true) {
+      case !values.email:
+        tmpErrors["email"] = "Please enter your email address.";
+        break;
+      case values.email !== '':
+        var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+        if (!pattern.test(values.email)) {
+          tmpErrors["email"] = "Please enter a valid email address!";
+        }
+        break;
+      default:
+        break;
+    }
+    
+    setErrors(tmpErrors);
+  }
+  
+  const handleSubmitButton = (e) => {
+    validate();
+    let filled = errors.count === 0;
+
+    if  (filled) 
+    {
+      setLoading(true);
+      props.ForgotPassword(values.email,);
+    }
+    
+  }
   return (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
@@ -82,22 +113,32 @@ function ForgotPassword() {
                     variant="outlined"
                     required
                     fullWidth
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.touched.email && Boolean(formik.errors.email)}
-                    helperText={formik.touched.email && formik.errors.email}
+                    value={values.email}
+                        onChange={handleChange('email')}
+                        error={
+                          Boolean(errors["email"])
+                        }
+                        helperText={
+                          errors["email"]
+                        }
                   />
                 </Grid>
-                <Grid item xs={3} sx={{verticalAlign: 'middle', display: 'inline-flex'}}>
+                <Grid item xs={3}>
                   <Button
                     
                     variant="contained"
                     fullWidth
+                    size="large"
+                    
+                    onClick={handleSubmitButton}
                     sx={{
                       textTransform: "unset",
                       backgroundColor: "#556749",
-                      marginLeft: '-2vh'
+                      marginLeft: '-2vh',
+                      height: '55px',
+                      ":hover" : {
+                            bgcolor: '#e6835a'
+                          }
                       
                     }}
                   >
@@ -121,4 +162,12 @@ function ForgotPassword() {
   );
 }
 
-export default ForgotPassword;
+const mapDispatchToProps = { login, clearMessage };
+const mapStateToProps = ( state ) => {
+  return{
+    message: state.message.message,
+    openMessage: state.message.openMessage,
+  }
+}
+
+export default connect(mapStateToProps ,mapDispatchToProps)(ForgotPassword);

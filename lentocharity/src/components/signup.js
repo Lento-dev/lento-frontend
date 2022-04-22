@@ -15,31 +15,21 @@ import { connect } from 'react-redux';
 import { register } from "../actions/auth";
 import { clearMessage } from '../actions/message';
 import Helmet from "react-helmet";
-import * as yup from "yup";
-import { useFormik, Formik } from "formik";
 import { FcGoogle } from "react-icons/fc";
 
-const validationSchema = yup.object({
-  firstname: yup.string().required("Please write your first name."),
-  lastname: yup.string().required("Please write your last name."),
-  email: yup
-    .string()
-    .email("Please enter a valid email address.")
-    .required("Please enter your email address."),
-  username: yup.string().required("Please write your user name."),
-  password: yup
-    .string()
-    .min(6, "Passwords must at least be 6 characters.")
-    .required("Please enter a password."),
-  confirmpassword: yup
-    .string()
-    .required("Please repeat your password.")
-    .oneOf([yup.ref("password")], "Passwords don't match!"),
-});
 
 function SignUp(props) {
   const history = useHistory();
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [values, setValues] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    username: '',
+    password: '',
+    confirmpassword: ''
+  });
 
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <Alert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -52,36 +42,98 @@ function SignUp(props) {
     props.clearMessage();
   };
 
+  const handleChange = name => event => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+  const validate = () => {
+    let tmpErrors = {};
+
+    switch (true) {
+      case !values.firstname:
+        tmpErrors["firstname"] = "Please enter your first name."
+        break;
+        case !values.firstname.match(/^[a-zA-Z]+$/):
+          tmpErrors["firstname"] = "First name can include only letters"
+          break;
+      default:
+        break;
+    }
+
+    switch (true) {
+      case !values.lastname:
+        tmpErrors["lastname"] = "Please enter your last name."
+        break;
+        case !values.lastname.match(/^[a-zA-Z]+$/):
+          tmpErrors["lastname"] = "Last name name can include only letters"
+          break;
+      default:
+        break;
+    }
+
+    switch (true) {
+      case !values.email:
+        tmpErrors["email"] = "Please enter your email address.";
+        break;
+      case values.email !== '':
+        var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+        if (!pattern.test(values.email)) {
+          tmpErrors["email"] = "Please enter a valid email address!";
+        }
+        break;
+      default:
+        break;
+    }
+    switch (true) {
+      case !values.username:
+        tmpErrors["username"] = "Please enter a username.";
+        break;
+
+      default:
+        break;
+    }
+    
+    switch (true) {
+      case !values.password:
+        tmpErrors["password"] = "Please enter a password."
+        break;
+        case values.password.length < 6:
+          tmpErrors["password"] = "Passwords must at least be 6 characters."
+          break;
+      default:
+        break;
+    }
+
+    switch (true) {
+      case !values.confirmpassword:
+        tmpErrors["confirmpassword"] = "Please repeat your password."
+        break;
+        case values.password !== values.confirmpassword:
+          tmpErrors["confirmpassword"] = "Passwords don't match!"
+          break;
+      default:
+        break;
+    }
+
+    setErrors(tmpErrors);
+  }
+
   const handleSignUpButton = (e) => {
-    let filled = !Boolean(formik.errors.firstname) 
-    && !Boolean(formik.errors.lastname) && !Boolean(formik.errors.email)
-    && !Boolean(formik.errors.password) && !Boolean(formik.errors.confirmpassword);
+    validate();
+    let filled = errors.count === 0;
 
     if  (filled) 
     {
       setLoading(true);
-      props.register(formik.values.firstname, formik.values.lastname, formik.values.email,formik.values.username,
-         formik.values.password, formik.values.confirmpassword, history,loading, setLoading);
+      props.register(values.firstname, values.lastname, values.email,values.username,
+         values.password, values.confirmpassword, history,loading, setLoading);
       history.push('/signin')
     }
 
-    console.log(formik.errors);
-    console.log('length : ',formik.errors.count);
+    console.log(errors);
+    console.log('length : ',errors.count);
     
   }
 
-
-  const formik = useFormik({
-    initialValues: {
-      firstname: "",
-      lastname: "",
-      email: "",
-      username:"",
-      password: "",
-      confirmpassword: "",
-    },
-    validationSchema: validationSchema,
-  });
 
   return (
     <div>
@@ -199,15 +251,13 @@ function SignUp(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        value={formik.values.firstname}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        value={values.firstname}
+                        onChange={handleChange('firstname')}
                         error={
-                          formik.touched.firstname &&
-                          Boolean(formik.errors.firstname)
+                          Boolean(errors["firstname"])
                         }
                         helperText={
-                          formik.touched.firstname && formik.errors.firstname
+                          errors["firstname"]
                         }
                       />
                     </Grid>
@@ -219,15 +269,13 @@ function SignUp(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        value={formik.values.lastname}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        value={values.lastname}
+                        onChange={handleChange('lastname')}
                         error={
-                          formik.touched.lastname &&
-                          Boolean(formik.errors.lastname)
+                          Boolean(errors["lastname"])
                         }
                         helperText={
-                          formik.touched.lastname && formik.errors.lastname
+                          errors["lastname"]
                         }
                       />
                     </Grid>
@@ -240,13 +288,14 @@ function SignUp(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        value={formik.values.email}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        value={values.email}
+                        onChange={handleChange('email')}
                         error={
-                          formik.touched.email && Boolean(formik.errors.email)
+                          Boolean(errors["email"])
                         }
-                        helperText={formik.touched.email && formik.errors.email}
+                        helperText={
+                          errors["email"]
+                        }
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -257,15 +306,13 @@ function SignUp(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        value={formik.values.username}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        value={values.username}
+                        onChange={handleChange('username')}
                         error={
-                          formik.touched.username &&
-                          Boolean(formik.errors.username)
+                          Boolean(errors["username"])
                         }
                         helperText={
-                          formik.touched.username && formik.errors.username
+                          errors["username"]
                         }
                       />
                     </Grid>
@@ -278,15 +325,13 @@ function SignUp(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        value = {values.password}
+                        onChange = {handleChange('password')}
                         error={
-                          formik.touched.password &&
-                          Boolean(formik.errors.password)
+                          Boolean(errors["password"])
                         }
                         helperText={
-                          formik.touched.password && formik.errors.password
+                          errors["password"]
                         }
                       />
                     </Grid>
@@ -299,16 +344,13 @@ function SignUp(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        value={formik.values.confirmpassword}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        value={values.confirmpassword}
+                        onChange={handleChange('confirmpassword')}
                         error={
-                          formik.touched.confirmpassword &&
-                          Boolean(formik.errors.confirmpassword)
+                          Boolean(errors["confirmpassword"])
                         }
                         helperText={
-                          formik.touched.confirmpassword &&
-                          formik.errors.confirmpassword
+                          errors["confirmpassword"]
                         }
                       />
                     </Grid>
@@ -348,7 +390,7 @@ function SignUp(props) {
                       </Button>
                     </Grid>
                     <Snackbar open={props.openMessage} autoHideDuration={4000} onClose={handleClose}>
-                  <Alert onClose={handleClose} severity={props.message == "Signed up successfully!" ? "success" : "error"} sx={{ width: '100%' }}>
+                  <Alert onClose={handleClose} severity={props.message === "Signed up successfully!" ? "success" : "error"} sx={{ width: '100%' }}>
                     {props.message}
                   </Alert>
                 </Snackbar>

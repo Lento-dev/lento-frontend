@@ -6,6 +6,7 @@ import UserProfile from "./components/profile";
 import SignUp from "./components/signup";
 import SignIn from "./components/signin";
 import ForgotPassword from "./components/forgotpassword";
+import ResetPassword from "./components/resetpassword";
 import store from "./store";
 import UserInfo from './components/editprofile';
 import ComplexGrid from './components/Gride';
@@ -35,6 +36,7 @@ function App() {
               <Route exact path="/signup" component = { SignUp }/>
               <Route exact path="/signin" component = { SignIn }/>
               <Route exact path="/forgot-password" component = { ForgotPassword }/>
+              <Route exact path="/reset-password" component = { ResetPassword }/>
               <Route exact path="/edit-profile" component = { UserInfo }/>
               <Route exact path="/cg" component = { User_Profile }/>
 
