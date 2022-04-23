@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 import {
   Button,
@@ -9,79 +9,178 @@ import {
   Paper,
   Typography,
   Divider,
-  Container,Snackbar,Alert,CircularProgress
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Container,
+  Snackbar,
+  Alert,
+  CircularProgress,
 } from "@mui/material";
-import { connect } from 'react-redux';
-import { register } from "../actions/auth";
-import { clearMessage } from '../actions/message';
+import { connect } from "react-redux";
+import { register, googleLogin } from "../actions/auth";
+import { clearMessage } from "../actions/message";
 import Helmet from "react-helmet";
-import * as yup from "yup";
-import { useFormik, Formik } from "formik";
+import GoogleLogin from "react-google-login";
 import { FcGoogle } from "react-icons/fc";
-
-const validationSchema = yup.object({
-  firstname: yup.string().required("Please write your first name."),
-  lastname: yup.string().required("Please write your last name."),
-  email: yup
-    .string()
-    .email("Please enter a valid email address.")
-    .required("Please enter your email address."),
-  username: yup.string().required("Please write your user name."),
-  password: yup
-    .string()
-    .min(6, "Passwords must at least be 6 characters.")
-    .required("Please enter a password."),
-  confirmpassword: yup
-    .string()
-    .required("Please repeat your password.")
-    .oneOf([yup.ref("password")], "Passwords don't match!"),
-});
 
 function SignUp(props) {
   const history = useHistory();
-  const [loading, setLoading] = React.useState(false);
-
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <Alert elevation={6} ref={ref} variant="filled" {...props} />;
+  const [loading, setLoading] = useState(false);
+  const [verifyEmailDialogOpen, setVerifyEmailDialogOpen] = useState(false);
+  const [errors, setErrors] = useState({});
+  const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  const [values, setValues] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    username: "",
+    password: "",
+    confirmpassword: "",
   });
 
+
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
+    props.openMessage = false;
     props.clearMessage();
   };
 
-  const handleSignUpButton = (e) => {
-    let filled = !Boolean(formik.errors.firstname) 
-    && !Boolean(formik.errors.lastname) && !Boolean(formik.errors.email)
-    && !Boolean(formik.errors.password) && !Boolean(formik.errors.confirmpassword);
+  const handleVerifyEmailDialogClickOpen = () => {
+    setVerifyEmailDialogOpen(true);
+  };
 
-    if  (filled) 
-    {
-      setLoading(true);
-      props.register(formik.values.firstname, formik.values.lastname, formik.values.email,formik.values.username,
-         formik.values.password, formik.values.confirmpassword, history,loading, setLoading);
-      history.push('/signin')
+  const handleVerifyEmailDialogClose = () => {
+    setVerifyEmailDialogOpen(false);
+    history.push("/signin");
+
+  };
+
+  const handleChange = (name) => (event) => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+  const validate = () => {
+    let tmpErrors = {};
+
+    switch (true) {
+      case !values.firstname:
+        tmpErrors["firstname"] = "Please enter your first name.";
+        break;
+      case !values.firstname.match(/^[a-zA-Z]+$/):
+        tmpErrors["firstname"] = "First name can include only letters";
+        break;
+      case values.firstname.length > 150:
+        tmpErrors["firstname"] = "First name can be at most 150 characters.";
+        break;
+      default:
+        break;
     }
 
-    console.log(formik.errors);
-    console.log('length : ',formik.errors.count);
-    
-  }
+    switch (true) {
+      case !values.lastname:
+        tmpErrors["lastname"] = "Please enter your last name.";
+        break;
+      case !values.lastname.match(/^[a-zA-Z]+$/):
+        tmpErrors["lastname"] = "Last name name can include only letters";
+        break;
+      case values.lastname.length > 150:
+        tmpErrors["lastname"] = "Last name can be at most 150 characters.";
+        break;
+      default:
+        break;
+    }
 
+    switch (true) {
+      case !values.email:
+        tmpErrors["email"] = "Please enter your email address.";
+        break;
+      case values.email !== "":
+        var pattern = new RegExp(
+          /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+        );
+        if (!pattern.test(values.email)) {
+          tmpErrors["email"] = "Please enter a valid email address!";
+        }
+        break;
+      case values.email.length > 255:
+        tmpErrors["email"] = "Email can be at most 255 characters.";
+        break;
+      case !values.email.length < 1:
+        tmpErrors["email"] = "Email can be at least 1 character.";
+        break;
+      default:
+        break;
+    }
+    switch (true) {
+      case !values.username:
+        tmpErrors["username"] = "Please enter a username.";
+        break;
 
-  const formik = useFormik({
-    initialValues: {
-      firstname: "",
-      lastname: "",
-      email: "",
-      username:"",
-      password: "",
-      confirmpassword: "",
-    },
-    validationSchema: validationSchema,
-  });
+      default:
+        break;
+    }
+
+    switch (true) {
+      case !values.password:
+        tmpErrors["password"] = "Please enter a password.";
+        break;
+      case values.password.length < 8:
+        tmpErrors["password"] = "Passwords must at least be 8 characters.";
+        break;
+      default:
+        break;
+    }
+
+    switch (true) {
+      case !values.confirmpassword:
+        tmpErrors["confirmpassword"] = "Please repeat your password.";
+        break;
+      case values.password !== values.confirmpassword:
+        tmpErrors["confirmpassword"] = "Passwords don't match!";
+        break;
+      default:
+        break;
+    }
+
+    setErrors(tmpErrors);
+  };
+
+  const handleSignUpButton = (e) => {
+    validate();
+    let filled = Object.keys(errors).length === 0;
+    console.log('error', errors);
+    console.log('filled', filled);
+    if (filled) {
+      setLoading(true);
+      props
+        .register(
+          values.firstname,
+          values.lastname,
+          values.email,
+          values.username,
+          values.password,
+          values.confirmpassword,
+          history,
+        )
+        .then((res) => {
+          setLoading(false);
+          handleVerifyEmailDialogClickOpen();
+        })
+        .catch(err => {
+
+          setLoading(false);
+        })
+    }
+  };
+
+  const handleContinueWithGoogle = (response) => {
+    props.googleLogin(response, history, setLoading);
+    console.log(response);
+  };
 
   return (
     <div>
@@ -135,20 +234,30 @@ function SignUp(props) {
                   </Typography>
                 </Grid>
 
-                <Grid item xs={12} textAlign="left" sx={{ marginTop: '18vh'}}>
-                <Typography fontSize="1.3rem">You can communicate with others.</Typography>
+                <Grid item xs={12} textAlign="left" sx={{ marginTop: "18vh" }}>
+                  <Typography fontSize="1.3rem">
+                    You can communicate with others.
+                  </Typography>
                 </Grid>
                 <Grid item xs={12} textAlign="left">
-                <Typography fontSize="1.3rem">You can share your experiences with our charity.</Typography>
+                  <Typography fontSize="1.3rem">
+                    You can share your experiences with our charity.
+                  </Typography>
                 </Grid>
                 <Grid item xs={12} textAlign="left">
-                <Typography fontSize="1.3rem">You can be helpful for the hurted animal.</Typography>
+                  <Typography fontSize="1.3rem">
+                    You can be helpful for the hurted animal.
+                  </Typography>
                 </Grid>
                 <Grid item xs={12} textAlign="left">
-                <Typography fontSize="1.3rem">You can help people with what you don't need.</Typography>
+                  <Typography fontSize="1.3rem">
+                    You can help people with what you don't need.
+                  </Typography>
                 </Grid>
                 <Grid item xs={12} textAlign="left">
-                <Typography fontSize="1.8rem">Enjoy using our app.</Typography>
+                  <Typography fontSize="1.8rem">
+                    Enjoy using our app.
+                  </Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -199,16 +308,10 @@ function SignUp(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        value={formik.values.firstname}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={
-                          formik.touched.firstname &&
-                          Boolean(formik.errors.firstname)
-                        }
-                        helperText={
-                          formik.touched.firstname && formik.errors.firstname
-                        }
+                        value={values.firstname}
+                        onChange={handleChange("firstname")}
+                        error={Boolean(errors["firstname"])}
+                        helperText={errors["firstname"]}
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -219,16 +322,10 @@ function SignUp(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        value={formik.values.lastname}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={
-                          formik.touched.lastname &&
-                          Boolean(formik.errors.lastname)
-                        }
-                        helperText={
-                          formik.touched.lastname && formik.errors.lastname
-                        }
+                        value={values.lastname}
+                        onChange={handleChange("lastname")}
+                        error={Boolean(errors["lastname"])}
+                        helperText={errors["lastname"]}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -240,13 +337,10 @@ function SignUp(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        value={formik.values.email}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={
-                          formik.touched.email && Boolean(formik.errors.email)
-                        }
-                        helperText={formik.touched.email && formik.errors.email}
+                        value={values.email}
+                        onChange={handleChange("email")}
+                        error={Boolean(errors["email"])}
+                        helperText={errors["email"]}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -257,16 +351,10 @@ function SignUp(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        value={formik.values.username}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={
-                          formik.touched.username &&
-                          Boolean(formik.errors.username)
-                        }
-                        helperText={
-                          formik.touched.username && formik.errors.username
-                        }
+                        value={values.username}
+                        onChange={handleChange("username")}
+                        error={Boolean(errors["username"])}
+                        helperText={errors["username"]}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -278,16 +366,10 @@ function SignUp(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={
-                          formik.touched.password &&
-                          Boolean(formik.errors.password)
-                        }
-                        helperText={
-                          formik.touched.password && formik.errors.password
-                        }
+                        value={values.password}
+                        onChange={handleChange("password")}
+                        error={Boolean(errors["password"])}
+                        helperText={errors["password"]}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -299,17 +381,10 @@ function SignUp(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        value={formik.values.confirmpassword}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={
-                          formik.touched.confirmpassword &&
-                          Boolean(formik.errors.confirmpassword)
-                        }
-                        helperText={
-                          formik.touched.confirmpassword &&
-                          formik.errors.confirmpassword
-                        }
+                        value={values.confirmpassword}
+                        onChange={handleChange("confirmpassword")}
+                        error={Boolean(errors["confirmpassword"])}
+                        helperText={errors["confirmpassword"]}
                       />
                     </Grid>
                     <Grid item xs={12} sx={{ marginTop: "2vh" }}>
@@ -321,19 +396,27 @@ function SignUp(props) {
                         sx={{
                           textTransform: "unset",
                           backgroundColor: "#e6835a",
+                          ":hover" : {
+                            bgcolor: '#ffa580'
+                          }
                         }}
                         fullWidth
                       >
-                    {loading ? 
-                        <CircularProgress style={{color: "#fff"}} size="1.6rem"/>
-                        : "Sign up"}
-                  </Button>
+                        {loading ? (
+                          <CircularProgress
+                            style={{ color: "#fff" }}
+                            size="1.6rem"
+                          />
+                        ) : (
+                          "Sign up"
+                        )}
+                      </Button>
                     </Grid>
                     <Grid item xs={12}>
                       <Divider>Or</Divider>
                     </Grid>
                     <Grid item xs={12}>
-                      <Button
+                      {/* <Button
                         variant="outlined"
                         fullWidth
                         size="large"
@@ -345,17 +428,74 @@ function SignUp(props) {
                         startIcon={<FcGoogle />}
                       >
                         Continue with Google
-                      </Button>
+                      </Button> */}
+                      <GoogleLogin
+                        clientId={googleClientId}
+                        buttonText="LOGIN WITH GOOGLE"
+                        onSuccess={(response) =>
+                          handleContinueWithGoogle(response)
+                        }
+                        render={(renderProps) => (
+                          <Button
+                            variant="outlined"
+                            fullWidth
+                            size="large"
+                            disabled={renderProps.disabled}
+                            onClick={renderProps.onClick}
+                            sx={{
+                              textTransform: "unset",
+                              borderColor: "#e6835a",
+                              color: "black",
+                            }}
+                            startIcon={<FcGoogle />}
+                          >
+                            Continue with Google
+                          </Button>
+                        )}
+                        onFailure={(err) =>
+                          console.log("Google Login failed", err)
+                        }
+                      />
                     </Grid>
-                    <Snackbar open={props.openMessage} autoHideDuration={4000} onClose={handleClose}>
-                  <Alert onClose={handleClose} severity={props.message == "Signed up successfully!" ? "success" : "error"} sx={{ width: '100%' }}>
-                    {props.message}
-                  </Alert>
-                </Snackbar>
+
+                    <Snackbar
+                      open={props.openMessage}
+                      autoHideDuration={4000}
+                      onClose={handleClose}
+                      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    >
+                      <Alert
+                        onClose={handleClose}
+                        variant="filled"
+                        severity={
+                          props.message === "Signed up successfully!"
+                            ? "success"
+                            : "error"
+                        }
+                        sx={{ width: "100%" }}
+                      >
+                        {props.message}
+                      </Alert>
+                    </Snackbar>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
+            <Dialog
+              open={verifyEmailDialogOpen}
+              onClose={handleVerifyEmailDialogClose}
+            >
+              <DialogTitle color="green" >{"Signed up succesfully!"}</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Please check your email inbox. We have sent you a verification
+                  link.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleVerifyEmailDialogClose}>OK</Button>
+              </DialogActions>
+            </Dialog>
           </Grid>
         </Paper>
       </Container>
@@ -363,12 +503,12 @@ function SignUp(props) {
   );
 }
 
-const mapDispatchToProps = { register, clearMessage };
-const mapStateToProps = ( state ) => {
-  return{
+const mapDispatchToProps = { register, googleLogin, clearMessage };
+const mapStateToProps = (state) => {
+  return {
     message: state.message.message,
     openMessage: state.message.openMessage,
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps ,mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

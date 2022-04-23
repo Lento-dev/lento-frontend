@@ -6,8 +6,10 @@ import UserProfile from "./components/profile";
 import SignUp from "./components/signup";
 import SignIn from "./components/signin";
 import ForgotPassword from "./components/forgotpassword";
+import ResetPassword from "./components/resetpassword";
 import store from "./store";
 import UserInfo from './components/editprofile';
+import VerifyUser from './components/verifyuser';
 import ComplexGrid from './components/Gride';
 import User_Profile from "./components/User_Profile";
 import UserSetting from './components/setting';
@@ -34,10 +36,12 @@ function App() {
         <div className="App">
           <BrowserRouter>
             <Switch>
+            <Route exact path="/" component = { SignUp }/>
             <Route exact path="/profile" component = { UserProfile }/>
-              <Route exact path="/signup" component = { SignUp }/>
               <Route exact path="/signin" component = { SignIn }/>
               <Route exact path="/forgot-password" component = { ForgotPassword }/>
+              <Route exact path="/verify-user" component = { VerifyUser }/>
+              <Route exact path="/reset-password" component = { ResetPassword }/>
               <Route exact path="/edit-profile" component = { UserInfo }/>
               <Route exact path="/cg" component = { User_Profile }/>
               <Route exact path="/setting" component = { UserSetting }/>
