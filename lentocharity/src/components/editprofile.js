@@ -227,14 +227,14 @@ function UserInfo(props) {
               {/* Edit Profile */}
             </Typography>
 
-        <Paper elevation={0} sx={{ borderRadius: 6, display: 'flex' }} style={{ justifyContent: "center", marginTop: "1rem", marginBottom: "1rem", padding: "3rem", backgroundColor: ' #e5ecdf', backgroundSize:'cover', height: '100vh'}}>
+        <Paper elevation={0} sx={{ borderRadius: 6, display: 'flex' }} style={{ justifyContent: "center", marginTop: "1rem", marginBottom: "1rem", padding: "3rem", backgroundColor: ' #ffff', backgroundSize:'cover', height: '128vh'}}>
           <Grid container justifyContent="flex">
-            <Grid container spacing={3} style={{ marginTop: "0.5rem", marginBottom: "1rem" }}>
+            <Grid container spacing={3} style={{ marginTop: "4rem", marginBottom: "1rem" }}>
             
 
                         <Grid item xs={10}>
                             <Stack direction="row" sx={{ maxWidth: 345 }} style={{ marginLeft: "19rem", marginTop: "-4rem", marginBottom:"2rem" }}>
-                                <Stack direction="photo" spacing={2} sx={{ maxWidth: 345 }} style={{ marginTop: "1rem" }}>
+                                <Stack direction="photo" spacing={2} sx={{ maxWidth: 345 }} style={{ marginTop: "-2rem" }}>
                                     <Avatar
                                         alt="m"
                                         src={Image}
