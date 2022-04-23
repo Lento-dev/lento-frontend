@@ -1,0 +1,14 @@
+.foodadvertisment {
+  background-image: url(https://images.squarespace-cdn.com/content/v1/5e83c496d5326b254fd35fd2/1586270601894-0929TEDVYFOG1WN8LXXL/charity-3.jpg?format=1500w);
+  background-repeat: no-repeat;
+  /* width: 1284px;
+  display: block;
+  height: 300px;
+  background-size: cover; */
+
+  position: relative;
+  /* top: 0;
+  left: 0px;
+  right: 0px;
+  padding: 0; */
+}
