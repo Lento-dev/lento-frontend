@@ -6,13 +6,13 @@ import {
   Grid,
   Paper,
   Typography,
-  Container,
+  Container, Snackbar, Alert, CircularProgress
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Helmet from "react-helmet";
 import Image from "../assets/img/forgotpassword.png";
 import { connect } from 'react-redux';
-import { login } from "../actions/auth";
+import { forgotpassword } from "../actions/auth";
 import { clearMessage } from '../actions/message';
 
 
@@ -40,6 +40,14 @@ function ForgotPassword(props) {
     setValues({ ...values, [name]: event.target.value });
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    
+    props.clearMessage();
+
+  };
   const validate = () => {
     let tmpErrors = {};
 
@@ -62,12 +70,18 @@ function ForgotPassword(props) {
   
   const handleSubmitButton = (e) => {
     validate();
-    let filled = errors.count === 0;
+    let filled = Object.keys(errors).length === 0;
 
     if  (filled) 
     {
       setLoading(true);
-      props.ForgotPassword(values.email,);
+      props.forgotpassword(values.email)
+      .then(res => {
+        setLoading(false);
+      })
+      .catch(err => {
+        setLoading(false);
+      })
     }
     
   }
@@ -142,9 +156,29 @@ function ForgotPassword(props) {
                       
                     }}
                   >
-                    Submit
-                  </Button>
+                    {loading ? 
+                        <CircularProgress style={{color: "#fff"}} size="1.6rem"/>
+                        : "Submit"}                  </Button>
                 </Grid>
+                <Snackbar
+                      open={props.openMessage}
+                      autoHideDuration={4000}
+                      onClose={handleClose}
+                      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    >
+                      <Alert
+                        onClose={handleClose}
+                        variant="filled"
+                        severity={
+                          props.message === "Reset password link has been sent to your email address." 
+                            ? "success"
+                            : "error"
+                        }
+                        sx={{ width: "100%" }}
+                      >
+                        {props.message}
+                      </Alert>
+                    </Snackbar>
               </Grid>
             </Grid>
 
@@ -162,7 +196,7 @@ function ForgotPassword(props) {
   );
 }
 
-const mapDispatchToProps = { login, clearMessage };
+const mapDispatchToProps = { forgotpassword, clearMessage };
 const mapStateToProps = ( state ) => {
   return{
     message: state.message.message,
