@@ -10,6 +10,9 @@ import store from "./store";
 import UserInfo from './components/editprofile';
 import ComplexGrid from './components/Gride';
 import User_Profile from "./components/User_Profile";
+import UserSetting from './components/setting';
+import PersistentDrawerLeft from './components/dashboard';
+
 const theme = createTheme({
   typography: {
     fontFamily: ["Nunito"].join(","),
@@ -37,6 +40,8 @@ function App() {
               <Route exact path="/forgot-password" component = { ForgotPassword }/>
               <Route exact path="/edit-profile" component = { UserInfo }/>
               <Route exact path="/cg" component = { User_Profile }/>
+              <Route exact path="/setting" component = { UserSetting }/>
+              <Route exact path="/dashboard" component = { PersistentDrawerLeft }/>
 
             </Switch>
           </BrowserRouter>
