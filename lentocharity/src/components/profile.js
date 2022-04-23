@@ -143,14 +143,14 @@ class UserProfile extends Component {
   
   componentDidMount()
   {
-    // var token = localStorage.getItem("token");
-    // token.replaceAll('"', '')
-    // console.log(token);
+    var token = localStorage.getItem("token");
+    token.replaceAll('"', '')
+    console.log(token);
     var config = {
       method: 'get',
       url: 'http://127.0.0.1:8000/api/account/user-profile/',
       headers: { 
-        'Authorization': 'Token '+ "a05299003039ae6aea4b99026a81732f2b3c375f", 
+        'Authorization': 'Token '+ token, 
       }
     };
 

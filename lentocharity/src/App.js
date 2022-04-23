@@ -42,7 +42,7 @@ function App() {
               <Route exact path="/signin" component = { SignIn }/>
               <Route exact path="/forgot-password" component = { ForgotPassword }/>
               <Route exact path="/edit-profile" component = { UserInfo }/>
-              <Route exact path="/cg" component = { Foodadvertisment }/>
+              <Route exact path="/food" component = { Foodadvertisment }/>
               <Route exact path="/dd" component = { Dropdown }/>
               {/* <Route exact path="/cg" component = { Foodadvertisment }/> */}
               <Route exact path="/cloth" component = { Clothadvertisement }/>

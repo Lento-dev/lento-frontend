@@ -159,6 +159,11 @@ function Foodadvertisment(props) {
   
   
     const onClickSubmit = () => { 
+
+      var token = localStorage.getItem("token");
+      token.replaceAll('"', '')
+      console.log(token);
+      
       var fd = new FormData();
       fd.append("Title",formtitle);
       fd.append("Description",description);
@@ -173,7 +178,7 @@ function Foodadvertisment(props) {
         method: 'post',
         url: 'http://127.0.0.1:8000/advertisement/addfood/',
         headers: { 
-          'Authorization': 'Token '+ "a05299003039ae6aea4b99026a81732f2b3c375f", 
+          'Authorization': 'Token '+ token, 
         },
         data: fd,
       };
@@ -193,6 +198,7 @@ function Foodadvertisment(props) {
         }
         else
         {
+          setOpen(true);
           setMessage("error");
         }
         
