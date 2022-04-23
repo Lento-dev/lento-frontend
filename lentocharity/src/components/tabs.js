@@ -108,6 +108,7 @@ function a11yProps(index) {
 // }));
 
 export default function ScrollableTabsButtonForce(props) {
+  console.log(props.data);
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -133,19 +134,373 @@ export default function ScrollableTabsButtonForce(props) {
         </Tabs>
       </Paper>
       <TabPanel className='tabs' value={value} index={0}>
-        {/* Item One */}
-        {/* <div style={{paddingLeft:'800px',paddingTop:'50px'}}> */}
-        {/* <Grid container> */}
+
  
 
-<Grid item xs={8} md={4} style={{marginLeft:"50rem"}}>
-    <RecipeReviewCard></RecipeReviewCard>
+        <Grid item xs={4} md={4} lg={8} direction="column" display="flex" style={{alignItems: "center", marginTop: "3rem" }}>
+                <Grid container >
+
+                    <Grid item xs={12} md={4}>
+
+                        <Card className="card-profile shadow" style={{ marginTop: "3rem", marginLeft: "1.0rem" }}>
+                            <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "1rem", fontWeight: "bold" }}>
+                                {props.data.first_name + " "}
+                                {props.data.last_name}
+                            </Typography>
+
+                            <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "0", fontWeight: "bold" }}>
+                                {props.data.job}
+                            </Typography>
+
+                            <CardContent>
+                                <Grid container style={{ padding: "1rem" }}>
+                                    <Grid container sx={{ color: 'text.primary' }}>
+                                        <Grid item xs={1.3}>
+                                            <EmailIcon sx={{ fontSize: 24 }} color="action" gutterBottom />
+                                        </Grid>
+                                        <Grid item xs={5}>
+                                            {/* <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom> */}
+                                            <Typography sx={{ fontSize: 16 }} gutterBottom>
+                                            <Link sx={{ color: 'black', cursor: 'pointer' }} 
+                            underline="hover" 
+                            className="communicate"
+                            // onClick={() => { navigator.clipboard.writeText(state.email);
+                            //  handleCopiedClick(); }}
+                              >
+                                {props.data.email}</Link>
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid container sx={{ color: 'text.primary' }}>
+                                        <Grid item xs={1.3}>
+                                            <PlaceIcon sx={{ fontSize: 24 }} color="action" />
+                                        </Grid>
+                                        <Grid item xs={5}>
+                                            <Typography sx={{ fontSize: 16 }} gutterBottom>
+                                                {props.data.region}
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+                                    <h3>
+                                        <h6></h6>
+                                    </h3>
+                                    <Grid item xs={50} style={{ textAlign: "center", marginBottom: "-20px" }}>
+                                        <Typography>
+                                            <LinkedInIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.linkedin.com/in/shahab-induction-co-0ab165140/')} className="communicate" />
+                                            <h7> </h7>
+                                            <FacebookIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://t.me/shahabinductionco')} className="communicate" />
+                                            <h7> </h7>
+                                            <TwitterIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
+                                            <h7> </h7>
+                                            <LanguageIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
+                                        </Typography>
+                                    </Grid>
+
+                                </Grid>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    
+                        <Container component="main">
+                        <RecipeReviewCard></RecipeReviewCard>
+                        </Container>
+
 </Grid>
 
+                        
+</Grid>
 
 </TabPanel>
 
         <TabPanel value={value} index={1}>
+            
+              <Grid item xs={4} md={4} lg={8} direction="column" display="flex-end" style={{alignItems: "center", marginTop: "3rem" }}>
+
+                    <Grid container >
+                    
+                        <Grid item xs={12} md={4}>
+
+                            <Card className="card-profile shadow" style={{ marginTop: "3rem", marginLeft: "1.0rem" }}>
+                                <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "1rem", fontWeight: "bold" }}>
+                                    {props.data.first_name + " "}
+                                    {props.data.last_name}
+                                </Typography>
+
+                                <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "0", fontWeight: "bold" }}>
+                                    {props.data.job}
+                                </Typography>
+
+                                <CardContent>
+                                    <Grid container style={{ padding: "1rem" }}>
+                                        <Grid container sx={{ color: 'text.primary' }}>
+                                            <Grid item xs={1.3}>
+                                                <EmailIcon sx={{ fontSize: 24 }} color="action" gutterBottom />
+                                            </Grid>
+                                            <Grid item xs={5}>
+                                                {/* <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom> */}
+                                                <Typography sx={{ fontSize: 16 }} gutterBottom>
+                                                <Link sx={{ color: 'black', cursor: 'pointer' }} 
+                                underline="hover" 
+                                className="communicate"
+                                // onClick={() => { navigator.clipboard.writeText(state.email);
+                                //  handleCopiedClick(); }}
+                                 >
+                                    {props.data.email}</Link>
+                                                </Typography>
+                                            </Grid>
+                                        </Grid>
+
+                                        <Grid container sx={{ color: 'text.primary' }}>
+                                            <Grid item xs={1.3}>
+                                                <PlaceIcon sx={{ fontSize: 24 }} color="action" />
+                                            </Grid>
+                                            <Grid item xs={5}>
+                                                <Typography sx={{ fontSize: 16 }} gutterBottom>
+                                                    {/* {state.country},
+                                                    
+                                                    {" " + state.city} */}
+                                                    {props.data.region}
+                                                </Typography>
+                                            </Grid>
+                                        </Grid>
+                                        <h3>
+                                            <h6></h6>
+                                        </h3>
+                                        <Grid item xs={50} style={{ textAlign: "center", marginBottom: "-20px" }}>
+                                            <Typography>
+                                                <LinkedInIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.linkedin.com/in/shahab-induction-co-0ab165140/')} className="communicate" />
+                                                <h7> </h7>
+                                                <FacebookIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://t.me/shahabinductionco')} className="communicate" />
+                                                <h7> </h7>
+                                                <TwitterIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
+                                                <h7> </h7>
+                                                <LanguageIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
+                                            </Typography>
+                                        </Grid>
+
+                                    </Grid>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                        <Container component="main">
+                            <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ marginTop: "1rem", marginBottom: "1rem", padding: "2rem" }}>
+                                    <Grid container style={{ padding: "4px" }}>
+                                        <Grid item xs={12}>
+                                            <Typography component="h3" style={{ fontWeight: "bold" }}>About me</Typography>
+                                            <Divider style={{ width: '100%', marginTop: "0.5rem",marginBottom:"1rem",alignItems: "center" }}/>
+                                            <h4></h4>
+                                        </Grid>
+                                        <Typography style={{ textAlign: "justify" }}>
+                                            {props.data.bio}
+                                        </Typography>
+                                    </Grid>
+                                </Paper>
+                                <h1></h1>
+                                <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ marginTop: "1rem", marginBottom: "1rem", padding: "2rem" }}>
+                                    <Grid container style={{ padding: "4px" }}>
+                                        <Grid item xs={12}>
+                                            <Typography component="h3" style={{ fontWeight: "bold" }}>Experience</Typography>
+                                            <Divider style={{ width: '100%', marginTop: "0.5rem",marginBottom:"1rem",alignItems: "center" }}/>
+                                            <h4></h4>
+                                        </Grid>
+                                        <Typography style={{ textAlign: "justify" }}>
+                                            {props.data.experience}
+                                        </Typography>
+                                    </Grid>
+                                </Paper>
+
+                            </Container>
+
+</Grid>
+
+                        
+</Grid>
+                        {/* </Grid> */}
+      </TabPanel>
+
+
+
+      <TabPanel value={value} index={2}>
+         
+
+    <Grid item xs={4} md={4} lg={8} direction="column" display="flex" style={{alignItems: "center", marginTop: "3rem" }}>
+                <Grid container >
+                    <Grid item xs={4} md={4}>
+
+                        <Card className="card-profile shadow" style={{ marginTop: "3rem", marginLeft: "1.0rem" }}>
+                            <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "1rem", fontWeight: "bold" }}>
+                                {props.data.first_name + " "}
+                                {props.data.last_name}
+                            </Typography>
+
+                            <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "0", fontWeight: "bold" }}>
+                                {props.data.job}
+                            </Typography>
+
+                            <CardContent>
+                                <Grid container style={{ padding: "1rem" }}>
+                                    <Grid container sx={{ color: 'text.primary' }}>
+                                        <Grid item xs={1.3}>
+                                            <EmailIcon sx={{ fontSize: 24 }} color="action" gutterBottom />
+                                        </Grid>
+                                        <Grid item xs={5}>
+                                            {/* <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom> */}
+                                            <Typography sx={{ fontSize: 16 }} gutterBottom>
+                                            <Link sx={{ color: 'black', cursor: 'pointer' }} 
+                            underline="hover" 
+                            className="communicate"
+                            // onClick={() => { navigator.clipboard.writeText(state.email);
+                            //  handleCopiedClick(); }}
+                              >
+                                {props.data.email}</Link>
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid container sx={{ color: 'text.primary' }}>
+                                        <Grid item xs={1.3}>
+                                            <PlaceIcon sx={{ fontSize: 24 }} color="action" />
+                                        </Grid>
+                                        <Grid item xs={5}>
+                                            <Typography sx={{ fontSize: 16 }} gutterBottom>
+                                                {/* {state.country},
+                                                
+                                                {" " + state.city} */}
+                                                {props.data.region}
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+                                    <h3>
+                                        <h6></h6>
+                                    </h3>
+                                    <Grid item xs={50} style={{ textAlign: "center", marginBottom: "-20px" }}>
+                                        <Typography>
+                                            <LinkedInIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.linkedin.com/in/shahab-induction-co-0ab165140/')} className="communicate" />
+                                            <h7> </h7>
+                                            <FacebookIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://t.me/shahabinductionco')} className="communicate" />
+                                            <h7> </h7>
+                                            <TwitterIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
+                                            <h7> </h7>
+                                            <LanguageIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
+                                        </Typography>
+                                    </Grid>
+
+                                </Grid>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                 
+
+</Grid>
+
+                        
+</Grid>
+
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+       
+        
+
+    <Grid item xs={4} md={4} lg={4} direction="column" display="flex" style={{alignItems: "center", marginTop: "3rem" }}>
+                <Grid container >
+                    <Grid item xs={4} md={4}>
+
+                        <Card className="card-profile shadow" style={{ marginTop: "3rem", marginLeft: "1.0rem" }}>
+                            <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "1rem", fontWeight: "bold" }}>
+                                {props.data.first_name + " "}
+                                {props.data.last_name}
+                            </Typography>
+
+                            <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "0", fontWeight: "bold" }}>
+                                {props.data.job}
+                            </Typography>
+
+                            <CardContent>
+                                <Grid container style={{ padding: "1rem" }}>
+                                    <Grid container sx={{ color: 'text.primary' }}>
+                                        <Grid item xs={1.3}>
+                                            <EmailIcon sx={{ fontSize: 24 }} color="action" gutterBottom />
+                                        </Grid>
+                                        <Grid item xs={5}>
+                                            {/* <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom> */}
+                                            <Typography sx={{ fontSize: 16 }} gutterBottom>
+                                            <Link sx={{ color: 'black', cursor: 'pointer' }} 
+                            underline="hover" 
+                            className="communicate"
+                            // onClick={() => { navigator.clipboard.writeText(state.email);
+                            //  handleCopiedClick(); }}
+                              >
+                                {props.data.email}</Link>
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid container sx={{ color: 'text.primary' }}>
+                                        <Grid item xs={1.3}>
+                                            <PlaceIcon sx={{ fontSize: 24 }} color="action" />
+                                        </Grid>
+                                        <Grid item xs={5}>
+                                            <Typography sx={{ fontSize: 16 }} gutterBottom>
+                                                {/* {state.country},
+                                                
+                                                {" " + state.city} */}
+                                                {props.data.region}
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+                                    <h3>
+                                        <h6></h6>
+                                    </h3>
+                                    <Grid item xs={50} style={{ textAlign: "center", marginBottom: "-20px" }}>
+                                        <Typography>
+                                            <LinkedInIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.linkedin.com/in/shahab-induction-co-0ab165140/')} className="communicate" />
+                                            <h7> </h7>
+                                            <FacebookIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://t.me/shahabinductionco')} className="communicate" />
+                                            <h7> </h7>
+                                            <TwitterIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
+                                            <h7> </h7>
+                                            <LanguageIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
+                                        </Typography>
+                                    </Grid>
+
+                                </Grid>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                       
+
+</Grid>
+
+                        
+</Grid>
+
+
+
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+        Item Five
+      </TabPanel>
+      <TabPanel value={value} index={5}>
+        Item Six
+      </TabPanel>
+      <TabPanel value={value} index={6}>
+        Item Seven
+      </TabPanel>
+      
+    </div>
+  );
+}
+
+
+
+
+
+
+
+
+
+
         {/* <Grid container direction="column" item xs={4}>
   <Grid
     item
@@ -179,66 +534,124 @@ export default function ScrollableTabsButtonForce(props) {
   </Grid>
 </Grid> */}
 
-<Grid
-  item
-  container
-  // direction="row"
-  alignItems="center"
-  justifyContent="flex-end"
-  // sx={{marginRight:"50rem"}}
->
-                    <Grid item xs={8} md={4} direction="column" display="flex" style={{alignItems: "center", marginTop: "2rem" }}>
-                            <Container component="main">
-                            <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ marginTop: "1rem", marginBottom: "1rem", padding: "2rem" }}>
-                                    <Grid container style={{ padding: "4px" }}>
-                                        <Grid item xs={12}>
-                                            <Typography component="h3" style={{ fontWeight: "bold" }}>About me</Typography>
-                                            <Divider style={{ width: '100%', marginTop: "0.5rem",marginBottom:"1rem",alignItems: "center" }}/>
-                                            <h4></h4>
-                                        </Grid>
-                                        <Typography style={{ textAlign: "justify" }}>
-                                            {props.data.bio}
-                                        </Typography>
-                                    </Grid>
-                                </Paper>
-                                <h1></h1>
-                                <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ marginTop: "1rem", marginBottom: "1rem", padding: "2rem" }}>
-                                    <Grid container style={{ padding: "4px" }}>
-                                        <Grid item xs={12}>
-                                            <Typography component="h3" style={{ fontWeight: "bold" }}>Experience</Typography>
-                                            <Divider style={{ width: '100%', marginTop: "0.5rem",marginBottom:"1rem",alignItems: "center" }}/>
-                                            <h4></h4>
-                                        </Grid>
-                                        <Typography style={{ textAlign: "justify" }}>
-                                            {props.data.experience}
-                                        </Typography>
-                                    </Grid>
-                                </Paper>
+// <Grid
+//   item
+//   container
+//   // direction="row"
+//   direction="row"
+//   alignItems="center"
+//   justifyContent="flex-end"
+//   // sx={{marginRight:"50rem"}}
+// >
+//                     <Grid item xs={4} md={4} lg={8} direction="column" display="flex" style={{alignItems: "center", marginTop: "3rem" }}>
 
-                            </Container>
+//                     <Grid container>
+//                            <Grid item xs={4} md={4}>
+//                             <Card className="card-profile shadow" style={{ marginTop: "3rem", marginLeft: "1.6rem" }}>
+//                                 <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "1rem", fontWeight: "bold" }}>
+//                                     {props.data.firstname + " "}
+//                                     {props.data.lastname}
+//                                 </Typography>
+//                                 <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "0", fontWeight: "bold" }}>
+//                                     {props.data.job}
+//                                 </Typography>
 
-</Grid>
-                        </Grid>
-      </TabPanel>
+//                                 <CardContent>
+//                                     <Grid container style={{ padding: "1rem" }}>
+//                                         <Grid container sx={{ color: 'text.primary' }}>
+//                                             <Grid item xs={1.3}>
+//                                                 <EmailIcon sx={{ fontSize: 24 }} color="action" gutterBottom />
+//                                             </Grid>
+//                                             <Grid item xs={5}>
+//                                                 {/* <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom> */}
+//                                                 <Typography sx={{ fontSize: 16 }} gutterBottom>
+//                                                 <Link sx={{ color: 'black', cursor: 'pointer' }} 
+//                                 underline="hover" 
+//                                 className="communicate"
+//                                 // onClick={() => { navigator.clipboard.writeText(state.email);
+//                                 //  handleCopiedClick(); }}
+//                                  >
+//                                     {props.data.email}</Link>
+//                                                 </Typography>
+//                                             </Grid>
+//                                         </Grid>
+
+//                                         <Grid container sx={{ color: 'text.primary' }}>
+//                                             <Grid item xs={1.3}>
+//                                                 <PlaceIcon sx={{ fontSize: 24 }} color="action" />
+//                                             </Grid>
+//                                             <Grid item xs={5}>
+//                                                 <Typography sx={{ fontSize: 16 }} gutterBottom>
+//                                                     {/* {state.country},
+                                                    
+//                                                     {" " + state.city} */}
+//                                                     {props.data.region}
+//                                                 </Typography>
+//                                             </Grid>
+//                                         </Grid>
+
+
+//                                         <h3>
+//                                             <h6></h6>
+//                                         </h3>
+//                                         <Grid item xs={50} style={{ textAlign: "center", marginBottom: "-20px" }}>
+//                                             <Typography>
+//                                                 <LinkedInIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.linkedin.com/in/shahab-induction-co-0ab165140/')} className="communicate" />
+//                                                 <h7> </h7>
+//                                                 <FacebookIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://t.me/shahabinductionco')} className="communicate" />
+//                                                 <h7> </h7>
+//                                                 <TwitterIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
+//                                                 <h7> </h7>
+//                                                 <LanguageIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
+//                                             </Typography>
+//                                         </Grid>
+
+//                                     </Grid>
+//                                 </CardContent>
+//                             </Card>
+//                         </Grid>
+
+// </Grid>
 
 
 
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
-      </TabPanel>
-      
-    </div>
-  );
-}
+
+//                             <Container component="main">
+
+                            
+
+
+//                             <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ marginTop: "1rem", marginBottom: "1rem", padding: "2rem" }}>
+//                                     <Grid container style={{ padding: "4px" }}>
+//                                         <Grid item xs={12}>
+//                                             <Typography component="h3" style={{ fontWeight: "bold" }}>About me</Typography>
+//                                             <Divider style={{ width: '100%', marginTop: "0.5rem",marginBottom:"1rem",alignItems: "center" }}/>
+//                                             <h4></h4>
+//                                         </Grid>
+//                                         <Typography style={{ textAlign: "justify" }}>
+//                                             {props.data.bio}
+//                                         </Typography>
+//                                     </Grid>
+//                                 </Paper>
+//                                 <h1></h1>
+//                                 <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ marginTop: "1rem", marginBottom: "1rem", padding: "2rem" }}>
+//                                     <Grid container style={{ padding: "4px" }}>
+//                                         <Grid item xs={12}>
+//                                             <Typography component="h3" style={{ fontWeight: "bold" }}>Experience</Typography>
+//                                             <Divider style={{ width: '100%', marginTop: "0.5rem",marginBottom:"1rem",alignItems: "center" }}/>
+//                                             <h4></h4>
+//                                         </Grid>
+//                                         <Typography style={{ textAlign: "justify" }}>
+//                                             {props.data.experience}
+//                                         </Typography>
+//                                     </Grid>
+//                                 </Paper>
+
+//                             </Container>
+
+                        
+
+
+
+// </Grid>
+//                         </Grid>

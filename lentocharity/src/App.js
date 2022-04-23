@@ -11,6 +11,7 @@ import UserInfo from './components/editprofile';
 import ComplexGrid from './components/Gride';
 import User_Profile from "./components/User_Profile";
 import Foodadvertisment from "./components/foodadvertisment";
+import Dropdown from "./components/Gride";
 
 const theme = createTheme({
   typography: {
@@ -39,6 +40,7 @@ function App() {
               <Route exact path="/forgot-password" component = { ForgotPassword }/>
               <Route exact path="/edit-profile" component = { UserInfo }/>
               <Route exact path="/cg" component = { Foodadvertisment }/>
+              <Route exact path="/dd" component = { Dropdown }/>
 
             </Switch>
           </BrowserRouter>

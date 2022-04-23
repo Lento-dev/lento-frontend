@@ -118,6 +118,7 @@ function UserInfo(props) {
   const [value, setValue] = useState(0);
   const email = "amirizahraza@gmail.com";
   const token = props.a
+  
   useEffect(() => {
       axios.get('http://185.190.39.17:8888/profile/getuserprofilebyuser',
           {

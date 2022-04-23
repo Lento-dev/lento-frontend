@@ -1,61 +1,116 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import ButtonBase from '@mui/material/ButtonBase';
+import React from "react";
 
-const Img = styled('img')({
-  margin: 'auto',
-  display: 'block',
-  maxWidth: '100%',
-  maxHeight: '100%',
-});
+const data = {
+  provinces: [
+    { id: 1, name: 'P1' },
+    { id: 2, name: 'P2' },
+    { id: 3, name: 'P3' },
+    { id: 4, name: 'P4' },
+  ],
+  cities: [
+    { id: 1, name: 'C1', provinceId: 1 },
+    { id: 2, name: 'C2', provinceId: 1 },
+    { id: 3, name: 'C3', provinceId: 1 },
+    { id: 4, name: 'C4', provinceId: 2 },
+    { id: 5, name: 'C5', provinceId: 2 },
+    { id: 6, name: 'C6', provinceId: 3 },
+    { id: 7, name: 'C7', provinceId: 4 },
+  ]
+};
 
-export default function ComplexGrid() {
-  return (
-    <Paper
-      sx={{
-        p: 2,
-        margin: 'auto',
-        maxWidth: 500,
-        flexGrow: 1,
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-      }}
-    >
-      <Grid container spacing={2}>
-        <Grid item>
-          <ButtonBase sx={{ width: 128, height: 128 }}>
-            <Img alt="complex" src="/static/images/grid/complex.jpg" />
-          </ButtonBase>
-        </Grid>
-        <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={2}>
-            <Grid item xs>
-              <Typography gutterBottom variant="subtitle1" component="div">
-                Standard license
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                Full resolution 1920x1080 • JPEG
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                ID: 1030114
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography sx={{ cursor: 'pointer' }} variant="body2">
-                Remove
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid item>
-            <Typography variant="subtitle1" component="div">
-              $19.00
-            </Typography>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Paper>
-  );
+class Province extends React.Component {
+  onSelect = (event) => {
+    this.props.onSelect(parseInt(event.target.value));
+  }
+  render() {
+    return (
+      <div>
+        <span>Province: </span>
+        <select onChange={this.onSelect} >
+          <option>Select province</option>
+          {
+            this.props.data.map(prov => (
+              <option
+                key={prov.id}
+                value={prov.id}
+                selected={this.props.selectedId === prov.id}>
+                {prov.name}
+              </option>
+            ))
+          }
+        </select>
+      </div>
+    );
+  }
 }
+
+class City extends React.Component {
+  onSelect = (event) => {
+    this.props.onSelect(parseInt(event.target.value));
+  }
+  render() {
+    return (
+      <div>
+        <span>City: </span>
+        <select onClick={this.onSelect}>
+          <option>Select city</option>
+          {
+            this.props.data.map(city => (
+                <option
+                  key={city.id}
+                  value={city.id}
+                  selected={this.props.selectedId === city.id}>
+                  {city.name}
+                </option>
+            ))
+          }
+        </select>
+      </div>
+    );
+  }
+}
+
+
+class Address extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      provinces: data.provinces,
+      provinceId: null,
+      cities: data.cities,
+      cityId: null
+    };
+  }
+
+  onSelectProvince = (provId) => {
+    const selCities = data.cities.filter(c => c.provinceId === provId);
+    this.setState({
+      provinceId: provId,
+      cities: selCities
+    });
+  }
+
+  onSelectCity = (city) => {
+    this.setState({
+      cityId: city.id
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <Province
+          data={this.state.provinces}
+          selectedId={this.state.provinceId}
+          onSelect={this.onSelectProvince} />
+        <City
+          data={this.state.cities}
+          selectedId={this.state.cityId}
+          onSelect={this.onSelectCity} />
+      </div>
+    );
+  }
+}
+
+
+export default Address;
