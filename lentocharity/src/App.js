@@ -17,6 +17,8 @@ import Dropdown from "./components/Gride";
  
 // import Foodadvertisment from "./components/foodadvertisment";
 import Clothadvertisement from "./components/clothadvertisement"
+import UserSetting from './components/setting';
+import PersistentDrawerLeft from './components/dashboard';
 
 const theme = createTheme({
   typography: {
@@ -51,6 +53,9 @@ function App() {
               {/* <Route exact path="/cg" component = { Foodadvertisment }/> */}
               <Route exact path="/cloth" component = { Clothadvertisement }/>
               <Route exact path="/service" component={Serviceadvertisement}/>
+              <Route exact path="/cg" component = { User_Profile }/>
+              <Route exact path="/setting" component = { UserSetting }/>
+              <Route exact path="/dashboard" component = { PersistentDrawerLeft }/>
 
             </Switch>
           </BrowserRouter>
