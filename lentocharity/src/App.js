@@ -8,10 +8,13 @@ import SignIn from "./components/signin";
 import ForgotPassword from "./components/forgotpassword";
 import store from "./store";
 import UserInfo from './components/editprofile';
+import Serviceadvertisement from "./components/Serviceadvertisement";
 import ComplexGrid from './components/Gride';
 import User_Profile from "./components/User_Profile";
 import Foodadvertisment from "./components/foodadvertisment";
 import Dropdown from "./components/Gride";
+// import Foodadvertisment from "./components/foodadvertisment";
+import Clothadvertisement from "./components/clothadvertisement"
 
 const theme = createTheme({
   typography: {
@@ -41,6 +44,9 @@ function App() {
               <Route exact path="/edit-profile" component = { UserInfo }/>
               <Route exact path="/cg" component = { Foodadvertisment }/>
               <Route exact path="/dd" component = { Dropdown }/>
+              {/* <Route exact path="/cg" component = { Foodadvertisment }/> */}
+              <Route exact path="/cloth" component = { Clothadvertisement }/>
+              <Route exact path="/service" component={Serviceadvertisement}/>
 
             </Switch>
           </BrowserRouter>
