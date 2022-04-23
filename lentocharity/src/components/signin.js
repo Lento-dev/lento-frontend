@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { useHistory } from 'react-router-dom';
 
 import {
@@ -9,53 +9,97 @@ import {
   Paper,
   Typography,
   Divider,
-  CircularProgress,
+  CircularProgress,  Snackbar,
+  Alert,
   Container,
 } from "@mui/material";
 import { connect } from 'react-redux';
 import Helmet from "react-helmet";
-import * as yup from "yup";
-import { useFormik } from "formik";
 import { FcGoogle } from "react-icons/fc";
 import Image from "../assets/illustrations/signin.svg";
-import { login } from "../actions/auth";
+import { login, googleLogin } from "../actions/auth";
 import { clearMessage } from '../actions/message';
+import GoogleLogin from "react-google-login";
+const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
-const validationSchema = yup.object({
-  email: yup
-    .string()
-    .email("Please enter a valid email address.")
-    .required("Please enter your email address."),
-  password: yup.string().required("Please enter your password."),
-});
+
 
 function SignIn(props) {
   const history = useHistory();
   const [loading, setLoading] = React.useState(false);
-
-
-
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: validationSchema,
+  const [errors, setErrors] = useState({});
+  const [values, setValues] = useState({
+    email: '',
+    password: ''
   });
-  const handleSignInButton = (e) => {
-    let filled = !Boolean(formik.errors.email) 
-    && !Boolean(formik.errors.password);
+  const handleChange = name => event => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+  
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    
+    props.clearMessage();
 
-    if  (filled) 
-    {
-      setLoading(true);
-      props.login(formik.values.email, formik.values.password);
+  };
+
+
+  const validate = () => {
+    let tmpErrors = {};
+
+    switch (true) {
+      case !values.email:
+        tmpErrors["email"] = "Please enter your email address.";
+        break;
+      case values.email !== '':
+        var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+        if (!pattern.test(values.email)) {
+          tmpErrors["email"] = "Please enter a valid email address!";
+        }
+        break;
+      default:
+        break;
+    }
+    switch (true) {
+      case !values.password:
+        tmpErrors["password"] = "Please enter your password."
+        break;
+
+      default:
+        break;
     }
 
-    console.log(formik.errors);
-    console.log('length : ',formik.errors.count);
+
+    setErrors(tmpErrors);
+  }
+  const handleSignInButton = (e) => {
+    validate();
+    let filled = Object.keys(errors).length === 0;
+    console.log(filled)
+    if  (filled) 
+    {
+      console.log('we are in requesting to sign in')
+      setLoading(true);
+      props.login(values.email, values.password)
+      .then((res) => {
+        setLoading(false);
+        history.push('/profile');
+      })
+      .catch(err => {
+        setLoading(false);
+      })
+    }
     
   }
+
+  const handleContinueWithGoogle = (response) => {
+    props.googleLogin(response, history, setLoading);
+    console.log(response);
+  };
+
+
   return (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #fff" }} />
@@ -117,7 +161,7 @@ function SignIn(props) {
                           <Typography fontSize="0.85rem">
                             {" "}
                             Not a member?{" "}
-                            <Link href="/signup" underline="none">
+                            <Link href="/" underline="none">
                               {"Register"}
                             </Link>{" "}
                           </Typography>
@@ -134,13 +178,14 @@ function SignIn(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        value={formik.values.email}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        value={values.email}
+                        onChange={handleChange('email')}
                         error={
-                          formik.touched.email && Boolean(formik.errors.email)
+                          Boolean(errors["email"])
                         }
-                        helperText={formik.touched.email && formik.errors.email}
+                        helperText={
+                          errors["email"]
+                        }
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -152,15 +197,13 @@ function SignIn(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
+                        value = {values.password}
+                        onChange = {handleChange('password')}
                         error={
-                          formik.touched.password &&
-                          Boolean(formik.errors.password)
+                          Boolean(errors["password"])
                         }
                         helperText={
-                          formik.touched.password && formik.errors.password
+                          errors["password"]
                         }
                       />
                     </Grid>
@@ -180,6 +223,9 @@ function SignIn(props) {
                         sx={{
                           textTransform: "unset",
                           backgroundColor: "#e6835a",
+                          ":hover" : {
+                            bgcolor: '#ffa580'
+                          }
                         }}
                         fullWidth
                         disabled = {loading}
@@ -190,44 +236,58 @@ function SignIn(props) {
                   </Button>
                     </Grid>
 
-                    {/* <Grid item xs={12} sx={{ marginTop: "2vh" }}>
-                      <Button
-                        variant="contained"
-                        size="large"
-                        disabled={loading}
-                        onClick={handleSignUpButton}
-                        sx={{
-                          textTransform: "unset",
-                          backgroundColor: "#e6835a",
-                        }}
-                        fullWidth
-                      >
-                    {loading ? 
-                        <CircularProgress style={{color: "#fff"}} size="3"/>
-                        : "Sign up"}
-                  </Button>
-                    </Grid> */}
-
-
-
                     <Grid item xs={12}>
                       <Divider>Or</Divider>
                     </Grid>
                     <Grid item xs={12}>
-                      <Button
-                        variant="outlined"
-                        fullWidth
-                        size="large"
-                        sx={{
-                          textTransform: "unset",
-                          borderColor: "#e6835a",
-                          color: "black",
-                        }}
-                        startIcon={<FcGoogle />}
-                      >
-                        Continue with Google
-                      </Button>
+                    <GoogleLogin
+                        clientId={googleClientId}
+                        buttonText="LOGIN WITH GOOGLE"
+                        onSuccess={(response) =>
+                          handleContinueWithGoogle(response)
+                        }
+                        render={(renderProps) => (
+                          <Button
+                            variant="outlined"
+                            fullWidth
+                            size="large"
+                            disabled={renderProps.disabled}
+                            onClick={renderProps.onClick}
+                            sx={{
+                              textTransform: "unset",
+                              borderColor: "#e6835a",
+                              color: "black",
+                            }}
+                            startIcon={<FcGoogle />}
+                          >
+                            Continue with Google
+                          </Button>
+                        )}
+                        onFailure={(err) =>
+                          console.log("Google Login failed", err)
+                        }
+                      />
+
                     </Grid>
+                    <Snackbar
+                      open={props.openMessage}
+                      autoHideDuration={4000}
+                      onClose={handleClose}
+                      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    >
+                      <Alert
+                        onClose={handleClose}
+                        variant="filled"
+                        severity={
+                          props.message === "Signed up successfully!" 
+                            ? "success"
+                            : "error"
+                        }
+                        sx={{ width: "100%" }}
+                      >
+                        {props.message}
+                      </Alert>
+                    </Snackbar>
                   </Grid>
                 </Grid>
               </Grid>
