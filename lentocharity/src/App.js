@@ -15,11 +15,12 @@ import User_Profile from "./components/User_Profile";
 import Foodadvertisment from "./components/foodadvertisment";
 import Dropdown from "./components/Gride";
 import Serviceadvertisement from "./components/Serviceadvertisement"
- 
+import Forms from "./components/forms";
 // import Foodadvertisment from "./components/foodadvertisment";
 import Clothadvertisement from "./components/clothadvertisement"
 import UserSetting from './components/setting';
 import PersistentDrawerLeft from './components/dashboard';
+import Formdis from './components/formsdis';
 
 const theme = createTheme({
   typography: {
@@ -42,21 +43,21 @@ function App() {
         <div className="App">
           <BrowserRouter>
             <Switch>
-            <Route exact path="/" component = { SignUp }/>
-            <Route exact path="/profile" component = { UserProfile }/>
-              <Route exact path="/signin" component = { SignIn }/>
-              <Route exact path="/forgot-password" component = { ForgotPassword }/>
-              <Route exact path="/verify-user" component = { VerifyUser }/>
-              <Route exact path="/reset-password" component = { ResetPassword }/>
-              <Route exact path="/edit-profile" component = { UserInfo }/>
-              <Route exact path="/food" component = { Foodadvertisment }/>
-              <Route exact path="/dd" component = { Dropdown }/>
-              {/* <Route exact path="/cg" component = { Foodadvertisment }/> */}
-              <Route exact path="/cloth" component = { Clothadvertisement }/>
-              <Route exact path="/service" component={Serviceadvertisement}/>
-              <Route exact path="/cg" component = { User_Profile }/>
-              <Route exact path="/setting" component = { UserSetting }/>
-              <Route exact path="/dashboard" component = { PersistentDrawerLeft }/>
+              <Route exact path="/" component={SignUp} />
+              <Route exact path="/profile" component={UserProfile} />
+              <Route exact path="/signin" component={SignIn} />
+              <Route exact path="/forgot-password" component={ForgotPassword} />
+              <Route exact path="/verify-user" component={VerifyUser} />
+              <Route exact path="/reset-password" component={ResetPassword} />
+              <Route exact path="/edit-profile" component={UserInfo} />
+              <Route exact path="/food" component={Foodadvertisment} />
+              <Route exact path="/dd" component={Dropdown} />
+              <Route exact path="/cloth" component={Clothadvertisement} />
+              <Route exact path="/service" component={Serviceadvertisement} />
+              <Route exact path="/cg" component={Forms} />
+              <Route exact path="/xx" component={Formdis} />
+              <Route exact path="/setting" component={UserSetting} />
+              <Route exact path="/dashboard" component={PersistentDrawerLeft} />
 
             </Switch>
           </BrowserRouter>

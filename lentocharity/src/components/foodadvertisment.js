@@ -52,7 +52,15 @@ import "filepond/dist/filepond.min.css";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
-import { SettingsAccessibility } from '@mui/icons-material';
+import { FlareSharp, SettingsAccessibility } from '@mui/icons-material';
+
+
+import Switch from '@material-ui/core/Switch';
+import FormGroup from '@material-ui/core/FormGroup';
+
+
+
+
 const Input = styled('input')({
   display: 'none',
 });
@@ -123,19 +131,7 @@ function Foodadvertisment(props) {
     const [expiredate,setexpdate]=useState('');
     const [description,setdesc]=useState('');
 
-    // const formik = useFormik({
-    //   initialValues: {
-    //     formtitle: '',
-    //     // province: '',
-    //     // city: '',
-    //     neighborhoodadd: '' ,
-    //     expiredate: '',
-    //     description: '',
-
-        
-    //   },
-    //   // validationSchema: validationSchema,
-    // });
+    
 
 
     const FileInput = () => {
@@ -163,7 +159,7 @@ function Foodadvertisment(props) {
       var token = localStorage.getItem("token");
       token.replaceAll('"', '')
       console.log(token);
-      
+      setLoading(true);
       var fd = new FormData();
       fd.append("Title",formtitle);
       fd.append("Description",description);
@@ -185,16 +181,11 @@ function Foodadvertisment(props) {
   
       axios(config)
       .then((response) => {
-        // console.log(response);
+        setLoading(false);
         if(response.status == 201)
         {
           setMessage("success");
           setOpen(true);
-          // return (<Snackbar open={open} autoHideDuration={4000} >  
-          //     <Alert severity={message === "Please fill in the blanks." ? "error" : "success"} sx={{ width: '100%' }}>
-          //       {message}
-          //     </Alert>
-          // </Snackbar>);
         }
         else
         {
@@ -205,7 +196,7 @@ function Foodadvertisment(props) {
         
       })
       .catch(function (error) {
-        console.log(error);
+        setLoading(false);
       });
 
     }  
@@ -215,14 +206,36 @@ function Foodadvertisment(props) {
       
     }
     
-    
+    const [fchecked, setfChecked] = React.useState(false);
+    const [schecked, setsChecked] = React.useState(false);
+    const [cchecked, setcChecked] = React.useState(false);
+
+
+    const ftoggleChecked = () => {
+
+      setfChecked((prev) => !prev);
+      setsChecked(false);
+      setcChecked(false);
+    };
+    const stoggleChecked = () => {
+      setsChecked((prev) => !prev);
+      setfChecked(false);
+      setcChecked(false);
+    };
+    const ctoggleChecked = () => {
+      setcChecked((prev) => !prev);
+      setfChecked(false);
+      setsChecked(false);
+    };
+  
+  
 
     return (
 
       <div >
           <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
 
-<Container sx={{ padding: "4%" }} component="main">
+<Container sx={{ padding: "2%" }} component="main">
   <Paper
     className="signinPage"
     elevation={0}
@@ -251,12 +264,15 @@ function Foodadvertisment(props) {
             paddingLeft: "15%",
           }}
         >
+ 
+
 
 <Grid item xs={12}>
 <h1>Food advertisement</h1>
   </Grid>
-  <br/><br/><br/><br/><br/><br/>
-  <br/><br/><br/>
+  <br/><br/><br/><br/>
+  <br/><br/>
+  {/* <br/><br/><br/> */}
          
 
 
@@ -409,7 +425,7 @@ function Foodadvertisment(props) {
                     }) => (
                       
                       <div className="upload__image-wrapper">
-                        <br/><br/><br/>
+                        {/* <br/><br/><br/> */}
 
                          <Grid item xs={12} md={12} lg={12} direction="column" display="flex" style={{alignItems: "center", marginTop: "3rem" }}>
                 <Grid container >
@@ -463,8 +479,8 @@ function Foodadvertisment(props) {
       </label> */}
     </Stack>
 
-    <br/><br/><br/><br/><br/><br/><br/>
-
+    <br/><br/><br/>
+   
     <Grid container >
                 <Button
                   type="submit"
@@ -480,18 +496,13 @@ function Foodadvertisment(props) {
                   </Button>
 
                   <Grid sx={{ mt: 4, mb: 6 }}>
-                  <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
-                  <Alert centered onClose={handleClose}  severity={message === "Please fill in the blanks." ? "error" : "success"} sx={{width: '100%' }}>
-                    {message}
-                  </Alert>
-                </Snackbar>
+                      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+                        <Alert onClose={handleClose}  severity={message === "Please fill in the blanks." ? "error" : "success"} sx={{width: '100%' }}>
+                          {message}
+                        </Alert>
+                    </Snackbar>
                 </Grid>
 
-                {/* <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
-                  <Alert onClose={handleClose} severity={message === "Please fill in the blanks." ? "error" : "success"} sx={{paddingTop:"1000px", width: '100%' }}>
-                    {message}
-                  </Alert>
-                </Snackbar> */}
 
               </Grid>
 
@@ -504,8 +515,8 @@ function Foodadvertisment(props) {
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<br/><br/><br/><br/>
+{/* <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/> */}
 
 
 
