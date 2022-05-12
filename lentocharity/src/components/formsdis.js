@@ -346,7 +346,7 @@ function Formdis(props) {
               method: 'post',
               url: 'http://127.0.0.1:8000/advertisement/addfood/',
               headers: { 
-                'Authorization': 'Token '+ "213b2e47bc472211c4fa19746271d0973f08a671", 
+                'Authorization': 'Token '+ token, 
               },
               data: fd,
             };
@@ -394,7 +394,7 @@ function Formdis(props) {
             method: 'post',
             url: 'http://127.0.0.1:8000/advertisement/addcloth/',
             headers: { 
-              'Authorization': 'Token '+ "213b2e47bc472211c4fa19746271d0973f08a671", 
+              'Authorization': 'Token '+ token, 
             },
             data: fd,
           };
@@ -439,7 +439,7 @@ function Formdis(props) {
             method: 'post',
             url: 'http://127.0.0.1:8000/advertisement/addservice/',
             headers: { 
-              'Authorization': 'Token '+ "213b2e47bc472211c4fa19746271d0973f08a671", 
+              'Authorization': 'Token '+ token, 
             },
             data: fd,
           };

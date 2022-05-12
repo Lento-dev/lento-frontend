@@ -167,14 +167,14 @@ function Reprofile() {
 
     useEffect(() => {
     console.log("***********************");
-    // var token = localStorage.getItem("token");
-    // token.replaceAll('"', '');
-    // console.log(token);
+    var token = localStorage.getItem("token");
+    token.replaceAll('"', '');
+    console.log(token);
     var config = {
         method: 'get',
         url: 'http://127.0.0.1:8000/api/account/user-profile/',
         headers: { 
-            'Authorization': 'Token '+ "213b2e47bc472211c4fa19746271d0973f08a671", 
+            'Authorization': 'Token '+ token, 
         }
     };
 
