@@ -61,12 +61,12 @@ describe(' Test component page ', () => {
   });
   
   
-  test('increment counter', () => {
-    render(connect(<SignIn />));
+  // test('increment counter', () => {
+  //   render(connect(<SignIn />));
  
-    const signin = screen.getByRole('button',{name:'Sign in'});
+  //   const signin = screen.getByRole('button',{name:'Sign in'});
 
-    fireEvent.click(signin);
-    expect(history.location.pathname).toEqual("/profile")
-    // expect(screen.getByTestId("signin")).toHaveTextContent("");
-  });
+  //   fireEvent.click(signin);
+  //   expect(history.location.pathname).toEqual("/profile")
+  //   // expect(screen.getByTestId("signin")).toHaveTextContent("");
+  // });
