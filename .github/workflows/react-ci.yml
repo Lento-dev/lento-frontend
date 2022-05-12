@@ -7,19 +7,20 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Setup Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
 
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Install Dependencies
-      run: |
-          npm install
-    - name:
-      run: |
-        npm test
+      - name: Install Dependencies
+        run: |
+            npm install
+      - name:
+        run: |
+          npm test
