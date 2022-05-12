@@ -24,4 +24,5 @@ jobs:
             npm install
       - name: Run tests
         run: |
+          cd lentocharity
           npm test
