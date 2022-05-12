@@ -32,6 +32,7 @@ function SignUp(props) {
   const [verifyEmailDialogOpen, setVerifyEmailDialogOpen] = useState(false);
   const [errors, setErrors] = useState({});
   const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  
   const [values, setValues] = useState({
     firstname: "",
     lastname: "",
@@ -63,6 +64,7 @@ function SignUp(props) {
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
+
   const validate = () => {
     let tmpErrors = {};
 
@@ -504,6 +506,7 @@ function SignUp(props) {
 }
 
 const mapDispatchToProps = { register, googleLogin, clearMessage };
+
 const mapStateToProps = (state) => {
   return {
     message: state.message.message,

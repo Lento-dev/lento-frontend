@@ -216,9 +216,12 @@ function SignIn(props) {
                     </Grid>
 
                     <Grid item xs={12} sx={{ marginTop: "2vh" }}>
+                      
                       <Button
                         variant="contained"
                         size="large"
+                        // data-testid="signin"
+                        role="navigate"  
                         onClick={handleSignInButton}
                         sx={{
                           textTransform: "unset",
@@ -234,6 +237,7 @@ function SignIn(props) {
                         <CircularProgress style={{color: "#fff"}} size="1.6rem"/>
                         : "Sign in"}
                   </Button>
+             
                     </Grid>
 
                     <Grid item xs={12}>

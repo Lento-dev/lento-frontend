@@ -47,7 +47,7 @@ const Input = styled('input')({
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 
-function Foodadvertisment(props) {
+function Clothadvertisement(props) {
     const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
 
     const [files, setFiles] = useState([]);
@@ -151,7 +151,7 @@ function Foodadvertisment(props) {
       <div >
           <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
 
-<Container sx={{ padding: "4%" }} component="main">
+<Container sx={{ padding: "2%" }} component="main">
   <Paper
     className="signinPage"
     elevation={0}
@@ -160,6 +160,7 @@ function Foodadvertisment(props) {
       borderRadius: 4,
     }}
   >
+    
     <Grid container>
       </Grid>
       <Grid
@@ -694,4 +695,4 @@ function Foodadvertisment(props) {
     {procode : 4 , lable : 'feriden'},
     {procode : 4 , lable : 'chadegan'},
   ]
-  export default Foodadvertisment;
+  export default Clothadvertisement;

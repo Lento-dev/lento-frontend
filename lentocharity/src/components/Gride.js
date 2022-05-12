@@ -1,116 +1,146 @@
-import React from "react";
+import React from 'react';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
 
-const data = {
-  provinces: [
-    { id: 1, name: 'P1' },
-    { id: 2, name: 'P2' },
-    { id: 3, name: 'P3' },
-    { id: 4, name: 'P4' },
-  ],
-  cities: [
-    { id: 1, name: 'C1', provinceId: 1 },
-    { id: 2, name: 'C2', provinceId: 1 },
-    { id: 3, name: 'C3', provinceId: 1 },
-    { id: 4, name: 'C4', provinceId: 2 },
-    { id: 5, name: 'C5', provinceId: 2 },
-    { id: 6, name: 'C6', provinceId: 3 },
-    { id: 7, name: 'C7', provinceId: 4 },
-  ]
-};
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
+  },
+}));
 
-class Province extends React.Component {
-  onSelect = (event) => {
-    this.props.onSelect(parseInt(event.target.value));
-  }
-  render() {
-    return (
+export default function FormPropsTextFields() {
+  const classes = useStyles();
+
+  return (
+    <form className={classes.root} noValidate autoComplete="off">
       <div>
-        <span>Province: </span>
-        <select onChange={this.onSelect} >
-          <option>Select province</option>
-          {
-            this.props.data.map(prov => (
-              <option
-                key={prov.id}
-                value={prov.id}
-                selected={this.props.selectedId === prov.id}>
-                {prov.name}
-              </option>
-            ))
-          }
-        </select>
+        <TextField required id="standard-required" label="Required" defaultValue="Hello World" />
+        <TextField disabled id="standard-disabled" label="Disabled" defaultValue="Hello World" />
+        <TextField
+          id="standard-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+        />
+        <TextField
+          id="standard-read-only-input"
+          label="Read Only"
+          defaultValue="Hello World"
+          InputProps={{
+            readOnly: true,
+          }}
+        />
+        <TextField
+          id="standard-number"
+          label="Number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <TextField id="standard-search" label="Search field" type="search" />
+        <TextField
+          id="standard-helperText"
+          label="Helper text"
+          defaultValue="Default Value"
+          helperText="Some important text"
+        />
       </div>
-    );
-  }
-}
-
-class City extends React.Component {
-  onSelect = (event) => {
-    this.props.onSelect(parseInt(event.target.value));
-  }
-  render() {
-    return (
       <div>
-        <span>City: </span>
-        <select onClick={this.onSelect}>
-          <option>Select city</option>
-          {
-            this.props.data.map(city => (
-                <option
-                  key={city.id}
-                  value={city.id}
-                  selected={this.props.selectedId === city.id}>
-                  {city.name}
-                </option>
-            ))
-          }
-        </select>
+        <TextField
+          required
+          id="filled-required"
+          label="Required"
+          defaultValue="Hello World"
+          variant="filled"
+        />
+        
+        <TextField
+          id="filled-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+          variant="filled"
+        />
+        <TextField
+          id="filled-read-only-input"
+          label="Read Only"
+          defaultValue="Hello World"
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="filled"
+        />
+        <TextField
+          id="filled-number"
+          label="Number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="filled"
+        />
+        <TextField id="filled-search" label="Search field" type="search" variant="filled" />
+        <TextField
+          id="filled-helperText"
+          label="Helper text"
+          defaultValue="Default Value"
+          helperText="Some important text"
+          variant="filled"
+        />
       </div>
-    );
-  }
-}
-
-
-class Address extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      provinces: data.provinces,
-      provinceId: null,
-      cities: data.cities,
-      cityId: null
-    };
-  }
-
-  onSelectProvince = (provId) => {
-    const selCities = data.cities.filter(c => c.provinceId === provId);
-    this.setState({
-      provinceId: provId,
-      cities: selCities
-    });
-  }
-
-  onSelectCity = (city) => {
-    this.setState({
-      cityId: city.id
-    });
-  }
-
-  render() {
-    return (
       <div>
-        <Province
-          data={this.state.provinces}
-          selectedId={this.state.provinceId}
-          onSelect={this.onSelectProvince} />
-        <City
-          data={this.state.cities}
-          selectedId={this.state.cityId}
-          onSelect={this.onSelectCity} />
+        <TextField
+          required
+          id="outlined-required"
+          label="Required"
+          defaultValue="Hello World"
+          variant="outlined"
+        />
+        <TextField
+          disabled
+          id="outlined-disabled"
+          label="Disabled"
+          defaultValue="Hello World"
+          variant="outlined"
+        />
+        <TextField
+          id="outlined-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+          variant="outlined"
+        />
+        <TextField
+          id="outlined-read-only-input"
+          label="Read Only"
+          defaultValue="Hello World"
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="outlined"
+        />
+        <TextField
+          id="outlined-number"
+          label="Number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+        />
+        <TextField id="outlined-search" label="Search field" type="search" variant="outlined" />
+        <TextField
+          id="outlined-helperText"
+          label="Helper text"
+          defaultValue="Default Value"
+          helperText="Some important text"
+          variant="outlined"
+        />
       </div>
-    );
-  }
+    </form>
+  );
 }
-
-
-export default Address;

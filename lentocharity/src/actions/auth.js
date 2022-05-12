@@ -68,6 +68,50 @@ export const register = (firstname,lastname,email,username,password,confirmpassw
       });
 };
 
+export const food_req = (firstname,lastname,email,username,password,confirmpassword) => (dispatch) => {
+  var formData = new FormData();
+  formData.append("first_name", firstname);
+  formData.append("last_name", lastname);
+  formData.append("username", username);
+  formData.append("email", email);
+  formData.append("password", password);
+  formData.append("password_confirm", confirmpassword);
+
+  return axios.post(API_URL + "account/register/", formData)
+      .then((response) => {
+        console.log("signed up succesfully")
+        dispatch({
+          type: REGISTER_SUCCESS,
+        });
+
+        console.log(response);
+        return Promise.resolve();
+      })
+
+      .catch((error) => {
+        console.log("error occured in signup");
+        dispatch({
+          type: REGISTER_FAIL,
+        });
+  
+        if (error.response.status == 400) {
+          let message = "";
+          for (var key in error.response.data){
+            message += error.response.data[key] + ' ';
+          }
+          console.log(message);
+
+          dispatch({
+            type: SET_MESSAGE,
+            payload: message,
+          });
+        }
+        return Promise.reject();
+      });
+};
+
+
+
 export const login = (email, password) => (dispatch) => {
   var formData = new FormData();
   formData.append("login", email);
@@ -290,6 +334,5 @@ export const resetpassword = (password, user_id, timestamp, signature) => (dispa
         return Promise.reject();
       }
       );
-
 };
 

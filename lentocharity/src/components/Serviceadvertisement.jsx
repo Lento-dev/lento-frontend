@@ -152,7 +152,7 @@ function Serviceadvertisement(props) {
       <div >
           <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
 
-<Container sx={{ padding: "4%" }} component="main">
+<Container sx={{ padding: "2%" }} component="main">
   <Paper
     className="signinPage"
     elevation={0}
@@ -426,6 +426,7 @@ function Serviceadvertisement(props) {
     </Stack>
     
     <br/><br/><br/><br/>
+    <br/><br/><br/><br/>
     
     <Grid container >
     &nbsp; &nbsp; 
@@ -446,10 +447,15 @@ function Serviceadvertisement(props) {
                     {message}
                   </Alert>
                 </Snackbar>
-
+                <br/><br/><br/><br/>
+                <br/><br/><br/><br/>
+                <br/><br/><br/><br/>
+    
               </Grid>
 
-
+              <br/><br/><br/><br/>
+              <br/><br/><br/><br/>
+    
       
               </Grid>
 
@@ -459,7 +465,9 @@ function Serviceadvertisement(props) {
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 
-
+<br/><br/><br/><br/>
+<br/><br/><br/><br/>
+    
 
 
 
