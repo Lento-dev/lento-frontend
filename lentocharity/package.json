@@ -30,6 +30,7 @@
     "filepond-plugin-image-preview": "^4.6.11",
     "flat-color-icons": "^1.1.0",
     "formik": "^2.2.9",
+    "jest": "^28.1.0",
     "material-ui-icons": "^1.0.0-beta.36",
     "material-ui-phone-number": "^3.0.0",
     "react": "^17.0.2",
@@ -53,6 +54,7 @@
     "social-media-icons-react": "^1.1.10",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
+    
   },
   "scripts": {
     "start": "react-scripts start",

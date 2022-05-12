@@ -186,6 +186,7 @@ function SignUp(props) {
 
   return (
     <div>
+     
       <Helmet bodyAttributes={{ style: "background-color : #fff" }} />
 
       <Container sx={{ padding: "4%" }} component="main" className="signupPage">
