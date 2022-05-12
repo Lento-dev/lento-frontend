@@ -1,12 +1,12 @@
 import React from 'react'
 import { cleanup,render, screen, act ,wait,click,fireEvent} from '@testing-library/react';
-import App from './App';
-import ScrollableTabsButtonForce from './components/tabs';
+import App from '../App';
+import ScrollableTabsButtonForce from '../components/tabs';
 import axios from 'axios';
-import Reprofile from './components/Reprofile';
+import Reprofile from '../components/Reprofile';
 import userEvent from '@testing-library/user-event'
 import {createMemoryHistory} from 'history'
-import SignIn from "./components/signin";
+import SignIn from "../components/signin";
 import { connect } from 'react-redux';
 import { shallow } from 'enzyme';
 
@@ -21,30 +21,30 @@ test('renders tabs in profile', () => {
 });
 
 
-describe('Reprofile testing => ' , () => {
-  it(' Click the View Details button , Go to the details page ', () => {
+// describe('Reprofile testing => ' , () => {
+//   it(' Click the View Details button , Go to the details page ', () => {
   
   
-  const { history } = render(<Reprofile />)
+//   const { history } = render(<Reprofile />)
 
-    expect(axios).toHaveBeenCalledTimes(1)  
+//     expect(axios).toHaveBeenCalledTimes(1)  
    
-  })
-});
-
-
-// describe(' Test component page ', () => {
-// it(' sigin axios ', () => {
-
-// const { history } = render(connect(<SignIn />))
-//     // wait(() => {
-//       expect(axios).toHaveBeenCalledTimes(0)
-//     // })
-
-// render(connect(<SignIn />));
-
-// })
+//   })
 // });
+
+
+describe(' Test component page ', () => {
+it(' sigin axios ', () => {
+
+const { history } = render(connect(<SignIn />))
+    // wait(() => {
+      expect(axios).toHaveBeenCalledTimes(0)
+    // })
+
+render(connect(<SignIn />));
+
+})
+});
 
 
 
@@ -61,20 +61,12 @@ describe(' Test component page ', () => {
   });
   
   
-  // test('increment counter', () => {
-  //   render(connect(<SignIn />));
+  test('increment counter', () => {
+    render(connect(<SignIn />));
  
-  //   const signin = screen.getByRole('button',{name:'Sign in'});
+    const signin = screen.getByRole('button',{name:'Sign in'});
 
-  //   fireEvent.click(signin);
-  //   expect(history.location.pathname).toEqual("/profile")
-  //   expect(screen.getByTestId("signin")).toHaveTextContent("");
-  // });
-
-//  it('should render same text',() =>{
-//    render(<SignUp/>);
-//    const del = screen.getByTitle(/DialogContentText/i);
-//    expect(del).toBeInTheDocument();
-
-//  }
-//  ) 
+    fireEvent.click(signin);
+    expect(history.location.pathname).toEqual("/profile")
+    // expect(screen.getByTestId("signin")).toHaveTextContent("");
+  });
