@@ -28,6 +28,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LanguageIcon from '@mui/icons-material/Language';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import Pagination from '@mui/material/Pagination';
 
 
 
@@ -54,7 +55,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -68,6 +68,12 @@ const theme = createTheme({
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+
+  const [page, setPage] = React.useState(1);
+
+  const handleChange = (event: ChangeEvent<unknown>, value: Integer) => {
+    setPage(value);
+  };
 
   return (
     <div
@@ -110,19 +116,24 @@ function a11yProps(index) {
 export default function ScrollableTabsButtonForce(props) {
   console.log(props.data);
   const classes = useStyles();
+  
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+
+  const [page, setPage] = React.useState(1);
+  const handleChangepage = (event: ChangeEvent<unknown>, value: Integer) => {
+    setPage(value);
+  };
+
   return (
     <div>
-      
-      
       <Grid
         container
-        spacing={0}
+        // spacing={0}
         direction="row"
         alignItems="center"
         justifyContent="center"
@@ -230,7 +241,30 @@ export default function ScrollableTabsButtonForce(props) {
 <br/><br/><br/><br/>
 <Grid item xs={12} container>
                         <Container component="main">
-                          <RecipeReviewCard></RecipeReviewCard>
+                          
+                        <Stack spacing={2}>
+                            {(3<=page) === true ? <RecipeReviewCard></RecipeReviewCard>:<p>Hello</p> }
+                            <Typography>Page: {page}</Typography>
+
+                            <Grid
+                              container
+                              spacing={0}
+                              direction="row"
+                              alignItems="center"
+                              justifyContent="center"
+                            >
+                            <Grid item xs={12}>
+                            <Stack direction="row" sx={{ maxWidth: 345 }} style={{ marginTop: "-0.5rem" ,marginLeft:"12rem"}}>
+                            {/* ,marginLeft:"-3rem" */}
+                                <Stack direction="photo" spacing={2} sx={{ maxWidth: 345 }} style={{marginTop: "-0.5rem"}}>    
+                              <Pagination count={10} page={page} onChange={handleChangepage} />
+                              </Stack>
+                              </Stack>
+                            </Grid>
+                            </Grid>
+                      
+                          </Stack>
+
                         </Container>
                     </Grid>
 

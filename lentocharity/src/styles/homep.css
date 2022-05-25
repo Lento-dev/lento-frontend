@@ -1,0 +1,16 @@
+.bghomepage {
+    background-image: url(https://theimportantsite.com/wp-content/uploads/2020/03/charity.jpg);
+    /* background-image: url("../assets/img/charity.jpg"); */
+  
+    /* background-repeat: no-repeat;
+  
+    display: block;
+  
+    background-size: cover;
+  
+    position: relative; */
+    width: "203vh";
+    height: "400vh";
+    justify-content: "center";
+    position:sticky;
+  }

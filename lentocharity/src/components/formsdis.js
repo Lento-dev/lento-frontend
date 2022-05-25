@@ -89,10 +89,10 @@ function Formdis(props) {
 
     const onChange = (imageList, addUpdateIndex) => {
       // data for submit
-      console.log("image list =>",imageList, addUpdateIndex);
+      console.log("image list =>",imageList[0], addUpdateIndex);
 
       setImages(imageList);
-      // console.log(images);
+      console.log(window.URL.createObjectURL(imageList[0]));
       // setImageUrl(URL.createObjectURL(imageList[0]));
 
       // console.log("image url",imageUrl);
@@ -340,7 +340,7 @@ function Formdis(props) {
             fd.append("Address",values.neighborhoodaddrs);
             // fd.append("Food_type",null);
             fd.append("expiration_date",values.expiredate);
-            // fd.append("Image",null);
+            fd.append("Image",images[0]);
             // console.log(images[0],imageUrl);
             var config = {
               method: 'post',
@@ -873,6 +873,7 @@ function Formdis(props) {
                     <div className="upload__image-wrapper">
 
                        <Grid item xs={12} md={12} lg={12} direction="column" display="flex" style={{alignItems: "center", marginTop: "3rem" }}>
+
               <Grid container >
           
 
