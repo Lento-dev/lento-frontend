@@ -20,9 +20,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-            cd lentocharity
             npm install
       - name: Run tests
         run: |
-          cd lentocharity
           npm test
