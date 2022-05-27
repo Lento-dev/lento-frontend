@@ -171,15 +171,6 @@ export default function Homepage() {
               fullWidth
             />
 
-            {/* <Grid
-              item
-              xs={12}
-              md={5}
-              lg={5}
-              sx={{ borderRadius: 4, backgroundColor: "#8b9b74" }}
-            >
-               */}
-
             <Grid item xs={12} textAlign="left" sx={{ marginTop: "12vh" }}>
               <Typography color="black" fontSize="1.3rem">
                 You can communicate with others.
@@ -264,6 +255,80 @@ export default function Homepage() {
           >
             
           </Grid> */}
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          md={12}
+          lg={6}
+          // sx={{ borderRadius: 4, backgroundColor: "#8b9b74" }}
+        >
+          <Grid
+            container
+            spacing={0}
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Grid item xs={12}>
+              <Grid
+                container
+                sx={{
+                  // paddingTop: "15%",
+                  // paddingRight: "10%",
+                  paddingLeft: "2%",
+                  // paddingBottom: "37%",
+                  color: "white",
+                }}
+                spacing={0}
+              >
+                <br />
+                <br />
+                <br />
+                <br />
+                {/* <Swiper
+                  modules={[Navigation, Pagination, Scrollbar, A11y]}
+                  // spaceBetween={50}
+                  slidesPerView={5}
+                  navigation
+                  pagination={{ clickable: true }}
+                  // scrollbar={{ draggable: true }}
+                  onSwiper={(swiper) => console.log(swiper)}
+                  onSlideChange={() => console.log("slide change")}
+                  // style={{ paddingTop: "2rem" }}
+                >
+                  <SwiperSlide style={{ paddingBottom: "2rem" }}>
+                    {" "}
+                    item1
+                  </SwiperSlide>
+                  <SwiperSlide style={{ paddingBottom: "2rem" }}>
+                    {" "}
+                    item2
+                  </SwiperSlide>
+                  <SwiperSlide style={{ paddingBottom: "2rem" }}>
+                    {" "}
+                    item3
+                  </SwiperSlide>
+                  <SwiperSlide style={{ paddingBottom: "2rem" }}>
+                    {" "}
+                    item4
+                  </SwiperSlide>
+                  <SwiperSlide style={{ paddingBottom: "2rem" }}>
+                    {" "}
+                    item5
+                  </SwiperSlide>
+                  <SwiperSlide style={{ paddingBottom: "2rem" }}>
+                    {" "}
+                    item6
+                  </SwiperSlide>
+                  <SwiperSlide style={{ paddingBottom: "2rem" }}>
+                    {" "}
+                    item7
+                  </SwiperSlide>
+                </Swiper> */}
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
         <Grid container spacing={1}>
           <Grid item xs={12} lg={4} md={4}>
@@ -428,9 +493,10 @@ export default function Homepage() {
               </Grid>
             </Card>
           </Grid>
+
           <Grid item xs={12}>
             {/* lg={12} md={12} */}
-            <Swiper
+            {/* <Swiper
               modules={[Navigation, Pagination, Scrollbar, A11y]}
               // spaceBetween={50}
               slidesPerView={5}
@@ -864,7 +930,7 @@ export default function Homepage() {
                   </Card>
                 </Grid>
               </SwiperSlide>
-            </Swiper>
+            </Swiper> */}
           </Grid>
           <Grid container spacing={1}>
             <Grid item xs={12} lg={12} md={12}>
@@ -944,6 +1010,39 @@ export default function Homepage() {
                       url="https://some-website.com/my-social-media-url"
                       size="50"
                     />
+                    <br />
+                    <br />
+                    <Grid container>
+                      <Grid
+                        container
+                        spacing={0}
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="center"
+                      >
+                        {/* <Grid item xs={12}> */}
+                        <Typography color="blue" fontSize="1.3rem">
+                          info
+                        </Typography>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <Typography color="blue" fontSize="1.3rem">
+                          support
+                        </Typography>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <Typography color="blue" fontSize="1.3rem">
+                          marketing
+                        </Typography>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <Typography color="blue" fontSize="1.3rem">
+                          privacy policy
+                        </Typography>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <Typography color="blue" fontSize="1.3rem">
+                          term of use
+                        </Typography>
+                        {/* </Grid> */}
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Card>
