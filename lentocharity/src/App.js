@@ -22,6 +22,7 @@ import UserSetting from './components/setting';
 import PersistentDrawerLeft from './components/dashboard';
 import Formdis from './components/formsdis';
 import Reprofile from './components/Reprofile';
+import PrPage from "./components/provincepage";
 
 
 
@@ -62,6 +63,7 @@ function App() {
               <Route exact path="/profile" component={Reprofile} />
               <Route exact path="/setting" component={UserSetting} />
               <Route exact path="/dashboard" component={PersistentDrawerLeft} />
+              <Route exact path="/province-page" component={PrPage} />
             
             </Switch>
           </BrowserRouter>
