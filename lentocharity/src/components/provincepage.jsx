@@ -1,29 +1,26 @@
 import React, { useState, useEffect, setState } from 'react';
 import {
-  Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box,
-  Typography, Container
+  Button,TextField,Grid, Box,Container
 } from '@mui/material';
 import Helmet from 'react-helmet';
 import axios from 'axios';
 import FormControl from '@mui/material/FormControl';
 import 'react-phone-input-2/lib/style.css';
 import Paper from '@mui/material/Paper';
-import { useTheme } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
 import { useHistory } from 'react-router-dom';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
-import MuiAlert from '@mui/material/Alert';
 import 'date-fns';
-import { FilePond, registerPlugin } from "react-filepond";
+import { registerPlugin } from "react-filepond";
 import "filepond/dist/filepond.min.css";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import MuiMenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
-// import MenuItem from '@mui/material/MenuItem';
-// import SearchBar from "material-ui-search-bar";
+import MediaControlCard from './adcard';
+
 
 const MenuItem = withStyles({
   root: {
@@ -281,9 +278,11 @@ function Formdis(props) {
         <div >
         <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
 
-<Container sx={{ padding: "2%" }} component="main">
+<Container sx={{ padding: "4%" }} component="main">
 
-  
+<Grid  spacing={0} direction="row" alignItems="center" justifyContent="center">
+          
+          <Grid item xs={12}>
 
 <Paper
     // className="signinPage"
@@ -291,15 +290,17 @@ function Formdis(props) {
     sx={{
       backgroundColor: "#fff",
       borderRadius: 4,
+      width:'100%',
+      justify:'flex-end',
     }}
   >
-    <Grid container>
+    <Grid container >
       </Grid>
       <Grid
         item
         xs={12}
-        md={7}
-        lg={7}
+        md={12}
+        lg={12}
         sx={{ backgroundColor: "#fffff", borderRadius: 4 }}
       >
       
@@ -370,41 +371,107 @@ function Formdis(props) {
                     </FormControl>
                   </Box>
                 </Grid>
-                <Grid container item xs={12} sm={1}>
+                <Grid container item xs={12} sm={2}>
                     
                     <Button
                      style={{height:'53px',backgroundColor: '#e6835a',borderRadius:'5px'}}   
                      variant="contained">search</Button>
                     
                 </Grid>
-
-              
-              
-                
-       
-
-
-          
-
-
-        
-
-
-
-
-
-
-
                   </Grid>
           </Grid>
           </Grid>
           </Grid>
           </Paper>
+<br/><br/><br/>
+
+
+<Grid item xs={12} d={12} lg={12}>
+  <Grid container > 
+{/* < Paper
+          sx={{
+            width:"100%",
+            backgroundColor: "#fff",
+            borderRadius: 4,
+            paddingTop:"20rem",
+            direction:"column",
+            justify:"center",
+            alignItems:"center",
+          }}
+          > */}
+       
+            <Grid container spacing={6}>
+            
+            <Grid item md={4}>
+              <MediaControlCard />
+            </Grid>
+           
+            <Grid item md={4}>
+              <MediaControlCard />
+            </Grid>
+            
+            <Grid item md={4}>
+              <MediaControlCard />
+            </Grid>
+            <Grid item md={4}>
+              <MediaControlCard />
+            </Grid>
+       
+            <Grid item md={4}>
+              <MediaControlCard />
+            </Grid>
+           
+            <Grid item md={4}>
+              <MediaControlCard />
+            </Grid>
+            <Grid item md={4}>
+              <MediaControlCard />
+            </Grid>
+            <Grid item md={4}>
+              <MediaControlCard />
+            </Grid>
+            <Grid item md={4}>
+              <MediaControlCard />
+            </Grid>
+            <Grid item md={4}>
+              <MediaControlCard />
+            </Grid>
+            <Grid item md={4}>
+              <MediaControlCard />
+            </Grid>
+            <Grid item md={4}>
+              <MediaControlCard />
+            </Grid>
+            <Grid item md={4}>
+              <MediaControlCard />
+            </Grid>
+            <Grid item md={4}>
+              <MediaControlCard />
+            </Grid>
+            <Grid item md={4}>
+              <MediaControlCard />
+            </Grid>
+
+          </Grid>
+      
+
+
+          {/* </Paper> */}
+          </Grid>
+      
+          </Grid>
+          </Grid>
+          </Grid>
           </Container>
 </div>
 
     );
   }
+
+
+
+  
+  
   
   
   

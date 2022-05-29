@@ -23,6 +23,7 @@ import PersistentDrawerLeft from './components/dashboard';
 import Formdis from './components/formsdis';
 import Reprofile from './components/Reprofile';
 import PrPage from "./components/provincepage";
+import MediaControlCard from "./components/adcard";
 
 
 
@@ -64,6 +65,8 @@ function App() {
               <Route exact path="/setting" component={UserSetting} />
               <Route exact path="/dashboard" component={PersistentDrawerLeft} />
               <Route exact path="/province-page" component={PrPage} />
+              <Route exact path="/adcard" component={MediaControlCard} />
+
             
             </Switch>
           </BrowserRouter>
