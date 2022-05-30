@@ -20,6 +20,8 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import MuiMenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
 import MediaControlCard from './adcard';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 
 const MenuItem = withStyles({
@@ -463,7 +465,13 @@ function Formdis(props) {
           </Grid>
           </Grid>
           </Container>
+
+          <Stack spacing={2}>
+            <Pagination count={10} />
+          </Stack>
+          
 </div>
+
 
     );
   }

@@ -102,7 +102,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box p={3} >
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -188,11 +188,11 @@ class UserProfile extends Component {
     return (
       <div >
 <Grid item >
-              <div className="backgroundimagehome"> 
+              <div className="backgroundimagehome" > 
               </div>        
               </Grid>
-          <Grid item xs={12} container>
-          <Stack direction="row" sx={{ maxWidth: 345 }} style={{ marginTop: "-8rem" }}>
+          <Grid item xs={8} container>
+          <Stack direction="row" sx={{ maxWidth: 100 }} style={{ marginTop: "-8rem" }}>
               <Stack direction="photo" spacing={2} sx={{ maxWidth: 345 }} style={{ marginLeft: "8.5rem", marginTop: "-2.4rem" }}>               
 
               {/* <Grid item xs={10}>

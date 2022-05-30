@@ -5,13 +5,13 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import BusinessIcon from '@mui/icons-material/Business';
+import LocationCityIcon from '@mui/icons-material/LocationCity';
 import CategoryIcon from '@mui/icons-material/Category';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 
 
-export default function MediaControlCard() {
+export default function MediaControlCard({advertisement}) {
   
 
   return (
@@ -29,15 +29,17 @@ export default function MediaControlCard() {
               display: 'flex',
               alignItems: 'center',
               flexWrap: 'wrap',}}>
-          <BusinessIcon style={{fontSize:'large'}}/>
-          <span style={{color:'grey',lineHeight:'160%'}}>&nbsp;Hengam street</span>
+          <LocationCityIcon style={{fontSize:'large'}}/>
+          <span style={{color:'grey',lineHeight:'160%'}}>&nbsp;Rasht
+          
+          </span>
           </div> 
           <div style={{
               display: 'flex',
               alignItems: 'center',
               flexWrap: 'wrap',}}>
           <CategoryIcon style={{fontSize:'large'}}/>
-          <span style={{color:'grey',lineHeight:'160%'}}>&nbsp;cloth</span>
+          <span style={{color:'grey',lineHeight:'160%'}}>&nbsp;cloth </span>
           </div>
           <div style={{
               display: 'flex',

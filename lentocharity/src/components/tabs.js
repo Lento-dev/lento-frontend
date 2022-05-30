@@ -136,10 +136,11 @@ export default function ScrollableTabsButtonForce(props) {
           className={classes.tabs}
           centered
         >
-          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>Posts</div>} icon={<AppRegistrationIcon />} {...a11yProps(0)} />
-          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>About</div>} icon={<InfoIcon />} {...a11yProps(1)} />
-          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>Followers</div>} icon={<PersonPinIcon />} {...a11yProps(2)} />
-          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>Followings</div>} icon={<PersonPinIcon />} {...a11yProps(3)} />
+          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>About</div>} icon={<InfoIcon />} {...a11yProps(0)} />
+          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>advertisements</div>} icon={<AppRegistrationIcon />} {...a11yProps(1)} />
+          
+          
+          
         </Tabs>
 
       </Grid>
@@ -147,7 +148,7 @@ export default function ScrollableTabsButtonForce(props) {
       </Grid>
 
 
-      <TabPanel className='tabs' value={value} index={0}>
+      <TabPanel className='tabs' value={value} index={1}>
 
  
       <Grid
@@ -239,7 +240,7 @@ export default function ScrollableTabsButtonForce(props) {
 
 </TabPanel>
 
-        <TabPanel value={value} index={1}>
+        <TabPanel value={value} index={0}>
             
         
         <Grid

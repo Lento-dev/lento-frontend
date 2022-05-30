@@ -40,7 +40,7 @@ import Divider from '@mui/material/Divider';
 const bull = (
     <Box
         component="span"
-        sx={{ display: 'inline-block', mx: '0px', transform: 'scale(0.8)' }}
+        sx={{ display: 'inline-block', mx: '0px', transform: 'scale(0.8)'}}
     >
     </Box>
 );
@@ -151,7 +151,7 @@ const Userpro = (props) => {
             <React.Fragment>
                 <CssBaseline />
                 {/* <Paper elevation={10}> */}
-                <Box style={{ marginTop: "-15px" , borderRadius: "6"}} pt={14} pr={10} pb={14} pl={14} className="back"></Box>
+                <Box style={{ marginTop: "-15px" , borderRadius: "6",backgroundColor:'red' }} pt={14} pr={10} pb={14} pl={14} className="back"></Box>
                 {/* </Paper>
                 <Divider /> */}
             </React.Fragment>
