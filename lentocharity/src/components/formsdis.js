@@ -357,7 +357,7 @@ function Formdis(props) {
         method: "post",
         url: "http://127.0.0.1:8000/advertisement/addfood/",
         headers: {
-          Authorization: "Token " + "5000d1da561735daa2c19e0f1aced2787cbb11dd",
+          Authorization: "Token " + token,
         },
         data: fd,
       };
