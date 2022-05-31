@@ -49,7 +49,7 @@ function App() {
           <Navbar/>
             <Switch>
               <Route exact path="/" component={SignUp} />
-              <Route exact path="/profile" component={UserProfile} /> 
+              {/* <Route exact path="/profile" component={UserProfile} />  */}
               <Route exact path="/setting" component={Setting} /> 
               <Route exact path="/signin" component={SignIn} />
               <Route exact path="/forgot-password" component={ForgotPassword} />

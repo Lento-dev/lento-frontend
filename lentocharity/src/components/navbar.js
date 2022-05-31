@@ -25,6 +25,8 @@ import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
 import MenuList from "@mui/material/MenuList";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import EditIcon from '@mui/icons-material/Edit';
+
 function Navbar(props) {
   const isLoggedIn = props.isLoggedIn;
   const [open, setOpen] = React.useState(false);
@@ -52,6 +54,10 @@ function Navbar(props) {
     }
   }
 
+  const handleEditProfileClick = () => {
+    setOpen((prevOpen) => !prevOpen);
+    history.push("/edit-profile");
+  }
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
@@ -62,9 +68,9 @@ function Navbar(props) {
     prevOpen.current = open;
   }, [open]);
 
-  const handleDashboardClick = () => {
+  const handleProfileClick = () => {
     setOpen((prevOpen) => !prevOpen);
-    history.push("/dashboard");
+    history.push("/profile");
   };
   
   const handleSettingClick = () => {
@@ -78,21 +84,20 @@ function Navbar(props) {
         <AppBar position="static" sx={{ backgroundColor: "white" }}>
           <Toolbar>
             <IconButton
-              size="large"
+              size="medium"
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ color: "#8b9b74", marginRight: "89%" }}
+              sx={{ color: "#8b9b74"}}
             >
-              <HomeIcon fontSize="large" />
+              <HomeIcon fontSize="medium" />
             </IconButton>
-            <Link textAlign="left" href="/" underline="none">
+            <Link textAlign="left" href="/" underline="none" sx={{marginRight: '87%'}}>
                 <Typography
                   variant="h5"
                   component="div"
                   sx={{
                     paddingLeft: "3px",
-                    flexGrow: 1,
                     fontWeight: 600,
                     color: "#8b9b74",
                     textAlign: 'left'
@@ -103,14 +108,14 @@ function Navbar(props) {
               </Link>
               <IconButton
                 ref={anchorRef}
-                size="large"
+                size="medium"
                 aria-controls={open ? "composition-menu" : undefined}
                 aria-expanded={open ? "true" : undefined}
                 aria-haspopup="true"
                 onClick={handleToggle}
                 sx={{ color: "#e6835a" }}
               >
-                <AccountCircle fontSize="large" />
+                <AccountCircle fontSize="medium" />
               </IconButton>
 
               <Popper
@@ -148,32 +153,37 @@ function Navbar(props) {
                           onKeyDown={handleListKeyDown}
                         >
 
-                          <MenuItem onClick={handleDashboardClick}>
+                          <MenuItem onClick={handleProfileClick}>
                             <ListItemIcon>
                               <Dashboard fontSize="small" />
                             </ListItemIcon>
                             Profile
                           </MenuItem>
-
+                          <MenuItem onClick={handleEditProfileClick}>
+                            <ListItemIcon>
+                              <EditIcon fontSize="small" />
+                            </ListItemIcon>
+                            Edit profile
+                          </MenuItem>
                           <MenuItem onClick={handleSettingClick}>
                             <ListItemIcon>
                               <SettingsIcon fontSize="small" />
                             </ListItemIcon>
                             Setting
                           </MenuItem>
-                          <MenuItem onClick={handleDashboardClick}>
+                          <MenuItem onClick={handleProfileClick}>
                             <ListItemIcon>
                               <AddCircleIcon fontSize="small" />
                             </ListItemIcon>
                             Add post
                           </MenuItem>
-                          <Divider />
-                          <MenuItem onClick={handleToggle}>
+                          {/* <Divider /> */}
+                          {/* <MenuItem onClick={handleToggle}>
                             <ListItemIcon>
                               <Logout fontSize="small" />
                             </ListItemIcon>
                             Logout
-                          </MenuItem>
+                          </MenuItem> */}
                         </MenuList>
                       </ClickAwayListener>
                     </Paper>

@@ -23,13 +23,17 @@ import { CircularProgress } from "@mui/material";
   
 
 const validationSchema = yup.object({
+  oldpassword: yup.string()
+  .required('Required.'),
   password: yup.string()
     .max(15, 'Must be 15 characters or less')
     .min(8, 'Must be at least 8 characters')
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/, 'Your password should contain at least 1 lowercase letter, 1 uppercase letter and a number.'),
   confirmpassword: yup.string()
     .oneOf([yup.ref('password')], 'Passwords don\'t match!'),
+  
   email: yup.string().email('Invalid email address'),
+
 });
 
 
@@ -43,7 +47,7 @@ function TabPanel(props) {
     );
   }
 
-function Setting(props) {
+function Setting() {
   const [loadingE, setLoadingE] = React.useState(false);
   const [loadingP, setLoadingP] = React.useState(false);
   const [loadingT, setLoadingT] = React.useState(false);
@@ -65,21 +69,20 @@ function Setting(props) {
 
   const formik = useFormik({
     initialValues: {
+        oldpassword: '',
         password: '',
         confirmpassword: '',
-        skill:'',
-        tags:[],
-        switch:'',
-        email:'',
     },
     validationSchema: validationSchema,
   });
+  const token = localStorage.getItem('token')
 
   const [checked, setChecked] = React.useState(false);
   const [value, setValue] = useState(0);
   const [message,setMessage] = React.useState('');
+  const BASE_URL = process.env.BASE_URL;
 
-  const headers = {"Authorization": `Bearer ${props.access}`};
+  const headers = {"Authorization": `Bearer ${token}`};
 
   const handleCheck = (event) => {
     setChecked(event.target.checked);
@@ -89,14 +92,27 @@ function Setting(props) {
     setValue(newValue);
   };
 
+  const changePassword = () => {
+    let filled = Object.keys(formik.errors).length === 0;
+    if(filled)
+    {
+      var formData = new FormData();
+      formData.append("old_password", formik.oldpassword);
+      formData.append("password", formik.password);
+      formData.append("password_confirm", formik.confirmpassword);
+      axios.post(BASE_URL + '/account/change_password/', formData)
+      .then(res => console.log(res))
+      .else(err => console.log(err))
+    }
+  }
   return (
-      <div style={{ backgroundColor: '#e5ecdf', backgroundSize:'cover'}}>
+      <div>
       <Helmet bodyAttributes={{ style: 'background-color : #e5ecdf' }}></Helmet>
       <Container component="main" maxWidth="md">
         <CssBaseline />
-        <Typography component="h1" variant="h5" style={{ paddingTop: "1.5rem", paddingBottom: "1.5rem", paddingLeft: "1.5rem" }}>
+        <Typography component="h1" variant="h5" style={{ paddingTop: "1.5rem", paddingBottom: "0.5rem", paddingLeft: "1.5rem" }}>
         </Typography>
-        <Paper elevation={3} sx={{borderRadius: 4, display: 'flex' }} style={{marginTop: "1rem"}}>
+        <Paper elevation={3} sx={{borderRadius: 4, display: 'flex' }} style={{marginTop: "0.2rem"}}>
             <Tabs  textColor="secondary" 
               indicatorColor="secondary"
               onChange={handleChange} aria-label="secondary tabs example" value={value}>
@@ -158,6 +174,22 @@ function Setting(props) {
                       fullWidth
                       type="password"
                       autoComplete="given-name"
+                      name="oldpassword"
+                      id="oldpassword"
+                      label="Old password"
+                      value={formik.values.oldpassword}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={formik.touched.oldpassword && Boolean(formik.errors.oldpassword)}
+                      helperText={formik.touched.oldpassword && formik.errors.oldpassword}
+                    />
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      type="password"
+                      autoComplete="given-name"
                       name="password"
                       id="password"
                       label="New password"
@@ -186,7 +218,7 @@ function Setting(props) {
                   </Grid>
 
                   <Grid container justifyContent="flex-end">
-                    <Button type="submit"
+                    <Button type="submit" onClick={changePassword}
                       variant="contained"
                       sx={{ mt: 2.5, mb: 0 }} 
                       style={{ backgroundColor:  '#e6835a', color: '#FFFFFF', textTransform: 'unset', width:'150px' }}>
@@ -286,21 +318,21 @@ function Setting(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  let access = "";
-  let refresh = "";
+// const mapStateToProps = (state) => {
+//   let access = "";
+//   let refresh = "";
 
-  if (state.auth.user != null) {
-      access = state.auth.user.access;
-      refresh = state.auth.user.refresh;
-  }
-  return {
-      message: state.message.message,
-      openMessage: state.message.openMessage,
-      isLoggedIn: state.auth.isLoggedIn,
-      access,
-      refresh,
-  }
-}
+//   if (state.auth.user != null) {
+//       access = state.auth.user.access;
+//       refresh = state.auth.user.refresh;
+//   }
+//   return {
+//       message: state.message.message,
+//       openMessage: state.message.openMessage,
+//       isLoggedIn: state.auth.isLoggedIn,
+//       access,
+//       refresh,
+//   }
+// }
 
-export default connect(mapStateToProps)(Setting);
+export default Setting;
