@@ -24,6 +24,7 @@ import Formdis from "./components/formsdis";
 import Reprofile from "./components/Reprofile";
 import PaginationControlled from "./components/page";
 import Homepage from "./components/Homepage";
+import Ppage from "./components/provincepage";
 
 const theme = createTheme({
   typography: {
@@ -61,6 +62,7 @@ function App() {
               <Route exact path="/dashboard" component={PersistentDrawerLeft} />
               <Route exact path="/page" component={PaginationControlled} />
               <Route exact path="/hpage" component={Homepage} />
+              <Route exact path="/ppage" component={Ppage} />
             </Switch>
           </BrowserRouter>
         </div>
