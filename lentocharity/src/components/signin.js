@@ -21,33 +21,33 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { clearMessage } from "../actions/message";
 import { CircularProgress } from "@mui/material";
+import axios from "axios";
 
 import GoogleLogin from "react-google-login";
 import { FcGoogle } from "react-icons/fc";
 
 function SignIn(props) {
   const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  const BASE_URL = process.env.BASE_URL;
 
   const history = useHistory();
   const [loading, setLoading] = React.useState(false);
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
-  const handleChange = name => event => {
+  const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
-  
+
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    
+
     props.clearMessage();
-
   };
-
 
   const validate = () => {
     let tmpErrors = {};
@@ -56,8 +56,10 @@ function SignIn(props) {
       case !values.email:
         tmpErrors["email"] = "Please enter your email address.";
         break;
-      case values.email !== '':
-        var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+      case values.email !== "":
+        var pattern = new RegExp(
+          /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+        );
         if (!pattern.test(values.email)) {
           tmpErrors["email"] = "Please enter a valid email address!";
         }
@@ -67,35 +69,68 @@ function SignIn(props) {
     }
     switch (true) {
       case !values.password:
-        tmpErrors["password"] = "Please enter your password."
+        tmpErrors["password"] = "Please enter your password.";
         break;
 
       default:
         break;
     }
 
-
     setErrors(tmpErrors);
-  }
+  };
   const handleSignInButton = (e) => {
     validate();
     let filled = Object.keys(errors).length === 0;
-    console.log(filled)
-    if  (filled) 
-    {
-      console.log('we are in requesting to sign in')
+    console.log(filled);
+    if (filled) {
+      console.log("we are in requesting to sign in");
       setLoading(true);
-      props.login(values.email, values.password)
-      .then((res) => {
-        setLoading(false);
-        history.push('/profile');
-      })
-      .catch(err => {
-        setLoading(false);
-      })
+      var formData = new FormData();
+      formData.append("login", values.email);
+      formData.append("password", values.password);
+
+      axios
+        .post(BASE_URL + "account/login/", formData)
+
+        .then((response) => {
+          localStorage.setItem("user", JSON.stringify(response.data));
+          localStorage.setItem("userType", JSON.stringify("user"));
+          localStorage.setItem("token", response.data.token);
+          console.log("user", response.data);
+          console.log("login was succesfull");
+          setLoading(false);
+          history.push("/profile");
+        })
+        .catch((error) => {
+          setLoading(false);
+          // if (error.response.status == 401) {
+          //   dispatch({
+          //     type: SET_MESSAGE,
+          //     payload: "Email or password is incorrect!",
+          //   })
+
+          // }
+
+          // if (error.response.status == 400) {
+
+          //   dispatch({
+          //     type: SET_MESSAGE,
+          //     payload: "Email or password is invalid!",
+          //   })
+          // }
+        });
+
+      props
+        .login(values.email, values.password)
+        .then((res) => {
+          setLoading(false);
+          history.push("/profile");
+        })
+        .catch((err) => {
+          setLoading(false);
+        });
     }
-    
-  }
+  };
 
   const handleContinueWithGoogle = (response) => {
     props.googleLogin(response, history, setLoading);
@@ -120,7 +155,7 @@ function SignIn(props) {
             justifyContent: "center",
           }}
           style={{
-            marginTop: '1vh',
+            marginTop: "1vh",
             marginRight: "auto",
             marginLeft: "auto",
           }}
@@ -146,10 +181,7 @@ function SignIn(props) {
               </div>
             </Grid>
             <Grid item md>
-              <Grid
-                container
-                spacing={2}
-              >
+              <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
@@ -160,21 +192,19 @@ function SignIn(props) {
                           </Typography>
                         </Grid>
                         <Grid item xs={6} textAlign="right">
-                        <Typography fontSize="0.85rem">
-                             {" "}
-                             Not a member?{" "}
-                             <Link href="/" underline="none">
-                               {"Register"}
-                             </Link>{" "}
+                          <Typography fontSize="0.85rem">
+                            {" "}
+                            Not a member?{" "}
+                            <Link href="/" underline="none">
+                              {"Register"}
+                            </Link>{" "}
                           </Typography>
                         </Grid>
                       </Grid>
                     </Grid>
 
-
-
                     <Grid item xs={12}>
-                    <TextField
+                      <TextField
                         label="Email"
                         name="email"
                         id="email"
@@ -183,17 +213,13 @@ function SignIn(props) {
                         required
                         fullWidth
                         value={values.email}
-                        onChange={handleChange('email')}
-                        error={
-                          Boolean(errors["email"])
-                        }
-                        helperText={
-                          errors["email"]
-                        }
+                        onChange={handleChange("email")}
+                        error={Boolean(errors["email"])}
+                        helperText={errors["email"]}
                       />
                     </Grid>
                     <Grid item xs={12}>
-                    <TextField
+                      <TextField
                         label="Password"
                         name="password"
                         id="password"
@@ -201,14 +227,10 @@ function SignIn(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        value = {values.password}
-                        onChange = {handleChange('password')}
-                        error={
-                          Boolean(errors["password"])
-                        }
-                        helperText={
-                          errors["password"]
-                        }
+                        value={values.password}
+                        onChange={handleChange("password")}
+                        error={Boolean(errors["password"])}
+                        helperText={errors["password"]}
                       />
                     </Grid>
                     <Grid item xs={12} textAlign="left">
@@ -219,32 +241,36 @@ function SignIn(props) {
                       </Typography>
                     </Grid>
                     <Grid item xs={12} sx={{ marginTop: "2vh" }}>
-                    <Button
+                      <Button
                         variant="contained"
                         size="large"
                         // data-testid="signin"
-                        role="navigate"  
+                        role="navigate"
                         onClick={handleSignInButton}
                         sx={{
                           textTransform: "unset",
                           backgroundColor: "#e6835a",
-                          ":hover" : {
-                            bgcolor: '#ffa580'
-                          }
+                          ":hover": {
+                            bgcolor: "#ffa580",
+                          },
                         }}
                         fullWidth
-                        disabled = {loading}
+                        disabled={loading}
                       >
-                    {loading ? 
-                        <CircularProgress style={{color: "#fff"}} size="1.6rem"/>
-                        : "Sign in"}
-                  </Button>
+                        {loading ? (
+                          <CircularProgress
+                            style={{ color: "#fff" }}
+                            size="1.6rem"
+                          />
+                        ) : (
+                          "Sign in"
+                        )}
+                      </Button>
                     </Grid>
                     <Grid item xs={12}>
                       <Divider>Or</Divider>
                     </Grid>
                     <Grid item xs={12}>
-
                       <GoogleLogin
                         clientId={googleClientId}
                         buttonText="LOGIN WITH GOOGLE"
@@ -273,7 +299,6 @@ function SignIn(props) {
                         }
                       />
                     </Grid>
-
                   </Grid>
                 </Grid>
               </Grid>
@@ -286,13 +311,14 @@ function SignIn(props) {
   );
 }
 
-const mapDispatchToProps = { register, clearMessage };
-const mapStateToProps = (state) => {
-  return {
-    message: state.message.message,
-    openMessage: state.message.openMessage,
-    isLoggedIn: state.auth.isLoggedIn,
-  };
-};
+// const mapDispatchToProps = { register, clearMessage };
+// const mapStateToProps = (state) => {
+//   return {
+//     message: state.message.message,
+//     openMessage: state.message.openMessage,
+//     isLoggedIn: state.auth.isLoggedIn,
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+// export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default SignIn;
