@@ -1,0 +1,28 @@
+name: React CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+            cd lentocharity
+            npm install
+      - name: Run tests
+        run: |
+          cd lentocharity
+          npm test

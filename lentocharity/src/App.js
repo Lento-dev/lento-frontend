@@ -8,22 +8,23 @@ import SignIn from "./components/signin";
 import ForgotPassword from "./components/forgotpassword";
 import ResetPassword from "./components/resetpassword";
 import store from "./store";
-import UserInfo from './components/editprofile';
-import VerifyUser from './components/verifyuser';
-import ComplexGrid from './components/Gride';
+import UserInfo from "./components/editprofile";
+import VerifyUser from "./components/verifyuser";
+import ComplexGrid from "./components/Gride";
 import User_Profile from "./components/User_Profile";
 import Foodadvertisment from "./components/foodadvertisment";
 import Dropdown from "./components/Gride";
-import Serviceadvertisement from "./components/Serviceadvertisement"
+import Serviceadvertisement from "./components/Serviceadvertisement";
 import Forms from "./components/forms";
 // import Foodadvertisment from "./components/foodadvertisment";
-import Clothadvertisement from "./components/clothadvertisement"
-import UserSetting from './components/setting';
-import PersistentDrawerLeft from './components/dashboard';
-import Formdis from './components/formsdis';
-import Reprofile from './components/Reprofile';
-
-
+import Clothadvertisement from "./components/clothadvertisement";
+import UserSetting from "./components/setting";
+import PersistentDrawerLeft from "./components/dashboard";
+import Formdis from "./components/formsdis";
+import Reprofile from "./components/Reprofile";
+import PaginationControlled from "./components/page";
+import Homepage from "./components/Homepage";
+import Ppage from "./components/provincepage";
 
 const theme = createTheme({
   typography: {
@@ -38,9 +39,6 @@ const theme = createTheme({
 
 function App() {
   return (
-
-
-
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <div className="App">
@@ -62,7 +60,9 @@ function App() {
               <Route exact path="/profile" component={Reprofile} />
               <Route exact path="/setting" component={UserSetting} />
               <Route exact path="/dashboard" component={PersistentDrawerLeft} />
-            
+              <Route exact path="/page" component={PaginationControlled} />
+              <Route exact path="/hpage" component={Homepage} />
+              <Route exact path="/ppage" component={Ppage} />
             </Switch>
           </BrowserRouter>
         </div>
@@ -72,4 +72,3 @@ function App() {
 }
 
 export default App;
-

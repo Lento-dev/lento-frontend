@@ -167,14 +167,14 @@ function Reprofile() {
 
     useEffect(() => {
     console.log("***********************");
-    // var token = localStorage.getItem("token");
-    // token.replaceAll('"', '');
-    // console.log(token);
+    var token = localStorage.getItem("token");
+    token.replaceAll('"', '');
+    console.log(token);
     var config = {
         method: 'get',
         url: 'http://127.0.0.1:8000/api/account/user-profile/',
         headers: { 
-            'Authorization': 'Token '+ "213b2e47bc472211c4fa19746271d0973f08a671", 
+            'Authorization': 'Token '+ token, 
         }
     };
 
@@ -304,20 +304,31 @@ function Reprofile() {
           {/* ecf2e8 */}
           
 <Container sx={{ padding: "4%" }} component="main">
+<Grid
+  container
+  spacing={0}
+  direction="row"
+  alignItems="center"
+  justifyContent="center"
+>
+<Grid item 
+xs={12}
+>
           <Paper
     elevation={0}
     sx={{
-    //   height:"350px",
+    
       backgroundColor: "#fff",
       borderRadius: 5,
     }}
+    
   >
-      <Grid container>
-      </Grid>
+      {/* <Grid container>
+      </Grid> */}
       <Grid
         item
         xs={12}
-        md={12}
+        md={8}
         lg={12}
         sx={{ backgroundColor: "#fffff", borderRadius: 4 }}
       >
@@ -334,6 +345,7 @@ function Reprofile() {
         >
 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
 <Grid container>
       {/* <Grid item xs={12} md={12} container> */}
       <Grid
@@ -344,9 +356,11 @@ function Reprofile() {
   justifyContent="center"
 >
 
-  <Grid item xs={3}>
-          <Stack direction="row" sx={{ maxWidth: 345 }} style={{ marginTop: "-0.5rem",marginLeft:"-3rem" }}>
-              <Stack direction="photo" spacing={2} sx={{ maxWidth: 345 }} style={{marginTop: "-0.5rem" ,marginLeft:"-3rem"}}>               
+  <Grid item xs={0}>
+          <Stack direction="row" sx={{ maxWidth: 345 }} style={{ marginTop: "-0.5rem" }}>
+          {/* ,marginLeft:"-3rem" */}
+              <Stack direction="photo" spacing={2} sx={{ maxWidth: 345 }} style={{marginTop: "-0.5rem"}}>               
+              {/* ,marginLeft:"-3rem" */}
 
                   <Avatar
                       alt="Remy Sharp"
@@ -388,14 +402,18 @@ function Reprofile() {
   justifyContent="center"
 >
 
-  <Grid item xs={12} style={{ paddingTop: "7rem"}}> 
-   {/* <Grid item  Container > */}
-   {/* style={{ marginLeft: "5rem"}} */}
+<Grid item xs={12} style={{ paddingTop: "4rem"}}> 
+  <Stack direction="row" style={{ marginLeft:"-5rem" }}>
+  
        <ScrollableTabsButtonForce data={res}></ScrollableTabsButtonForce>
+
+      </Stack>
       
         </Grid> 
 </Grid>
+
 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 </Grid>
@@ -405,6 +423,8 @@ function Reprofile() {
         </Grid>
 
   </Paper>
+  </Grid>
+  </Grid>
   </Container>
     
   
@@ -412,7 +432,6 @@ function Reprofile() {
 </div>
     );
   }
-  
   
   
   const Gender = [

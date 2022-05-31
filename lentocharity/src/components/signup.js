@@ -32,7 +32,7 @@ function SignUp(props) {
   const [verifyEmailDialogOpen, setVerifyEmailDialogOpen] = useState(false);
   const [errors, setErrors] = useState({});
   const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-  
+
   const [values, setValues] = useState({
     firstname: "",
     lastname: "",
@@ -41,7 +41,6 @@ function SignUp(props) {
     password: "",
     confirmpassword: "",
   });
-
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -58,7 +57,6 @@ function SignUp(props) {
   const handleVerifyEmailDialogClose = () => {
     setVerifyEmailDialogOpen(false);
     history.push("/signin");
-
   };
 
   const handleChange = (name) => (event) => {
@@ -154,8 +152,8 @@ function SignUp(props) {
   const handleSignUpButton = (e) => {
     validate();
     let filled = Object.keys(errors).length === 0;
-    console.log('error', errors);
-    console.log('filled', filled);
+    console.log("error", errors);
+    console.log("filled", filled);
     if (filled) {
       setLoading(true);
       props
@@ -166,16 +164,15 @@ function SignUp(props) {
           values.username,
           values.password,
           values.confirmpassword,
-          history,
+          history
         )
         .then((res) => {
           setLoading(false);
           handleVerifyEmailDialogClickOpen();
         })
-        .catch(err => {
-
+        .catch((err) => {
           setLoading(false);
-        })
+        });
     }
   };
 
@@ -398,9 +395,9 @@ function SignUp(props) {
                         sx={{
                           textTransform: "unset",
                           backgroundColor: "#e6835a",
-                          ":hover" : {
-                            bgcolor: '#ffa580'
-                          }
+                          ":hover": {
+                            bgcolor: "#ffa580",
+                          },
                         }}
                         fullWidth
                       >
@@ -464,7 +461,7 @@ function SignUp(props) {
                       open={props.openMessage}
                       autoHideDuration={4000}
                       onClose={handleClose}
-                      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                      anchorOrigin={{ vertical: "top", horizontal: "center" }}
                     >
                       <Alert
                         onClose={handleClose}
@@ -487,7 +484,9 @@ function SignUp(props) {
               open={verifyEmailDialogOpen}
               onClose={handleVerifyEmailDialogClose}
             >
-              <DialogTitle color="green" >{"Signed up succesfully!"}</DialogTitle>
+              <DialogTitle color="green">
+                {"Signed up succesfully!"}
+              </DialogTitle>
               <DialogContent>
                 <DialogContentText>
                   Please check your email inbox. We have sent you a verification
