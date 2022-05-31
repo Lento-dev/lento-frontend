@@ -6,6 +6,8 @@ import Signup from "../components/signup";
 import SignIn from '../components/signin';
 import { login } from "../actions/auth";
 import SignUp from "../components/signup";
+import UserInfo from '../components/editprofile';
+import Setting from '../components/setting';
 
 describe("Footer", () => {
   it("should render the correct content", async () => {
@@ -200,6 +202,16 @@ it('should render same text ', () => {
 it('should render same text ', () => {
 	render(
 		<BrowserRouter>
+			<SignUp/>
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/\?/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
 			<SignIn/>
 		</BrowserRouter>
 	);
@@ -319,3 +331,288 @@ it("should render correct username", async () => {
     expect(emailElement.value).toBe("zahra1380");
   });
 
+  describe("edit profile", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <UserInfo />
+      </BrowserRouter>
+      )
+    })
+  })
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <UserInfo/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getByText(/Edit/i);
+    expect(keyword).toBeInTheDocument();
+  });
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <UserInfo/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getByText(/Profile/i);
+    expect(keyword).toBeInTheDocument();
+  });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <UserInfo genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/First Name/i);
+    fireEvent.select(emailElement, { target: { value: "zahra" } });
+    expect(emailElement.value).toBe("zahra");
+  });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <UserInfo genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Last Name/i);
+    fireEvent.select(emailElement, { target: { value: "momeni" } });
+    expect(emailElement.value).toBe("momeni");
+  });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <UserInfo genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/City/i);
+    fireEvent.select(emailElement, { target: { value: "tehran" } });
+    expect(emailElement.value).toBe("tehran");
+  });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <UserInfo genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Job/i);
+    fireEvent.select(emailElement, { target: { value: "programmer" } });
+    expect(emailElement.value).toBe("programmer");
+  });
+
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <UserInfo genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Job/i);
+    fireEvent.select(emailElement, { target: { value: "doctor" } });
+    expect(emailElement.value).toBe("doctor");
+  });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <UserInfo genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/About me/i);
+    fireEvent.select(emailElement, { target: { value: "i am a good developer." } });
+    expect(emailElement.value).toBe("i am a good developer.");
+  });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <UserInfo genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Phone Number/i);
+    fireEvent.select(emailElement, { target: { value: "09912366384" } });
+    expect(emailElement.value).toBe("09912366384");
+  });
+  
+  
+  // it("should render correct birthdate", async () => {
+  //   render(
+  //     <BrowserRouter>
+  //       <UserInfo birthdate={null} setBirthdate={mockedProfile} />
+  //     </BrowserRouter>
+  //   );
+  //   const ProfileElement = screen.getByLabelText(/Birthdate/i);
+  //   fireEvent.select(ProfileElement, { target: { value: "05/13/2022" } });
+  //   expect(ProfileElement.value).toBe("05/13/2022");
+  // });
+  
+  // it("should render correct gender", async () => {
+  //   render(
+  //     <BrowserRouter>
+  //       <UserInfo genValue={null} setGenValue={mockedProfile} />
+  //     </BrowserRouter>
+  //   );
+  //   const ProfileElement = screen.getByLabelText(/Gender/i);
+  //   fireEvent.select(ProfileElement, { target: { value: "Female" } });
+  //   expect(ProfileElement.value).toBe("Female");
+  // });
+
+  // it("should render correct gender", async () => {
+  //   render(
+  //     <BrowserRouter>
+  //       <UserInfo genValue={null} setGenValue={mockedProfile} />
+  //     </BrowserRouter>
+  //   );
+  //   const ProfileElement = screen.getByLabelText(/Select Marital Status/i);
+  //   fireEvent.select(ProfileElement, { target: { value: "Single" } });
+  //   expect(ProfileElement.value).toBe("Single");
+  // });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <UserInfo genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Phone Number/i);
+    fireEvent.select(emailElement, { target: { value: "09123846632" } });
+    expect(emailElement.value).toBe("09123846632");
+  });
+
+  describe("edit profile", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Setting />
+      </BrowserRouter>
+      )
+    })
+  })
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Setting/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getByText(/General/i);
+    expect(keyword).toBeInTheDocument();
+  });
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Setting/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getByText(/Permission/i);
+    expect(keyword).toBeInTheDocument();
+  });
+
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Setting/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getAllByText(/your/i);
+    expect(keyword.length).toBe(2);
+  });
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Setting/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getAllByText(/Change/i);
+    expect(keyword.length).toBe(4);
+  });
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Setting/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getAllByText(/email/i);
+    expect(keyword.length).toBe(4);
+  });
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Setting/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getAllByText(/address/i);
+    expect(keyword.length).toBe(3);
+  });
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Setting/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getAllByText(/password/i);
+    expect(keyword.length).toBe(8);
+  });
+  
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <Setting genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Email Address/i);
+    fireEvent.select(emailElement, { target: { value: "zahramomeninezhad@gmail.com" } });
+    expect(emailElement.value).toBe("zahramomeninezhad@gmail.com");
+  });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <Setting genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Old password/i);
+    fireEvent.select(emailElement, { target: { value: "zahraa1380" } });
+    expect(emailElement.value).toBe("zahraa1380");
+  });
+
+  // it("should render correct username", async () => {
+  //   render(
+  //     <BrowserRouter>
+  //       <Setting genValue={null} setGenValue={mockedProfile} />
+  //     </BrowserRouter>
+  //   );
+  //   const emailElement = screen.getByLabelText(/New password/i);
+  //   fireEvent.select(emailElement, { target: { value: "zahra1380" } });
+  //   expect(emailElement.value).toBe("zahra1380");
+  // });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <Setting genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Confirm new password/i);
+    fireEvent.select(emailElement, { target: { value: "zahra1380" } });
+    expect(emailElement.value).toBe("zahra1380");
+  });
+
+
+
+
+
+
+  
+  

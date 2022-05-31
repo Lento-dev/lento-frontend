@@ -86,65 +86,71 @@ function UserInfo(props) {
     initialValues: {
       firstname: '',
       lastname: '',
-      gender: '', 
-      marital_status: '',
-      date_birth: '',
-      phone: '',
       country: '',
       city: '',
-      job: '',
+      phone: '',
+      date_birth: '',
       bio: '',
+      // marital_status: '',
+      gender: '',
+      job: '',
+      
     },
     validationSchema: validationSchema,
   });
-  
 
   const theme = useTheme();
+  const [techName, setTechName] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [phone, setPhone] = useState('');
   const [Gennder, setGennder] = useState('');
   const [Countrry, setCountrry] = useState('');
   const [marital, setmarital] = useState('');
+  const [spez, setspez] = useState('');
   const [message,setMessage] = React.useState('');
-  const BASE_URL ='http://172.17.3.154/api';
-
+  const [resStatus, setResstatus] = useState([]);
+ 
   const FileInput = () => {
     return <input accept="image/*" type="file" id="select-image" />;
   };
 
   const [value, setValue] = useState(0);
-  const token = localStorage.getItem('token')
-  const headers = {"Authorization": `Bearer ${token}`};
-
+  const email = "amirizahraza@gmail.com";
+  const token = props.a
+  
   useEffect(() => {
-      console.log(token)
-      axios.get(BASE_URL + '/account/user-profile/',headers)
+      axios.get('http://185.190.39.17:8888/profile/getuserprofilebyuser',
+          {
+              headers: {
+                  "Authorization": `Bearer ${token}`
+              }
+          })
           .then(res => {
               console.log(res.data);
-              // setState(res.data);
-              // formik.setValues({
-              //   city: res.data.city || '',
-              //   bio: res.data.bio || '',
-              //   date_birth: res.data.date_birth || '',
-              //   firstname: res.data.first_name || '',
-              //   lastname: res.data.last_name || '',
-              //   job: res.data.job || '',
-              //   // phone: res.data.phone || '',
-              // });
-              // setCountrry(res.data.country)
-              // setGennder(res.data.gender)
-              // // setmarital(res.data.marital_status)
-              // setPhone(res.data.phone || '')
+              setState(res.data);
+              formik.setValues({
+                city: res.data.city || '',
+                bio: res.data.bio || '',
+                date_birth: res.data.date_birth || '',
+                firstname: res.data.firstname || '',
+                lastname: res.data.lastname || '',
+                job: res.data.job || '',
+                // phone: res.data.phone || '',
+              });
+              setCountrry(res.data.country)
+              setGennder(res.data.gender)
+              // setmarital(res.data.marital_status)
+              setPhone(res.data.phone || '')
           })
           }, [])
 
 
-  // useEffect(() => {
-  //   if (selectedImage) {
-  //     setImageUrl(URL.createObjectURL(selectedImage));
-  //   }
-  // }, [selectedImage]);
+  useEffect(() => {
+    if (selectedImage) {
+      setImageUrl(URL.createObjectURL(selectedImage));
+    }
+  }, [selectedImage]);
 
 
   const onClickSubmit = () => {
@@ -173,9 +179,9 @@ function UserInfo(props) {
           setLoading(false);
           console.log('status :', response.status);
           if (response.status === 200){
-            // setResstatus(response.status);
+            setResstatus(response.status);
             setMessage('Your informations was updated successfully!');
-            // setResstatus(response.status);
+            setResstatus(response.status);
           }
           console.log(response);
         })
@@ -212,8 +218,8 @@ function UserInfo(props) {
   });
 
   return (
-    <div>
-      <Helmet bodyAttributes={{ style: 'background-color : #e5ecdf' }}></Helmet>
+    <div style={{ backgroundColor: '#fff', backgroundSize:'cover'}}>
+      <Helmet bodyAttributes={{ style: 'background-color : #fff' }}></Helmet>
       {/* <ThemeProvider theme={theme}> */}
       <Container component="main" maxWidth="md">
         <CssBaseline />
@@ -327,7 +333,7 @@ function UserInfo(props) {
               <Grid item xs={12} sm={6}>
                 <TextField
                   name="date_birth"
-                  label="birthdate"
+                  label="Birthdate"
                   type="date"
                   style={{ width: '100%' }}
                   required
@@ -399,7 +405,7 @@ function UserInfo(props) {
                   autoComplete="job"
                   name="job"
                   id="job"
-                  label="Select your job"
+                  label="Job"
                   value={formik.values.job}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
