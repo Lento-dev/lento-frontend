@@ -218,8 +218,8 @@ function UserInfo(props) {
   });
 
   return (
-    <div style={{ backgroundColor: '#e5ecdf', backgroundSize:'cover'}}>
-      <Helmet bodyAttributes={{ style: 'background-color : #e5ecdf' }}></Helmet>
+    <div style={{ backgroundColor: '#fff', backgroundSize:'cover'}}>
+      <Helmet bodyAttributes={{ style: 'background-color : #fff' }}></Helmet>
       {/* <ThemeProvider theme={theme}> */}
       <Container component="main" maxWidth="md">
         <CssBaseline />

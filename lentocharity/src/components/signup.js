@@ -1,38 +1,39 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-
 import {
   Button,
+  CssBaseline,
   TextField,
   Link,
   Grid,
-  Paper,
+  Box,
   Typography,
-  Divider,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   Container,
-  Snackbar,
-  Alert,
-  CircularProgress,
+  Divider,
 } from "@mui/material";
-import { connect } from "react-redux";
-import { register, googleLogin } from "../actions/auth";
-import { clearMessage } from "../actions/message";
+import "../styles/signup.css";
 import Helmet from "react-helmet";
+import * as yup from "yup";
+import { useHistory } from "react-router-dom";
+import Image from "../assets/illustrations/welcome.svg";
+import { register } from "../actions/auth";
+import { connect } from "react-redux";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import { clearMessage } from "../actions/message";
+import { CircularProgress } from "@mui/material";
+import axios from "axios";
+
 import GoogleLogin from "react-google-login";
 import { FcGoogle } from "react-icons/fc";
 
-function SignUp(props) {
+function SignUp() {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [verifyEmailDialogOpen, setVerifyEmailDialogOpen] = useState(false);
   const [errors, setErrors] = useState({});
   const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-  
+  const BASE_URL = process.env.BASE_URL;
+
   const [values, setValues] = useState({
     firstname: "",
     lastname: "",
@@ -42,14 +43,13 @@ function SignUp(props) {
     confirmpassword: "",
   });
 
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    props.openMessage = false;
-    props.clearMessage();
-  };
+  // const handleClose = (event, reason) => {
+  //   if (reason === "clickaway") {
+  //     return;
+  //   }
+  //   props.openMessage = false;
+  //   props.clearMessage();
+  // };
 
   const handleVerifyEmailDialogClickOpen = () => {
     setVerifyEmailDialogOpen(true);
@@ -58,7 +58,6 @@ function SignUp(props) {
   const handleVerifyEmailDialogClose = () => {
     setVerifyEmailDialogOpen(false);
     history.push("/signin");
-
   };
 
   const handleChange = (name) => (event) => {
@@ -154,131 +153,95 @@ function SignUp(props) {
   const handleSignUpButton = (e) => {
     validate();
     let filled = Object.keys(errors).length === 0;
-    console.log('error', errors);
-    console.log('filled', filled);
+    console.log("error", errors);
+    console.log("filled", filled);
+
     if (filled) {
       setLoading(true);
-      props
-        .register(
-          values.firstname,
-          values.lastname,
-          values.email,
-          values.username,
-          values.password,
-          values.confirmpassword,
-          history,
-        )
+        var formData = new FormData();
+        formData.append("first_name", values.firstname);
+        formData.append("last_name", values.lastname);
+        formData.append("username", values.username);
+        formData.append("email", values.email);
+        formData.append("password", values.password);
+        formData.append("password_confirm", values.confirmpassword);
+      
+        return axios.post(BASE_URL + "account/register/", formData)
         .then((res) => {
           setLoading(false);
           handleVerifyEmailDialogClickOpen();
         })
-        .catch(err => {
-
+        .catch((err) => {
           setLoading(false);
-        })
+        });
+              // if (error.response.status == 400) {
+              //   let message = "";
+              //   for (var key in error.response.data){
+              //     message += error.response.data[key] + ' ';
+              //   }
+              //   console.log(message);
+      
+              //   dispatch({
+              //     type: SET_MESSAGE,
+              //     payload: message,
+              //   });
+              // }
+      };
+      
     }
-  };
+  
 
-  const handleContinueWithGoogle = (response) => {
-    props.googleLogin(response, history, setLoading);
-    console.log(response);
-  };
+  // const handleContinueWithGoogle = (response) => {
+  //   props.googleLogin(response, history, setLoading);
+  //   console.log(response);
+  // };
 
   return (
     <div>
-      <Helmet bodyAttributes={{ style: "background-color : #fff" }} />
-
-      <Container sx={{ padding: "4%" }} component="main" className="signupPage">
-        <Paper
-          elevation={0}
-          component="form"
+      <Helmet bodyAttributes={{ style: "background-color : #fff" }}></Helmet>
+      {/* <ThemeProvider theme={theme}> */}
+      <Container component="main">
+        <CssBaseline />
+        <Box
+          className="signupPerson-container"
           sx={{
-            backgroundColor: "#ecf2e8",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
             borderRadius: 4,
+            backgroundColor: "#fff",
+            flexGrow: 1,
+            justifyContent: "center",
+          }}
+          style={{
+            marginTop: '1vh',
+            marginRight: "auto",
+            marginLeft: "auto",
           }}
         >
-          <Grid container>
+          <Grid container spacing={3}>
             <Grid
               item
-              xs={12}
-              md={5}
-              lg={5}
-              sx={{ borderRadius: 4, backgroundColor: "#8b9b74" }}
+              md
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
-              <Grid
-                container
-                sx={{
-                  paddingTop: "5%",
-                  paddingRight: "10%",
-                  paddingLeft: "10%",
-                  paddingBottom: "7%",
-                  color: "white",
-                }}
-                spacing={2}
-              >
-                <Grid item xs={12}>
-                  <Typography
-                    fontWeight="bold"
-                    textAlign="left"
-                    fontSize="2rem"
-                  >
-                    Welcome to
-                  </Typography>
-                </Grid>
-
-                <Grid item xs={12}>
-                  <Typography
-                    fontWeight="bold"
-                    textAlign="left"
-                    fontSize="2.5rem"
-                  >
-                    Lento Charity
-                  </Typography>
-                </Grid>
-
-                <Grid item xs={12} textAlign="left" sx={{ marginTop: "18vh" }}>
-                  <Typography fontSize="1.3rem">
-                    You can communicate with others.
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography fontSize="1.3rem">
-                    You can share your experiences with our charity.
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography fontSize="1.3rem">
-                    You can be helpful for the hurted animal.
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography fontSize="1.3rem">
-                    You can help people with what you don't need.
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography fontSize="1.8rem">
-                    Enjoy using our app.
-                  </Typography>
-                </Grid>
-              </Grid>
+              <div className="col align-items-center signup-img">
+                <img
+                  src={Image}
+                  width="100"
+                  height="100"
+                  className="responsive"
+                  alt="signup logo"
+                />
+              </div>
             </Grid>
-
-            <Grid
-              item
-              xs={12}
-              md={7}
-              lg={7}
-              sx={{ backgroundColor: "#ecf2e8", borderRadius: 4 }}
-            >
+            <Grid item md>
               <Grid
                 container
-                sx={{
-                  paddingTop: "5%",
-                  paddingRight: "15%",
-                  paddingLeft: "15%",
-                  paddingBottom: "7%",
-                }}
                 spacing={2}
               >
                 <Grid item xs={12}>
@@ -398,9 +361,9 @@ function SignUp(props) {
                         sx={{
                           textTransform: "unset",
                           backgroundColor: "#e6835a",
-                          ":hover" : {
-                            bgcolor: '#ffa580'
-                          }
+                          ":hover": {
+                            bgcolor: "#ffa580",
+                          },
                         }}
                         fullWidth
                       >
@@ -418,25 +381,13 @@ function SignUp(props) {
                       <Divider>Or</Divider>
                     </Grid>
                     <Grid item xs={12}>
-                      {/* <Button
-                        variant="outlined"
-                        fullWidth
-                        size="large"
-                        sx={{
-                          textTransform: "unset",
-                          borderColor: "#e6835a",
-                          color: "black",
-                        }}
-                        startIcon={<FcGoogle />}
-                      >
-                        Continue with Google
-                      </Button> */}
+
                       <GoogleLogin
                         clientId={googleClientId}
                         buttonText="LOGIN WITH GOOGLE"
-                        onSuccess={(response) =>
-                          handleContinueWithGoogle(response)
-                        }
+                        // onSuccess={(response) =>
+                        //   handleContinueWithGoogle(response)
+                        // }
                         render={(renderProps) => (
                           <Button
                             variant="outlined"
@@ -460,58 +411,26 @@ function SignUp(props) {
                       />
                     </Grid>
 
-                    <Snackbar
-                      open={props.openMessage}
-                      autoHideDuration={4000}
-                      onClose={handleClose}
-                      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                    >
-                      <Alert
-                        onClose={handleClose}
-                        variant="filled"
-                        severity={
-                          props.message === "Signed up successfully!"
-                            ? "success"
-                            : "error"
-                        }
-                        sx={{ width: "100%" }}
-                      >
-                        {props.message}
-                      </Alert>
-                    </Snackbar>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
-            <Dialog
-              open={verifyEmailDialogOpen}
-              onClose={handleVerifyEmailDialogClose}
-            >
-              <DialogTitle color="green" >{"Signed up succesfully!"}</DialogTitle>
-              <DialogContent>
-                <DialogContentText>
-                  Please check your email inbox. We have sent you a verification
-                  link.
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleVerifyEmailDialogClose}>OK</Button>
-              </DialogActions>
-            </Dialog>
           </Grid>
-        </Paper>
+        </Box>
       </Container>
+      {/* </ThemeProvider> */}
     </div>
   );
 }
 
-const mapDispatchToProps = { register, googleLogin, clearMessage };
+// const mapDispatchToProps = { register, clearMessage };
+// const mapStateToProps = (state) => {
+//   return {
+//     message: state.message.message,
+//     openMessage: state.message.openMessage,
+//     isLoggedIn: state.auth.isLoggedIn,
+//   };
+// };
 
-const mapStateToProps = (state) => {
-  return {
-    message: state.message.message,
-    openMessage: state.message.openMessage,
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+// export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default SignUp;

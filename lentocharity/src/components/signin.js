@@ -1,30 +1,33 @@
 import React, { useState } from "react";
-import { useHistory } from 'react-router-dom';
-
 import {
   Button,
+  CssBaseline,
   TextField,
   Link,
   Grid,
-  Paper,
+  Box,
   Typography,
-  Divider,
-  CircularProgress,  Snackbar,
-  Alert,
   Container,
+  Divider,
 } from "@mui/material";
-import { connect } from 'react-redux';
+import "../styles/signin.css";
 import Helmet from "react-helmet";
-import { FcGoogle } from "react-icons/fc";
-import Image from "../assets/illustrations/signin.svg";
-import { login, googleLogin } from "../actions/auth";
-import { clearMessage } from '../actions/message';
+import * as yup from "yup";
+import { useHistory } from "react-router-dom";
+import Image from "../assets/illustrations/login.svg";
+import { register } from "../actions/auth";
+import { connect } from "react-redux";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import { clearMessage } from "../actions/message";
+import { CircularProgress } from "@mui/material";
+
 import GoogleLogin from "react-google-login";
-const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-
-
+import { FcGoogle } from "react-icons/fc";
 
 function SignIn(props) {
+  const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
   const history = useHistory();
   const [loading, setLoading] = React.useState(false);
   const [errors, setErrors] = useState({});
@@ -99,78 +102,79 @@ function SignIn(props) {
     console.log(response);
   };
 
-
   return (
     <div>
-      <Helmet bodyAttributes={{ style: "background-color : #fff" }} />
-
-      <Container sx={{ padding: "4%" }} component="main">
-        <Paper
-          className="signinPage"
-          elevation={0}
+      <Helmet bodyAttributes={{ style: "background-color : #fff" }}></Helmet>
+      {/* <ThemeProvider theme={theme}> */}
+      <Container component="main">
+        <CssBaseline />
+        <Box
+          className="signupPerson-container"
           sx={{
-            backgroundColor: "#ecf2e8",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
             borderRadius: 4,
+            backgroundColor: "#fff",
+            flexGrow: 1,
+            justifyContent: "center",
+          }}
+          style={{
+            marginTop: '1vh',
+            marginRight: "auto",
+            marginLeft: "auto",
           }}
         >
-          <Grid container>
+          <Grid container spacing={3}>
             <Grid
               item
-              xs={12}
-              md={5}
-              lg={5}
-              textAlign="center"
-              sx={{ borderRadius: 4, backgroundColor: "#8b9b74" }}
+              md
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
-              <div className="signin-img">
+              <div className="col align-items-center signup-img">
                 <img
                   src={Image}
-                  width="500"
-                  height="500"
+                  width="100"
+                  height="100"
                   className="responsive"
-                  alt="login logo"
+                  alt="signup logo"
                 />
               </div>
             </Grid>
-
-            <Grid
-              item
-              xs={12}
-              md={7}
-              lg={7}
-              sx={{ backgroundColor: "#ecf2e8", borderRadius: 4 }}
-            >
+            <Grid item md>
               <Grid
                 container
-                sx={{
-                  paddingTop: "5%",
-                  paddingRight: "15%",
-                  paddingLeft: "15%",
-                }}
+                spacing={2}
               >
                 <Grid item xs={12}>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
-                      <Grid container sx={{ paddingBottom: "5vh" }}>
+                      <Grid container sx={{ paddingBottom: "3vh" }}>
                         <Grid item xs={6} textAlign="left">
                           <Typography fontWeight="bold" fontSize="1.1rem">
                             Sign in
                           </Typography>
                         </Grid>
                         <Grid item xs={6} textAlign="right">
-                          <Typography fontSize="0.85rem">
-                            {" "}
-                            Not a member?{" "}
-                            <Link href="/" underline="none">
-                              {"Register"}
-                            </Link>{" "}
+                        <Typography fontSize="0.85rem">
+                             {" "}
+                             Not a member?{" "}
+                             <Link href="/" underline="none">
+                               {"Register"}
+                             </Link>{" "}
                           </Typography>
                         </Grid>
                       </Grid>
                     </Grid>
 
+
+
                     <Grid item xs={12}>
-                      <TextField
+                    <TextField
                         label="Email"
                         name="email"
                         id="email"
@@ -189,7 +193,7 @@ function SignIn(props) {
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <TextField
+                    <TextField
                         label="Password"
                         name="password"
                         id="password"
@@ -214,10 +218,8 @@ function SignIn(props) {
                         </Link>{" "}
                       </Typography>
                     </Grid>
-
                     <Grid item xs={12} sx={{ marginTop: "2vh" }}>
-                      
-                      <Button
+                    <Button
                         variant="contained"
                         size="large"
                         // data-testid="signin"
@@ -237,14 +239,13 @@ function SignIn(props) {
                         <CircularProgress style={{color: "#fff"}} size="1.6rem"/>
                         : "Sign in"}
                   </Button>
-             
                     </Grid>
-
                     <Grid item xs={12}>
                       <Divider>Or</Divider>
                     </Grid>
                     <Grid item xs={12}>
-                    <GoogleLogin
+
+                      <GoogleLogin
                         clientId={googleClientId}
                         buttonText="LOGIN WITH GOOGLE"
                         onSuccess={(response) =>
@@ -271,47 +272,27 @@ function SignIn(props) {
                           console.log("Google Login failed", err)
                         }
                       />
-
                     </Grid>
-                    <Snackbar
-                      open={props.openMessage}
-                      autoHideDuration={4000}
-                      onClose={handleClose}
-                      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                    >
-                      <Alert
-                        onClose={handleClose}
-                        variant="filled"
-                        severity={
-                          props.message === "Signed up successfully!" 
-                            ? "success"
-                            : "error"
-                        }
-                        sx={{ width: "100%" }}
-                      >
-                        {props.message}
-                      </Alert>
-                    </Snackbar>
+
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
-        </Paper>
+        </Box>
       </Container>
+      {/* </ThemeProvider> */}
     </div>
   );
 }
 
-
-
-const mapDispatchToProps = { login, clearMessage };
-const mapStateToProps = ( state ) => {
-  return{
+const mapDispatchToProps = { register, clearMessage };
+const mapStateToProps = (state) => {
+  return {
     message: state.message.message,
     openMessage: state.message.openMessage,
-  }
-}
+    isLoggedIn: state.auth.isLoggedIn,
+  };
+};
 
-export default connect(mapStateToProps ,mapDispatchToProps)(SignIn);
-// export default SignIn;
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

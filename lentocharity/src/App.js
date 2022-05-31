@@ -22,7 +22,8 @@ import UserSetting from './components/setting';
 import PersistentDrawerLeft from './components/dashboard';
 import Formdis from './components/formsdis';
 import Reprofile from './components/Reprofile';
-
+import Navbar from './components/navbar';
+import Setting from './components/setting';
 
 
 const theme = createTheme({
@@ -45,9 +46,11 @@ function App() {
       <Provider store={store}>
         <div className="App">
           <BrowserRouter>
+          <Navbar/>
             <Switch>
               <Route exact path="/" component={SignUp} />
-              {/* <Route exact path="/profile" component={UserProfile} /> */}
+              <Route exact path="/profile" component={UserProfile} /> 
+              <Route exact path="/setting" component={Setting} /> 
               <Route exact path="/signin" component={SignIn} />
               <Route exact path="/forgot-password" component={ForgotPassword} />
               <Route exact path="/verify-user" component={VerifyUser} />
@@ -61,7 +64,7 @@ function App() {
               <Route exact path="/forms" component={Formdis} />
               <Route exact path="/profile" component={Reprofile} />
               <Route exact path="/setting" component={UserSetting} />
-              <Route exact path="/dashboard" component={PersistentDrawerLeft} />
+              <Route exact path="/dashboard" component={PersistentDrawerLeft} /> 
             
             </Switch>
           </BrowserRouter>
