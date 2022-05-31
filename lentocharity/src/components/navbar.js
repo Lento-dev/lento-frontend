@@ -215,7 +215,7 @@ function Navbar(props) {
 
             <Link
               href="/signin"
-              sx={{ marginLeft: "82%", marginRight: "1%" }}
+              sx={{ marginLeft: "77%", marginRight: "1%" }}
               underline="none"
             >
               <Button
