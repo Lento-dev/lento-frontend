@@ -99,10 +99,12 @@ function SignIn(props) {
           localStorage.setItem("user", JSON.stringify(response.data));
           localStorage.setItem("userType", JSON.stringify("user"));
           localStorage.setItem("token", response.data.token);
+          localStorage.setItem("isLoggedIn", true);
+
           console.log("user", response.data);
           console.log("login was succesfull");
           setLoading(false);
-          history.push("/profile");
+          history.push("/dashboard");
         })
         .catch((error) => {
           setLoading(false);

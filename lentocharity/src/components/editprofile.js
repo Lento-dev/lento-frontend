@@ -178,9 +178,8 @@ function UserInfo(props) {
         <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ justifyContent: "center", padding: "3rem"}}>
           <Grid container>
             <Grid container spacing={3}>
-            
-
-                        <Grid item xs={12}  sx={{textAlignLast: 'justify', textAlign:"center", paddingBottom: '1.5rem'}}>
+        
+                        <Grid item xs={12}  sx={{alignItems: 'center', justifyContent: 'center', display: 'inline-flex', paddingBottom: '1.5rem'}}>
                             <Stack direction="row" >
                                 <Stack direction="row">
                                     <Avatar
@@ -413,7 +412,7 @@ function UserInfo(props) {
                   </Button>
 
                 <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
-                  <Alert onClose={handleClose} severity={message === "Please fill in the blanks." ? "error" : "success"} sx={{ width: '100%' }}>
+                  <Alert onClose={handleClose} severity={message === "Your informations was updated successfully!" ? "success" : "error"} sx={{ width: '100%' }}>
                     {message}
                   </Alert>
                 </Snackbar>

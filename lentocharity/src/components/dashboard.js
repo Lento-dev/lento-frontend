@@ -15,16 +15,21 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import Logout from "@mui/icons-material/Logout";
+import AddIcon from '@mui/icons-material/Add';
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
 import ListItemText from "@mui/material/ListItemText";
 import { useHistory } from "react-router-dom";
 import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
+import ChatIcon from '@mui/icons-material/Chat';
 import UserSetting from "./setting";
 import Reprofile from "./Reprofile";
 import UserInfo from "./editprofile";
-
+import Forms from "./forms";
+import Chat from "./chat";
+import axios from "axios";
 
 const drawerWidth = 240;
 
@@ -44,6 +49,16 @@ const items = [
     icon: <PersonIcon fontSize="medium" />,
     title: "View profile",
   },
+  {
+    href: "/dashboard/addpost",
+    icon: <AddIcon fontSize="medium" />,
+    title: "Add post",
+  },
+  {
+    href: "/dashboard/chat",
+    icon: <ChatIcon fontSize="medium" />,
+    title: "Chat",
+  }
 
 ];
 
@@ -98,7 +113,10 @@ function Userdrawer(props) {
   const history = useHistory();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
+  const BASE_URL = "http://172.17.3.154/api";
+  const token = localStorage.getItem('token');
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  const headers = {"Authorization": `Token ${token}`};
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -109,6 +127,19 @@ function Userdrawer(props) {
 
   const handleBackToHome = () => {
     history.push('/');
+  }
+  const handleLogout = () => {
+    axios.post(BASE_URL + '/account/logout/', {revoke_token: true},{headers} )
+    .then(res => {
+      localStorage.clear();
+      console.log(res);
+      console.log('logout succesfully');
+      history.push('/')
+    })
+    .catch(err => {
+      console.log(err);
+      console.log('logout failed!');
+    })  
   }
 
   return (
@@ -163,9 +194,13 @@ function Userdrawer(props) {
                 <ListItemText fontWeight='bold' primary={item.title} />
               </ListItem>
             ))}
-            <ListItem button key="Homepage" component={Link} onClick={handleBackToHome}>
+            <ListItem button key="Homepage" component={Link} onClick={handleBackToHome} sx={{marginBottom: '18rem'}}>
                 <ListItemIcon sx={{color:"#e6835a"}}><HomeIcon fontSize="medium"/></ListItemIcon>
                 <ListItemText fontWeight='bold' primary="Homepage" />
+              </ListItem>
+              <ListItem button key="Logout" component={Link} onClick={handleLogout}>
+                <ListItemIcon sx={{color:"#e6835a"}}><Logout fontSize="medium"/></ListItemIcon>
+                <ListItemText fontWeight='bold' primary="Logout" />
               </ListItem>
           </List>
         </Drawer>
@@ -174,8 +209,10 @@ function Userdrawer(props) {
           <Switch>
             <Route path="/dashboard/setting" component={UserSetting} />
             <Route path="/dashboard/profile" component={Reprofile} />
+            <Route path="/dashboard/addpost" component={Forms} />
+            <Route path="/dashboard/chat" component={Chat} />
             <Route path="/dashboard" component={UserInfo} />
-            
+
           </Switch>
         </Main>
       </BrowserRouter>
