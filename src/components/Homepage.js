@@ -68,9 +68,8 @@ import MuiMenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
 import backg from "../assets/img/charity.jpg";
 import ImageBackground from "react";
-import SearchBar from "material-ui-search-bar";
+// import SearchBar from "material-ui-search-bar";
 import { createFilterOptions } from "@mui/material/Autocomplete";
-import "../styles/homep.css";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import cardimg2 from "../assets/img/charitycard2.jpg";
@@ -86,13 +85,21 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import kindmind from "../assets/img/kind-mind.jpg";
+import donate from "../assets/img/cardimag4.jpg";
+import kadoo from "../assets/img/kadoo.jpg";
+import tabiat from "../assets/img/tabiat.jpg";
+import book from "../assets/img/books.jpg";
+import tashvigh from "../assets/img/tashvigh.jpg";
+import hamipic from "../assets/img/hamipic.jpg";
 
 const filterOptions = createFilterOptions({
   matchFrom: "start",
-  stringify: (option: FilmOptionType) => option.title,
+  stringify: (option: FilmOptionType) => option.label,
 });
 
 export default function Homepage() {
+  let history = useHistory();
   const [myOptions, setMyOptions] = useState([]);
 
   const getDataFromAPI = () => {
@@ -159,26 +166,27 @@ export default function Homepage() {
             <br />
             <br />
             <br />
+
             <Autocomplete
               id="filter-demo"
-              options={top100Films}
-              getOptionLabel={(option) => option.title}
+              options={Provinces}
+              getOptionLabel={(option) => option.label}
               filterOptions={filterOptions}
               sx={{ width: 600 }}
               renderInput={(params) => (
-                <TextField {...params} label="Custom filter" />
+                <TextField {...params} label="Select province" />
               )}
               fullWidth
+              onKeyDown={(e) => {
+                e.key === "Enter"
+                  ? history.push({
+                      pathname: "/ppage",
+                      state: { data: e.target.value },
+                    })
+                  : console.log("not entered");
+              }}
             />
 
-            {/* <Grid
-              item
-              xs={12}
-              md={5}
-              lg={5}
-              sx={{ borderRadius: 4, backgroundColor: "#8b9b74" }}
-            >
-               */}
 
             <Grid item xs={12} textAlign="left" sx={{ marginTop: "12vh" }}>
               <Typography color="black" fontSize="1.3rem">
@@ -245,8 +253,10 @@ export default function Homepage() {
                   style={{
                     width: "100vh",
                     height: "100vh",
+                    marginLeft: '7vh',
                     // justifyContent: "center",
                     position: "sticky",
+                    zIndex:"-1",
                   }}
                 />
               </Grid>
@@ -265,6 +275,7 @@ export default function Homepage() {
             
           </Grid> */}
         </Grid>
+
         <Grid container spacing={1}>
           <Grid item xs={12} lg={4} md={4}>
             <Card
@@ -428,444 +439,907 @@ export default function Homepage() {
               </Grid>
             </Card>
           </Grid>
-          <Grid item xs={12}>
-            {/* lg={12} md={12} */}
-            <Swiper
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
-              // spaceBetween={50}
-              slidesPerView={5}
-              navigation
-              pagination={{ clickable: true }}
-              // scrollbar={{ draggable: true }}
-              onSwiper={(swiper) => console.log(swiper)}
-              onSlideChange={() => console.log("slide change")}
-              // style={{ paddingTop: "2rem" }}
+
+          <Grid
+            item
+            xs={12}
+            md={12}
+            lg={12}
+            // sx={{ borderRadius: 4, backgroundColor: "#8b9b74" }}
+          >
+            <Grid
+              container
+              spacing={0}
+              direction="row"
+              alignItems="center"
+              justifyContent="center"
             >
-              <SwiperSlide style={{ paddingBottom: "2rem" }}>
-                {" "}
-                <Grid item xs={12}>
-                  <Card
-                    elevation={3}
-                    sx={{ borderRadius: 6, display: "flex" }}
-                    style={{
-                      marginTop: "7rem",
-                      marginBottom: "1rem",
-                      marginLeft: "2rem",
-                      // marginRight: "1rem",
-                      padding: "1rem",
-                    }}
+              <Grid item xs={12}>
+                <Grid
+                  container
+                  sx={{
+                    // paddingTop: "15%",
+                    // paddingRight: "10%",
+                    paddingLeft: "2%",
+                    // paddingBottom: "37%",
+                    color: "white",
+                  }}
+                  spacing={0}
+                >
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <Swiper
+                    modules={[Navigation, Pagination, Scrollbar, A11y]}
+                    // spaceBetween={50}
+                    slidesPerView={1}
+                    navigation
+                    pagination={{ clickable: true }}
+                    // scrollbar={{ draggable: true }}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    onSlideChange={() => console.log("slide change")}
+                    // style={{ paddingTop: "2rem" }}
                   >
-                    <Grid container>
-                      <Grid item xs={12}>
-                        <img
-                          src={ci2}
-                          style={{
-                            width: "100%",
-                            height: "20vh",
-                            marginTop: "0rem",
-                            marginBottom: "0rem",
-                            alignItems: "center",
-                          }}
-                        />
-                        <h4></h4>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        textAlign="left"
-                        sx={{ marginTop: "4vh" }}
+                    <SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      <Card
+                        elevation={3}
+                        sx={{ borderRadius: 6, display: "flex" }}
+                        style={{
+                          marginTop: "7rem",
+                          marginBottom: "1rem",
+                          marginLeft: "4rem",
+                          marginRight: "4rem",
+                          padding: "1rem",
+                        }}
                       >
-                        <Typography color="black" fontSize="1.3rem">
-                          You can communicate with others.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can share your experiences with our charity.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can be helpful for the hurted animal.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can help people with what you don't need.
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Card>
-                </Grid>
-              </SwiperSlide>
-              <SwiperSlide style={{ paddingBottom: "2rem" }}>
-                {" "}
-                <Grid item xs={12}>
-                  <Card
-                    elevation={3}
-                    sx={{ borderRadius: 6, display: "flex" }}
-                    style={{
-                      marginTop: "7rem",
-                      marginBottom: "1rem",
-                      marginLeft: "2rem",
-                      // marginRight: "3rem",
-                      padding: "1rem",
-                    }}
-                  >
-                    <Grid container style={{ padding: "6px" }}>
-                      <Grid item xs={12}>
-                        <Typography
-                          component="h3"
-                          style={{ fontWeight: "bold" }}
-                        ></Typography>
-                        <img
-                          src={ci2}
-                          style={{
-                            width: "100%",
-                            height: "20vh",
-                            marginTop: "0rem",
-                            marginBottom: "rem",
-                            alignItems: "center",
-                          }}
-                        />
-                        <h4></h4>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        textAlign="left"
-                        sx={{ marginTop: "4vh" }}
+                        <Grid container style={{ padding: "6px" }}>
+                          {/* <Grid item xs={6}></Grid> */}
+                          <Grid item xs={12} md={12} lg={4}>
+                            <img
+                              src={kindmind}
+                              style={{
+                                paddingTop: "2rem",
+                                // paddingRight: "15rem",
+                                width: "50%",
+                                height: "40vh",
+                                position: "sticky",
+                              }}
+                            />
+                          </Grid>
+
+                          <Grid item xs={12} md={12} lg={8}>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{
+                                fontWeight: "bold",
+                                paddingTop: "1.5rem",
+                              }}
+                            >
+                              The effects of good work on mental health
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold", paddingTop: "3rem" }}
+                            >
+                              In fact, good deeds and benevolence is a good
+                              thing that more or less everyone wants to do, and
+                              this is due to the good effect of good deeds on
+                              the human psyche.
+                            </Typography>
+
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              A person who has not done a good deed and has not
+                              been a pioneer in it, is in fact oppressing
+                              himself, which is considered oppression of himself
+                              and his soul.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              People who are mentally healthy are not only
+                              recipients of love and kindness, but also do good
+                              to others. In fact, this love goes back to the
+                              individual.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Psychologically, a person who loves and helps a
+                              poor and helpless person, gives him a good sense
+                              of power, which this time positive and energy is
+                              able to have good effects on the soul and psyche
+                              of the volunteer and increase trust.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              To one's self and self-esteem. On the other hand,
+                              in these situations, facing the problems of others
+                              makes a person thank God at any time because of
+                              the peace he has in the moment and is so free of
+                              thought and action that he is even able to spend
+                              part of his time on things.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Other people slow down to help them. Now, if a
+                              person does not face a problem in life for any
+                              reason, the soul and psyche are strengthened and
+                              it is easier to try to solve the problem and
+                              succeed.
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            textAlign="left"
+                            sx={{ marginTop: "4vh" }}
+                          ></Grid>
+                        </Grid>
+                      </Card>
+                    </SwiperSlide>
+                    <SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      {" "}
+                      <Card
+                        elevation={3}
+                        sx={{ borderRadius: 6, display: "flex" }}
+                        style={{
+                          marginTop: "7rem",
+                          marginBottom: "1rem",
+                          marginLeft: "4rem",
+                          marginRight: "4rem",
+                          padding: "1rem",
+                        }}
                       >
-                        <Typography color="black" fontSize="1.3rem">
-                          You can communicate with others.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can share your experiences with our charity.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can be helpful for the hurted animal.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can help people with what you don't need.
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Card>
-                </Grid>
-              </SwiperSlide>
-              <SwiperSlide style={{ paddingBottom: "2rem" }}>
-                {" "}
-                <Grid item xs={12}>
-                  <Card
-                    elevation={3}
-                    sx={{ borderRadius: 6, display: "flex" }}
-                    style={{
-                      marginTop: "7rem",
-                      marginBottom: "1rem",
-                      marginLeft: "2rem",
-                      // marginRight: "3rem",
-                      padding: "1rem",
-                    }}
-                  >
-                    <Grid container style={{ padding: "6px" }}>
-                      <Grid item xs={12}>
-                        <Typography
-                          component="h3"
-                          style={{ fontWeight: "bold" }}
-                        ></Typography>
-                        <img
-                          src={ci2}
-                          style={{
-                            width: "100%",
-                            height: "20vh",
-                            marginTop: "0rem",
-                            marginBottom: "rem",
-                            alignItems: "center",
-                          }}
-                        />
-                        <h4></h4>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        textAlign="left"
-                        sx={{ marginTop: "4vh" }}
+                        <Grid container style={{ padding: "6px" }}>
+                          {/* <Grid item xs={6}></Grid> */}
+                          <Grid item xs={12} md={12} lg={4}>
+                            <img
+                              src={donate}
+                              style={{
+                                paddingTop: "2rem",
+                                // paddingRight: "15rem",
+                                width: "50%",
+                                height: "30vh",
+                                position: "sticky",
+                              }}
+                            />
+                          </Grid>
+                          <Grid item xs={12} md={12} lg={8}>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{
+                                fontWeight: "bold",
+                                paddingTop: "1.5rem",
+                              }}
+                            >
+                              Recognize authentic charity
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold", paddingTop: "3rem" }}
+                            >
+                              In fact, good deeds and benevolence is a good
+                              thing that more or less everyone wants to do, and
+                              this is due to the good effect of good deeds on
+                              the human psyche.
+                            </Typography>
+
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              A person who has not done a good deed and has not
+                              been a pioneer in it, is in fact oppressing
+                              himself, which is considered oppression of himself
+                              and his soul.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              People who are mentally healthy are not only
+                              recipients of love and kindness, but also do good
+                              to others. In fact, this love goes back to the
+                              individual.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Psychologically, a person who loves and helps a
+                              poor and helpless person, gives him a good sense
+                              of power, which this time positive and energy is
+                              able to have good effects on the soul and psyche
+                              of the volunteer and increase trust.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              To one's self and self-esteem. On the other hand,
+                              in these situations, facing the problems of others
+                              makes a person thank God at any time because of
+                              the peace he has in the moment and is so free of
+                              thought and action that he is even able to spend
+                              part of his time on things.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Other people slow down to help them. Now, if a
+                              person does not face a problem in life for any
+                              reason, the soul and psyche are strengthened and
+                              it is easier to try to solve the problem and
+                              succeed.
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            textAlign="left"
+                            sx={{ marginTop: "4vh" }}
+                          ></Grid>
+                        </Grid>
+                      </Card>
+                    </SwiperSlide>
+                    <SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      {" "}
+                      <Card
+                        elevation={3}
+                        sx={{ borderRadius: 6, display: "flex" }}
+                        style={{
+                          marginTop: "7rem",
+                          marginBottom: "1rem",
+                          marginLeft: "4rem",
+                          marginRight: "4rem",
+                          padding: "1rem",
+                        }}
                       >
-                        <Typography color="black" fontSize="1.3rem">
-                          You can communicate with others.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can share your experiences with our charity.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can be helpful for the hurted animal.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can help people with what you don't need.
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Card>
-                </Grid>
-              </SwiperSlide>
-              <SwiperSlide style={{ paddingBottom: "2rem" }}>
-                {" "}
-                <Grid item xs={12}>
-                  <Card
-                    elevation={3}
-                    sx={{ borderRadius: 6, display: "flex" }}
-                    style={{
-                      marginTop: "7rem",
-                      marginBottom: "1rem",
-                      marginLeft: "2rem",
-                      // marginRight: "3rem",
-                      padding: "1rem",
-                    }}
-                  >
-                    <Grid container style={{ padding: "6px" }}>
-                      <Grid item xs={12}>
-                        <Typography
-                          component="h3"
-                          style={{ fontWeight: "bold" }}
-                        ></Typography>
-                        <img
-                          src={ci2}
-                          style={{
-                            width: "100%",
-                            height: "20vh",
-                            marginTop: "0rem",
-                            marginBottom: "rem",
-                            alignItems: "center",
-                          }}
-                        />
-                        <h4></h4>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        textAlign="left"
-                        sx={{ marginTop: "4vh" }}
+                        <Grid container style={{ padding: "6px" }}>
+                          {/* <Grid item xs={6}></Grid> */}
+                          <Grid item xs={12} md={12} lg={4}>
+                            <img
+                              src={kadoo}
+                              style={{
+                                paddingTop: "2rem",
+                                // paddingRight: "15rem",
+                                width: "50%",
+                                height: "30vh",
+                                position: "sticky",
+                              }}
+                            />
+                          </Grid>
+                          <Grid item xs={12} md={12} lg={8}>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{
+                                fontWeight: "bold",
+                                paddingTop: "1.5rem",
+                              }}
+                            >
+                              Give gifts to the needy that you do not like
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold", paddingTop: "3rem" }}
+                            >
+                              In fact, good deeds and benevolence is a good
+                              thing that more or less everyone wants to do, and
+                              this is due to the good effect of good deeds on
+                              the human psyche.
+                            </Typography>
+
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              A person who has not done a good deed and has not
+                              been a pioneer in it, is in fact oppressing
+                              himself, which is considered oppression of himself
+                              and his soul.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              People who are mentally healthy are not only
+                              recipients of love and kindness, but also do good
+                              to others. In fact, this love goes back to the
+                              individual.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Psychologically, a person who loves and helps a
+                              poor and helpless person, gives him a good sense
+                              of power, which this time positive and energy is
+                              able to have good effects on the soul and psyche
+                              of the volunteer and increase trust.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              To one's self and self-esteem. On the other hand,
+                              in these situations, facing the problems of others
+                              makes a person thank God at any time because of
+                              the peace he has in the moment and is so free of
+                              thought and action that he is even able to spend
+                              part of his time on things.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Other people slow down to help them. Now, if a
+                              person does not face a problem in life for any
+                              reason, the soul and psyche are strengthened and
+                              it is easier to try to solve the problem and
+                              succeed.
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            textAlign="left"
+                            sx={{ marginTop: "4vh" }}
+                          ></Grid>
+                        </Grid>
+                      </Card>
+                    </SwiperSlide>
+                    <SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      {" "}
+                      <Card
+                        elevation={3}
+                        sx={{ borderRadius: 6, display: "flex" }}
+                        style={{
+                          marginTop: "7rem",
+                          marginBottom: "1rem",
+                          marginLeft: "4rem",
+                          marginRight: "4rem",
+                          padding: "1rem",
+                        }}
                       >
-                        <Typography color="black" fontSize="1.3rem">
-                          You can communicate with others.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can share your experiences with our charity.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can be helpful for the hurted animal.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can help people with what you don't need.
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Card>
-                </Grid>
-              </SwiperSlide>
-              <SwiperSlide style={{ paddingBottom: "2rem" }}>
-                {" "}
-                <Grid item xs={12}>
-                  <Card
-                    elevation={3}
-                    sx={{ borderRadius: 6, display: "flex" }}
-                    style={{
-                      marginTop: "7rem",
-                      marginBottom: "1rem",
-                      marginLeft: "2rem",
-                      // marginRight: "3rem",
-                      padding: "1rem",
-                    }}
-                  >
-                    <Grid container style={{ padding: "6px" }}>
-                      <Grid item xs={12}>
-                        <Typography
-                          component="h3"
-                          style={{ fontWeight: "bold" }}
-                        ></Typography>
-                        <img
-                          src={ci2}
-                          style={{
-                            width: "100%",
-                            height: "20vh",
-                            marginTop: "0rem",
-                            marginBottom: "rem",
-                            alignItems: "center",
-                          }}
-                        />
-                        <h4></h4>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        textAlign="left"
-                        sx={{ marginTop: "4vh" }}
+                        <Grid container style={{ padding: "6px" }}>
+                          {/* <Grid item xs={6}></Grid> */}
+                          <Grid item xs={12} md={12} lg={4}>
+                            <img
+                              src={tabiat}
+                              style={{
+                                paddingTop: "2rem",
+                                // paddingRight: "15rem",
+                                width: "50%",
+                                height: "30vh",
+                                position: "sticky",
+                              }}
+                            />
+                          </Grid>
+                          <Grid item xs={12} md={12} lg={8}>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{
+                                fontWeight: "bold",
+                                paddingTop: "1.5rem",
+                              }}
+                            >
+                              The vow of nature
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold", paddingTop: "3rem" }}
+                            >
+                              In fact, good deeds and benevolence is a good
+                              thing that more or less everyone wants to do, and
+                              this is due to the good effect of good deeds on
+                              the human psyche.
+                            </Typography>
+
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              A person who has not done a good deed and has not
+                              been a pioneer in it, is in fact oppressing
+                              himself, which is considered oppression of himself
+                              and his soul.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              People who are mentally healthy are not only
+                              recipients of love and kindness, but also do good
+                              to others. In fact, this love goes back to the
+                              individual.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Psychologically, a person who loves and helps a
+                              poor and helpless person, gives him a good sense
+                              of power, which this time positive and energy is
+                              able to have good effects on the soul and psyche
+                              of the volunteer and increase trust.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              To one's self and self-esteem. On the other hand,
+                              in these situations, facing the problems of others
+                              makes a person thank God at any time because of
+                              the peace he has in the moment and is so free of
+                              thought and action that he is even able to spend
+                              part of his time on things.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Other people slow down to help them. Now, if a
+                              person does not face a problem in life for any
+                              reason, the soul and psyche are strengthened and
+                              it is easier to try to solve the problem and
+                              succeed.
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            textAlign="left"
+                            sx={{ marginTop: "4vh" }}
+                          ></Grid>
+                        </Grid>
+                      </Card>
+                    </SwiperSlide>
+                    <SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      {" "}
+                      <Card
+                        elevation={3}
+                        sx={{ borderRadius: 6, display: "flex" }}
+                        style={{
+                          marginTop: "7rem",
+                          marginBottom: "1rem",
+                          marginLeft: "4rem",
+                          marginRight: "4rem",
+                          padding: "1rem",
+                        }}
                       >
-                        <Typography color="black" fontSize="1.3rem">
-                          You can communicate with others.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can share your experiences with our charity.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can be helpful for the hurted animal.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can help people with what you don't need.
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Card>
-                </Grid>
-              </SwiperSlide>
-              <SwiperSlide style={{ paddingBottom: "2rem" }}>
-                {" "}
-                <Grid item xs={12}>
-                  <Card
-                    elevation={3}
-                    sx={{ borderRadius: 6, display: "flex" }}
-                    style={{
-                      marginTop: "7rem",
-                      marginBottom: "1rem",
-                      marginLeft: "2rem",
-                      // marginRight: "3rem",
-                      padding: "1rem",
-                    }}
-                  >
-                    <Grid container style={{ padding: "6px" }}>
-                      <Grid item xs={12}>
-                        <Typography
-                          component="h3"
-                          style={{ fontWeight: "bold" }}
-                        ></Typography>
-                        <img
-                          src={ci2}
-                          style={{
-                            width: "100%",
-                            height: "20vh",
-                            marginTop: "0rem",
-                            marginBottom: "rem",
-                            alignItems: "center",
-                          }}
-                        />
-                        <h4></h4>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        textAlign="left"
-                        sx={{ marginTop: "4vh" }}
+                        <Grid container style={{ padding: "6px" }}>
+                          <Grid item xs={12} md={12} lg={4}>
+                            <img
+                              src={book}
+                              style={{
+                                paddingTop: "2rem",
+                                // paddingRight: "15rem",
+                                width: "50%",
+                                height: "30vh",
+                                position: "sticky",
+                              }}
+                            />
+                          </Grid>
+                          <Grid item xs={12} md={12} lg={8}>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{
+                                fontWeight: "bold",
+                                paddingTop: "1.5rem",
+                              }}
+                            >
+                              Book donation, thought donation
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold", paddingTop: "3rem" }}
+                            >
+                              In fact, good deeds and benevolence is a good
+                              thing that more or less everyone wants to do, and
+                              this is due to the good effect of good deeds on
+                              the human psyche.
+                            </Typography>
+
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              A person who has not done a good deed and has not
+                              been a pioneer in it, is in fact oppressing
+                              himself, which is considered oppression of himself
+                              and his soul.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              People who are mentally healthy are not only
+                              recipients of love and kindness, but also do good
+                              to others. In fact, this love goes back to the
+                              individual.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Psychologically, a person who loves and helps a
+                              poor and helpless person, gives him a good sense
+                              of power, which this time positive and energy is
+                              able to have good effects on the soul and psyche
+                              of the volunteer and increase trust.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              To one's self and self-esteem. On the other hand,
+                              in these situations, facing the problems of others
+                              makes a person thank God at any time because of
+                              the peace he has in the moment and is so free of
+                              thought and action that he is even able to spend
+                              part of his time on things.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Other people slow down to help them. Now, if a
+                              person does not face a problem in life for any
+                              reason, the soul and psyche are strengthened and
+                              it is easier to try to solve the problem and
+                              succeed.
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            textAlign="left"
+                            sx={{ marginTop: "4vh" }}
+                          ></Grid>
+                        </Grid>
+                      </Card>
+                    </SwiperSlide>
+                    <SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      {" "}
+                      <Card
+                        elevation={3}
+                        sx={{ borderRadius: 6, display: "flex" }}
+                        style={{
+                          marginTop: "7rem",
+                          marginBottom: "1rem",
+                          marginLeft: "4rem",
+                          marginRight: "4rem",
+                          padding: "1rem",
+                        }}
                       >
-                        <Typography color="black" fontSize="1.3rem">
-                          You can communicate with others.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can share your experiences with our charity.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can be helpful for the hurted animal.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can help people with what you don't need.
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Card>
-                </Grid>
-              </SwiperSlide>
-              <SwiperSlide style={{ paddingBottom: "2rem" }}>
-                {" "}
-                <Grid item xs={12}>
-                  <Card
-                    elevation={3}
-                    sx={{ borderRadius: 6, display: "flex" }}
-                    style={{
-                      marginTop: "7rem",
-                      marginBottom: "1rem",
-                      marginLeft: "2rem",
-                      // marginRight: "3rem",
-                      padding: "1rem",
-                    }}
-                  >
-                    <Grid container style={{ padding: "6px" }}>
-                      <Grid item xs={12}>
-                        <Typography
-                          component="h3"
-                          style={{ fontWeight: "bold" }}
-                        ></Typography>
-                        <img
-                          src={ci2}
-                          style={{
-                            width: "100%",
-                            height: "20vh",
-                            marginTop: "0rem",
-                            marginBottom: "rem",
-                            alignItems: "center",
-                          }}
-                        />
-                        <h4></h4>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={12}
-                        textAlign="left"
-                        sx={{ marginTop: "4vh" }}
+                        <Grid container style={{ padding: "6px" }}>
+                          {/* <Grid item xs={6}></Grid> */}
+                          <Grid item xs={12} md={12} lg={4}>
+                            <img
+                              src={tashvigh}
+                              style={{
+                                paddingTop: "2rem",
+                                // paddingRight: "15rem",
+                                width: "50%",
+                                height: "30vh",
+                                position: "sticky",
+                              }}
+                            />
+                          </Grid>
+                          <Grid item xs={12} md={12} lg={8}>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{
+                                fontWeight: "bold",
+                                paddingTop: "1.5rem",
+                              }}
+                            >
+                              Encourage others to do charity work
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold", paddingTop: "3rem" }}
+                            >
+                              In fact, good deeds and benevolence is a good
+                              thing that more or less everyone wants to do, and
+                              this is due to the good effect of good deeds on
+                              the human psyche.
+                            </Typography>
+
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              A person who has not done a good deed and has not
+                              been a pioneer in it, is in fact oppressing
+                              himself, which is considered oppression of himself
+                              and his soul.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              People who are mentally healthy are not only
+                              recipients of love and kindness, but also do good
+                              to others. In fact, this love goes back to the
+                              individual.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Psychologically, a person who loves and helps a
+                              poor and helpless person, gives him a good sense
+                              of power, which this time positive and energy is
+                              able to have good effects on the soul and psyche
+                              of the volunteer and increase trust.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              To one's self and self-esteem. On the other hand,
+                              in these situations, facing the problems of others
+                              makes a person thank God at any time because of
+                              the peace he has in the moment and is so free of
+                              thought and action that he is even able to spend
+                              part of his time on things.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Other people slow down to help them. Now, if a
+                              person does not face a problem in life for any
+                              reason, the soul and psyche are strengthened and
+                              it is easier to try to solve the problem and
+                              succeed.
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            textAlign="left"
+                            sx={{ marginTop: "4vh" }}
+                          ></Grid>
+                        </Grid>
+                      </Card>
+                    </SwiperSlide>
+                    <SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      {" "}
+                      <Card
+                        elevation={3}
+                        sx={{ borderRadius: 6, display: "flex" }}
+                        style={{
+                          marginTop: "7rem",
+                          marginBottom: "1rem",
+                          marginLeft: "4rem",
+                          marginRight: "4rem",
+                          padding: "1rem",
+                        }}
                       >
-                        <Typography color="black" fontSize="1.3rem">
-                          You can communicate with others.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can share your experiences with our charity.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can be helpful for the hurted animal.
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12} textAlign="left">
-                        <Typography color="black" fontSize="1.3rem">
-                          You can help people with what you don't need.
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Card>
+                        <Grid container style={{ padding: "6px" }}>
+                          {/* <Grid item xs={6}></Grid> */}
+                          <Grid item xs={12} md={12} lg={4}>
+                            <img
+                              src={hamipic}
+                              style={{
+                                paddingTop: "2rem",
+                                // paddingRight: "15rem",
+                                width: "50%",
+                                height: "30vh",
+                                position: "sticky",
+                              }}
+                            />
+                          </Grid>
+                          <Grid item xs={12} md={12} lg={8}>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{
+                                fontWeight: "bold",
+                                paddingTop: "1.5rem",
+                              }}
+                            >
+                              Recognize authentic charity
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold", paddingTop: "3rem" }}
+                            >
+                              In fact, good deeds and benevolence is a good
+                              thing that more or less everyone wants to do, and
+                              this is due to the good effect of good deeds on
+                              the human psyche.
+                            </Typography>
+
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              A person who has not done a good deed and has not
+                              been a pioneer in it, is in fact oppressing
+                              himself, which is considered oppression of himself
+                              and his soul.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              People who are mentally healthy are not only
+                              recipients of love and kindness, but also do good
+                              to others. In fact, this love goes back to the
+                              individual.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Psychologically, a person who loves and helps a
+                              poor and helpless person, gives him a good sense
+                              of power, which this time positive and energy is
+                              able to have good effects on the soul and psyche
+                              of the volunteer and increase trust.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              To one's self and self-esteem. On the other hand,
+                              in these situations, facing the problems of others
+                              makes a person thank God at any time because of
+                              the peace he has in the moment and is so free of
+                              thought and action that he is even able to spend
+                              part of his time on things.
+                            </Typography>
+                            <Typography
+                              component="h3"
+                              textAlign="left"
+                              fontSize="1.3rem"
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Other people slow down to help them. Now, if a
+                              person does not face a problem in life for any
+                              reason, the soul and psyche are strengthened and
+                              it is easier to try to solve the problem and
+                              succeed.
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            textAlign="left"
+                            sx={{ marginTop: "4vh" }}
+                          ></Grid>
+                        </Grid>
+                      </Card>
+                    </SwiperSlide>
+                  </Swiper>
                 </Grid>
-              </SwiperSlide>
-            </Swiper>
+              </Grid>
+            </Grid>
           </Grid>
+
           <Grid container spacing={1}>
             <Grid item xs={12} lg={12} md={12}>
               <Card
@@ -944,6 +1418,39 @@ export default function Homepage() {
                       url="https://some-website.com/my-social-media-url"
                       size="50"
                     />
+                    <br />
+                    <br />
+                    <Grid container>
+                      <Grid
+                        container
+                        spacing={0}
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="center"
+                      >
+                        {/* <Grid item xs={12}> */}
+                        <Typography color="blue" fontSize="1.3rem">
+                          info
+                        </Typography>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <Typography color="blue" fontSize="1.3rem">
+                          support
+                        </Typography>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <Typography color="blue" fontSize="1.3rem">
+                          marketing
+                        </Typography>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <Typography color="blue" fontSize="1.3rem">
+                          privacy policy
+                        </Typography>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <Typography color="blue" fontSize="1.3rem">
+                          term of use
+                        </Typography>
+                        {/* </Grid> */}
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Card>
@@ -1098,8 +1605,40 @@ const top100Films = [
   { title: "Monty Python and the Holy Grail", year: 1975 },
 ];
 
-{
-  /* <img
+const Provinces = [
+  { code: 1, label: "ALborz" },
+  { code: 2, label: "Ardabil" },
+  { code: 3, label: "Azerbaijan, East" },
+  { code: 4, label: "Azerbaijan, West" },
+  { code: 5, label: "Bushehr" },
+  { code: 6, label: "Chahar Mahaal and Bakhtiari" },
+  { code: 7, label: "Fars" },
+  { code: 8, label: "Gilan" },
+  { code: 9, label: "Golestan" },
+  { code: 10, label: "Hamadan" },
+  { code: 11, label: "Isfahan" },
+  { code: 12, label: "Kerman" },
+  { code: 13, label: "Isfahanshah" },
+  { code: 14, label: "Khorasan, North" },
+  { code: 15, label: "Khorasan, Razavi" },
+  { code: 16, label: "Khorasan, South" },
+  { code: 17, label: "Khuzestan" },
+  { code: 18, label: "Kohgiluyeh and Boyer-Ahmad" },
+  { code: 19, label: "Kurdistan" },
+  { code: 20, label: "Lorestan" },
+  { code: 21, label: "Markazi" },
+  { code: 22, label: "Mazandaran" },
+  { code: 23, label: "Qazvin" },
+  { code: 24, label: "Qom" },
+  { code: 25, label: "Semnan" },
+  { code: 26, label: "Sistan and Baluchestan" },
+  { code: 27, label: "Tehran" },
+  { code: 28, label: "Yazd" },
+  { code: 29, label: "Zanjan" },
+];
+
+// {
+/* <img
             src={backg}
             style={{
               width: "100vh",
@@ -1108,7 +1647,7 @@ const top100Films = [
               position: "sticky",
             }}
           /> */
-}
+// }
 
 {
   /* <Autocomplete
@@ -1126,4 +1665,445 @@ const top100Films = [
               />
             )}
           /> */
+}
+
+{
+  /* lg={12} md={12} */
+}
+{
+  /* <Swiper
+  modules={[Navigation, Pagination, Scrollbar, A11y]}
+  // spaceBetween={50}
+  slidesPerView={5}
+  navigation
+  pagination={{ clickable: true }}
+  // scrollbar={{ draggable: true }}
+  onSwiper={(swiper) => console.log(swiper)}
+  onSlideChange={() => console.log("slide change")}
+  // style={{ paddingTop: "2rem" }}
+>
+  <SwiperSlide style={{ paddingBottom: "2rem" }}>
+    {" "}
+    <Grid item xs={12}>
+      <Card
+        elevation={3}
+        sx={{ borderRadius: 6, display: "flex" }}
+        style={{
+          marginTop: "7rem",
+          marginBottom: "1rem",
+          marginLeft: "2rem",
+          // marginRight: "1rem",
+          padding: "1rem",
+        }}
+      >
+        <Grid container>
+          <Grid item xs={12}>
+            <img
+              src={ci2}
+              style={{
+                width: "100%",
+                height: "20vh",
+                marginTop: "0rem",
+                marginBottom: "0rem",
+                alignItems: "center",
+              }}
+            />
+            <h4></h4>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            textAlign="left"
+            sx={{ marginTop: "4vh" }}
+          >
+            <Typography color="black" fontSize="1.3rem">
+              You can communicate with others.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can share your experiences with our charity.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can be helpful for the hurted animal.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can help people with what you don't need.
+            </Typography>
+          </Grid>
+        </Grid>
+      </Card>
+    </Grid>
+  </SwiperSlide>
+  <SwiperSlide style={{ paddingBottom: "2rem" }}>
+    {" "}
+    <Grid item xs={12}>
+      <Card
+        elevation={3}
+        sx={{ borderRadius: 6, display: "flex" }}
+        style={{
+          marginTop: "7rem",
+          marginBottom: "1rem",
+          marginLeft: "2rem",
+          // marginRight: "3rem",
+          padding: "1rem",
+        }}
+      >
+        <Grid container style={{ padding: "6px" }}>
+          <Grid item xs={12}>
+            <Typography
+              component="h3"
+              style={{ fontWeight: "bold" }}
+            ></Typography>
+            <img
+              src={ci2}
+              style={{
+                width: "100%",
+                height: "20vh",
+                marginTop: "0rem",
+                marginBottom: "rem",
+                alignItems: "center",
+              }}
+            />
+            <h4></h4>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            textAlign="left"
+            sx={{ marginTop: "4vh" }}
+          >
+            <Typography color="black" fontSize="1.3rem">
+              You can communicate with others.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can share your experiences with our charity.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can be helpful for the hurted animal.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can help people with what you don't need.
+            </Typography>
+          </Grid>
+        </Grid>
+      </Card>
+    </Grid>
+  </SwiperSlide>
+  <SwiperSlide style={{ paddingBottom: "2rem" }}>
+    {" "}
+    <Grid item xs={12}>
+      <Card
+        elevation={3}
+        sx={{ borderRadius: 6, display: "flex" }}
+        style={{
+          marginTop: "7rem",
+          marginBottom: "1rem",
+          marginLeft: "2rem",
+          // marginRight: "3rem",
+          padding: "1rem",
+        }}
+      >
+        <Grid container style={{ padding: "6px" }}>
+          <Grid item xs={12}>
+            <Typography
+              component="h3"
+              style={{ fontWeight: "bold" }}
+            ></Typography>
+            <img
+              src={ci2}
+              style={{
+                width: "100%",
+                height: "20vh",
+                marginTop: "0rem",
+                marginBottom: "rem",
+                alignItems: "center",
+              }}
+            />
+            <h4></h4>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            textAlign="left"
+            sx={{ marginTop: "4vh" }}
+          >
+            <Typography color="black" fontSize="1.3rem">
+              You can communicate with others.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can share your experiences with our charity.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can be helpful for the hurted animal.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can help people with what you don't need.
+            </Typography>
+          </Grid>
+        </Grid>
+      </Card>
+    </Grid>
+  </SwiperSlide>
+  <SwiperSlide style={{ paddingBottom: "2rem" }}>
+    {" "}
+    <Grid item xs={12}>
+      <Card
+        elevation={3}
+        sx={{ borderRadius: 6, display: "flex" }}
+        style={{
+          marginTop: "7rem",
+          marginBottom: "1rem",
+          marginLeft: "2rem",
+          // marginRight: "3rem",
+          padding: "1rem",
+        }}
+      >
+        <Grid container style={{ padding: "6px" }}>
+          <Grid item xs={12}>
+            <Typography
+              component="h3"
+              style={{ fontWeight: "bold" }}
+            ></Typography>
+            <img
+              src={ci2}
+              style={{
+                width: "100%",
+                height: "20vh",
+                marginTop: "0rem",
+                marginBottom: "rem",
+                alignItems: "center",
+              }}
+            />
+            <h4></h4>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            textAlign="left"
+            sx={{ marginTop: "4vh" }}
+          >
+            <Typography color="black" fontSize="1.3rem">
+              You can communicate with others.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can share your experiences with our charity.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can be helpful for the hurted animal.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can help people with what you don't need.
+            </Typography>
+          </Grid>
+        </Grid>
+      </Card>
+    </Grid>
+  </SwiperSlide>
+  <SwiperSlide style={{ paddingBottom: "2rem" }}>
+    {" "}
+    <Grid item xs={12}>
+      <Card
+        elevation={3}
+        sx={{ borderRadius: 6, display: "flex" }}
+        style={{
+          marginTop: "7rem",
+          marginBottom: "1rem",
+          marginLeft: "2rem",
+          // marginRight: "3rem",
+          padding: "1rem",
+        }}
+      >
+        <Grid container style={{ padding: "6px" }}>
+          <Grid item xs={12}>
+            <Typography
+              component="h3"
+              style={{ fontWeight: "bold" }}
+            ></Typography>
+            <img
+              src={ci2}
+              style={{
+                width: "100%",
+                height: "20vh",
+                marginTop: "0rem",
+                marginBottom: "rem",
+                alignItems: "center",
+              }}
+            />
+            <h4></h4>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            textAlign="left"
+            sx={{ marginTop: "4vh" }}
+          >
+            <Typography color="black" fontSize="1.3rem">
+              You can communicate with others.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can share your experiences with our charity.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can be helpful for the hurted animal.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can help people with what you don't need.
+            </Typography>
+          </Grid>
+        </Grid>
+      </Card>
+    </Grid>
+  </SwiperSlide>
+  <SwiperSlide style={{ paddingBottom: "2rem" }}>
+    {" "}
+    <Grid item xs={12}>
+      <Card
+        elevation={3}
+        sx={{ borderRadius: 6, display: "flex" }}
+        style={{
+          marginTop: "7rem",
+          marginBottom: "1rem",
+          marginLeft: "2rem",
+          // marginRight: "3rem",
+          padding: "1rem",
+        }}
+      >
+        <Grid container style={{ padding: "6px" }}>
+          <Grid item xs={12}>
+            <Typography
+              component="h3"
+              style={{ fontWeight: "bold" }}
+            ></Typography>
+            <img
+              src={ci2}
+              style={{
+                width: "100%",
+                height: "20vh",
+                marginTop: "0rem",
+                marginBottom: "rem",
+                alignItems: "center",
+              }}
+            />
+            <h4></h4>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            textAlign="left"
+            sx={{ marginTop: "4vh" }}
+          >
+            <Typography color="black" fontSize="1.3rem">
+              You can communicate with others.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can share your experiences with our charity.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can be helpful for the hurted animal.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can help people with what you don't need.
+            </Typography>
+          </Grid>
+        </Grid>
+      </Card>
+    </Grid>
+  </SwiperSlide>
+  <SwiperSlide style={{ paddingBottom: "2rem" }}>
+    {" "}
+    <Grid item xs={12}>
+      <Card
+        elevation={3}
+        sx={{ borderRadius: 6, display: "flex" }}
+        style={{
+          marginTop: "7rem",
+          marginBottom: "1rem",
+          marginLeft: "2rem",
+          // marginRight: "3rem",
+          padding: "1rem",
+        }}
+      >
+        <Grid container style={{ padding: "6px" }}>
+          <Grid item xs={12}>
+            <Typography
+              component="h3"
+              style={{ fontWeight: "bold" }}
+            ></Typography>
+            <img
+              src={ci2}
+              style={{
+                width: "100%",
+                height: "20vh",
+                marginTop: "0rem",
+                marginBottom: "rem",
+                alignItems: "center",
+              }}
+            />
+            <h4></h4>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            textAlign="left"
+            sx={{ marginTop: "4vh" }}
+          >
+            <Typography color="black" fontSize="1.3rem">
+              You can communicate with others.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can share your experiences with our charity.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can be helpful for the hurted animal.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="left">
+            <Typography color="black" fontSize="1.3rem">
+              You can help people with what you don't need.
+            </Typography>
+          </Grid>
+        </Grid>
+      </Card>
+    </Grid>
+  </SwiperSlide>
+</Swiper> */
 }

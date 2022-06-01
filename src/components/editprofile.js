@@ -1,33 +1,24 @@
-import React, { useState, useEffect, setState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box,
+  Avatar, Button, CssBaseline, TextField,Link, Grid, Box,
   Typography, Container
 } from '@mui/material';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { createTheme } from '@mui/material/styles';
-// import '../signup.css';
+
 import Helmet from 'react-helmet';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import * as yup from 'yup';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
+
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-import Autocomplete from '@mui/material/Autocomplete';
-import PhoneInput from 'react-phone-input-2';
+
 import 'react-phone-input-2/lib/style.css';
-import { Input } from '@mui/material';
 import Paper from '@mui/material/Paper';
-import Divider from '@mui/material/Divider';
 import MuiPhoneNumber from 'material-ui-phone-number';
 import { useTheme } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
-import SendIcon from '@mui/icons-material/Send';
-import { connect } from "react-redux";
+
 import { useHistory } from 'react-router-dom';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -42,23 +33,29 @@ const validationSchema = yup.object({
   firstname: yup.string()
     .max(20, 'Must be 20 characters or less')
     .min(2, 'Must be at least 2 characters')
-    .required('Required!'),
+    .required('Please fill this field.')
+    ,
   lastname: yup.string()
     .max(25, 'Must be 25 characters or less')
     .min(2, 'Must be at least 2 characters')
-    .required('Required!'),
-  // marital_status: yup.string()
-  //   .required('Required!'),
+    .required('Please fill this field.')
+    ,
+
   date_birth: yup.string()
-    .required('Required!'),
+  .required('Please fill this field.')
+  ,
   gender: yup.string()
-    .required('Required!'),
+  .required('Please fill this field.')
+  ,
   country: yup.string()
-    .required('Required!'),
-  phone: yup.string()
-    .required('Required!'),
+  .required('Please fill this field.')
+  ,
+  city: yup.string()
+  .required('Please fill this field.')
+  ,
+
   job: yup.string()
-    .required('Required!'),
+    .required('Please fill this field.')
 });
 
 
@@ -66,8 +63,12 @@ const validationSchema = yup.object({
 function UserInfo(props) {
   const history = useHistory();
   const [loading, setLoading] = React.useState(false);
-  const [state, setState] = useState(null);
-  const [open, setOpen] = React.useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = React.useState(null);
+  const [openm, setOpenm] = useState(false);
+  const BASE_URL ='http://172.17.3.154/api';
 
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -78,69 +79,47 @@ function UserInfo(props) {
       return;
     }
 
-    setOpen(false);
-    // props.clearMessage();
+    setOpenm(false);
+    setMessage(null);
   };
 
   const formik = useFormik({
     initialValues: {
       firstname: '',
       lastname: '',
+      gender: "", 
+      date_birth: '',
       country: '',
       city: '',
-      phone: '',
-      date_birth: '',
-      bio: '',
-      // marital_status: '',
-      gender: '',
       job: '',
-      
     },
     validationSchema: validationSchema,
   });
 
-  const theme = useTheme();
-  const [techName, setTechName] = useState([]);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
-  const [phone, setPhone] = useState('');
-  const [Gennder, setGennder] = useState('');
-  const [Countrry, setCountrry] = useState('');
-  const [marital, setmarital] = useState('');
-  const [spez, setspez] = useState('');
-  const [message,setMessage] = React.useState('');
-  const [resStatus, setResstatus] = useState([]);
- 
+
+
   const FileInput = () => {
     return <input accept="image/*" type="file" id="select-image" />;
   };
 
-  const [value, setValue] = useState(0);
-  const email = "amirizahraza@gmail.com";
-  const token = props.a
-  
+  const token = localStorage.getItem('token');
+  const headers = {"Authorization": `Token ${token}`};
+
   useEffect(() => {
-      axios.get('http://185.190.39.17:8888/profile/getuserprofilebyuser',
-          {
-              headers: {
-                  "Authorization": `Bearer ${token}`
-              }
-          })
+      console.log(token)
+      axios.get(BASE_URL + '/account/user-profile/', {headers: headers})
           .then(res => {
               console.log(res.data);
-              setState(res.data);
               formik.setValues({
-                city: res.data.city || '',
-                bio: res.data.bio || '',
+                firstname: res.data.first_name || '',
+                lastname: res.data.last_name || '',
+                gender: res.data.gender || '',
                 date_birth: res.data.date_birth || '',
-                firstname: res.data.firstname || '',
-                lastname: res.data.lastname || '',
+                country: res.data.country || '',
+                city: res.data.city || '',
                 job: res.data.job || '',
-                // phone: res.data.phone || '',
+                bio: res.data.bio || '',
               });
-              setCountrry(res.data.country)
-              setGennder(res.data.gender)
-              // setmarital(res.data.marital_status)
               setPhone(res.data.phone || '')
           })
           }, [])
@@ -154,87 +133,55 @@ function UserInfo(props) {
 
 
   const onClickSubmit = () => {
-    const headers = {"Authorization": `Bearer ${props.a}`}
     let filled = 
-    !Boolean(formik.errors.firstname) && !Boolean(formik.errors.lastname) &&
-    (Countrry) && !Boolean(formik.errors.city) &&
-    (Gennder) && (phone.length != 0 ) &&
-    !Boolean(formik.errors.date_birth);
+    !Boolean(formik.errors.firstname) && !Boolean(formik.errors.lastname) && !Boolean(formik.errors.city) &&
+    !Boolean(formik.errors.country) && !Boolean(formik.errors.gender) && !Boolean(formik.errors.date_birth)
+    && !Boolean(formik.errors.job);
     console.log('filled: ' ,filled);
     if (filled){
       setLoading(true);
-    axios.put('http://185.190.39.17:8888/profile/edit/', 
-      { firstname: formik.values.firstname,
-        lastname: formik.values.lastname,
-        country: Countrry,
+    axios.put(BASE_URL + '/account/edit-profile/', 
+      { 
+        first_name: formik.values.firstname,
+        last_name: formik.values.lastname,
+        country: formik.values.country,
         city: formik.values.city,
         phone: phone,
         date_birth: formik.values.date_birth,
         bio: formik.values.bio,
-        // marital_status: marital,
-        gender: Gennder,
-        job: formik.values.job} , {headers})
-        .then(function (response) {
-          setOpen(true);
+        gender: formik.values.gender,
+        job: formik.values.job,
+        image: imageUrl} , {headers})
+        
+        .then (res => {
           setLoading(false);
-          console.log('status :', response.status);
-          if (response.status === 200){
-            setResstatus(response.status);
-            setMessage('Your informations was updated successfully!');
-            setResstatus(response.status);
-          }
-          console.log(response);
+          setMessage('Your informations was updated successfully!');
+          setOpenm(true);
+          console.log(res);
         })
-        .catch(function (error) {
-          setOpen(true);
+        .catch(err => {
+          setLoading(false);
           setMessage('Please fill in the blanks.');
-          // setResstatus(error);
-          console.log(error);
+          setOpenm(true);
+          console.log(err.data);
         });
     }
-    
-    console.log(formik.values.firstname, formik.values.lastname, Countrry,
-        formik.values.city,
-        phone, formik.values.date_birth, Gennder, formik.values.job,
-    )
-      // .then(function (response) {
-      //   console.log(response);
-      // })
-      // .catch(function (error) {
-      //   console.log(error);
-      // });
+
   }  
 
-
-  function handleOnChange(value) {
-    setState({
-      phone: value
-    });
-  }
-  const current = new Date().toISOString().split("T")[0]
-
-  const Input = styled('input')({
-    display: 'none',
-  });
-
   return (
-    <div style={{ backgroundColor: '#e5ecdf', backgroundSize:'cover'}}>
+    <div>
       <Helmet bodyAttributes={{ style: 'background-color : #e5ecdf' }}></Helmet>
-      {/* <ThemeProvider theme={theme}> */}
       <Container component="main" maxWidth="md">
         <CssBaseline />
-        <Typography component="h1" variant="h5" style={{paddingTop:"0rem", paddingBottom:"1.5rem", paddingLeft: "2rem"}}>
-              {/* Edit Profile */}
-            </Typography>
 
-        <Paper elevation={0} sx={{ borderRadius: 6, display: 'flex' }} style={{ justifyContent: "center", marginTop: "1rem", marginBottom: "1rem", padding: "3rem", backgroundColor: ' #ffff', backgroundSize:'cover', height: '128vh'}}>
-          <Grid container justifyContent="flex">
-            <Grid container spacing={3} style={{ marginTop: "4rem", marginBottom: "1rem" }}>
-            
-
-                        <Grid item xs={10}>
-                            <Stack direction="row" sx={{ maxWidth: 345 }} style={{ marginLeft: "19rem", marginTop: "-4rem", marginBottom:"2rem" }}>
-                                <Stack direction="photo" spacing={2} sx={{ maxWidth: 345 }} style={{ marginTop: "-2rem" }}>
+        <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ justifyContent: "center", padding: "3rem"}}>
+          <Grid container>
+            <Grid container spacing={3}>
+        
+                        <Grid item xs={12}  sx={{alignItems: 'center', justifyContent: 'center', display: 'inline-flex', paddingBottom: '1.5rem'}}>
+                            <Stack direction="row" >
+                                <Stack direction="row">
                                     <Avatar
                                         alt="m"
                                         src={Image}
@@ -248,12 +195,7 @@ function UserInfo(props) {
         <EditIcon fontSize="inherit" />
       </IconButton>
                   </label>
-                    {imageUrl && selectedImage && (
-                    <Box mt={2} textAlign="left">
-                      <div>Image Preview:</div>
-                      <img className="company-logo" src={imageUrl} alt={selectedImage.name} height="62px !important" width="100px !important" />
-                    </Box>
-                    )}
+                    
                 </Grid>
                                 </Stack>
                             </Stack>
@@ -268,6 +210,9 @@ function UserInfo(props) {
                   name="firstname"
                   id="firstname"
                   label="First Name"
+                  InputLabelProps={{
+            shrink: true,
+          }}
                   value={formik.values.firstname}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -284,6 +229,9 @@ function UserInfo(props) {
                   name="lastname"
                   id="lastname"
                   label="Last Name"
+                  InputLabelProps={{
+            shrink: true,
+          }}
                   value={formik.values.lastname}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -292,38 +240,26 @@ function UserInfo(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} sx={{textAlign: 'left'}}>
               <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label" name='gender'>Gender</InputLabel>
         <Select
+        name="gender"
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={Gennder}
+          value={formik.values.gender}
           label="Gender"
-          onChange={e => setGennder(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onBlur={formik.handleBlur}
+                  error={formik.touched.gender && Boolean(formik.errors.gender)}
+                  helperText={formik.touched.gender && formik.errors.gender}
         >
-          <MenuItem value={'Female'}>Female</MenuItem>
-          <MenuItem value={'Male'}>Male</MenuItem>
-          <MenuItem value={'Other'}>Other</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
-              </Grid>
-
-              <Grid item xs={12} sm={6}>
-              <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label" name='marital_status'>Select Marital Status</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={marital}
-          label="Select Marital Status"
-          onChange={e => setmarital(e.target.value)}
-        >
-          <MenuItem value={'Single'}>Single</MenuItem>
-          <MenuItem value={'Married'}>Married</MenuItem>
+          <MenuItem value={"female"}>Female</MenuItem>
+          <MenuItem value={"male"}>Male</MenuItem>
+          <MenuItem value={"other"}>Other</MenuItem>
         </Select>
       </FormControl>
     </Box>
@@ -333,13 +269,15 @@ function UserInfo(props) {
               <Grid item xs={12} sm={6}>
                 <TextField
                   name="date_birth"
-                  label="birthdate"
+                  label="Birthdate"
                   type="date"
+                  InputLabelProps={{
+            shrink: true,
+          }}
                   style={{ width: '100%' }}
                   required
                   value={formik.values.date_birth}
                   onChange={formik.handleChange}
-                  InputLabelProps={{ shrink: true }}
                   onBlur={formik.handleBlur}
                   error={formik.touched.date_birth && Boolean(formik.errors.date_birth)}
                   helperText={formik.touched.date_birth && formik.errors.date_birth}
@@ -348,7 +286,6 @@ function UserInfo(props) {
 
               <Grid item xs={12} sm={6}>
                   <MuiPhoneNumber
-                    // <TextField/> 
                     required
                     fullWidth
                     defaultCountry={'us'}
@@ -358,20 +295,29 @@ function UserInfo(props) {
                     variant="outlined"
                     value={phone}
                     onChange={e => setPhone(e)}
+                    InputLabelProps={{
+            shrink: true,
+          }}
                     />
                 </Grid>
 
-                <Grid item xs={12} sm={6}>
+                <Grid   item xs={12} sm={6} sx={{textAlign: 'left'}}>
               <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label" name='counrty'>Country</InputLabel>
         <Select
+        name="country"
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          // value={formik.values.country}
-          value={Countrry}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          value={formik.values.country}
           label="Country"
-          onChange={e => setCountrry(e.target.value)}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.country && Boolean(formik.errors.country)}
+          helperText={formik.touched.country && formik.errors.country}
         >
         {countries.map((c) => (
           <MenuItem value={c.label}>{c.label}  ({c.code})</MenuItem>
@@ -382,7 +328,7 @@ function UserInfo(props) {
     </Box>
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={6}>
                 <TextField
                   required
                   fullWidth
@@ -390,22 +336,28 @@ function UserInfo(props) {
                   name="city"
                   id="city"
                   label="City"
+                  InputLabelProps={{
+            shrink: true,
+          }}
                   value={formik.values.city}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  error={formik.touched.lastname && Boolean(formik.errors.lastname)}
-                  helperText={formik.touched.lastname && formik.errors.lastname}
+                  error={formik.touched.city && Boolean(formik.errors.city)}
+                  helperText={formik.touched.city && formik.errors.city}
                 />
-              </Grid>
+              </Grid> 
 
 
-              <Grid item xs={12}>
+              <Grid item xs={6}>
                 <TextField
                   fullWidth
                   autoComplete="job"
                   name="job"
                   id="job"
                   label="Select your job"
+                  InputLabelProps={{
+            shrink: true,
+          }}
                   value={formik.values.job}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -424,6 +376,9 @@ function UserInfo(props) {
                   label="About me"
                   type="text"
                   multiline
+                  InputLabelProps={{
+            shrink: true,
+          }}
                   value={formik.values.bio}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -431,15 +386,23 @@ function UserInfo(props) {
                   helperText={formik.touched.bio && formik.errors.bio}
                 />
               </Grid>
+              <Grid item xs={12}>
+              {imageUrl && selectedImage && (
+                    <Box mt={2} textAlign="left">
+                      <div>Image Preview:</div>
+                      <img className="user-image" src={imageUrl} alt={selectedImage.name} height="150px !important" width="200px !important" />
+                    </Box>
+                    )}
+              </Grid>
 
 
 
               <Grid container justifyContent="flex-end">
                 <Button
                   type="submit"
+                  onClick={onClickSubmit}
                   variant="contained"
                   sx={{ mt: 4, mb: 6 }}
-                  // onClick={onClickSubmit}
                   style={{ backgroundColor: '#e6835a', color: '#FFFFFF', textTransform: 'unset', width: '110px' }}
                 >
                     {loading ? 
@@ -447,21 +410,14 @@ function UserInfo(props) {
                         : "Edit Profile"}
                   </Button>
 
-                <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
-                  <Alert onClose={handleClose} severity={message === "Please fill in the blanks." ? "error" : "success"} sx={{ width: '100%' }}>
+                <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
+                  <Alert onClose={handleClose} severity={message === "Your informations was updated successfully!" ? "success" : "error"} sx={{ width: '100%' }}>
                     {message}
                   </Alert>
                 </Snackbar>
 
               </Grid>
 
-              <Grid container justifyContent="flex-end">
-                <Grid item>
-                  <Link href="/" variant="body2">
-                    {/* Already have an account? Sign in */}
-                  </Link>
-                </Grid>
-              </Grid>
 
             </Grid>
           </Grid>
@@ -478,14 +434,6 @@ const Gender = [
   { label: 'Male' },
   { label: 'Other' },
 ]
-
-const Maritalstatus = [
-  { label: 'Single' },
-  { label: 'Married' },
-]
-
-
-
 
 const countries = [
   { code: 'AD', label: 'Andorra', phone: '376' },
@@ -912,49 +860,6 @@ const countries = [
   { code: 'ZW', label: 'Zimbabwe', phone: '263' },
 ];
 
-
-const mapStateToProps = ( state ) => {
-  return{
-    access: state.auth.user.access,
-    refresh: state.auth.user.refresh,
-  }
-}
-
-// const MapStateToProps = (state) => {
-//   let a = "";
-//   let r = "";
-
-//   if (state.auth.user != null) {
-//       a = state.auth.user.access;
-//       r = state.auth.user.refresh;
-//   }
-//   return {
-//       message: state.message.message,
-//       openMessage: state.message.openMessage,
-//       isLoggedIn: state.auth.isLoggedIn,
-//       a,
-//       r,
-//   }
-// }
-
-
-const MapStateToProps = (state) => {
-  let a = "";
-  let r = "";
-
-  if (state.auth.user != null) {
-      a = state.auth.user.access;
-      r = state.auth.user.refresh;
-  }
-  return {
-      message: state.message.message,
-      openMessage: state.message.openMessage,
-      isLoggedIn: state.auth.isLoggedIn,
-      a,
-      r,
-  }
-}
-// export default connect(MapStateToProps)(UserInfo);
 
 export default UserInfo;
 

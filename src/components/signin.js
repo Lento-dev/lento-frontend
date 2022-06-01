@@ -1,50 +1,56 @@
 import React, { useState } from "react";
-import { useHistory } from 'react-router-dom';
-
 import {
   Button,
+  CssBaseline,
   TextField,
   Link,
   Grid,
-  Paper,
+  Box,
   Typography,
-  Divider,
-  CircularProgress,  Snackbar,
-  Alert,
   Container,
+  Divider,
 } from "@mui/material";
-import { connect } from 'react-redux';
+import "../styles/signin.css";
 import Helmet from "react-helmet";
-import { FcGoogle } from "react-icons/fc";
-import Image from "../assets/illustrations/signin.svg";
-import { login, googleLogin } from "../actions/auth";
-import { clearMessage } from '../actions/message';
+import * as yup from "yup";
+import { useHistory } from "react-router-dom";
+import Image from "../assets/illustrations/login.svg";
+import { register } from "../actions/auth";
+import { connect } from "react-redux";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import { clearMessage } from "../actions/message";
+import { CircularProgress } from "@mui/material";
+import axios from "axios";
+
 import GoogleLogin from "react-google-login";
-const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-
-
+import { FcGoogle } from "react-icons/fc";
 
 function SignIn(props) {
+  const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  const BASE_URL = "http://172.17.3.154/api";
+
   const history = useHistory();
   const [loading, setLoading] = React.useState(false);
+  const [message, setMessage] = React.useState(null);
+  const [openm, setOpenm] = useState(false);
+
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
-  const handleChange = name => event => {
+  const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
-  
+
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    
-    props.clearMessage();
-
+    setOpenm(false);
+    setMessage(null);
   };
-
 
   const validate = () => {
     let tmpErrors = {};
@@ -53,8 +59,10 @@ function SignIn(props) {
       case !values.email:
         tmpErrors["email"] = "Please enter your email address.";
         break;
-      case values.email !== '':
-        var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+      case values.email !== "":
+        var pattern = new RegExp(
+          /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+        );
         if (!pattern.test(values.email)) {
           tmpErrors["email"] = "Please enter a valid email address!";
         }
@@ -64,94 +72,107 @@ function SignIn(props) {
     }
     switch (true) {
       case !values.password:
-        tmpErrors["password"] = "Please enter your password."
+        tmpErrors["password"] = "Please enter your password.";
         break;
 
       default:
         break;
     }
 
-
     setErrors(tmpErrors);
-  }
+  };
   const handleSignInButton = (e) => {
     validate();
     let filled = Object.keys(errors).length === 0;
-    console.log(filled)
-    if  (filled) 
-    {
-      console.log('we are in requesting to sign in')
+    console.log(filled);
+    if (filled) {
+      console.log("we are in requesting to sign in");
       setLoading(true);
-      props.login(values.email, values.password)
-      .then((res) => {
-        setLoading(false);
-        history.push('/profile');
-      })
-      .catch(err => {
-        setLoading(false);
-      })
+      var formData = new FormData();
+      formData.append("login", values.email);
+      formData.append("password", values.password);
+
+      axios
+        .post(BASE_URL + "/account/login/", formData)
+
+        .then((response) => {
+          localStorage.setItem("user", JSON.stringify(response.data));
+          localStorage.setItem("userType", JSON.stringify("user"));
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("isLoggedIn", true);
+
+          console.log("user", response.data);
+          console.log("login was succesfull");
+          setLoading(false);
+          history.push("/");
+        })
+        .catch((error) => {
+          setLoading(false);
+          if (error.response.status == 401) {
+            setMessage("Email or password is incorrect!");
+          }
+
+          if (error.response.status == 400) {
+            setMessage("Email or password is invalid!");
+          }
+        });
+
     }
-    
-  }
+  };
 
   const handleContinueWithGoogle = (response) => {
     props.googleLogin(response, history, setLoading);
     console.log(response);
   };
 
-
   return (
     <div>
-      <Helmet bodyAttributes={{ style: "background-color : #fff" }} />
-
-      <Container sx={{ padding: "4%" }} component="main">
-        <Paper
-          className="signinPage"
-          elevation={0}
+      <Helmet bodyAttributes={{ style: "background-color : #fff" }}></Helmet>
+      <Container component="main">
+        <CssBaseline />
+        <Box
+          className="signupPerson-container"
           sx={{
-            backgroundColor: "#ecf2e8",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
             borderRadius: 4,
+            backgroundColor: "#fff",
+            flexGrow: 1,
+            justifyContent: "center",
+          }}
+          style={{
+            marginTop: "1vh",
+            marginRight: "auto",
+            marginLeft: "auto",
           }}
         >
-          <Grid container>
+          <Grid container spacing={3}>
             <Grid
               item
-              xs={12}
-              md={5}
-              lg={5}
-              textAlign="center"
-              sx={{ borderRadius: 4, backgroundColor: "#8b9b74" }}
+              md
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
-              <div className="signin-img">
+              <div className="col align-items-center signup-img">
                 <img
                   src={Image}
-                  width="500"
-                  height="500"
+                  width="100"
+                  height="100"
                   className="responsive"
-                  alt="login logo"
+                  alt="signup logo"
                 />
               </div>
             </Grid>
-
-            <Grid
-              item
-              xs={12}
-              md={7}
-              lg={7}
-              sx={{ backgroundColor: "#ecf2e8", borderRadius: 4 }}
-            >
-              <Grid
-                container
-                sx={{
-                  paddingTop: "5%",
-                  paddingRight: "15%",
-                  paddingLeft: "15%",
-                }}
-              >
+            <Grid item md>
+              <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
-                      <Grid container sx={{ paddingBottom: "5vh" }}>
+                      <Grid container sx={{ paddingBottom: "3vh" }}>
                         <Grid item xs={6} textAlign="left">
                           <Typography fontWeight="bold" fontSize="1.1rem">
                             Sign in
@@ -179,13 +200,9 @@ function SignIn(props) {
                         required
                         fullWidth
                         value={values.email}
-                        onChange={handleChange('email')}
-                        error={
-                          Boolean(errors["email"])
-                        }
-                        helperText={
-                          errors["email"]
-                        }
+                        onChange={handleChange("email")}
+                        error={Boolean(errors["email"])}
+                        helperText={errors["email"]}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -197,14 +214,10 @@ function SignIn(props) {
                         variant="outlined"
                         required
                         fullWidth
-                        value = {values.password}
-                        onChange = {handleChange('password')}
-                        error={
-                          Boolean(errors["password"])
-                        }
-                        helperText={
-                          errors["password"]
-                        }
+                        value={values.password}
+                        onChange={handleChange("password")}
+                        error={Boolean(errors["password"])}
+                        helperText={errors["password"]}
                       />
                     </Grid>
                     <Grid item xs={12} textAlign="left">
@@ -214,37 +227,37 @@ function SignIn(props) {
                         </Link>{" "}
                       </Typography>
                     </Grid>
-
                     <Grid item xs={12} sx={{ marginTop: "2vh" }}>
-                      
                       <Button
                         variant="contained"
                         size="large"
-                        // data-testid="signin"
-                        role="navigate"  
+                        role="navigate"
                         onClick={handleSignInButton}
                         sx={{
                           textTransform: "unset",
                           backgroundColor: "#e6835a",
-                          ":hover" : {
-                            bgcolor: '#ffa580'
-                          }
+                          ":hover": {
+                            bgcolor: "#ffa580",
+                          },
                         }}
                         fullWidth
-                        disabled = {loading}
+                        disabled={loading}
                       >
-                    {loading ? 
-                        <CircularProgress style={{color: "#fff"}} size="1.6rem"/>
-                        : "Sign in"}
-                  </Button>
-             
+                        {loading ? (
+                          <CircularProgress
+                            style={{ color: "#fff" }}
+                            size="1.6rem"
+                          />
+                        ) : (
+                          "Sign in"
+                        )}
+                      </Button>
                     </Grid>
-
                     <Grid item xs={12}>
                       <Divider>Or</Divider>
                     </Grid>
                     <Grid item xs={12}>
-                    <GoogleLogin
+                      <GoogleLogin
                         clientId={googleClientId}
                         buttonText="LOGIN WITH GOOGLE"
                         onSuccess={(response) =>
@@ -271,47 +284,21 @@ function SignIn(props) {
                           console.log("Google Login failed", err)
                         }
                       />
-
                     </Grid>
-                    <Snackbar
-                      open={props.openMessage}
-                      autoHideDuration={4000}
-                      onClose={handleClose}
-                      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                    >
-                      <Alert
-                        onClose={handleClose}
-                        variant="filled"
-                        severity={
-                          props.message === "Signed up successfully!" 
-                            ? "success"
-                            : "error"
-                        }
-                        sx={{ width: "100%" }}
-                      >
-                        {props.message}
-                      </Alert>
-                    </Snackbar>
                   </Grid>
                 </Grid>
               </Grid>
+              <Snackbar open={openm} autoHideDuration={4000} onClose={handleClose}>
+                  <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    {message}
+                  </Alert>
+                </Snackbar>
             </Grid>
           </Grid>
-        </Paper>
+        </Box>
       </Container>
     </div>
   );
 }
 
-
-
-const mapDispatchToProps = { login, clearMessage };
-const mapStateToProps = ( state ) => {
-  return{
-    message: state.message.message,
-    openMessage: state.message.openMessage,
-  }
-}
-
-export default connect(mapStateToProps ,mapDispatchToProps)(SignIn);
-// export default SignIn;
+export default SignIn;

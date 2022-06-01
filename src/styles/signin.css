@@ -1,0 +1,45 @@
+.signinPerson-container {
+    padding: 55px !important;
+    width: 75%;
+    justify-content: center;
+  }
+  
+  
+  .responsive {
+  width: 100%;
+  height: auto;
+  }
+  
+  @media only screen and (max-width: 599.9px){
+    .signup-img {
+      width: 45%;
+    }
+  
+    .signinPerson-container {
+      width: 85vw;
+    }
+  }
+  
+  @media only screen and (min-width: 600px) and (max-width: 899.9px){
+    .signup-img {
+      width: 50%;
+    }
+  }
+  
+  @media only screen and (min-width: 900px) and (max-width: 1199.9px){ 
+    .signup-img {
+      width: 70%;
+    } 
+  }
+  
+  @media only screen and (min-width: 1200px) and (max-width: 1535.9px){
+    .signup-img {
+      width: 85%;
+    }
+  }
+  
+  @media only screen and (min-width: 1536px){
+    .signup-img {
+      width: 95%;
+    }
+  }

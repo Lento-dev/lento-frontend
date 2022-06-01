@@ -11,7 +11,7 @@ import PersonPinIcon from '@material-ui/icons/PersonPin';
 import HelpIcon from '@material-ui/icons/Help';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import InfoIcon from '@mui/icons-material/Info';
-import RecipeReviewCard from './postcard';
+// import RecipeReviewCard from './postcard';
 import { purple,green } from '@mui/material/colors';
 import {
   Avatar, CssBaseline, Link, Grid, Box, Button,
@@ -28,7 +28,6 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LanguageIcon from '@mui/icons-material/Language';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Pagination from '@mui/material/Pagination';
 
 
 
@@ -55,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -68,12 +68,6 @@ const theme = createTheme({
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
-  const [page, setPage] = React.useState(1);
-
-  const handleChange = (event: ChangeEvent<unknown>, value: Integer) => {
-    setPage(value);
-  };
 
   return (
     <div
@@ -116,24 +110,19 @@ function a11yProps(index) {
 export default function ScrollableTabsButtonForce(props) {
   console.log(props.data);
   const classes = useStyles();
-  
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-
-  const [page, setPage] = React.useState(1);
-  const handleChangepage = (event: ChangeEvent<unknown>, value: Integer) => {
-    setPage(value);
-  };
-
   return (
     <div>
+      
+      
       <Grid
         container
-        // spacing={0}
+        spacing={0}
         direction="row"
         alignItems="center"
         justifyContent="center"
@@ -143,14 +132,16 @@ export default function ScrollableTabsButtonForce(props) {
         <Tabs
           value={value}
           onChange={handleChange}
-          style={{color:'#465832'}}
+          style={{color:'#465832', textTransform: 'unset'}}
           className={classes.tabs}
           centered
+
         >
-          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>Posts</div>} icon={<AppRegistrationIcon />} {...a11yProps(0)} />
-          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>About</div>} icon={<InfoIcon />} {...a11yProps(1)} />
-          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>Followers</div>} icon={<PersonPinIcon />} {...a11yProps(2)} />
-          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>Followings</div>} icon={<PersonPinIcon />} {...a11yProps(3)} />
+          <Tab label={<div >About</div>} icon={<InfoIcon />} {...a11yProps(0)} />
+          <Tab label={<div >Advertisements</div>} icon={<AppRegistrationIcon />} {...a11yProps(1)} />
+          
+          
+          
         </Tabs>
 
       </Grid>
@@ -158,7 +149,7 @@ export default function ScrollableTabsButtonForce(props) {
       </Grid>
 
 
-      <TabPanel className='tabs' value={value} index={0}>
+      <TabPanel className='tabs' value={value} index={1}>
 
  
       <Grid
@@ -169,111 +160,14 @@ export default function ScrollableTabsButtonForce(props) {
   justifyContent="center"
 >
 
-  <Grid item xs={12}>
-
-                {/* <Grid  > */}
-                    <Grid item xs={12} >
-                        <Card className="card-profile shadow" style={{ marginTop: "3rem" }}>
-                        {/*  */}
-                            <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "1rem", fontWeight: "bold" }}>
-                                {props.data.first_name + " "}
-                                {props.data.last_name}
-                            </Typography>
-
-                            <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "0", fontWeight: "bold" }}>
-                                {props.data.job}
-                            </Typography>
-
-                            <CardContent>
-                                <Grid container style={{ padding: "1rem" }}>
-                                    <Grid container sx={{ color: 'text.primary' }}>
-                                        <Grid item xs={1.3}>
-                                            <EmailIcon sx={{ fontSize: 24 }} color="action" gutterBottom />
-                                        </Grid>
-                                        <Grid item xs={5}>
-                                      
-                                            <Typography sx={{ fontSize: 16 }} gutterBottom>
-                                            <Link 
-                                              sx={{ color: 'black', cursor: 'pointer' }} 
-                                              underline="hover" 
-                                              className="communicate"
-                                            >
-                                {props.data.email}</Link>
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-
-                                    <Grid container sx={{ color: 'text.primary' }}>
-                                        <Grid item xs={1.3}>
-                                            <PlaceIcon sx={{ fontSize: 24 }} color="action" />
-                                        </Grid>
-                                        <Grid item xs={5}>
-                                            <Typography sx={{ fontSize: 16 }} gutterBottom>
-                                                {props.data.region}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-                                    <h3>
-                                        <h6></h6>
-                                    </h3>
-                                    <Grid item xs={50} style={{ textAlign: "center", marginBottom: "-20px" }}>
-                                        <Typography>
-                                            <LinkedInIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.linkedin.com/in/shahab-induction-co-0ab165140/')} className="communicate" />
-                                            <h7> </h7>
-                                            <FacebookIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://t.me/shahabinductionco')} className="communicate" />
-                                            <h7> </h7>
-                                            <TwitterIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
-                                            <h7> </h7>
-                                            <LanguageIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
-                                        </Typography>
-                                    </Grid>
-
-                                </Grid>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-
-                    {/* </Grid> */}
-                    </Grid>
+  
                 
   
 </Grid>
-<br/><br/><br/><br/>
-<Grid item xs={12} container>
-                        <Container component="main">
-                          
-                        <Stack spacing={2}>
-                            {(3<=page) === true ? <RecipeReviewCard></RecipeReviewCard>:<p>Hello</p> }
-                            <Typography>Page: {page}</Typography>
-
-                            <Grid
-                              container
-                              spacing={0}
-                              direction="row"
-                              alignItems="center"
-                              justifyContent="center"
-                            >
-                            <Grid item xs={12}>
-                            <Stack direction="row" sx={{ maxWidth: 345 }} style={{ marginTop: "-0.5rem" ,marginLeft:"12rem"}}>
-                            {/* ,marginLeft:"-3rem" */}
-                                <Stack direction="photo" spacing={2} sx={{ maxWidth: 345 }} style={{marginTop: "-0.5rem"}}>    
-                              <Pagination count={10} page={page} onChange={handleChangepage} />
-                              </Stack>
-                              </Stack>
-                            </Grid>
-                            </Grid>
-                      
-                          </Stack>
-
-                        </Container>
-                    </Grid>
-
-                      
-{/* </Grid> */}
 
 </TabPanel>
 
-        <TabPanel value={value} index={1}>
+        <TabPanel value={value} index={0}>
             
         
         <Grid
@@ -288,7 +182,7 @@ export default function ScrollableTabsButtonForce(props) {
                     
                      
   <Grid item xs={12} >
-                        <Card className="card-profile shadow" style={{ marginTop: "3rem" }}>
+                        <Card className="card-profile shadow" >
                         {/*  */}
                             <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "1rem", fontWeight: "bold" }}>
                                 {props.data.first_name + " "}
@@ -351,9 +245,9 @@ export default function ScrollableTabsButtonForce(props) {
                     
                         <Container component="main">
                         <Grid item xs={12} md={12}>
-                            <Card elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ marginTop: "7rem", marginBottom: "1rem", padding: "2rem" }}>
-                                    <Grid container style={{ padding: "6px" }}>
-                                        <Grid item xs={12}>
+                            <Card elevation={3} style={{ padding: "2.5rem", marginTop: '1rem', width:'50rem' }}>
+                                    <Grid container >
+                                        <Grid item xs={12} sx={{padding: '1rem'}}>
                                             <Typography component="h3" style={{ fontWeight: "bold" }}>About me</Typography>
                                             <Divider style={{ width: '100%', marginTop: "0.5rem",marginBottom:"1rem",alignItems: "center" }}/>
                                             <h4></h4>
@@ -366,8 +260,9 @@ export default function ScrollableTabsButtonForce(props) {
                                 </Grid>
                                 <h1></h1>
 
-                                <Grid item xs={12} md={12}>
-                                <Card elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ marginTop: "3rem", marginBottom: "1rem", padding: "2rem" }}>
+                            {props.data.experience && (
+                              <Grid item xs={12} md={12}>
+                                <Card elevation={3} sx={{display: 'flex' }}>
                                     <Grid container style={{ padding: "6px" }}>
                                         <Grid item xs={12}>
                                             <Typography component="h3" style={{ fontWeight: "bold" }}>Experience</Typography>
@@ -380,6 +275,8 @@ export default function ScrollableTabsButtonForce(props) {
                                     </Grid>
                                 </Card>
                               </Grid>
+                            )}
+
                             </Container>
 
 </Grid>

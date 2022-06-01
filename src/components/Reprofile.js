@@ -68,7 +68,9 @@ registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 function Reprofile() {
     const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
-
+    const BASE_URL ='http://172.17.3.154/api';
+    const token = localStorage.getItem('token');
+    const headers = {"Authorization": `Token ${token}`};
     const [files, setFiles] = useState([]);
 
     const handleDateChange = (date) => {
@@ -167,12 +169,12 @@ function Reprofile() {
 
     useEffect(() => {
     console.log("***********************");
-    var token = localStorage.getItem("token");
-    token.replaceAll('"', '');
-    console.log(token);
+    // var token = localStorage.getItem("token");
+    // token.replaceAll('"', '');
+    // console.log(token);
     var config = {
         method: 'get',
-        url: 'http://127.0.0.1:8000/api/account/user-profile/',
+        url: BASE_URL + '/account/user-profile/',
         headers: { 
             'Authorization': 'Token '+ token, 
         }
@@ -181,92 +183,25 @@ function Reprofile() {
     axios(config)
     .then((response) => {
       console.log(JSON.stringify(response.data));
-    //   this.setState({firstname:response.data.firstname})
-    //   setValues({ ...values, ["firstname"]:response.data.first_name });
-      setfn(response.data.first_name);
-    //   this.setState({lastname:response.data.lastname})
-    //   setValues({ ...values, ["lastname"]:response.data.last_name });
+    setfn(response.data.first_name);
     setln(response.data.last_name);
-    //   this.setState({email:response.data.email})
-    //   setValues({ ...values, ["email"]:response.data.email});
     setemail(response.data.email);
-    //   this.setState({username:response.data.username})
-    //   setValues({ ...values, ["username"]:response.data.username});
     setun(response.data.username);
-    //   this.setState({birthdate:response.data.date_birth})
-    //   setValues({ ...values, ["birthdate"]:response.data.date_birth});
     setbd(response.data.date_birth);
-    //   this.setState({region:response.data.country})
-    //   setValues({ ...values, ["region"]:response.data.country});
     setregion(response.data.countrry);
-    //   this.setState({job:response.data.job})
-    //   setValues({ ...values, ["job"]:response.data.job});
     setjob(response.data.job);
-    //   this.setState({education:response.data.education})
-    //   setValues({ ...values, ["education"]:response.data.education});
     seteducation(response.data.education);
-    //   this.setState({joineddate:response.data.date_joined})
-    //   setValues({ ...values, ["joineddate"]:response.data.date_joined});
     setjoineddate(response.data.date_joined);
-    //   this.setState({aboutme:response.data.bio})
-    //   setValues({ ...values, ["aboutme"]:response.data.bio});
     setbio(response.data.bio);
-    //   this.setState({proimageurl:response.data.image})
-    //   setValues({ ...values, ["proimageurl"]:response.data.image});
     setproimage(response.data.image);
-    //   this.setState({res:response.data});
-    //   setValues({ ...values, ["res"]:response.data});
     setres(response.data);
-      
-    
+
     })
     
     .catch(function (error) {
       console.log(error);
     });
             }, [])
-  
-  
-    const onClickSubmit = () => { 
-
-    //   var token = localStorage.getItem("token");
-    //   token.replaceAll('"', '')
-    //   console.log(token);
-    //   setLoading(true);
-    //   var fd = new FormData();
-    //   fd.append();
-      
-    //   console.log(images[0],imageUrl);
-    //   var config = {
-    //     method: 'post',
-    //     url: 'http://127.0.0.1:8000/advertisement/addfood/',
-    //     headers: { 
-    //       'Authorization': 'Token '+ token, 
-    //     },
-    //     data: fd,
-    //   };
-  
-    //   axios(config)
-    //   .then((response) => {
-    //     setLoading(false);
-    //     if(response.status == 201)
-    //     {
-    //       setMessage("success");
-    //       setOpen(true);
-    //     }
-    //     else
-    //     {
-    //       setOpen(true);
-    //       setMessage("error");
-    
-    //     }
-        
-    //   })
-    //   .catch(function (error) {
-    //     setLoading(false);
-    //   });
-
-    }  
   
   
     function handleOnChange(value) {
@@ -303,51 +238,23 @@ function Reprofile() {
           <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
           {/* ecf2e8 */}
           
-<Container sx={{ padding: "4%" }} component="main">
-<Grid
-  container
-  spacing={0}
-  direction="row"
-  alignItems="center"
-  justifyContent="center"
->
-<Grid item 
-xs={12}
->
+<Container component="main">
           <Paper
     elevation={0}
     sx={{
-    
+    //   height:"350px",
       backgroundColor: "#fff",
       borderRadius: 5,
     }}
-    
   >
-      {/* <Grid container>
-      </Grid> */}
       <Grid
         item
         xs={12}
-        md={8}
+        md={12}
         lg={12}
         sx={{ backgroundColor: "#fffff", borderRadius: 4 }}
       >
-      
-            <Grid item xs={12}>
-              
-      <Grid
-          container
-          sx={{
-            paddingTop: "5%",
-            paddingRight: "15%",
-            paddingLeft: "15%",
-          }}
-        >
-<br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<br/><br/><br/><br/><br/><br/><br/><br/><br/>
-
-<Grid container>
-      {/* <Grid item xs={12} md={12} container> */}
+                    
       <Grid
   container
   spacing={0}
@@ -356,43 +263,22 @@ xs={12}
   justifyContent="center"
 >
 
-  <Grid item xs={0}>
-          <Stack direction="row" sx={{ maxWidth: 345 }} style={{ marginTop: "-0.5rem" }}>
-          {/* ,marginLeft:"-3rem" */}
-              <Stack direction="photo" spacing={2} sx={{ maxWidth: 345 }} style={{marginTop: "-0.5rem"}}>               
-              {/* ,marginLeft:"-3rem" */}
+  <Grid item xs={3} sx={{alignItems: 'center', justifyContent: 'center', display: 'inline-flex', marginTop: '2rem'}}>
+          <Stack direction="row" >
+              <Stack direction="photo" spacing={1} >               
 
                   <Avatar
                       alt="Remy Sharp"
                       src={proimageurl}
-                      sx={{ width: 330, height: 330 }}
+                      sx={{ width: 120, height: 120 }}
                   />
                    
               </Stack>
           </Stack>
         </Grid>
       </Grid>
-
-
-
-      <br/><br/><br/><br/><br/><br/>
-{/* <Grid item xs={12} container style={{ marginLeft: "22rem"}}> */}
-{/* <Grid
-  container
-  spacing={0}
-  direction="row"
-  alignItems="center"
-  justifyContent="center"
->
-
-  <Grid item xs={3}>
-          <p>{fname} {lname}</p>
-          </Grid>
-        </Grid> */}
-    {/* </Grid> */}
-      
-      <br/><br/><br/>
-      <br/><br/><br/>
+<br></br>
+      <br></br>
 
       <Grid
   container
@@ -402,29 +288,17 @@ xs={12}
   justifyContent="center"
 >
 
-<Grid item xs={12} style={{ paddingTop: "4rem"}}> 
-  <Stack direction="row" style={{ marginLeft:"-5rem" }}>
-  
-       <ScrollableTabsButtonForce data={res}></ScrollableTabsButtonForce>
+  <Grid item xs={12} > 
 
-      </Stack>
+       <ScrollableTabsButtonForce data={res}></ScrollableTabsButtonForce>
       
         </Grid> 
 </Grid>
 
-<br/><br/><br/><br/><br/><br/><br/><br/><br/>
-
-<br/><br/><br/><br/><br/><br/><br/><br/><br/>
-
 </Grid>
 
-        </Grid>
-        </Grid>
-        </Grid>
 
   </Paper>
-  </Grid>
-  </Grid>
   </Container>
     
   
@@ -432,6 +306,7 @@ xs={12}
 </div>
     );
   }
+  
   
   
   const Gender = [

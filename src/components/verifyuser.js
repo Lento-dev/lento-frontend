@@ -8,12 +8,10 @@ import {
   DialogActions,
   DialogTitle,
 } from "@mui/material";
-import { connect } from "react-redux";
-import { verifyemail } from "../actions/auth";
-import { clearMessage } from "../actions/message";
+import axios from "axios";
 
 
-function VerifyEmail(props) {
+function VerifyEmail() {
   const history = useHistory();
 
 const search = useLocation().search;
@@ -21,7 +19,9 @@ const user_id = new URLSearchParams(search).get("user_id");
 const timestamp = new URLSearchParams(search).get("timestamp");
 const signature = new URLSearchParams(search).get("signature");
 const [verifyEmailDialogOpen, setVerifyEmailDialogOpen] = useState(false);
+const [message, setMessage] = useState(null);
 
+const BASE_URL = "http://172.17.3.154/api";
 
 const handleVerifyEmailDialogClickOpen = () => {
     setVerifyEmailDialogOpen(true);
@@ -29,25 +29,38 @@ const handleVerifyEmailDialogClickOpen = () => {
 
   const handleVerifyEmailDialogClose = () => {
     setVerifyEmailDialogOpen(false);
-    props.clearMessage();
-    history.push("/signin");
+    setMessage(null);
   };
-  
-  useEffect(() => {
-    console.log('in verify page');
 
-    console.log('user_id, timestamp, signature ', user_id, timestamp, signature );
-    
-    props.verifyemail(user_id, timestamp, signature, history)
-    .then(res => {
-        handleVerifyEmailDialogClickOpen();
-    })
-    .catch(err => {
-        handleVerifyEmailDialogClickOpen();
-    })
-    console.log("in use effect");
-    console.log(props.message);
+  const verifyemail = () => {
+    var formData = new FormData();
+    formData.append("user_id", user_id);
+    formData.append("timestamp", timestamp);
+    formData.append("signature", signature);
   
+    return axios.post(BASE_URL + '/account/verify_registration'+ '/' , formData)
+      .then(
+        (response) => {
+          // console.log('base url', BASE_URL)
+          // console.log('response.data', response.data)
+          setMessage("Your Account has been verified successfully.");
+          handleVerifyEmailDialogClickOpen();
+
+        })
+        .catch((error) => {
+          // console.log('base url', BASE_URL)
+
+          setMessage("Validation link is invalid.");
+          handleVerifyEmailDialogClickOpen();
+          // console.log(error.data)
+        }
+        );
+  }
+  
+  useEffect(() => {    
+    console.log(BASE_URL);
+    verifyemail();
+    // console.log("in use effect");  
   });
 
 
@@ -57,14 +70,14 @@ const handleVerifyEmailDialogClickOpen = () => {
               open={verifyEmailDialogOpen}
               onClose={handleVerifyEmailDialogClose}
             >
-              <DialogTitle color={props.message === "Your Account has been verified successfully."
+              <DialogTitle color={message === "Your Account has been verified successfully."
                             ? "green"
-                            : "red"} >{props.message}</DialogTitle>
+                            : "red"} >{message}</DialogTitle>
 
               <DialogActions>
               <Grid container justifyContent="center">
               <Button variant="contained" onClick={handleVerifyEmailDialogClose} 
-              color={props.message === "Your Account has been verified successfully."
+              color={message === "Your Account has been verified successfully."
                             ? "success"
                             : "warning"} >
               OK</Button>
@@ -76,12 +89,6 @@ const handleVerifyEmailDialogClickOpen = () => {
   );
 }
 
-const mapDispatchToProps = { verifyemail, clearMessage };
-const mapStateToProps = (state) => {
-  return {
-    message: state.message.message,
-    openMessage: state.message.openMessage,
-  };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(VerifyEmail);
+
+export default VerifyEmail;
