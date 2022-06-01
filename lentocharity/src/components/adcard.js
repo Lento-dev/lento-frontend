@@ -14,9 +14,11 @@ import imgg from "../assets/img/charitycard2.jpg";
 const MediaControlCard = (props) => {
   // props
   // console.log(props);
-
+  var image = imgg;
   if (props.data.Image === null) {
+    image = imgg;
   } else {
+    image = props.data.Image;
   }
 
   return (
@@ -80,7 +82,8 @@ const MediaControlCard = (props) => {
           >
             <EventNoteIcon style={{ fontSize: "large" }} />
             <span style={{ color: "grey", lineHeight: "50%" }}>
-              &nbsp;&nbsp;{props.data.date_joined}
+              {/* &nbsp;&nbsp;{props.data.date_joined} */}
+              ----
             </span>
           </div>
         </CardContent>
@@ -88,7 +91,7 @@ const MediaControlCard = (props) => {
       <CardMedia
         component="img"
         sx={{ width: 151 }}
-        image="https://s6.uupload.ir/files/mens-puffer-red-jacket_cu1a.jpg"
+        image={image}
         alt="Live from space album cover"
       />
     </Card>
