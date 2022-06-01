@@ -26,12 +26,21 @@ import Popper from "@mui/material/Popper";
 import MenuList from "@mui/material/MenuList";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EditIcon from '@mui/icons-material/Edit';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-function Navbar(props) {
-  const isLoggedIn = props.isLoggedIn;
+function Navbar() {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const history = useHistory();
+  const BASE_URL = "http://172.17.3.154/api";
+  const token = localStorage.getItem('token');
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const headers = {"Authorization": `Token ${token}`};
+
+  useEffect(() => {
+    setIsLoggedIn(localStorage.getItem('isLoggedIn') !== null)
+  }, isLoggedIn)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -54,10 +63,6 @@ function Navbar(props) {
     }
   }
 
-  const handleEditProfileClick = () => {
-    setOpen((prevOpen) => !prevOpen);
-    history.push("/edit-profile");
-  }
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
@@ -72,6 +77,24 @@ function Navbar(props) {
     setOpen((prevOpen) => !prevOpen);
     history.push("/dashboard");
   };
+
+  const handleLogOutClick = async () => {
+    setOpen((prevOpen) => !prevOpen);
+    axios.post(BASE_URL + '/account/logout/', {revoke_token: true},{headers} )
+    .then(res => {
+      localStorage.clear();
+      console.log(res);
+      console.log('logout succesfully');
+      if (isLoggedIn === false){
+        history.push('/')
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      console.log('logout failed!');
+    })
+  };
+  
   
   
   if (isLoggedIn) {
@@ -156,7 +179,7 @@ function Navbar(props) {
                             Dashboard
                           </MenuItem>
                          <Divider /> 
-                         <MenuItem onClick={handleToggle}>
+                         <MenuItem onClick={handleLogOutClick}>
                             <ListItemIcon>
                               <Logout fontSize="small" />
                             </ListItemIcon>
@@ -229,21 +252,5 @@ function Navbar(props) {
   }
 }
 
-const MapStateToProps = (state) => {
-  let a = "";
-  let r = "";
 
-  if (state.auth.user != null) {
-    a = state.auth.user.access;
-    r = state.auth.user.refresh;
-  }
-  return {
-    message: state.message.message,
-    openMessage: state.message.openMessage,
-    isLoggedIn: state.auth.isLoggedIn,
-    a,
-    r,
-  };
-};
-const mapDispatchToProps = { logout };
-export default connect(MapStateToProps, mapDispatchToProps)(Navbar);
+export default Navbar;

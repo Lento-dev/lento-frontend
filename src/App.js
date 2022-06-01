@@ -51,6 +51,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={SignUp} />
               {/* <Route exact path="/profile" component={UserProfile} />  */}
+              <Route exact path="/signup" component={SignUp} />
               <Route exact path="/setting" component={Setting} /> 
               <Route exact path="/signin" component={SignIn} />
               <Route exact path="/forgot-password" component={ForgotPassword} />
