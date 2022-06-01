@@ -95,7 +95,6 @@ function UserInfo(props) {
     },
     validationSchema: validationSchema,
   });
-  
 
 
 
