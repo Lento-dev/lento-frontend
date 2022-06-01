@@ -47,7 +47,7 @@ import PersonPinIcon from '@material-ui/icons/PersonPin';
 import HelpIcon from '@material-ui/icons/Help';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import InfoIcon from '@mui/icons-material/Info';
-import RecipeReviewCard from './postcard';
+
 import { purple,green } from '@mui/material/colors';
 
 
@@ -191,8 +191,9 @@ class UserProfile extends Component {
               <div className="backgroundimagehome"> 
               </div>        
               </Grid>
+              
           <Grid item xs={12} container>
-          <Stack direction="row" sx={{ maxWidth: 345 }} style={{ marginTop: "-8rem" }}>
+          <Stack direction="row" sx={{ maxWidth: 345 }} style={{ marginTop: "-8rem"}}>
               <Stack direction="photo" spacing={2} sx={{ maxWidth: 345 }} style={{ marginLeft: "8.5rem", marginTop: "-2.4rem" }}>               
 
               {/* <Grid item xs={10}>
@@ -201,11 +202,13 @@ class UserProfile extends Component {
                   <Avatar
                       alt="Remy Sharp"
                       src={this.state.proimageurl}
-                      sx={{ width: 330, height: 330 }}
+                      sx={{ width: 330, height: 330}}
+                      
                   />
               </Stack>
           </Stack>
       </Grid>
+      
 
 
       <Grid item xs={12}>

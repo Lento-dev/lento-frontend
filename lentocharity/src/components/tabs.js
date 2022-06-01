@@ -11,7 +11,7 @@ import PersonPinIcon from '@material-ui/icons/PersonPin';
 import HelpIcon from '@material-ui/icons/Help';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import InfoIcon from '@mui/icons-material/Info';
-import RecipeReviewCard from './postcard';
+// import RecipeReviewCard from './postcard';
 import { purple,green } from '@mui/material/colors';
 import {
   Avatar, CssBaseline, Link, Grid, Box, Button,
@@ -136,10 +136,11 @@ export default function ScrollableTabsButtonForce(props) {
           className={classes.tabs}
           centered
         >
-          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>Posts</div>} icon={<AppRegistrationIcon />} {...a11yProps(0)} />
-          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>About</div>} icon={<InfoIcon />} {...a11yProps(1)} />
-          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>Followers</div>} icon={<PersonPinIcon />} {...a11yProps(2)} />
-          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>Followings</div>} icon={<PersonPinIcon />} {...a11yProps(3)} />
+          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>About</div>} icon={<InfoIcon />} {...a11yProps(0)} />
+          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>advertisements</div>} icon={<AppRegistrationIcon />} {...a11yProps(1)} />
+          
+          
+          
         </Tabs>
 
       </Grid>
@@ -147,7 +148,7 @@ export default function ScrollableTabsButtonForce(props) {
       </Grid>
 
 
-      <TabPanel className='tabs' value={value} index={0}>
+      <TabPanel className='tabs' value={value} index={1}>
 
  
       <Grid
@@ -158,79 +159,14 @@ export default function ScrollableTabsButtonForce(props) {
   justifyContent="center"
 >
 
-  <Grid item xs={12}>
-
-                {/* <Grid  > */}
-                    <Grid item xs={12} >
-                        <Card className="card-profile shadow" style={{ marginTop: "3rem" }}>
-                        {/*  */}
-                            <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "1rem", fontWeight: "bold" }}>
-                                {props.data.first_name + " "}
-                                {props.data.last_name}
-                            </Typography>
-
-                            <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "0", fontWeight: "bold" }}>
-                                {props.data.job}
-                            </Typography>
-
-                            <CardContent>
-                                <Grid container style={{ padding: "1rem" }}>
-                                    <Grid container sx={{ color: 'text.primary' }}>
-                                        <Grid item xs={1.3}>
-                                            <EmailIcon sx={{ fontSize: 24 }} color="action" gutterBottom />
-                                        </Grid>
-                                        <Grid item xs={5}>
-                                      
-                                            <Typography sx={{ fontSize: 16 }} gutterBottom>
-                                            <Link 
-                                              sx={{ color: 'black', cursor: 'pointer' }} 
-                                              underline="hover" 
-                                              className="communicate"
-                                            >
-                                {props.data.email}</Link>
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-
-                                    <Grid container sx={{ color: 'text.primary' }}>
-                                        <Grid item xs={1.3}>
-                                            <PlaceIcon sx={{ fontSize: 24 }} color="action" />
-                                        </Grid>
-                                        <Grid item xs={5}>
-                                            <Typography sx={{ fontSize: 16 }} gutterBottom>
-                                                {props.data.region}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-                                    <h3>
-                                        <h6></h6>
-                                    </h3>
-                                    <Grid item xs={50} style={{ textAlign: "center", marginBottom: "-20px" }}>
-                                        <Typography>
-                                            <LinkedInIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.linkedin.com/in/shahab-induction-co-0ab165140/')} className="communicate" />
-                                            <h7> </h7>
-                                            <FacebookIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://t.me/shahabinductionco')} className="communicate" />
-                                            <h7> </h7>
-                                            <TwitterIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
-                                            <h7> </h7>
-                                            <LanguageIcon sx={{ fontSize: 24 }} color="action" onClick={() => window.open('https://www.instagram.com/shahabinductionco')} className="communicate" />
-                                        </Typography>
-                                    </Grid>
-
-                                </Grid>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-
-                    {/* </Grid> */}
-                    </Grid>
+  
                 
   
 </Grid>
 <br/><br/><br/><br/>
 <Grid item xs={12} container>
                         <Container component="main">
-                          <RecipeReviewCard></RecipeReviewCard>
+                          {/* <RecipeReviewCard></RecipeReviewCard> */}
                         </Container>
                     </Grid>
 
@@ -239,7 +175,7 @@ export default function ScrollableTabsButtonForce(props) {
 
 </TabPanel>
 
-        <TabPanel value={value} index={1}>
+        <TabPanel value={value} index={0}>
             
         
         <Grid
