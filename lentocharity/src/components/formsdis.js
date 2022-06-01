@@ -486,7 +486,7 @@ function Formdis(props) {
         <div >
         <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
 
-<Container sx={{ padding: "2%" }} component="main">
+<Container sx={{ padding: "5%" }} component="main">
 <Paper
     // className="signinPage"
     elevation={0}
@@ -666,7 +666,7 @@ function Formdis(props) {
               <Grid item xs={12} sm={6}>
                 <Box sx={{ minWidth: 120 }}>
                     <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label" name='marital_status'>cloth type</InputLabel>
+                      <InputLabel id="demo-simple-select-label" name='marital_status'>Cloth type</InputLabel>
                       <Select
                       disabled={!cchecked}
                         labelId="demo-simple-select-label"
@@ -693,7 +693,7 @@ function Formdis(props) {
               <Grid item xs={12} sm={6}>
                 <Box sx={{ minWidth: 120 }}>
                     <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label" name='marital_status'>cloth status</InputLabel>
+                      <InputLabel id="demo-simple-select-label" name='marital_status'>Cloth status</InputLabel>
                       <Select
                       disabled={!cchecked}
                         labelId="demo-simple-select-label"
@@ -721,7 +721,7 @@ function Formdis(props) {
                           id="demo-simple-select-label" 
                           name='marital_status'
                       >
-                        cloth size</InputLabel>
+                        Cloth size</InputLabel>
                       <Select
                       disabled={!cchecked}
                         labelId="demo-simple-select-label"
@@ -750,7 +750,7 @@ function Formdis(props) {
                 
                 <Grid item xs={12} sm={6}>
 
-            &nbsp;&nbsp;&nbsp;&nbsp;
+            
             <FormControl
             disabled={!cchecked}
             >
@@ -760,10 +760,10 @@ function Formdis(props) {
             name="position"
             defaultValue="top"
             >
-            <FormControlLabel value="for men" control={<Radio />} label="for men" />
-            <FormControlLabel value="for women" control={<Radio />} label="for women" />
-            <FormControlLabel value="for kids" control={<Radio />} label="for kids" />
-            <FormControlLabel value="unlimited" control={<Radio />} label="unlimited" />
+            <FormControlLabel value="for men" control={<Radio />} label="Manly" />
+            <FormControlLabel value="for women" control={<Radio />} label="Womanly" />
+            <FormControlLabel value="for kids" control={<Radio />} label="Childish" />
+            <FormControlLabel value="unlimited" control={<Radio />} label="Unlimited" />
             </RadioGroup>
             </FormControl>
 
@@ -783,7 +783,7 @@ function Formdis(props) {
                   autoComplete="pseudonym"
                   name="pseudonym"
                   id="pseudonym"
-                  label="pseudonym"
+                  label="Pseudonym"
                   type="text"
                   value={values.pseudonym}
                   onChange={handleChange("pseudonym")}
@@ -799,7 +799,7 @@ function Formdis(props) {
                 <Grid item xs={12} >
                 <Box sx={{ minWidth: 120 }}>
                     <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label" name='marital_status'>service type</InputLabel>
+                      <InputLabel id="demo-simple-select-label" name='marital_status'>Service type</InputLabel>
                       <Select
                         disabled={!schecked}
                         labelId="demo-simple-select-label"
@@ -915,7 +915,7 @@ function Formdis(props) {
                 </ImageUploading>
     
 
-  <br/><br/><br/>
+  
   
    
    <Grid container >
@@ -924,11 +924,13 @@ function Formdis(props) {
                  variant="contained"
                  sx={{ mt: 4, mb: 6 }}
                  onClick={onClickSubmit}
-                 style={{ backgroundColor: '#465832', color: '#FFFFFF', textTransform: 'unset', width: '110px',height: '55px' }}
+                 style={{ backgroundColor: '#465832', color: '#FFFFFF', textTransform: 'unset', width: '110px',height: '55px' ,left:'700px'}}
                >
                    {loading ? 
-                       <CircularProgress style={{color: "#fff"}}  size="1.55rem"/>
-                       : "save"}
+                       <CircularProgress style={{color: "#fff"}}  size="1.55rem" />
+                       : 
+                       <h3>save</h3>}
+                       
 
                  </Button>
 
