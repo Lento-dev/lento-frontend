@@ -8,6 +8,7 @@ import { login } from "../actions/auth";
 import SignUp from "../components/signup";
 import UserInfo from '../components/editprofile';
 import Setting from '../components/setting';
+import Forms from "../components/forms";
 
 describe("Footer", () => {
   it("should render the correct content", async () => {
@@ -608,6 +609,90 @@ it("should render correct username", async () => {
     fireEvent.select(emailElement, { target: { value: "zahra1380" } });
     expect(emailElement.value).toBe("zahra1380");
   });
+
+  describe("edit profile", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Forms />
+      </BrowserRouter>
+      )
+    })
+  })
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Forms/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getAllByText(/food/i);
+    expect(keyword.length).toBe(2);
+  });
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Forms/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getAllByText(/cloth/i);
+    expect(keyword.length).toBe(1);
+  });
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Forms/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getAllByText(/service/i);
+    expect(keyword.length).toBe(1);
+  });
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Forms/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getAllByText(/save/i);
+    expect(keyword.length).toBe(1);
+  });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <Forms genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/advertisement title/i);
+    fireEvent.select(emailElement, { target: { value: "food" } });
+    expect(emailElement.value).toBe("food");
+  });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <Forms genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Neighborhood address/i);
+    fireEvent.select(emailElement, { target: { value: "mahalati" } });
+    expect(emailElement.value).toBe("mahalati");
+  });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <Forms genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Description/i);
+    fireEvent.select(emailElement, { target: { value: "this is a test." } });
+    expect(emailElement.value).toBe("this is a test.");
+  });
+
 
 
 

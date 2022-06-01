@@ -17,19 +17,21 @@ import Tabs from "@material-ui/core/Tabs";
 import Switch from '@mui/material/Switch';
 import { connect } from "react-redux";
 import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
+
 import { useHistory } from 'react-router-dom';
 import { CircularProgress } from "@mui/material";
   
 
 const validationSchema = yup.object({
   oldpassword: yup.string()
-  .required('Required.'),
+  .required('This field is required.'),
   password: yup.string()
+  .required('This field is required.')
     .max(15, 'Must be 15 characters or less')
-    .min(8, 'Must be at least 8 characters')
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/, 'Your password should contain at least 1 lowercase letter, 1 uppercase letter and a number.'),
+    .min(8, 'Must be at least 8 characters'),
   confirmpassword: yup.string()
+  .required('This field is required.')
     .oneOf([yup.ref('password')], 'Passwords don\'t match!'),
   
   email: yup.string().email('Invalid email address'),
@@ -50,21 +52,21 @@ function TabPanel(props) {
 function Setting() {
   const [loadingE, setLoadingE] = React.useState(false);
   const [loadingP, setLoadingP] = React.useState(false);
-  const [loadingT, setLoadingT] = React.useState(false);
+  const [message, setMessage] = React.useState('');
+  const [openm, setOpenm] = useState(false);
+  const token = localStorage.getItem('token');
+  const headers = {"Authorization": `Token ${token}`};
+  const [checked, setChecked] = React.useState(false);
+  const [value, setValue] = useState(0);
+  const BASE_URL ='http://172.17.3.154/api';
 
-  const [open, setOpen] = React.useState(false);
-
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-
-    setOpen(false);
-    // props.clearMessage();
+    setMessage('');
+    setOpenm(false);
   };
 
   const formik = useFormik({
@@ -75,14 +77,7 @@ function Setting() {
     },
     validationSchema: validationSchema,
   });
-  const token = localStorage.getItem('token')
 
-  const [checked, setChecked] = React.useState(false);
-  const [value, setValue] = useState(0);
-  const [message,setMessage] = React.useState('');
-  const BASE_URL = process.env.BASE_URL;
-
-  const headers = {"Authorization": `Bearer ${token}`};
 
   const handleCheck = (event) => {
     setChecked(event.target.checked);
@@ -93,26 +88,50 @@ function Setting() {
   };
 
   const changePassword = () => {
-    let filled = Object.keys(formik.errors).length === 0;
-    if(filled)
+    let filled = 
+    !Boolean(formik.errors.oldpassword) && !Boolean(formik.errors.password) && !Boolean(formik.errors.confirmpassword)
+    && formik.values.oldpassword !== '' && formik.values.password !== '' && formik.values.confirmpassword !== '';
+     if(filled)
     {
+      setLoadingP(true);
       var formData = new FormData();
-      formData.append("old_password", formik.oldpassword);
-      formData.append("password", formik.password);
-      formData.append("password_confirm", formik.confirmpassword);
-      axios.post(BASE_URL + '/account/change_password/', formData)
-      .then(res => console.log(res))
-      .else(err => console.log(err))
+      formData.append("old_password", formik.values.oldpassword);
+      formData.append("password", formik.values.password);
+      formData.append("password_confirm", formik.values.confirmpassword);
+      console.log(formData)
+      axios.post(BASE_URL + '/account/change_password/', formData, {headers})
+      .then(res => {
+        setLoadingP(false);
+        setMessage('Your password changed succesfully.');
+        setOpenm(true);
+        console.log(res);
+      })
+      .catch(err => {
+        let m = "";
+        for (var key in err.response.data) {
+          m += err.response.data[key] + " ";
+        }
+          setMessage(m);
+          setOpenm(true);
+        
+        setLoadingP(false);
+
+      })    
     }
+    else{
+      setMessage('Please fill the fileds above.');
+      setOpenm(true);
+    }
+    console.log('message ', message);
+    console.log('openm ', openm);
+
   }
   return (
       <div>
       <Helmet bodyAttributes={{ style: 'background-color : #e5ecdf' }}></Helmet>
       <Container component="main" maxWidth="md">
         <CssBaseline />
-        <Typography component="h1" variant="h5" style={{ paddingTop: "1.5rem", paddingBottom: "0.5rem", paddingLeft: "1.5rem" }}>
-        </Typography>
-        <Paper elevation={3} sx={{borderRadius: 4, display: 'flex' }} style={{marginTop: "0.2rem"}}>
+        <Paper elevation={3} sx={{borderRadius: 4, display: 'flex' }}>
             <Tabs  textColor="secondary" 
               indicatorColor="secondary"
               onChange={handleChange} aria-label="secondary tabs example" value={value}>
@@ -120,16 +139,18 @@ function Setting() {
               <Tab value={1} style={{textTransform: 'unset'}} label="Permission" />
             </Tabs>
         </Paper>
-        <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ justifyContent: "center", marginTop: "1rem", marginBottom: "1rem", paddingTop: "1rem", paddingLeft:'3rem' , paddingRight:'3rem', paddingBottom:'1rem'}}>
+        <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ justifyContent: "center", marginTop: "1rem", marginBottom: "1rem", paddingLeft:'3rem' , paddingRight:'3rem', paddingBottom:'1rem'}}>
           
           <Grid container justifyContent="flex">
             <TabPanel value={value} index={0}>
-                <Grid container spacing={3} style={{ marginTop: "-5px", marginBottom: "1rem" }}>
+                <Grid container spacing={2}>
 
-
-                <Typography style={{ paddingTop: "0px", paddingLeft:'1.5rem' , paddingRight:'0.7rem', paddingBottom:'0rem' }}>
+                <Grid item xs={12} textAlign="left">
+                <Typography>
                     Change your email address
                   </Typography>
+                </Grid>
+
                   <Grid item xs={12}>
                     <TextField
                       fullWidth
@@ -146,29 +167,25 @@ function Setting() {
                   </Grid>
 
 
-                  <Grid container justifyContent="flex-end">
+                  <Grid item xs={12} textAlign="right">
                     <Button type="submit"
                       variant="contained"
-                      sx={{ mt: 2.5, mb: 0 }} 
                       style={{ backgroundColor: '#e6835a', color: '#FFFFFF', textTransform: 'unset',width:'150px' }}>
                     {loadingE ? 
                         <CircularProgress style={{color: "#fff"}}  size="1.5rem"/>
                         : "Change email"}
                   </Button>
 
-                    <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
-                  <Alert onClose={handleClose} severity={message === 'Please enter new email.' ? "error" : "success"} sx={{ width: '100%' }}>
-                    {message}
-                  </Alert>
-                </Snackbar>
+
                   </Grid>
 
-                  <Divider style={{ width: '100%', marginTop: "1rem",marginBottom:"1rem",alignItems: "center" }}/>
-
-                
-                  <Typography style={{ paddingTop: "0.3rem", paddingLeft:'1.5rem' , paddingRight:'0.7rem', paddingBottom:'0rem' }}>
-                    Change your password
+                  <Divider style={{ width: '100%', alignItems: "center", marginTop: '2rem' }}/>
+                  <Grid item xs={12} textAlign="left">
+                <Typography>
+                Change your password
                   </Typography>
+                </Grid>
+                
                   <Grid item xs={12}>
                     <TextField
                       fullWidth
@@ -217,21 +234,19 @@ function Setting() {
                     />
                   </Grid>
 
-                  <Grid container justifyContent="flex-end">
+                  <Grid item xs={12} textAlign="right">
                     <Button type="submit" onClick={changePassword}
                       variant="contained"
-                      sx={{ mt: 2.5, mb: 0 }} 
                       style={{ backgroundColor:  '#e6835a', color: '#FFFFFF', textTransform: 'unset', width:'150px' }}>
                     {loadingP ? 
                         <CircularProgress style={{color: "#fff"}}  size="1.5rem"/>
                         : "Change password"}
                   </Button>
-
-                    <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
-                  <Alert onClose={handleClose} severity={message === "Please enter new password." ? "error" : "success"} sx={{ width: '100%' }}>
+                  <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
+                  <Alert onClose={handleClose} variant="filled" severity="error" sx={{ width: '100%' }}>
                     {message}
                   </Alert>
-                </Snackbar>
+                  </Snackbar>
 
                   </Grid>
                </Grid>
@@ -303,13 +318,8 @@ function Setting() {
                         : "Submit"}
                   </Button>
 
-                    <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
-                  <Alert onClose={handleClose} severity={message === "Please fill in the blanks." ? "error" : "success"} sx={{ width: '100%' }}>
-                    {message}
-                  </Alert>
-                </Snackbar>
-
               </Grid> */}
+ 
             </TabPanel>
           </Grid>
         </Paper>
@@ -317,22 +327,5 @@ function Setting() {
     </div>
   );
 }
-
-// const mapStateToProps = (state) => {
-//   let access = "";
-//   let refresh = "";
-
-//   if (state.auth.user != null) {
-//       access = state.auth.user.access;
-//       refresh = state.auth.user.refresh;
-//   }
-//   return {
-//       message: state.message.message,
-//       openMessage: state.message.openMessage,
-//       isLoggedIn: state.auth.isLoggedIn,
-//       access,
-//       refresh,
-//   }
-// }
 
 export default Setting;

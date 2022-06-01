@@ -24,6 +24,7 @@ import Formdis from './components/formsdis';
 import Reprofile from './components/Reprofile';
 import Navbar from './components/navbar';
 import Setting from './components/setting';
+import Chat from './components/chat';
 
 
 const theme = createTheme({
@@ -62,9 +63,10 @@ function App() {
               <Route exact path="/service" component={Serviceadvertisement} />
               <Route exact path="/cg" component={Forms} />
               <Route exact path="/forms" component={Formdis} />
-              <Route exact path="/profile" component={Reprofile} />
+              <Route exact path="/dashbpard/profile" component={Reprofile} />
               <Route exact path="/setting" component={UserSetting} />
               <Route exact path="/dashboard" component={PersistentDrawerLeft} /> 
+              <Route exact path="/chat" component={Chat} /> 
             
             </Switch>
           </BrowserRouter>
