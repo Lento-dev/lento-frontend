@@ -132,12 +132,13 @@ export default function ScrollableTabsButtonForce(props) {
         <Tabs
           value={value}
           onChange={handleChange}
-          style={{color:'#465832'}}
+          style={{color:'#465832', textTransform: 'unset'}}
           className={classes.tabs}
           centered
+
         >
-          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>About</div>} icon={<InfoIcon />} {...a11yProps(0)} />
-          <Tab label={<div style={{fontFamily:'icofont',fontSize:'20px'}}>advertisements</div>} icon={<AppRegistrationIcon />} {...a11yProps(1)} />
+          <Tab label={<div >About</div>} icon={<InfoIcon />} {...a11yProps(0)} />
+          <Tab label={<div >Advertisements</div>} icon={<AppRegistrationIcon />} {...a11yProps(1)} />
           
           
           
@@ -163,15 +164,6 @@ export default function ScrollableTabsButtonForce(props) {
                 
   
 </Grid>
-<br/><br/><br/><br/>
-<Grid item xs={12} container>
-                        <Container component="main">
-                          {/* <RecipeReviewCard></RecipeReviewCard> */}
-                        </Container>
-                    </Grid>
-
-                      
-{/* </Grid> */}
 
 </TabPanel>
 
@@ -190,7 +182,7 @@ export default function ScrollableTabsButtonForce(props) {
                     
                      
   <Grid item xs={12} >
-                        <Card className="card-profile shadow" style={{ marginTop: "3rem" }}>
+                        <Card className="card-profile shadow" >
                         {/*  */}
                             <Typography component="h1" variant="h5" sx={{ fontSize: 18 }} style={{ textAlign: "center", marginTop: "1rem", marginBottom: "1rem", fontWeight: "bold" }}>
                                 {props.data.first_name + " "}
@@ -253,9 +245,9 @@ export default function ScrollableTabsButtonForce(props) {
                     
                         <Container component="main">
                         <Grid item xs={12} md={12}>
-                            <Card elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ marginTop: "7rem", marginBottom: "1rem", padding: "2rem" }}>
-                                    <Grid container style={{ padding: "6px" }}>
-                                        <Grid item xs={12}>
+                            <Card elevation={3} style={{ padding: "2.5rem", marginTop: '1rem', width:'50rem' }}>
+                                    <Grid container >
+                                        <Grid item xs={12} sx={{padding: '1rem'}}>
                                             <Typography component="h3" style={{ fontWeight: "bold" }}>About me</Typography>
                                             <Divider style={{ width: '100%', marginTop: "0.5rem",marginBottom:"1rem",alignItems: "center" }}/>
                                             <h4></h4>
@@ -268,8 +260,9 @@ export default function ScrollableTabsButtonForce(props) {
                                 </Grid>
                                 <h1></h1>
 
-                                <Grid item xs={12} md={12}>
-                                <Card elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ marginTop: "3rem", marginBottom: "1rem", padding: "2rem" }}>
+                            {props.data.experience && (
+                              <Grid item xs={12} md={12}>
+                                <Card elevation={3} sx={{display: 'flex' }}>
                                     <Grid container style={{ padding: "6px" }}>
                                         <Grid item xs={12}>
                                             <Typography component="h3" style={{ fontWeight: "bold" }}>Experience</Typography>
@@ -282,6 +275,8 @@ export default function ScrollableTabsButtonForce(props) {
                                     </Grid>
                                 </Card>
                               </Grid>
+                            )}
+
                             </Container>
 
 </Grid>

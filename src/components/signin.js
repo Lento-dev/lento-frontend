@@ -104,7 +104,7 @@ function SignIn(props) {
           console.log("user", response.data);
           console.log("login was succesfull");
           setLoading(false);
-          history.push("/dashboard");
+          history.push("/");
         })
         .catch((error) => {
           setLoading(false);
