@@ -107,7 +107,8 @@ function Ppage(props) {
     }
   };
   const [prodata, setarray] = useState([]);
-  let dataset = [];
+  let content = [];
+
   useEffect(() => {
     console.log("***********************");
     var token = localStorage.getItem("token");
@@ -128,131 +129,20 @@ function Ppage(props) {
     axios(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
-        setarray(response.data);
-        console.log(response.data.length);
+        setarray(Object.values(response.data));
+        console.log(Object.values(response.data));
+        content = prodata.map((item, i) => {
+          console.log("content", item, i);
+          <Grid item md={4}>
+            <MediaControlCard data={item} key={i}></MediaControlCard>
+          </Grid>;
+        });
       })
 
       .catch(function (error) {
         console.log(error);
       });
   });
-
-  const onClickSubmit = () => {
-    validate();
-
-    let filled = Object.keys(tmpErrors).length === 0;
-    console.log("error", errors);
-    console.log("filled", filled);
-    console.log("values", values);
-    if (!filled) {
-      console.log("error filling form");
-      setMessage("error");
-      setOpen(true);
-    }
-    if (filled) {
-      var token = localStorage.getItem("token");
-      token.replaceAll('"', "");
-      if (fchecked) {
-        setLoading(true);
-        var fd = new FormData();
-        fd.append("Title", values.formtitle);
-        var config = {
-          method: "post",
-          url: "http://127.0.0.1:8000/advertisement/addfood/",
-          headers: {
-            Authorization:
-              "Token " + "213b2e47bc472211c4fa19746271d0973f08a671",
-          },
-          data: fd,
-        };
-
-        axios(config)
-          .then((response) => {
-            setLoading(false);
-            if (response.status == 201) {
-              setMessage("success");
-              setOpen(true);
-            } else {
-              setOpen(true);
-              setMessage("error");
-            }
-          })
-          .catch(function (error) {
-            setLoading(false);
-            setOpen(true);
-            setMessage("error");
-          });
-      }
-      if (cchecked) {
-        setLoading(true);
-        var fd = new FormData();
-        fd.append("Title", values.formtitle);
-        fd.append("cloth_status", values.clothstatus);
-
-        var config = {
-          method: "post",
-          url: "http://127.0.0.1:8000/advertisement/addcloth/",
-          headers: {
-            Authorization:
-              "Token " + "213b2e47bc472211c4fa19746271d0973f08a671",
-          },
-          data: fd,
-        };
-
-        axios(config)
-          .then((response) => {
-            setLoading(false);
-            if (response.status == 201) {
-              setMessage("success");
-              setOpen(true);
-            } else {
-              setMessage("error");
-              setOpen(true);
-              console.log(message);
-            }
-          })
-          .catch(function (error) {
-            setLoading(false);
-            setMessage("error");
-            setOpen(true);
-          });
-      }
-      if (schecked) {
-        setLoading(true);
-        var fd = new FormData();
-        fd.append("Title", values.formtitle);
-        fd.append("category_type", values.categorytype);
-
-        var config = {
-          method: "post",
-          url: "http://127.0.0.1:8000/advertisement/addservice/",
-          headers: {
-            Authorization:
-              "Token " + "213b2e47bc472211c4fa19746271d0973f08a671",
-          },
-          data: fd,
-        };
-
-        axios(config)
-          .then((response) => {
-            setLoading(false);
-            if (response.status == 201) {
-              setMessage("success");
-              setOpen(true);
-            } else {
-              setMessage("error");
-              setOpen(true);
-              console.log(message);
-            }
-          })
-          .catch(function (error) {
-            setLoading(false);
-            setMessage("error");
-            setOpen(true);
-          });
-      }
-    }
-  };
 
   function handleOnChange(value) {}
   // const c = prodata.map((item, i) => {
@@ -266,6 +156,7 @@ function Ppage(props) {
   //     <HomeRecipeReviewCard key={item.id} book={item}></HomeRecipeReviewCard>
   //   </Col>
   // ));
+
   return (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
@@ -404,70 +295,25 @@ function Ppage(props) {
             alignItems:"center",
           }}
           > */}
-
                 <Grid container spacing={6}>
-                  {prodata.map((item, i) => {
-                    console.log(item, i);
+                  {prodata.map((item, i) => (
                     <Grid item md={4}>
                       <MediaControlCard data={item} key={i}></MediaControlCard>
-                    </Grid>;
-                  })}
-
-                  <Grid item md={4}>
-                    <MediaControlCard data={prodata} />
-                  </Grid>
+                    </Grid>
+                  ))}
                   {/* <Grid item md={4}>
-                    <MediaControlCard />
-                  </Grid>
-
-                  <Grid item md={4}>
-                    <MediaControlCard />
-                  </Grid>
-
-                  <Grid item md={4}>
-                    <MediaControlCard />
+                    <MediaControlCard></MediaControlCard>
                   </Grid>
                   <Grid item md={4}>
-                    <MediaControlCard />
-                  </Grid>
-
-                  <Grid item md={4}>
-                    <MediaControlCard />
-                  </Grid>
-
-                  <Grid item md={4}>
-                    <MediaControlCard />
+                    <MediaControlCard></MediaControlCard>
                   </Grid>
                   <Grid item md={4}>
-                    <MediaControlCard />
+                    <MediaControlCard></MediaControlCard>
                   </Grid>
                   <Grid item md={4}>
-                    <MediaControlCard />
-                  </Grid>
-                  <Grid item md={4}>
-                    <MediaControlCard />
-                  </Grid>
-                  <Grid item md={4}>
-                    <MediaControlCard />
-                  </Grid>
-                  <Grid item md={4}>
-                    <MediaControlCard />
-                  </Grid>
-                  <Grid item md={4}>
-                    <MediaControlCard />
-                  </Grid>
-                  <Grid item md={4}>
-                    <MediaControlCard />
-                  </Grid>
-                  <Grid item md={4}>
-                    <MediaControlCard />
-                  </Grid>
-                  <Grid item md={4}>
-                    <MediaControlCard />
+                    <MediaControlCard></MediaControlCard>
                   </Grid> */}
                 </Grid>
-
-                {/* </Paper> */}
               </Grid>
             </Grid>
           </Grid>

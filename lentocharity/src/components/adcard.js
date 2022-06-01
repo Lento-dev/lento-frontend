@@ -9,17 +9,22 @@ import LocationCityIcon from "@mui/icons-material/LocationCity";
 import CategoryIcon from "@mui/icons-material/Category";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import EventNoteIcon from "@mui/icons-material/EventNote";
+import imgg from "../assets/img/charitycard2.jpg";
 
 const MediaControlCard = (props) => {
-  console.log("******");
-  console.log(props);
+  // props
+  // console.log(props);
+
+  if (props.data.Image === null) {
+  } else {
+  }
 
   return (
     <Card
       sx={{
         display: "flex",
-        width: "22rem",
-        height: "11rem",
+        width: "25rem",
+        height: "12rem",
         backgroundColor: "white",
         borderRadius: "5px",
       }}
@@ -27,7 +32,7 @@ const MediaControlCard = (props) => {
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <CardContent sx={{ flex: "1 0 auto" }}>
           <Typography component="div" variant="h5">
-            New red jacket
+            {props.data.Title}
           </Typography>
 
           <div
@@ -39,7 +44,7 @@ const MediaControlCard = (props) => {
           >
             <LocationCityIcon style={{ fontSize: "large" }} />
             <span style={{ color: "grey", lineHeight: "160%" }}>
-              &nbsp;Rasht
+              &nbsp;{props.data.province}
             </span>
           </div>
           <div
@@ -51,7 +56,7 @@ const MediaControlCard = (props) => {
           >
             <CategoryIcon style={{ fontSize: "large" }} />
             <span style={{ color: "grey", lineHeight: "160%" }}>
-              &nbsp;cloth{" "}
+              &nbsp;{props.data.resourcetype}
             </span>
           </div>
           <div
@@ -74,8 +79,8 @@ const MediaControlCard = (props) => {
             }}
           >
             <EventNoteIcon style={{ fontSize: "large" }} />
-            <span style={{ color: "grey", lineHeight: "350%" }}>
-              &nbsp;24/02/2021
+            <span style={{ color: "grey", lineHeight: "50%" }}>
+              &nbsp;&nbsp;{props.data.date_joined}
             </span>
           </div>
         </CardContent>
