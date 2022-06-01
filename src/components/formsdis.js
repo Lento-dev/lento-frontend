@@ -486,7 +486,7 @@ function Formdis(props) {
         <div >
         <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
 
-<Container sx={{ padding: "5%" }} component="main">
+<Container sx={{ padding: "-3%" }} component="main">
 <Paper
     // className="signinPage"
     elevation={0}

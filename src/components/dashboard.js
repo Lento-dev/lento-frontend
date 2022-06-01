@@ -27,7 +27,7 @@ import ChatIcon from '@mui/icons-material/Chat';
 import UserSetting from "./setting";
 import Reprofile from "./Reprofile";
 import UserInfo from "./editprofile";
-import Forms from "./forms";
+import Forms from "./formsdis";
 import Chat from "./chat";
 import axios from "axios";
 
