@@ -55,22 +55,22 @@ function App() {
               <Route exact path="/" component={Homepage} />
               {/* <Route exact path="/profile" component={UserProfile} />  */}
               <Route exact path="/signup" component={SignUp} />
-              <Route exact path="/setting" component={Setting} /> 
+              {/* <Route exact path="/setting" component={Setting} />  */}
               <Route exact path="/signin" component={SignIn} />
               <Route exact path="/forgot-password" component={ForgotPassword} />
               <Route exact path="/verify-user" component={VerifyUser} />
               <Route exact path="/reset-password" component={ResetPassword} />
-              <Route exact path="/edit-profile" component={UserInfo} />
+              {/* <Route exact path="/edit-profile" component={UserInfo} /> */}
               <Route exact path="/food" component={Foodadvertisment} />
               <Route exact path="/dd" component={Dropdown} />
               <Route exact path="/cloth" component={Clothadvertisement} />
               <Route exact path="/service" component={Serviceadvertisement} />
               <Route exact path="/cg" component={Forms} />
-              <Route exact path="/forms" component={Formdis} />
-              <Route exact path="/dashbpard/profile" component={Reprofile} />
-              <Route exact path="/setting" component={UserSetting} />
+              {/* <Route exact path="/forms" component={Formdis} /> */}
+              {/* <Route exact path="/dashbpard/profile" component={Reprofile} /> */}
+              {/* <Route exact path="/setting" component={UserSetting} /> */}
               <Route exact path="/dashboard" component={PersistentDrawerLeft} /> 
-              <Route exact path="/chat" component={Chat} /> 
+              {/* <Route exact path="/chat" component={Chat} />  */}
               <Route exact path="/ppage" component={Ppage} />
 
             

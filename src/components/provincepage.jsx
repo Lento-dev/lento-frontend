@@ -122,7 +122,7 @@ function Ppage(props) {
       method: "get",
       url: myurl,
       headers: {
-        Authorization: "Token " + "00d6d04f81d5b8ac6ba9acf369cab2c89bf0c9c0",
+        Authorization: "Token " + token
       },
     };
 
