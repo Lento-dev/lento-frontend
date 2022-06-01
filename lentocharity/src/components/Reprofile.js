@@ -345,8 +345,8 @@ function Reprofile() {
 >
 
   <Grid item xs={3}>
-          <Stack direction="row" sx={{ maxWidth: 345 }} style={{ marginTop: "-0.5rem",marginLeft:"-3rem" }}>
-              <Stack direction="photo" spacing={2} sx={{ maxWidth: 345 }} style={{marginTop: "-0.5rem" ,marginLeft:"-3rem"}}>               
+          <Stack direction="row" sx={{ maxWidth: 345 }} style={{ marginTop: "-0.5rem",marginLeft:"-3rem",paddingLeft:'40px' }}>
+              <Stack direction="photo" spacing={1} sx={{ maxWidth: 345 }} style={{marginTop: "-0.5rem" ,marginLeft:"-3rem"}}>               
 
                   <Avatar
                       alt="Remy Sharp"
