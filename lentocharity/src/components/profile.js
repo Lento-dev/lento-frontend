@@ -148,7 +148,7 @@ class UserProfile extends Component {
     console.log(token);
     var config = {
       method: 'get',
-      url: 'http://127.0.0.1:8000/api/account/user-profile/',
+      url: 'http://172.17.3.154/api/account/user-profile/',
       headers: { 
         'Authorization': 'Token '+ "213b2e47bc472211c4fa19746271d0973f08a671", 
       }
