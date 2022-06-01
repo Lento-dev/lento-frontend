@@ -68,15 +68,11 @@ function Navbar(props) {
     prevOpen.current = open;
   }, [open]);
 
-  const handleProfileClick = () => {
+  const handleDashboardClick = () => {
     setOpen((prevOpen) => !prevOpen);
-    history.push("/profile");
+    history.push("/dashboard");
   };
   
-  const handleSettingClick = () => {
-    setOpen((prevOpen) => !prevOpen);
-    history.push("/setting");
-  };
   
   if (isLoggedIn) {
     return (
@@ -122,7 +118,7 @@ function Navbar(props) {
                 open={open}
                 anchorEl={anchorRef.current}
                 role={undefined}
-                placement="bottom-start"
+                placement="bottom"
                 transition
                 disablePortal
               >
@@ -153,37 +149,19 @@ function Navbar(props) {
                           onKeyDown={handleListKeyDown}
                         >
 
-                          <MenuItem onClick={handleProfileClick}>
+                          <MenuItem onClick={handleDashboardClick}>
                             <ListItemIcon>
                               <Dashboard fontSize="small" />
                             </ListItemIcon>
-                            Profile
+                            Dashboard
                           </MenuItem>
-                          <MenuItem onClick={handleEditProfileClick}>
-                            <ListItemIcon>
-                              <EditIcon fontSize="small" />
-                            </ListItemIcon>
-                            Edit profile
-                          </MenuItem>
-                          <MenuItem onClick={handleSettingClick}>
-                            <ListItemIcon>
-                              <SettingsIcon fontSize="small" />
-                            </ListItemIcon>
-                            Setting
-                          </MenuItem>
-                          <MenuItem onClick={handleProfileClick}>
-                            <ListItemIcon>
-                              <AddCircleIcon fontSize="small" />
-                            </ListItemIcon>
-                            Add post
-                          </MenuItem>
-                          {/* <Divider /> */}
-                          {/* <MenuItem onClick={handleToggle}>
+                         <Divider /> 
+                         <MenuItem onClick={handleToggle}>
                             <ListItemIcon>
                               <Logout fontSize="small" />
                             </ListItemIcon>
                             Logout
-                          </MenuItem> */}
+                          </MenuItem> 
                         </MenuList>
                       </ClickAwayListener>
                     </Paper>

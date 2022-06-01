@@ -8,7 +8,11 @@ import {
   Box,
   Typography,
   Container,
-  Divider,
+  Divider, Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import "../styles/signup.css";
 import Helmet from "react-helmet";
@@ -18,7 +22,7 @@ import Image from "../assets/illustrations/welcome.svg";
 import { register } from "../actions/auth";
 import { connect } from "react-redux";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
+import Alert from "@mui/material/Alert";
 import { clearMessage } from "../actions/message";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
@@ -30,9 +34,11 @@ function SignUp() {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [verifyEmailDialogOpen, setVerifyEmailDialogOpen] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [openm, setOpenm] = useState(false);
   const [errors, setErrors] = useState({});
   const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-  const BASE_URL = process.env.BASE_URL;
+  const BASE_URL = "http://172.17.3.154/api";
 
   const [values, setValues] = useState({
     firstname: "",
@@ -43,13 +49,14 @@ function SignUp() {
     confirmpassword: "",
   });
 
-  // const handleClose = (event, reason) => {
-  //   if (reason === "clickaway") {
-  //     return;
-  //   }
-  //   props.openMessage = false;
-  //   props.clearMessage();
-  // };
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setMessage(null);
+
+    setOpenm(false);
+  };
 
   const handleVerifyEmailDialogClickOpen = () => {
     setVerifyEmailDialogOpen(true);
@@ -158,38 +165,35 @@ function SignUp() {
 
     if (filled) {
       setLoading(true);
-        var formData = new FormData();
-        formData.append("first_name", values.firstname);
-        formData.append("last_name", values.lastname);
-        formData.append("username", values.username);
-        formData.append("email", values.email);
-        formData.append("password", values.password);
-        formData.append("password_confirm", values.confirmpassword);
-      
-        return axios.post(BASE_URL + "account/register/", formData)
+      var formData = new FormData();
+      formData.append("first_name", values.firstname);
+      formData.append("last_name", values.lastname);
+      formData.append("username", values.username);
+      formData.append("email", values.email);
+      formData.append("password", values.password);
+      formData.append("password_confirm", values.confirmpassword);
+
+      return axios
+        .post(BASE_URL + "/account/register/", formData)
         .then((res) => {
           setLoading(false);
           handleVerifyEmailDialogClickOpen();
         })
-        .catch((err) => {
+        .catch((error) => {
           setLoading(false);
+          console.log(error.response)
+          if (error.response.status == 400) {
+            let m = "";
+            for (var key in error.response.data) {
+              m += error.response.data[key] + " ";
+            }
+            console.log(m);
+            setMessage(m);
+            setOpenm(true);
+          }
         });
-              // if (error.response.status == 400) {
-              //   let message = "";
-              //   for (var key in error.response.data){
-              //     message += error.response.data[key] + ' ';
-              //   }
-              //   console.log(message);
-      
-              //   dispatch({
-              //     type: SET_MESSAGE,
-              //     payload: message,
-              //   });
-              // }
-      };
-      
     }
-  
+  };
 
   // const handleContinueWithGoogle = (response) => {
   //   props.googleLogin(response, history, setLoading);
@@ -199,7 +203,6 @@ function SignUp() {
   return (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #fff" }}></Helmet>
-      {/* <ThemeProvider theme={theme}> */}
       <Container component="main">
         <CssBaseline />
         <Box
@@ -214,7 +217,7 @@ function SignUp() {
             justifyContent: "center",
           }}
           style={{
-            marginTop: '1vh',
+            marginTop: "1vh",
             marginRight: "auto",
             marginLeft: "auto",
           }}
@@ -240,10 +243,7 @@ function SignUp() {
               </div>
             </Grid>
             <Grid item md>
-              <Grid
-                container
-                spacing={2}
-              >
+              <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
@@ -381,7 +381,6 @@ function SignUp() {
                       <Divider>Or</Divider>
                     </Grid>
                     <Grid item xs={12}>
-
                       <GoogleLogin
                         clientId={googleClientId}
                         buttonText="LOGIN WITH GOOGLE"
@@ -410,27 +409,35 @@ function SignUp() {
                         }
                       />
                     </Grid>
-
+                      <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
+                  <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    {message}
+                  </Alert>
+                </Snackbar>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
+            <Dialog
+              open={verifyEmailDialogOpen}
+              onClose={handleVerifyEmailDialogClose}
+            >
+              <DialogTitle color="green" >{"Signed up succesfully!"}</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Please check your email inbox. We have sent you a verification
+                  link.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleVerifyEmailDialogClose}>OK</Button>
+              </DialogActions>
+            </Dialog>
           </Grid>
         </Box>
       </Container>
-      {/* </ThemeProvider> */}
     </div>
   );
 }
 
-// const mapDispatchToProps = { register, clearMessage };
-// const mapStateToProps = (state) => {
-//   return {
-//     message: state.message.message,
-//     openMessage: state.message.openMessage,
-//     isLoggedIn: state.auth.isLoggedIn,
-//   };
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
 export default SignUp;

@@ -20,9 +20,9 @@ import PersonIcon from "@mui/icons-material/Person";
 import ListItemText from "@mui/material/ListItemText";
 import { useHistory } from "react-router-dom";
 import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
-
+import HomeIcon from '@mui/icons-material/Home';
 import UserSetting from "./setting";
-import Userpro from "./User_Profile";
+import Reprofile from "./Reprofile";
 import UserInfo from "./editprofile";
 
 
@@ -31,19 +31,20 @@ const drawerWidth = 240;
 const items = [
   {
     href: "/dashboard",
-    icon: <ManageAccountsIcon fontSize="small" />,
+    icon: <ManageAccountsIcon fontSize="medium" />,
     title: "Edit profile",
   },
   {
     href: "/dashboard/setting",
-    icon: <SettingsIcon fontSize="small" />,
+    icon: <SettingsIcon fontSize="medium" />,
     title: "Settings",
   },
   {
     href: "/dashboard/profile",
-    icon: <PersonIcon fontSize="small" />,
+    icon: <PersonIcon fontSize="medium" />,
     title: "View profile",
   },
+
 ];
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -106,10 +107,14 @@ function Userdrawer(props) {
     setOpen(false);
   };
 
+  const handleBackToHome = () => {
+    history.push('/');
+  }
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar style={{ background: "#c0d4b3" }} position="fixed" open={open}>
+      <AppBar style={{ background: "#728a63" }} position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -120,7 +125,7 @@ function Userdrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" color="black" >
+          <Typography variant="h6" noWrap component="div" fontWeight="bold" letterSpacing="1px" >
             dashboard
           </Typography>
         </Toolbar>
@@ -154,18 +159,23 @@ function Userdrawer(props) {
           <List>
             {items.map((item) => (
               <ListItem button key={item.title} component={Link} to={item.href}>
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.title} />
+                <ListItemIcon sx={{color:"#e6835a"}}>{item.icon}</ListItemIcon>
+                <ListItemText fontWeight='bold' primary={item.title} />
               </ListItem>
             ))}
+            <ListItem button key="Homepage" component={Link} onClick={handleBackToHome}>
+                <ListItemIcon sx={{color:"#e6835a"}}><HomeIcon fontSize="medium"/></ListItemIcon>
+                <ListItemText fontWeight='bold' primary="Homepage" />
+              </ListItem>
           </List>
         </Drawer>
         <Main open={open}>
           <DrawerHeader />
           <Switch>
             <Route path="/dashboard/setting" component={UserSetting} />
-            <Route path="/dashboard/profile" component={Userpro} />
+            <Route path="/dashboard/profile" component={Reprofile} />
             <Route path="/dashboard" component={UserInfo} />
+            
           </Switch>
         </Main>
       </BrowserRouter>

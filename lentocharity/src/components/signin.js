@@ -18,7 +18,7 @@ import Image from "../assets/illustrations/login.svg";
 import { register } from "../actions/auth";
 import { connect } from "react-redux";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
+import Alert from "@mui/material/Alert";
 import { clearMessage } from "../actions/message";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
@@ -28,10 +28,13 @@ import { FcGoogle } from "react-icons/fc";
 
 function SignIn(props) {
   const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-  const BASE_URL = process.env.BASE_URL;
+  const BASE_URL = "http://172.17.3.154/api";
 
   const history = useHistory();
   const [loading, setLoading] = React.useState(false);
+  const [message, setMessage] = React.useState(null);
+  const [openm, setOpenm] = useState(false);
+
   const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
     email: "",
@@ -45,8 +48,8 @@ function SignIn(props) {
     if (reason === "clickaway") {
       return;
     }
-
-    props.clearMessage();
+    setOpenm(false);
+    setMessage(null);
   };
 
   const validate = () => {
@@ -90,7 +93,7 @@ function SignIn(props) {
       formData.append("password", values.password);
 
       axios
-        .post(BASE_URL + "account/login/", formData)
+        .post(BASE_URL + "/account/login/", formData)
 
         .then((response) => {
           localStorage.setItem("user", JSON.stringify(response.data));
@@ -103,32 +106,15 @@ function SignIn(props) {
         })
         .catch((error) => {
           setLoading(false);
-          // if (error.response.status == 401) {
-          //   dispatch({
-          //     type: SET_MESSAGE,
-          //     payload: "Email or password is incorrect!",
-          //   })
+          if (error.response.status == 401) {
+            setMessage("Email or password is incorrect!");
+          }
 
-          // }
-
-          // if (error.response.status == 400) {
-
-          //   dispatch({
-          //     type: SET_MESSAGE,
-          //     payload: "Email or password is invalid!",
-          //   })
-          // }
+          if (error.response.status == 400) {
+            setMessage("Email or password is invalid!");
+          }
         });
 
-      props
-        .login(values.email, values.password)
-        .then((res) => {
-          setLoading(false);
-          history.push("/profile");
-        })
-        .catch((err) => {
-          setLoading(false);
-        });
     }
   };
 
@@ -140,7 +126,6 @@ function SignIn(props) {
   return (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #fff" }}></Helmet>
-      {/* <ThemeProvider theme={theme}> */}
       <Container component="main">
         <CssBaseline />
         <Box
@@ -244,7 +229,6 @@ function SignIn(props) {
                       <Button
                         variant="contained"
                         size="large"
-                        // data-testid="signin"
                         role="navigate"
                         onClick={handleSignInButton}
                         sx={{
@@ -302,23 +286,17 @@ function SignIn(props) {
                   </Grid>
                 </Grid>
               </Grid>
+              <Snackbar open={openm} autoHideDuration={4000} onClose={handleClose}>
+                  <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    {message}
+                  </Alert>
+                </Snackbar>
             </Grid>
           </Grid>
         </Box>
       </Container>
-      {/* </ThemeProvider> */}
     </div>
   );
 }
 
-// const mapDispatchToProps = { register, clearMessage };
-// const mapStateToProps = (state) => {
-//   return {
-//     message: state.message.message,
-//     openMessage: state.message.openMessage,
-//     isLoggedIn: state.auth.isLoggedIn,
-//   };
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
 export default SignIn;
