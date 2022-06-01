@@ -278,7 +278,6 @@ function UserInfo(props) {
                   required
                   value={formik.values.date_birth}
                   onChange={formik.handleChange}
-                  InputLabelProps={{ shrink: true }}
                   onBlur={formik.handleBlur}
                   error={formik.touched.date_birth && Boolean(formik.errors.date_birth)}
                   helperText={formik.touched.date_birth && formik.errors.date_birth}
