@@ -18,6 +18,14 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import MuiMenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
 import MediaControlCard from "./adcard";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import LocationCityIcon from "@mui/icons-material/LocationCity";
+import CategoryIcon from "@mui/icons-material/Category";
+import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
+import EventNoteIcon from "@mui/icons-material/EventNote";
 
 const MenuItem = withStyles({
   root: {
@@ -98,47 +106,36 @@ function Ppage(props) {
       }
     }
   };
-
+  const [prodata, setarray] = useState([]);
+  let dataset = [];
   useEffect(() => {
     console.log("***********************");
     var token = localStorage.getItem("token");
     token.replaceAll('"', "");
     console.log(token);
+    var myurl =
+      "http://172.17.3.154/api/advertisement/search?Province=" +
+      props.location.state.data;
+    console.log(myurl);
     var config = {
       method: "get",
-      url:
-        "http://127.0.0.1:8000/advertisement/search?Province=" +
-        props.location.state.data,
+      url: myurl,
       headers: {
-        Authorization: "Token " + token,
-      },
-      proxy: {
-        host: "localhost",
-        port: PROXY_PORT,
+        Authorization: "Token " + "00d6d04f81d5b8ac6ba9acf369cab2c89bf0c9c0",
       },
     };
 
     axios(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
-        // setfn(response.data.first_name);
-        // setln(response.data.last_name);
-        // setemail(response.data.email);
-        // setun(response.data.username);
-        // setbd(response.data.date_birth);
-        // setregion(response.data.countrry);
-        // setjob(response.data.job);
-        // seteducation(response.data.education);
-        // setjoineddate(response.data.date_joined);
-        // setbio(response.data.bio);
-        // setproimage(response.data.image);
-        // setres(response.data);
+        setarray(response.data);
+        console.log(response.data.length);
       })
 
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
+  });
 
   const onClickSubmit = () => {
     validate();
@@ -258,7 +255,17 @@ function Ppage(props) {
   };
 
   function handleOnChange(value) {}
-
+  // const c = prodata.map((item, i) => {
+  //   // console.log(item, i);
+  //   // <Grid item md={4}>
+  //   <MediaControlCard data={item} key={i}></MediaControlCard>;
+  //   /* </Grid>; */
+  // });
+  // const content = this.state.items.map((item) => (
+  //   <Col md={3}>
+  //     <HomeRecipeReviewCard key={item.id} book={item}></HomeRecipeReviewCard>
+  //   </Col>
+  // ));
   return (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
@@ -399,7 +406,17 @@ function Ppage(props) {
           > */}
 
                 <Grid container spacing={6}>
+                  {prodata.map((item, i) => {
+                    console.log(item, i);
+                    <Grid item md={4}>
+                      <MediaControlCard data={item} key={i}></MediaControlCard>
+                    </Grid>;
+                  })}
+
                   <Grid item md={4}>
+                    <MediaControlCard data={prodata} />
+                  </Grid>
+                  {/* <Grid item md={4}>
                     <MediaControlCard />
                   </Grid>
 
@@ -447,7 +464,7 @@ function Ppage(props) {
                   </Grid>
                   <Grid item md={4}>
                     <MediaControlCard />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
 
                 {/* </Paper> */}
