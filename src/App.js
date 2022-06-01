@@ -25,6 +25,9 @@ import Reprofile from './components/Reprofile';
 import Navbar from './components/navbar';
 import Setting from './components/setting';
 import Chat from './components/chat';
+import Homepage from "./components/Homepage";
+import Ppage from "./components/provincepage"
+
 
 
 const theme = createTheme({
@@ -49,7 +52,7 @@ function App() {
           <BrowserRouter>
           <Navbar/>
             <Switch>
-              <Route exact path="/" component={SignUp} />
+              <Route exact path="/" component={Homepage} />
               {/* <Route exact path="/profile" component={UserProfile} />  */}
               <Route exact path="/signup" component={SignUp} />
               <Route exact path="/setting" component={Setting} /> 
@@ -68,6 +71,8 @@ function App() {
               <Route exact path="/setting" component={UserSetting} />
               <Route exact path="/dashboard" component={PersistentDrawerLeft} /> 
               <Route exact path="/chat" component={Chat} /> 
+              <Route exact path="/ppage" component={Ppage} />
+
             
             </Switch>
           </BrowserRouter>
