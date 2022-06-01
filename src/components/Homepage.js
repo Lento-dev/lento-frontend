@@ -253,8 +253,10 @@ export default function Homepage() {
                   style={{
                     width: "100vh",
                     height: "100vh",
+                    marginLeft: '7vh',
                     // justifyContent: "center",
                     position: "sticky",
+                    zIndex:"-1",
                   }}
                 />
               </Grid>

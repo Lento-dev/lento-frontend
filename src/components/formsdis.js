@@ -486,7 +486,7 @@ function Formdis(props) {
         <div >
         <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
 
-<Container sx={{ padding: "-3%" }} component="main">
+<Container sx={{ padding: "5%" }} component="main">
 <Paper
     // className="signinPage"
     elevation={0}
@@ -917,19 +917,20 @@ function Formdis(props) {
 
   
   
-   
+   <br></br>
+   <br></br>
    <Grid container >
                <Button
                  type="submit"
                  variant="contained"
                  sx={{ mt: 4, mb: 6 }}
                  onClick={onClickSubmit}
-                 style={{ backgroundColor: '#465832', color: '#FFFFFF', textTransform: 'unset', width: '110px',height: '55px' ,left:'700px'}}
+                 style={{ backgroundColor: '#e6835a', color: '#FFFFFF', textTransform: 'unset', width: '70px',height: '40px'}}
                >
                    {loading ? 
-                       <CircularProgress style={{color: "#fff"}}  size="1.55rem" />
+                       <CircularProgress style={{color: "#fff"}}  size="0rem" />
                        : 
-                       <h3>save</h3>}
+                       <h3>Save</h3>}
                        
 
                  </Button>

@@ -134,7 +134,7 @@ function Navbar() {
                 onClick={handleToggle}
                 sx={{ color: "#e6835a" }}
               >
-                <AccountCircle fontSize="medium" />
+                <AccountCircle fontSize="large" />
               </IconButton>
 
               <Popper
@@ -169,10 +169,9 @@ function Navbar() {
                           autoFocusItem={open}
                           id="composition-menu"
                           aria-labelledby="composition-button"
-                          onKeyDown={handleListKeyDown}
-                        >
+                          onKeyDown={handleListKeyDown} >
 
-                          <MenuItem onClick={handleDashboardClick}>
+                          <MenuItem onClick={handleDashboardClick} >
                             <ListItemIcon>
                               <Dashboard fontSize="small" />
                             </ListItemIcon>
@@ -185,6 +184,7 @@ function Navbar() {
                             </ListItemIcon>
                             Logout
                           </MenuItem> 
+                       
                         </MenuList>
                       </ClickAwayListener>
                     </Paper>
