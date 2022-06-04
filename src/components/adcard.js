@@ -80,10 +80,11 @@ const MediaControlCard = (props) => {
               flexWrap: "wrap",
             }}
           >
+            <br/>
             <EventNoteIcon style={{ fontSize: "large" }} />
-            <span style={{ color: "grey", lineHeight: "50%" }}>
+            <span style={{ color: "grey", lineHeight: "150%" }}>
               {/* &nbsp;&nbsp;{props.data.date_joined} */}
-              ----
+              
             </span>
           </div>
         </CardContent>

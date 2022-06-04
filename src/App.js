@@ -26,7 +26,11 @@ import Navbar from './components/navbar';
 import Setting from './components/setting';
 import Chat from './components/chat';
 import Homepage from "./components/Homepage";
-import Ppage from "./components/provincepage"
+import Ppage from "./components/provincepage";
+// import BasicCard from "./components/advertisementpage";
+import Productdetail from "./components/advertisementpage";
+import BasicCard from "./components/adpage";
+
 
 
 
@@ -66,12 +70,12 @@ function App() {
               <Route exact path="/cloth" component={Clothadvertisement} />
               <Route exact path="/service" component={Serviceadvertisement} />
               <Route exact path="/cg" component={Forms} />
-              {/* <Route exact path="/forms" component={Formdis} /> */}
-              {/* <Route exact path="/dashbpard/profile" component={Reprofile} /> */}
-              {/* <Route exact path="/setting" component={UserSetting} /> */}
               <Route exact path="/dashboard" component={PersistentDrawerLeft} /> 
-              {/* <Route exact path="/chat" component={Chat} />  */}
               <Route exact path="/ppage" component={Ppage} />
+              {/* <Route exact path="/adpage" component={BasicCard}/> */}
+              <Route exact path="/ab" component={Productdetail}/>
+              <Route exact path="/jj" component={BasicCard}/>
+              
 
             
             </Switch>
