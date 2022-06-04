@@ -77,6 +77,10 @@ function Navbar() {
     setOpen((prevOpen) => !prevOpen);
     history.push("/dashboard");
   };
+  const handleProfileClick = () => {
+    setOpen((prevOpen) => !prevOpen);
+    history.push("/user-profile");
+  };
 
   const handleLogOutClick = async () => {
     setOpen((prevOpen) => !prevOpen);
@@ -100,7 +104,7 @@ function Navbar() {
   if (isLoggedIn) {
     return (
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{ backgroundColor: "white" }}>
+        <AppBar position="static" sx={{ backgroundColor: "#465832" }}>
           <Toolbar>
             <IconButton
               size="medium"
@@ -171,11 +175,11 @@ function Navbar() {
                           aria-labelledby="composition-button"
                           onKeyDown={handleListKeyDown} >
 
-                          <MenuItem onClick={handleDashboardClick} >
+                          <MenuItem onClick={handleProfileClick} >
                             <ListItemIcon>
-                              <Dashboard fontSize="small" />
+                              <AccountCircle fontSize="small" />
                             </ListItemIcon>
-                            Dashboard
+                            Profile
                           </MenuItem>
                          <Divider /> 
                          <MenuItem onClick={handleLogOutClick}>
@@ -198,7 +202,7 @@ function Navbar() {
   } else {
     return (
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{ backgroundColor: "white" }}>
+        <AppBar position="static" sx={{ backgroundColor: "#465832" }}>
           <Toolbar>
             <IconButton
               size="large"

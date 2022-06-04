@@ -61,7 +61,7 @@ function App() {
               <Route exact path="/forgot-password" component={ForgotPassword} />
               <Route exact path="/verify-user" component={VerifyUser} />
               <Route exact path="/reset-password" component={ResetPassword} />
-              {/* <Route exact path="/edit-profile" component={UserInfo} /> */}
+              <Route exact path="/edit-profile" component={UserInfo} />
               <Route exact path="/food" component={Foodadvertisment} />
               <Route exact path="/dd" component={Dropdown} />
               <Route exact path="/cloth" component={Clothadvertisement} />
