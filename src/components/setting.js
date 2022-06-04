@@ -21,7 +21,25 @@ import Alert from "@mui/material/Alert";
 
 import { useHistory } from 'react-router-dom';
 import { CircularProgress } from "@mui/material";
+
+import { alpha, styled } from '@mui/material/styles';
+import { orange } from '@mui/material/colors';
   
+
+const GreenSwitch = styled(Switch)(({ theme }) => ({
+  '& .MuiSwitch-switchBase.Mui-checked': {
+    color: orange[600],
+    '&:hover': {
+      backgroundColor: alpha(orange[600], theme.palette.action.hoverOpacity),
+    },
+  },
+  '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+    backgroundColor: orange[600],
+  },
+}));
+
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
+
 
 const validationSchema = yup.object({
   oldpassword: yup.string()
@@ -56,7 +74,8 @@ function Setting() {
   const [openm, setOpenm] = useState(false);
   const token = localStorage.getItem('token');
   const headers = {"Authorization": `Token ${token}`};
-  const [checked, setChecked] = React.useState(false);
+  const [checked1, setChecked1] = React.useState(false);
+  const [checked2, setChecked2] = React.useState(false);
   const [value, setValue] = useState(0);
   const BASE_URL ='http://172.17.3.154/api';
 
@@ -74,13 +93,20 @@ function Setting() {
         oldpassword: '',
         password: '',
         confirmpassword: '',
+        switch1:'',
+        switch2:'',
+
     },
     validationSchema: validationSchema,
   });
 
 
-  const handleCheck = (event) => {
-    setChecked(event.target.checked);
+  const handleCheck1 = (event) => {
+    setChecked1(event.target.checked1);
+  };
+
+  const handleCheck2 = (event) => {
+    setChecked2(event.target.checked2);
   };
 
   const handleChange = (event, newValue) => {
@@ -132,12 +158,28 @@ function Setting() {
       <Container component="main" maxWidth="md">
         <CssBaseline />
         <Paper elevation={3} sx={{borderRadius: 4, display: 'flex' }}>
-            <Tabs  textColor="secondary" 
+            {/* <Tabs  textColor="secondary" 
               indicatorColor="secondary"
               onChange={handleChange} aria-label="secondary tabs example" value={value}>
               <Tab value={0} style={{marginLeft: "1rem", textTransform: 'unset'}} label="General" />
               <Tab value={1} style={{textTransform: 'unset'}} label="Permission" />
-            </Tabs>
+            </Tabs> */}
+
+            <Tabs
+                  textColor="black"
+                  TabIndicatorProps={{
+                    style: {
+                      backgroundColor: "#e6835a",
+                    },
+                  }}
+                  onChange={handleChange}
+                  value={value}
+                  centered
+                
+                >
+              <Tab value={0} style={{marginLeft: "1rem", textTransform: 'unset'}} label="General" />
+              <Tab value={1} style={{textTransform: 'unset'}} label="Permission" />
+                </Tabs>
         </Paper>
         <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ justifyContent: "center", marginTop: "1rem", marginBottom: "1rem", paddingLeft:'3rem' , paddingRight:'3rem', paddingBottom:'1rem'}}>
           
@@ -279,9 +321,9 @@ function Setting() {
                 <Grid item xs={5}>
                 <FormControlLabel
                   control={
-                    <Switch 
-                    checked={checked}
-                  onChange={handleCheck}
+                    <GreenSwitch  
+                    checked1={checked1}
+                  onChange={handleCheck1}
                   inputProps={{ 'aria-label': 'controlled' }}
                 />
                   }
@@ -294,9 +336,9 @@ function Setting() {
               <Grid item xs={6}>
                 <FormControlLabel
                   control={
-                    <Switch 
-                    checked={checked}
-                  onChange={handleCheck}
+                    <GreenSwitch  
+                    checked2={checked2}
+                  onChange={handleCheck2}
                   inputProps={{ 'aria-label': 'controlled' }}
                 />
                   }
