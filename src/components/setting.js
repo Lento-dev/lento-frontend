@@ -3,7 +3,7 @@ import {
    Button, CssBaseline, TextField, FormControlLabel, Grid, Box,
   Typography, Container
 } from '@mui/material';
-
+import MyTextField from './ModifiedTextField';
 import Helmet from 'react-helmet';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -157,7 +157,7 @@ function Setting() {
       <Helmet bodyAttributes={{ style: 'background-color : #e5ecdf' }}></Helmet>
       <Container component="main" maxWidth="md">
         <CssBaseline />
-        <Paper elevation={3} sx={{borderRadius: 4, display: 'flex' }}>
+        <Paper elevation={3} sx={{borderRadius: 4, display: 'flex', marginTop: '3rem' }}>
             {/* <Tabs  textColor="secondary" 
               indicatorColor="secondary"
               onChange={handleChange} aria-label="secondary tabs example" value={value}>
@@ -194,7 +194,7 @@ function Setting() {
                 </Grid>
 
                   <Grid item xs={12}>
-                    <TextField
+                    <MyTextField
                       fullWidth
                       autoComplete="given-name"
                       name="email"
@@ -205,6 +205,7 @@ function Setting() {
                       onBlur={formik.handleBlur}
                       error={formik.touched.email && Boolean(formik.errors.email)}
                       helperText={formik.touched.email && formik.errors.email}
+                      sx={{color: 'red'}}
                     />
                   </Grid>
 
@@ -229,7 +230,7 @@ function Setting() {
                 </Grid>
                 
                   <Grid item xs={12}>
-                    <TextField
+                    <MyTextField
                       fullWidth
                       type="password"
                       autoComplete="given-name"
@@ -245,7 +246,7 @@ function Setting() {
                   </Grid>
 
                   <Grid item xs={12}>
-                    <TextField
+                    <MyTextField
                       fullWidth
                       type="password"
                       autoComplete="given-name"
@@ -261,7 +262,7 @@ function Setting() {
                   </Grid>
 
                   <Grid item xs={12}>
-                    <TextField
+                    <MyTextField
                       fullWidth
                       type="password"
                       autoComplete="given-name"
@@ -302,7 +303,7 @@ function Setting() {
                 </Typography>
 
                 <Grid item xs={12}>
-                    <TextField
+                    <MyTextField
                       fullWidth
                       placeholder="skill"
                       multiline

@@ -92,6 +92,8 @@ function UserInfo(props) {
       country: '',
       city: '',
       job: '',
+      bio: '',
+      experience: ''
     },
     validationSchema: validationSchema,
   });
@@ -119,6 +121,7 @@ function UserInfo(props) {
                 city: res.data.city || '',
                 job: res.data.job || '',
                 bio: res.data.bio || '',
+                experience: res.data.experience || '',
               });
               setPhone(res.data.phone || '')
           })
@@ -151,6 +154,7 @@ function UserInfo(props) {
         bio: formik.values.bio,
         gender: formik.values.gender,
         job: formik.values.job,
+        experience: formik.values.experience,
         image: imageUrl} , {headers})
         
         .then (res => {
@@ -161,9 +165,8 @@ function UserInfo(props) {
         })
         .catch(err => {
           setLoading(false);
-          setMessage('Please fill in the blanks.');
+          setMessage('try again');
           setOpenm(true);
-          console.log(err.data);
         });
     }
 
@@ -386,6 +389,26 @@ function UserInfo(props) {
                   helperText={formik.touched.bio && formik.errors.bio}
                 />
               </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  autoComplete="experience"
+                  name="experience"
+                  id="experience"
+                  label="Experience"
+                  type="text"
+                  multiline
+                  InputLabelProps={{
+            shrink: true,
+          }}
+                  value={formik.values.experience}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.experience && Boolean(formik.errors.experience)}
+                  helperText={formik.touched.experience && formik.errors.experience}
+                />
+              </Grid>
+
               <Grid item xs={12}>
               {imageUrl && selectedImage && (
                     <Box mt={2} textAlign="left">

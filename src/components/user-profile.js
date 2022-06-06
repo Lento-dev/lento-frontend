@@ -1,5 +1,4 @@
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
+
 import {
   Avatar,
   CssBaseline,
@@ -10,8 +9,7 @@ import {
   Typography,
   Container,
   Stack,
-  CardActionArea,
-  CardHeader,
+  IconButton
 } from "@mui/material";
 
 // import "../styles/verificate.css";
@@ -19,27 +17,24 @@ import Image from "./profile.jpg";
 import Paper from "@material-ui/core/Paper";
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 import Tab from "@mui/material/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import axios from "axios";
 import Helmet from "react-helmet";
-// import Image1 from './no_data.svg';
-// import Image2 from './add_notes.svg';
+import cardImage from '../assets/img/barfi.jpg'
 import Divider from "@mui/material/Divider";
 // import { BackToTop } from "material-ui-back-to-top";
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
+
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import LocalPhoneRoundedIcon from "@mui/icons-material/LocalPhoneRounded";
 import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import CalendarTodayRoundedIcon from "@mui/icons-material/CalendarTodayRounded";
 import WorkRoundedIcon from "@mui/icons-material/WorkRounded";
-import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
-import { makeStyles } from "@mui/styles";
-import Skeleton from "@mui/material/Skeleton";
+import ClearIcon from '@mui/icons-material/Clear';
 import CircularProgress from "@mui/material/CircularProgress";
-
+import PostCard from './myselfPostCard'
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -47,13 +42,10 @@ function TabPanel(props) {
 }
 
 const UserProfile = () => {
-  // const classes = useStyles();
 
   const history = useHistory();
   const [data, setData] = useState(null);
-  const [value, setValue] = useState(0);
-
-  const [copiedAlertOpen, setCopiedAlertOpen] = useState(false);
+  const [posts, setPosts] = useState(null);
 
   const BASE_URL = "http://172.17.3.154/api";
   const token = localStorage.getItem("token");
@@ -65,71 +57,62 @@ const UserProfile = () => {
       .then((res) => {
         console.log(res.data);
         setData(res.data);
-      });
-  });
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }, []);
 
-  const handleCopiedClick = () => {
-    setCopiedAlertOpen(true);
-  };
+  useEffect(() => {
+    axios
+      .get(BASE_URL + "/advertisement/load-all/", { headers: headers })
+      .then((res) => {
+        console.log(res.data);
+        setPosts(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }, []);
 
-  const handleCopiedClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setCopiedAlertOpen(false);
-  };
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   return data ? (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #f0f5eb" }}></Helmet>
       <Container component="main">
-        <Grid container>
-          <Grid item xs={12} md={12} lg={4}>
-            <Grid container>
-              <Grid item xs={12}>
-                <Grid
-                  item
-                  xs={4}
-                  style={{
-                    alignItems: "left",
-                    marginTop: "2rem",
-                    marginBottom: "1rem",
-                    marginLeft: "2rem",
-                  }}
-                >
-                  <Avatar
+        <Grid container justifyContent="center" sx={{marginBottom: '4rem'}}>
+          <Grid item xs={8} md={8} lg={8}  justifyContent="center">
+          <Grid container justifyContent="center" sx={{marginTop:'2rem'}}>                  
+          <Avatar 
                     variant="circular"
-                    sx={{ bgcolor: "#f0f5eb", width: "150%", height: "150%" }}
+                    sx={{ bgcolor: "#f0f5eb", width: "200px", height: "200px"}}
                     src={Image}
-                  ></Avatar>
-                </Grid>
+                  >
+
+                  </Avatar></Grid>
+
 
                 <Card
                   variant="outlined"
-                  style={{ marginTop: "-7rem", paddingTop: "6rem" }}
+                  style={{ paddingTop: "6rem", marginTop: '-6rem' }}
                 >
                   <CardContent>
                     <Grid container style={{ padding: "1rem" }} spacing={3}>
-                      <Grid item xs={12} sx={{ display: "inline-flex" }}>
+                      <Grid item xs={12} justifyContent= "center"  sx={{ display: "inline-flex" }}>
                         <AccountCircleRoundedIcon
-                          sx={{ color: "#72825c", marginRight: "4%" }}
+                          sx={{ color: "#e6835a", marginRight: "1%" }}
                         />
 
-                        <Typography
-                          sx={{ textAlign: "left", fontWeight: "bold" }}
+                        <Typography justifyContent= "center" 
+                          sx={{ fontWeight: "bold" }}
                         >
                           {data.first_name} {data.last_name}
                         </Typography>
                       </Grid>
 
-                      <Grid item xs={12} sx={{ display: "inline-flex" }}>
+                      <Grid item xs={12} justifyContent= "center" sx={{ display: "inline-flex" }}>
                         <WorkRoundedIcon
-                          sx={{ color: "#72825c", marginRight: "4%" }}
+                          sx={{ color: "#e6835a", marginRight: "1%" }}
                         />
 
                         <Typography
@@ -139,9 +122,9 @@ const UserProfile = () => {
                         </Typography>
                       </Grid>
 
-                      <Grid item xs={12} sx={{ display: "inline-flex" }}>
+                      <Grid item xs={12} justifyContent= "center" sx={{ display: "inline-flex" }}>
                         <LocationOnRoundedIcon
-                          sx={{ color: "#72825c", marginRight: "4%" }}
+                          sx={{ color: "#e6835a", marginRight: "1%" }}
                         />
                         <Typography
                           sx={{ textAlign: "left", fontWeight: "bold" }}
@@ -150,9 +133,9 @@ const UserProfile = () => {
                         </Typography>
                       </Grid>
 
-                      <Grid item xs={12} sx={{ display: "inline-flex" }}>
+                      <Grid item xs={12} justifyContent= "center"  sx={{ display: "inline-flex" }}>
                         <CalendarTodayRoundedIcon
-                          sx={{ color: "#72825c", marginRight: "4%" }}
+                          sx={{ color: "#e6835a", marginRight: "1%" }}
                         />
 
                         <Typography
@@ -170,66 +153,80 @@ const UserProfile = () => {
                     </Grid>
                   </CardContent>
                 </Card>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} md={12} lg={8}>
-            <Paper
-              variant="outlined"
-              sx={{ borderRadius: 4 }}
-              style={{ marginTop: "5.1rem" }}
-            >
-              <Tabs
-                textColor="black"
-                TabIndicatorProps={{
-                  style: {
-                    backgroundColor: "#e6835a",
-                  },
-                }}
-                onChange={handleChange}
-                value={value}
-                centered
-              >
-                <Tab
-                  value={0}
-                  style={{ fontWeight: "bold" }}
-                  label="About User"
-                />
-                <Tab value={1} style={{ fontWeight: "bold" }} label="Posts" />
-              </Tabs>
-                  <Divider/>
-                          <TabPanel value={value} index={0}>
-                  <Grid container spacing={2} textAlign='left' >
+                <Card variant="outlined">
+                  <CardContent>
+                  <Grid container spacing={4} >
                     <Grid item xs={12}>
-                    <Typography variant="h6" fontWeight="bold" >
-                    Biography :
+                    <Typography variant="h6" fontWeight="bold" textAlign='center'  >
+                    Biography
                   </Typography>
                     </Grid>
+                    <Grid item xs={12} sx={{textAlign: 'justify'}}>
+                    {data.bio && (
+                      <Typography textAlign='center' >{data.bio}</Typography>
+                    )}
+                    {!data.bio && (
+                      <Typography textAlign='center' >Nothing to show!</Typography>
+                    )}
+                </Grid>
+                
+                </Grid> 
+                  </CardContent>
+                </Card>
+
+
+                <Card variant="outlined">
+                <CardContent>
+              <Grid container spacing={4}>
                     <Grid item xs={12}>
-                    <Typography>{data.bio}</Typography>
-                    <Typography>{data.bio}</Typography>
-                    <Typography>{data.bio}</Typography>
-                    <Typography>{data.bio}</Typography>
-
-                      </Grid>
-                      <Grid item xs={12}>
-                      <Typography variant="h6" fontWeight="bold">
-                    Experience :
+                    <Typography variant="h6" fontWeight="bold"  textAlign='center'>
+                    Experience
                   </Typography>
-                      </Grid>
-                      <Grid item xs={12}>
-                      <Typography >{data.bio}</Typography>
-                      <Typography>{data.bio}</Typography>
-                      <Typography>{data.bio}</Typography>
-                      <Typography>{data.bio}</Typography>
-                      <Typography>{data.bio}</Typography>
+                    </Grid>
+                    <Grid item xs={12} sx={{textAlign: 'justify'}}>
+                    {data.experience && (
+                      <Typography textAlign='center' >{data.experience}</Typography>
+                    )}
+                    {!data.experience && (
+                      <Typography textAlign='center' >Nothing to show!</Typography>
+                    )}
+                </Grid>
+                
+                </Grid>
 
+              </CardContent>
+              </Card>
+
+              <Card variant="outlined">
+                <CardContent>
+              <Grid container spacing={4}>
+                    <Grid item xs={12}>
+                    <Typography variant="h6" fontWeight="bold"  textAlign='center'>
+                    Posts
+                  </Typography>
+                    </Grid>
+                    <Grid item xs={12} sx={{textAlign: 'justify'}}>
+                    {posts && (
+                      <Grid container spacing={2} justifyContent="center">
+                        {posts.map(p => (
+                          <Grid item xs={9}>
+                          <PostCard post={p}/>
+                            </Grid>
+                        ))}
                       </Grid>
-                  </Grid>
-                </TabPanel>
-            </Paper>
-              
-          </Grid>
+                    )}
+                    {!posts && (
+                      <Typography textAlign='center' >Nothing to show!</Typography>
+                    )}
+                </Grid>
+                
+                </Grid>
+
+              </CardContent>
+              </Card>
+
+
+              </Grid>
         </Grid>
       </Container>
     </div>

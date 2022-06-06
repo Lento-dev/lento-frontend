@@ -22,15 +22,20 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Grow from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+
 import Popper from "@mui/material/Popper";
 import MenuList from "@mui/material/MenuList";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EditIcon from '@mui/icons-material/Edit';
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 function Navbar() {
   const [open, setOpen] = React.useState(false);
+  const [openBD, setOpenBD] = React.useState(false);
+
   const anchorRef = React.useRef(null);
   const history = useHistory();
   const BASE_URL = "http://172.17.3.154/api";
@@ -39,8 +44,16 @@ function Navbar() {
   const headers = {"Authorization": `Token ${token}`};
 
   useEffect(() => {
+    console.log(localStorage.getItem('isLoggedIn') !== null)
     setIsLoggedIn(localStorage.getItem('isLoggedIn') !== null)
-  }, isLoggedIn)
+  },)
+  useEffect(() => {
+
+        setInterval(() => {
+          setIsLoggedIn(localStorage.getItem('isLoggedIn') !== null)
+            }, [])
+    }, 5000);
+
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -73,28 +86,34 @@ function Navbar() {
     prevOpen.current = open;
   }, [open]);
 
-  const handleDashboardClick = () => {
-    setOpen((prevOpen) => !prevOpen);
-    history.push("/dashboard");
-  };
+
   const handleProfileClick = () => {
     setOpen((prevOpen) => !prevOpen);
     history.push("/user-profile");
   };
+  const handleSettingClick = () => {
+    setOpen((prevOpen) => !prevOpen);
+    history.push("/setting");
+  };
+
 
   const handleLogOutClick = async () => {
+    setOpenBD(true);
     setOpen((prevOpen) => !prevOpen);
-    axios.post(BASE_URL + '/account/logout/', {revoke_token: true},{headers} )
+    await axios.post(BASE_URL + '/account/logout/', {revoke_token: true},{headers} )
     .then(res => {
       localStorage.clear();
+      setOpenBD(false);
+
       console.log(res);
       console.log('logout succesfully');
-      if (isLoggedIn === false){
         history.push('/')
-      }
+      
     })
     .catch(err => {
       console.log(err);
+      setOpenBD(false);
+
       console.log('logout failed!');
     })
   };
@@ -104,48 +123,66 @@ function Navbar() {
   if (isLoggedIn) {
     return (
       <Box sx={{ flexGrow: 1 }}>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={openBD}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
         <AppBar position="static" sx={{ backgroundColor: "#465832" }}>
           <Toolbar>
-            <IconButton
+          <Grid container justifyContent="flex-start" alignItems="center">
+
+          <IconButton
               size="medium"
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ color: "#8b9b74"}}
+              sx={{ color: "#bac7a7"}}
             >
               <HomeIcon fontSize="medium" />
             </IconButton>
-            <Link textAlign="left" href="/" underline="none" sx={{marginRight: '87%'}}>
+            <Link textAlign="left" href="/" underline="none">
                 <Typography
                   variant="h5"
                   component="div"
                   sx={{
                     paddingLeft: "3px",
                     fontWeight: 600,
-                    color: "#8b9b74",
-                    textAlign: 'left'
+                    color: "#bac7a7",
+                    textAlign: 'left',
+                    "&:hover": {color: '#eef5e4'}
+
                   }}
                 >
-                  Home
+                  LentoCharity
                 </Typography>
               </Link>
-              <IconButton
+              </Grid>
+                    <Grid container justifyContent="flex-end">
+                    <Button href="/forms" sx={{textTransform: 'unset', color: '#c0d4b3', marginRight: '2.5rem', "&:hover": {color: '#eef5e4'} }} startIcon={<AddCircleIcon />}>
+                    <Typography variant="h6" fontWeight="bold" letterSpacing="1"> Add Post</Typography>
+      </Button>
+      <IconButton 
                 ref={anchorRef}
                 size="medium"
                 aria-controls={open ? "composition-menu" : undefined}
                 aria-expanded={open ? "true" : undefined}
                 aria-haspopup="true"
                 onClick={handleToggle}
-                sx={{ color: "#e6835a" }}
+                
+                sx={{ color: "#c0d4b3","&:hover": {color: '#eef5e4'} }}
               >
                 <AccountCircle fontSize="large" />
               </IconButton>
+
+                    </Grid>
 
               <Popper
                 open={open}
                 anchorEl={anchorRef.current}
                 role={undefined}
-                placement="bottom"
+                placement="bottom-start"
                 transition
                 disablePortal
               >
@@ -181,6 +218,12 @@ function Navbar() {
                             </ListItemIcon>
                             Profile
                           </MenuItem>
+                          <MenuItem onClick={handleSettingClick}>
+                            <ListItemIcon>
+                              <SettingsIcon fontSize="small" />
+                            </ListItemIcon>
+                            Setting
+                          </MenuItem> 
                          <Divider /> 
                          <MenuItem onClick={handleLogOutClick}>
                             <ListItemIcon>
@@ -188,6 +231,7 @@ function Navbar() {
                             </ListItemIcon>
                             Logout
                           </MenuItem> 
+
                        
                         </MenuList>
                       </ClickAwayListener>
@@ -202,53 +246,60 @@ function Navbar() {
   } else {
     return (
       <Box sx={{ flexGrow: 1 }}>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={openBD}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
         <AppBar position="static" sx={{ backgroundColor: "#465832" }}>
           <Toolbar>
-            <IconButton
-              size="large"
+<IconButton
+              size="medium"
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ color: "#8b9b74" }}
+              sx={{ color: "#bac7a7"}}
             >
-              <HomeIcon fontSize="large" />
-              <Link href="/" underline="none">
+              <HomeIcon fontSize="medium" />
+            </IconButton>
+            <Link textAlign="left" href="/" underline="none">
                 <Typography
                   variant="h5"
                   component="div"
                   sx={{
                     paddingLeft: "3px",
-                    flexGrow: 1,
                     fontWeight: 600,
-                    color: "#8b9b74",
+                    color: "#bac7a7",
+                    textAlign: 'left',
+                    "&:hover": {color: '#eef5e4'}
+
                   }}
                 >
-                  Home
+                  LentoCharity
                 </Typography>
               </Link>
-            </IconButton>
 
-            <Link
-              href="/signin"
-              sx={{ marginLeft: "77%", marginRight: "1%" }}
-              underline="none"
-            >
               <Button
+                  href="/signin"
+                  
                 sx={{
                   backgroundColor: "#c0d4b3",
                   color: "black",
                   paddingLeft: "10px",
                   paddingRight: "10px",
+                  marginLeft: "77%", marginRight: "1%", 
+                  "&:hover": {backgroundColor: '#eef5e4'}
+                  
                 }}
               >
                 Sign in
               </Button>
-            </Link>
-            <Link href="/" underline="none">
-              <Button sx={{ backgroundColor: "#c0d4b3", color: "black" }}>
+              <Button                  
+               href="/signup"
+            sx={{ backgroundColor: "#c0d4b3", color: "black", "&:hover": {backgroundColor: '#eef5e4'}}}>
                 Sign up
               </Button>
-            </Link>
           </Toolbar>
         </AppBar>
       </Box>
