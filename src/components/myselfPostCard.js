@@ -27,6 +27,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import axios from "axios";
+import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
+import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 
 const useStyles = makeStyles(theme => ({
     postTitle: {
@@ -151,21 +153,21 @@ export default function PostCard({ post }) {
 
                         {post.resourcetype === "FoodAdvertisement" && (
                             <Grid container sx={{marginTop :'2rem'}}>
-                        <Chip sx={{padding: '7px', backgroundColor: '#d2e4fa', fontWeight: '400', fontSize: '1rem'}} icon={<FaTshirt />} label={post.resourcetype} />
+                        <Chip sx={{padding: '7px', backgroundColor: '#d2e4fa', fontWeight: '400', fontSize: '1rem'}} icon={<RestaurantMenuIcon />} label={post.resourcetype} />
                         </Grid>
                         )}
 
-                        {/* {post.resourcetype === "FoodAdvertisement" && (
+                        {post.resourcetype === "ClothAdvertisement" && (
                             <Grid container sx={{marginTop :'2rem'}}>
                         <Chip sx={{padding: '7px', backgroundColor: '#d2e4fa', fontWeight: '400', fontSize: '1rem'}} icon={<FaTshirt />} label={post.resourcetype} />
                         </Grid>
                         )}
 
-                        {post.resourcetype === "FoodAdvertisement" && (
+                        {post.resourcetype === "ServiceAdvertisement" && (
                             <Grid container sx={{marginTop :'2rem'}}>
-                        <Chip sx={{padding: '7px', backgroundColor: '#d2e4fa', fontWeight: '400', fontSize: '1rem'}} icon={<FaTshirt />} label={post.resourcetype} />
+                        <Chip sx={{padding: '7px', backgroundColor: '#d2e4fa', fontWeight: '400', fontSize: '1rem'}} icon={<HomeRepairServiceIcon />} label={post.resourcetype} />
                         </Grid>
-                        )} */}
+                        )}
 
 
       </CardContent>
