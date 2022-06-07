@@ -62,9 +62,10 @@ import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orien
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import { FlareSharp, SettingsAccessibility } from "@mui/icons-material";
-
 import Switch from "@material-ui/core/Switch";
 import FormGroup from "@material-ui/core/FormGroup";
+import MyTextField from "./ModifiedTextField";
+import MyAutocomplete from "./ModifiedAutocom";
 
 const Input = styled("input")({
   display: "none",
@@ -101,10 +102,6 @@ function Foodadvertisment(props) {
   const [state, setState] = useState(null);
   const [open, setOpen] = React.useState(false);
 
-  // const Alert = React.forwardRef(function Alert(props, ref) {
-  //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  // });
-
   const handleClose = (event, reason) => {
     setOpen(false);
   };
@@ -120,16 +117,10 @@ function Foodadvertisment(props) {
   const [message, setMessage] = React.useState("");
   const [resStatus, setResstatus] = useState([]);
 
-  const [Countrry, setCountrry] = useState("");
-
-  const [city, setcity] = useState("");
   const [formtitle, settitle] = useState("");
   const [neighborhoodaddrs, setaddress] = useState("");
   const [expiredate, setexpdate] = useState("");
   const [description, setdesc] = useState("");
-
-  const [cities, setcities] = useState([]);
-
   const [file, setfile] = useState(null);
 
   const handleinputchange = (e) => {
@@ -175,7 +166,7 @@ function Foodadvertisment(props) {
     }
 
     switch (true) {
-      case !values.province:
+      case !country:
         tmpErrors["province"] = "Please select your province.";
         break;
       default:
@@ -183,7 +174,7 @@ function Foodadvertisment(props) {
     }
 
     switch (true) {
-      case !values.city:
+      case !city:
         tmpErrors["city"] = "Please select your city.";
         break;
 
@@ -237,13 +228,59 @@ function Foodadvertisment(props) {
     setErrors(tmpErrors);
   };
 
+  const [cities, setCities] = useState(null);
+  const [cc, setCC] = useState([]);
+  const [countries, setCountries] = useState([]);
+
+  const [country, setCountry] = useState(null);
+  const [city, setCity] = useState("");
+
+  const setCitiesWithCountry = (countryName) => {
+    if (countryName != null) {
+      setCities(cc[countryName]);
+      console.log("****", cities);
+    } else {
+      setCities(null);
+      console.log("set cities empty");
+    }
+  };
+
+  useEffect(async () => {
+    await axios
+      .get(
+        "https://raw.githubusercontent.com/russ666/all-countries-and-cities-json/master/countries.json"
+      )
+      .then((res) => {
+        console.log(Object.keys(res.data));
+        setCountries(Object.keys(res.data));
+        setCC(res.data);
+      });
+
+    await props
+      .getalljobs()
+      .then((res) => {
+        // setJobs(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const changeCountry = (v) => {
+    setCountry(v);
+    console.log("country changed to", v);
+  };
+
   const handleChange = (name) => (event) => {
     console.log("pro h c", event.target.value);
     setValues({ ...values, [name]: event.target.value });
-    if (name === "province") {
-      setcities(mycities.filter((x) => x.procode == event.target.value));
-    }
+    // if (name === "province") {
+    //   setcities(mycities.filter((x) => x.procode == event.target.value));
+    // }
   };
+  const changeCity = (v) => {
+    setCity(v);
+    console.log("city changed to", v);
+  };
+
   const onClickSubmit = () => {
     validate();
 
@@ -251,6 +288,7 @@ function Foodadvertisment(props) {
 
     if (!filled) {
       console.log("error filling form");
+      console.log(tmpErrors);
       setMessage("error");
       setOpen(true);
     }
@@ -262,14 +300,14 @@ function Foodadvertisment(props) {
       var fd = new FormData();
       fd.append("Title", values.formtitle);
       fd.append("Description", values.description);
-      fd.append("province", values.province);
-      fd.append("City", values.city);
+      fd.append("province", country);
+      fd.append("City", city);
       fd.append("Address", values.neighborhoodaddrs);
       fd.append("expiration_date", values.expiredate);
       fd.append("Image", imageUrl);
 
       fd.append("resourcetype", "FoodAdvertisement");
-      // console.log(picture);
+
       console.log(file);
 
       var config = {
@@ -339,11 +377,10 @@ function Foodadvertisment(props) {
 
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={12}>
-                    <TextField
+                    <MyTextField
                       autoFocus
                       required
                       fullWidth
-                      // autoComplete="firstmane"
                       name="title"
                       id="title"
                       label="advertisement title"
@@ -357,8 +394,8 @@ function Foodadvertisment(props) {
                   <br />
                   <br /> <br />
                   <br />
-                  <Grid item xs={12} sm={6}>
-                    <TextField
+                  <Grid item xs={12} sm={12}>
+                    <MyTextField
                       fullWidth
                       autoComplete="pseudonym"
                       name="pseudonym"
@@ -373,8 +410,46 @@ function Foodadvertisment(props) {
                       rows={1}
                     />
                   </Grid>
+                  <br />
+                  <br />
+                  <br /> <br />
+                  <br />
                   <Grid item xs={12} sm={6}>
-                    <Box sx={{ minWidth: 120 }}>
+                    <MyAutocomplete
+                      style={{ display: "fix-inside" }}
+                      onChange={(e, v) => {
+                        setCitiesWithCountry(v);
+                        changeCountry(v);
+                        console.log("change in country");
+                        console.log("country : ", v);
+                      }}
+                      id="country-select-demo"
+                      sx={{ width: "100%" }}
+                      options={countries}
+                      autoHighlight
+                      value={country}
+                      getOptionLabel={(option) => option}
+                      renderOption={(props, option) => (
+                        <Box
+                          component="li"
+                          sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                          {...props}
+                        >
+                          {option}
+                        </Box>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="Choose a country"
+                          inputProps={{
+                            ...params.inputProps,
+                            autoComplete: "new-password", // disable autocomplete and autofill
+                          }}
+                        />
+                      )}
+                    />
+                    {/* <Box sx={{ minWidth: 120 }}>
                       <FormControl fullWidth>
                         <InputLabel
                           id="demo-simple-select-label"
@@ -382,21 +457,6 @@ function Foodadvertisment(props) {
                         >
                           Province
                         </InputLabel>
-                        {/* <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          // value={formik.values.country}
-
-                          label="Province"
-                          value={values.province}
-                          onChange={handleChange("province")}
-                          error={Boolean(errors["province"])}
-                          helperText={errors["province"]}
-                        >
-                          {Provinces.map((c) => (
-                            <MenuItem value={c.label}>{c.label} </MenuItem>
-                          ))}
-                        </Select> */}
                         <Select
                           name="country"
                           labelId="demo-simple-select-label"
@@ -417,10 +477,56 @@ function Foodadvertisment(props) {
                           ))}
                         </Select>
                       </FormControl>
-                    </Box>
+                    </Box> */}
                   </Grid>
-                  {/* <Grid item xs={12} sm={6}>
-                    <Box sx={{ minWidth: 120 }}>
+                  <Grid item xs={12} sm={6}>
+                    {cities == null && (
+                      <Grid item xs={12} md={12} sx={{ paddingBottom: "5%" }}>
+                        <TextField
+                          sx={{ width: "100%" }}
+                          disabled
+                          id="outlined-disabled"
+                          label="Choose a city"
+                          defaultValue="First, please choose a country"
+                        />
+                      </Grid>
+                    )}
+                    {cities != null && (
+                      <Grid item xs={12} md={12} sx={{ paddingBottom: "5%" }}>
+                        <MyAutocomplete
+                          id="country-select-demo"
+                          sx={{ width: "100%" }}
+                          options={cities}
+                          value={city}
+                          autoHighlight
+                          onChange={(e, v) => {
+                            changeCity(v);
+                          }}
+                          getOptionLabel={(option) => option}
+                          renderOption={(props, option) => (
+                            <Box
+                              component="li"
+                              sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                              {...props}
+                            >
+                              {option}
+                            </Box>
+                          )}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="Choose a city"
+                              inputProps={{
+                                ...params.inputProps,
+                                autoComplete: "new-password", // disable autocomplete and autofill
+                              }}
+                            />
+                          )}
+                        />
+                      </Grid>
+                    )}
+                  </Grid>
+                  {/* <Box sx={{ minWidth: 120 }}>
                       <FormControl fullWidth>
                         <InputLabel
                           id="demo-simple-select-label"
@@ -443,14 +549,13 @@ function Foodadvertisment(props) {
                           ))}
                         </Select>
                       </FormControl>
-                    </Box>
-                  </Grid> */}
+                    </Box> */}
                   <br />
                   <br />
                   <br /> <br />
                   <br />
                   <Grid item xs={12}>
-                    <TextField
+                    <MyTextField
                       fullWidth
                       autoComplete="bio"
                       name="bio"
@@ -469,7 +574,7 @@ function Foodadvertisment(props) {
                   <br /> <br />
                   <br />
                   <Grid item xs={12} sm={12}>
-                    <TextField
+                    <MyTextField
                       name="date_birth"
                       label="Expiration date"
                       type="date"
@@ -487,7 +592,7 @@ function Foodadvertisment(props) {
                   <br /> <br />
                   <br />
                   <Grid item xs={12}>
-                    <TextField
+                    <MyTextField
                       fullWidth
                       autoComplete="bio"
                       name="bio"

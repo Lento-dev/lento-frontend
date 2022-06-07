@@ -115,14 +115,14 @@ function Ppage(props) {
     token.replaceAll('"', "");
     console.log(token);
     var myurl =
-      "http://172.17.3.154/api/advertisement/search?Province=" +
+      "http://172.17.3.154/api/advertisement/search?province=" +
       props.location.state.data;
     console.log(myurl);
     var config = {
       method: "get",
       url: myurl,
       headers: {
-        Authorization: "Token " + token
+        Authorization: "Token " + token,
       },
     };
 
