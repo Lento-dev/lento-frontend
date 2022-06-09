@@ -204,17 +204,6 @@ function Ppage(props) {
                     <Grid container spacing={2}>
                       <Grid item xs={12} sm={5}>
                         <div>
-                          {/* <SearchBar>
-                    value={searchItem}
-                onChange={value => {
-                    setSearchItem(value);
-                }}
-                onRequestSearch={() => console.log("onRequestSearch")}
-                style={{
-                    margin: "0 auto",
-                    maxWidth: 800
-                }}
-              </SearchBar> */}
                           <Grid item xs={12} sm={12}>
                             <TextField
                               autoFocus
@@ -282,38 +271,17 @@ function Ppage(props) {
             <br />
             <br />
 
-            <Grid item xs={12} d={12} lg={12}>
-              <Grid container>
-                {/* < Paper
-          sx={{
-            width:"100%",
-            backgroundColor: "#fff",
-            borderRadius: 4,
-            paddingTop:"20rem",
-            direction:"column",
-            justify:"center",
-            alignItems:"center",
-          }}
-          > */}
-                <Grid container spacing={6}>
-                  {prodata.map((item, i) => (
-                    <Grid item md={4}>
-                      <MediaControlCard data={item} key={i}></MediaControlCard>
-                    </Grid>
-                  ))}
-                  {/* <Grid item md={4}>
-                    <MediaControlCard></MediaControlCard>
-                  </Grid>
+            <Grid item xs={12}>
+              {/* <Grid container> */}
+
+              <Grid container spacing={6}>
+                {prodata.map((item, i) => (
                   <Grid item md={4}>
-                    <MediaControlCard></MediaControlCard>
+                    <MediaControlCard data={item} key={i}></MediaControlCard>
                   </Grid>
-                  <Grid item md={4}>
-                    <MediaControlCard></MediaControlCard>
-                  </Grid>
-                  <Grid item md={4}>
-                    <MediaControlCard></MediaControlCard>
-                  </Grid> */}
-                </Grid>
+                ))}
+
+                {/* </Grid> */}
               </Grid>
             </Grid>
           </Grid>

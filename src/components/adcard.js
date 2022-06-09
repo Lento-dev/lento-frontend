@@ -25,7 +25,7 @@ const MediaControlCard = (props) => {
     <Card
       sx={{
         display: "flex",
-        width: "25rem",
+        // width: "20rem",
         height: "12rem",
         backgroundColor: "white",
         borderRadius: "5px",
@@ -58,7 +58,7 @@ const MediaControlCard = (props) => {
           >
             <CategoryIcon style={{ fontSize: "large" }} />
             <span style={{ color: "grey", lineHeight: "160%" }}>
-              &nbsp;{props.data.resourcetype}
+              {props.data.resourcetype}
             </span>
           </div>
           <div
@@ -80,12 +80,9 @@ const MediaControlCard = (props) => {
               flexWrap: "wrap",
             }}
           >
-            <br/>
+            <br />
             <EventNoteIcon style={{ fontSize: "large" }} />
-            <span style={{ color: "grey", lineHeight: "150%" }}>
-              {/* &nbsp;&nbsp;{props.data.date_joined} */}
-              
-            </span>
+            <span style={{ color: "grey", lineHeight: "150%" }}></span>
           </div>
         </CardContent>
       </Box>
@@ -93,7 +90,7 @@ const MediaControlCard = (props) => {
         component="img"
         sx={{ width: 151 }}
         image={image}
-        alt="Live from space album cover"
+        // alt="Live from space album cover"
       />
     </Card>
   );
