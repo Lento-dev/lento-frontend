@@ -21,7 +21,8 @@ import {
 } from "@mui/material";
 import { height } from "@mui/system";
 
-export default function BasicCard() {
+export default function BasicCard(props) {
+  console.log(props.location.state.data);
   return (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
