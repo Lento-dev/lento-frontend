@@ -192,7 +192,7 @@ function Setting() {
   const setPermissions = () => {
     setLoadingChecked(true);
     axios
-    .post(BASE_URL + "/account/access-profile/", profileChecked ,{ headers: headers })
+    .post(BASE_URL + "/account/access-profile/", {"Profile_Access": profileChecked} ,{ headers: headers })
     .then((res) => {
       console.log(res.data);
       setMessage('Permissions updated successfully.');
@@ -203,16 +203,19 @@ function Setting() {
     })
 
     axios
-    .post(BASE_URL + "/account/access-phone/", phoneChecked ,{ headers: headers })
+    .post(BASE_URL + "/account/access-phone/", {"Phone_Access": phoneChecked} ,{ headers: headers })
     .then((res) => {
       setMessage('Permissions updated successfully.');
       setOpenm(true);
       console.log(res.data);
+      setLoadingChecked(false);
+
     })
     .catch(err => {
       console.log(err);
+      setLoadingChecked(false);
+
     })
-    setLoadingChecked(false);
 
   }
 
@@ -221,7 +224,7 @@ function Setting() {
       <Helmet bodyAttributes={{ style: 'background-color : #e5ecdf' }}></Helmet>
       <Container component="main" maxWidth="md">
         <CssBaseline />
-        <Paper elevation={3} sx={{borderRadius: 4, display: 'flex', marginTop: '1.2rem' }}>
+        <Paper elevation={3} sx={{borderRadius: 4,marginTop: '1.2rem' }}>
             {/* <Tabs  textColor="secondary" 
               indicatorColor="secondary"
               onChange={handleChange} aria-label="secondary tabs example" value={value}>
@@ -238,18 +241,17 @@ function Setting() {
                   }}
                   onChange={handleChange}
                   value={value}
-                  centered
                 
                 >
               <Tab value={0} style={{marginLeft: "1rem", textTransform: 'unset'}} label="General" />
               <Tab value={1} style={{textTransform: 'unset'}} label="Permissions" />
                 </Tabs>
         </Paper>
-        <Paper elevation={3} sx={{ borderRadius: 6}} style={{ marginTop: "1rem", marginBottom: "1rem", paddingLeft:'1rem' , paddingRight:'1rem', paddingBottom:'2rem', paddingTop: '1rem'}}>
+        <Paper elevation={3} sx={{ borderRadius: 4}} style={{ marginTop: "1rem", marginBottom: "1rem", paddingLeft:'1rem' , paddingRight:'1rem', paddingBottom:'2rem', paddingTop: '1rem'}}>
           
-          <Grid container>
+          <Grid container display="block">
             <TabPanel value={value} index={0}>
-                <Grid container spacing={2}>
+                <Grid container spacing={3}>
 
                 <Grid item xs={12} textAlign="left">
                 <Typography>
@@ -281,11 +283,6 @@ function Setting() {
                       style={{ backgroundColor:  '#e6835a', color: '#FFFFFF', textTransform: 'unset', width:'150px' }}>
                     Change email
                   </Button>
-                  <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
-                  <Alert onClose={handleClose} variant="filled" severity="error" sx={{ width: '100%' }}>
-                    {message}
-                  </Alert>
-                  </Snackbar>
 
 
                   </Grid>
@@ -387,17 +384,16 @@ function Setting() {
                   label="Display my profile for other people"
                 />
               </Grid>
-
-              </Grid> 
-
-              <Grid item xs={12} textAlign="right" sx={{marginRight: '-10%'}}>
+              <Grid item xs={12} textAlign="right" >
           <Button type="submit" disabled={loadingChecked} onClick={setPermissions}
                       variant="contained"
                       style={{ backgroundColor:  '#e6835a', color: '#FFFFFF', textTransform: 'unset', width:'150px' }}>
                   Submit
                   </Button>
 
-                </Grid>
+                </Grid> 
+              </Grid>
+
  
             </TabPanel>
             <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>

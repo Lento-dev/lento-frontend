@@ -27,6 +27,7 @@ import CategoryIcon from "@mui/icons-material/Category";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import { Link } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const MenuItem = withStyles({
   root: {
@@ -308,7 +309,8 @@ function Ppage(props) {
             <br />
             <br />
 
-            <Grid item xs={12}>
+              {prodata.length !== 0 && (
+                <Grid item xs={12}>
               <Grid container spacing={6}>
                 {prodata.map((item, i) => (
                   <Grid item md={4}>
@@ -317,10 +319,25 @@ function Ppage(props) {
                     
                   </Grid>
                 ))}
-
-                {/* </Grid> */}
               </Grid>
             </Grid>
+              )}
+
+              {prodata.length === 0 && (
+                <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "15vh",
+        }}
+      >
+        <CircularProgress size="3rem" style={{ color: "#8b9b74" }} />
+      </Box>
+              )}
+
+
+
           </Grid>
         </Grid>
       </Container>

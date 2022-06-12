@@ -630,7 +630,7 @@ it("should render correct username", async () => {
       </BrowserRouter>
     );
     const keyword = screen.getAllByText(/food/i);
-    expect(keyword.length).toBe(2);
+    expect(keyword.length).toBe(3);
   });
 
   it('should render same text ', () => {

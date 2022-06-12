@@ -29,7 +29,6 @@ import Ppage from "./components/provincepage"
 import UserProfile from './components/user-profile'
 import Formstab from "./components/formstab"
 import PublicUserProfile from './components/public-user-profile'
-import Ppage from "./components/provincepage";
 // import BasicCard from "./components/advertisementpage";
 import Productdetail from "./components/advertisementpage";
 import BasicCard from "./components/adpage";

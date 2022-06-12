@@ -154,8 +154,7 @@ function UserInfo(props) {
         bio: formik.values.bio,
         gender: formik.values.gender,
         job: formik.values.job,
-        experience: formik.values.experience,
-        image:selectedImage} , {headers})
+        experience: formik.values.experience} , {headers})
         
         .then (res => {
           setLoading(false);
@@ -169,7 +168,7 @@ function UserInfo(props) {
           setLoading(false);
           setMessage('try again');
           setOpenm(true);
-          history.push('/my-profile')
+          // history.push('/my-profile')
 
         });
     }
