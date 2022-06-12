@@ -92,6 +92,8 @@ function UserInfo(props) {
       country: '',
       city: '',
       job: '',
+      bio: '',
+      experience: ''
     },
     validationSchema: validationSchema,
   });
@@ -119,6 +121,7 @@ function UserInfo(props) {
                 city: res.data.city || '',
                 job: res.data.job || '',
                 bio: res.data.bio || '',
+                experience: res.data.experience || '',
               });
               setPhone(res.data.phone || '')
           })
@@ -151,21 +154,26 @@ function UserInfo(props) {
         bio: formik.values.bio,
         gender: formik.values.gender,
         job: formik.values.job,
-        image: imageUrl} , {headers})
+        experience: formik.values.experience,
+        image:selectedImage} , {headers})
         
         .then (res => {
           setLoading(false);
           setMessage('Your informations was updated successfully!');
           setOpenm(true);
+          history.push('/my-profile')
           console.log(res);
         })
         .catch(err => {
+          console.log(imageUrl)
           setLoading(false);
-          setMessage('Please fill in the blanks.');
+          setMessage('try again');
           setOpenm(true);
-          console.log(err.data);
+          history.push('/my-profile')
+
         });
     }
+
 
   }  
 
@@ -175,7 +183,7 @@ function UserInfo(props) {
       <Container component="main" maxWidth="md">
         <CssBaseline />
 
-        <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ justifyContent: "center", padding: "3rem"}}>
+        <Paper elevation={3} sx={{ borderRadius: 4, display: 'flex' }} style={{ justifyContent: "center", padding: "3rem", marginTop: '1.2rem', marginBottom: '3rem'}}>
           <Grid container>
             <Grid container spacing={3}>
         
@@ -386,6 +394,26 @@ function UserInfo(props) {
                   helperText={formik.touched.bio && formik.errors.bio}
                 />
               </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  autoComplete="experience"
+                  name="experience"
+                  id="experience"
+                  label="Experience"
+                  type="text"
+                  multiline
+                  InputLabelProps={{
+            shrink: true,
+          }}
+                  value={formik.values.experience}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.experience && Boolean(formik.errors.experience)}
+                  helperText={formik.touched.experience && formik.errors.experience}
+                />
+              </Grid>
+
               <Grid item xs={12}>
               {imageUrl && selectedImage && (
                     <Box mt={2} textAlign="left">

@@ -16,18 +16,19 @@ import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import Image from "../assets/illustrations/login.svg";
 import { register } from "../actions/auth";
-import { connect } from "react-redux";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { clearMessage } from "../actions/message";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
+import MyTextField from './ModifiedTextField';
 
 import GoogleLogin from "react-google-login";
 import { FcGoogle } from "react-icons/fc";
 
-function SignIn(props) {
-  const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+function SignIn() {
+  const drfClientId = process.env.REACT_APP_DRF_CLIENT_ID;
+  const drfClientSecret = process.env.REACT_APP_DRF_CLIENT_SECRET;
   const BASE_URL = "http://172.17.3.154/api";
 
   const history = useHistory();
@@ -121,8 +122,31 @@ function SignIn(props) {
   };
 
   const handleContinueWithGoogle = (response) => {
-    props.googleLogin(response, history, setLoading);
-    console.log(response);
+  axios
+  .post(`${BASE_URL}/social-auth/convert-token/`, {
+    token: response.accessToken,
+    backend: "google-oauth2",
+    grant_type: "convert_token",
+    client_id: drfClientId,
+    client_secret: drfClientSecret,
+  })
+  .then((res) => {
+    const { access_token, refresh_token } = res.data;
+    console.log({ access_token, refresh_token });
+    localStorage.setItem("access_token", access_token);
+    localStorage.setItem("refresh_token", refresh_token);
+    localStorage.setItem("token-type", "bearer");
+    localStorage.setItem("user", res.data);
+    setLoading(false);
+    history.push("/");
+    console.log('google login succesfully');
+
+  })
+  .catch((error) => {
+
+    console.log("Error Google login", error);
+
+  });
   };
 
   return (
@@ -142,7 +166,7 @@ function SignIn(props) {
             justifyContent: "center",
           }}
           style={{
-            marginTop: "1vh",
+            marginTop: "3vh",
             marginRight: "auto",
             marginLeft: "auto",
           }}
@@ -182,7 +206,7 @@ function SignIn(props) {
                           <Typography fontSize="0.85rem">
                             {" "}
                             Not a member?{" "}
-                            <Link href="/" underline="none">
+                            <Link href="/signup" underline="none">
                               {"Register"}
                             </Link>{" "}
                           </Typography>
@@ -191,7 +215,7 @@ function SignIn(props) {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <TextField
+                      <MyTextField
                         label="Email"
                         name="email"
                         id="email"
@@ -206,7 +230,7 @@ function SignIn(props) {
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <TextField
+                      <MyTextField
                         label="Password"
                         name="password"
                         id="password"
@@ -258,7 +282,7 @@ function SignIn(props) {
                     </Grid>
                     <Grid item xs={12}>
                       <GoogleLogin
-                        clientId={googleClientId}
+                        clientId={drfClientId}
                         buttonText="LOGIN WITH GOOGLE"
                         onSuccess={(response) =>
                           handleContinueWithGoogle(response)
@@ -268,6 +292,7 @@ function SignIn(props) {
                             variant="outlined"
                             fullWidth
                             size="large"
+                            type="submit"
                             disabled={renderProps.disabled}
                             onClick={renderProps.onClick}
                             sx={{

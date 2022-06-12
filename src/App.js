@@ -2,7 +2,6 @@ import "./App.css";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { Provider } from "react-redux";
-import UserProfile from "./components/profile";
 import SignUp from "./components/signup";
 import SignIn from "./components/signin";
 import ForgotPassword from "./components/forgotpassword";
@@ -26,13 +25,15 @@ import Navbar from './components/navbar';
 import Setting from './components/setting';
 import Chat from './components/chat';
 import Homepage from "./components/Homepage";
+import Ppage from "./components/provincepage"
+import UserProfile from './components/user-profile'
+import Formstab from "./components/formstab"
+import PublicUserProfile from './components/public-user-profile'
 import Ppage from "./components/provincepage";
 // import BasicCard from "./components/advertisementpage";
 import Productdetail from "./components/advertisementpage";
 import BasicCard from "./components/adpage";
 import FormTabs from "./components/formstab"
-
-
 
 
 const theme = createTheme({
@@ -47,6 +48,7 @@ const theme = createTheme({
 });
 
 function App() {
+
   return (
 
 
@@ -58,19 +60,20 @@ function App() {
           <Navbar/>
             <Switch>
               <Route exact path="/" component={Homepage} />
-              {/* <Route exact path="/profile" component={UserProfile} />  */}
               <Route exact path="/signup" component={SignUp} />
-              {/* <Route exact path="/setting" component={Setting} />  */}
+              <Route exact path="/setting" component={Setting} /> 
+              <Route exact path="/my-profile" component={UserProfile} />
+              <Route exact path="/user-profile/:id" component={PublicUserProfile} />
               <Route exact path="/signin" component={SignIn} />
               <Route exact path="/forgot-password" component={ForgotPassword} />
               <Route exact path="/verify-user" component={VerifyUser} />
               <Route exact path="/reset-password" component={ResetPassword} />
-              {/* <Route exact path="/edit-profile" component={UserInfo} /> */}
-              <Route exact path="/food" component={Foodadvertisment} />
+              <Route exact path="/edit-profile" component={UserInfo} />
               <Route exact path="/dd" component={Dropdown} />
-              <Route exact path="/cloth" component={Clothadvertisement} />
-              <Route exact path="/service" component={Serviceadvertisement} />
               <Route exact path="/cg" component={Forms} />
+              <Route exact path="/forms" component={Formstab} />
+              {/* <Route exact path="/dashbpard/profile" component={Reprofile} /> */}
+              {/* <Route exact path="/setting" component={UserSetting} /> */}
               <Route exact path="/dashboard" component={PersistentDrawerLeft} /> 
               <Route exact path="/ppage" component={Ppage} />
               {/* <Route exact path="/adpage" component={BasicCard}/> */}

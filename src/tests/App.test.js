@@ -9,6 +9,9 @@ import SignUp from "../components/signup";
 import UserInfo from '../components/editprofile';
 import Setting from '../components/setting';
 import Forms from "../components/forms";
+import Userpro from '../components/User_Profile';
+import UserProfile from '../components/user-profile';
+
 
 describe("Footer", () => {
   it("should render the correct content", async () => {
@@ -694,7 +697,25 @@ it("should render correct username", async () => {
   });
 
 
+  describe("edit profile", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <UserProfile />
+      </BrowserRouter>
+      )
+    })
+  })
 
+  describe("edit profile", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Userpro />
+      </BrowserRouter>
+      )
+    })
+  })
 
 
 
