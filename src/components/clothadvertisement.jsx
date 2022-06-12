@@ -37,7 +37,7 @@ import axios from "axios";
 import { FilePond, registerPlugin } from "react-filepond";
 // Import FilePond styles
 import ImageUploading from "react-images-uploading";
-import MyTextField from "./ModifiedTextField";
+
 import MySelect from "./ModifiedSelect";
 import "filepond/dist/filepond.min.css";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
@@ -322,6 +322,8 @@ function Clothadvertisement(props) {
       fd.append("cloth_type", values.clothtype);
       fd.append("cloth_status", values.clothstatus);
       fd.append("cloth_size", values.clothsize);
+      fd.append("Image", imageUrl);
+      // fd.append("owner",values.pseudonym)
       // fd.append("for_men",);
       // fd.append("for_women",);
       // fd.append("for_kids",);

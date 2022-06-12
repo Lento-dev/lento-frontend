@@ -10,16 +10,21 @@ import CategoryIcon from "@mui/icons-material/Category";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import imgg from "../assets/img/charitycard2.jpg";
+import { Link } from "react-router-dom";
 
 const MediaControlCard = (props) => {
+
   // props
-  // console.log(props);
-  var image = imgg;
+  let resourcex = (props.data.resourcetype).replace("Advertisement","")
+  console.log(props.data);
+  var image = "https://s6.uupload.ir/files/newwwww_3y3i.jpg";
   if (props.data.Image === null) {
-    image = imgg;
+    image = "https://s6.uupload.ir/files/newwwww_3y3i.jpg";
   } else {
     image = props.data.Image;
   }
+
+
 
   return (
     <Card
@@ -31,11 +36,21 @@ const MediaControlCard = (props) => {
         borderRadius: "5px",
       }}
     >
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Box sx={{ display: "flex", flexDirection: "column",textAlign:'left' }}>
         <CardContent sx={{ flex: "1 0 auto" }}>
-          <Typography component="div" variant="h5">
+        <Link
+                      style={{color:'#8b9b74'}}
+                      to={{
+                        pathname: "/jj",
+                        state: { data: props.data },
+                      }}
+                    >
+                      
+          <Typography component="div" variant="h6">
             {props.data.Title}
           </Typography>
+          </Link>
+          
 
           <div
             style={{
@@ -44,9 +59,10 @@ const MediaControlCard = (props) => {
               flexWrap: "wrap",
             }}
           >
+            
             <LocationCityIcon style={{ fontSize: "large" }} />
             <span style={{ color: "grey", lineHeight: "160%" }}>
-              &nbsp;{props.data.province}
+              {props.data.province}
             </span>
           </div>
           <div
@@ -58,7 +74,7 @@ const MediaControlCard = (props) => {
           >
             <CategoryIcon style={{ fontSize: "large" }} />
             <span style={{ color: "grey", lineHeight: "160%" }}>
-              {props.data.resourcetype}
+              Category : {resourcex}
             </span>
           </div>
           <div
@@ -70,7 +86,7 @@ const MediaControlCard = (props) => {
           >
             <CardGiftcardIcon style={{ fontSize: "large" }} />
             <span style={{ color: "grey", lineHeight: "160%" }}>
-              &nbsp;for gift
+              for gift
             </span>
           </div>
           <div
@@ -81,16 +97,21 @@ const MediaControlCard = (props) => {
             }}
           >
             <br />
+            
             <EventNoteIcon style={{ fontSize: "large" }} />
-            <span style={{ color: "grey", lineHeight: "150%" }}></span>
+            <span style={{ color: "grey", lineHeight: "150%" }}>
+              {props.data.expiration_date}
+            </span>
           </div>
         </CardContent>
       </Box>
+      
       <CardMedia
         component="img"
-        sx={{ width: 151 }}
+        
+        sx={{ width: 134 , justifyContent:'right'}}
         image={image}
-        // alt="Live from space album cover"
+        
       />
     </Card>
   );

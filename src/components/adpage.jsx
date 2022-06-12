@@ -8,6 +8,7 @@ import LocationCityIcon from "@mui/icons-material/LocationCity";
 import CategoryIcon from "@mui/icons-material/Category";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
+// import PersonIcon from '@mui/icons-material/Person';
 import "../styles/Productdetail.css";
 
 import Helmet from "react-helmet";
@@ -23,6 +24,13 @@ import { height } from "@mui/system";
 
 export default function BasicCard(props) {
   console.log(props.location.state.data);
+  let resourcech = (props.location.state.data.resourcetype).replace("Advertisement","")
+  var image = "https://s6.uupload.ir/files/newwwww_3y3i.jpg";
+  if (props.location.state.data.Image === null) {
+    image = "https://s6.uupload.ir/files/newwwww_3y3i.jpg";
+  } else {
+    image = props.location.state.data.Image;
+  }
 
   return (
     <div>
@@ -32,32 +40,41 @@ export default function BasicCard(props) {
           <input type="radio" name="slide_switch" id="id1" />
           <label for="id1">
             <img
-              src="https://s6.uupload.ir/files/p1_tsfj.jpg"
+              src={image}
               width="50"
               height="70"
             />
           </label>
-          <img src="https://s6.uupload.ir/files/p1_tsfj.jpg" />
-
+          
+          
+          <img src={image} />
+          
+          {/* {( props.location.state.data.Image === null) ? (
+            <p> */}
+          
+          
           <input type="radio" name="slide_switch" id="id2" />
           <label for="id2">
             <img
-              src="https://s6.uupload.ir/files/03_jng6.jpg"
+              src={image}
               width="50"
               height="70"
             />
           </label>
-          <img src="https://s6.uupload.ir/files/03_jng6.jpg" />
+          <img src={image} />
 
           <input type="radio" name="slide_switch" id="id3" />
           <label for="id3">
             <img
-              src="https://s6.uupload.ir/files/p2_syi9.jpg"
+              src={image}
               width="50"
               height="70"
             />
           </label>
-          <img src="https://s6.uupload.ir/files/p2_syi9.jpg" />
+          <img src={image} />
+          {/* </p>
+          
+           ): (<p></p>)} */}
         </div>
       </Grid>
       <div style={{ display: "inline-block", position: "absolute" }}>
@@ -76,7 +93,7 @@ export default function BasicCard(props) {
                       marginLeft: "-5px",
                     }}
                   >
-                    &nbsp;Red Jacket&nbsp;
+                    &nbsp;{props.location.state.data.Title}&nbsp;
                   </Typography>
                   <div
                     style={{
@@ -85,10 +102,11 @@ export default function BasicCard(props) {
                       paddingTop: "10px",
                       alignItems: "center",
                     }}
+                    
                   >
                     <CategoryIcon style={{ fontSize: "large" }} />
                     <span style={{ color: "black", fontSize: "16px" }}>
-                      &nbsp;Category : cloth
+                      &nbsp;Category : {resourcech}
                     </span>
                   </div>
 
@@ -101,7 +119,8 @@ export default function BasicCard(props) {
                   >
                     <LocationCityIcon style={{ fontSize: "large" }} />
                     <span style={{ color: "black", fontSize: "16px" }}>
-                      &nbsp;City and region : Tehran , Hengam street
+                      &nbsp;City : {props.location.state.data.City} 
+                       
                     </span>
                   </div>
                   <div
@@ -117,6 +136,8 @@ export default function BasicCard(props) {
                       &nbsp;Published date : 22/03/2022
                     </span>
                   </div>
+                  {props.location.state.data.resourcetype ===
+                  "ServiceAdvertisement" ? (
                   <div
                     style={{
                       display: "flex",
@@ -128,8 +149,25 @@ export default function BasicCard(props) {
                   >
                     <br />
                     <CheckBoxIcon style={{ fontSize: "large" }} />
-                    <span>&nbsp;Type : jackets/coats - Manly</span>
+                    <span>&nbsp;Type : {props.location.state.data.service_type}</span>
                   </div>
+                  ): (<p></p>)}
+                  {props.location.state.data.resourcetype ===
+                  "ClothAdvertisement" ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      flexWrap: "wrap",
+                      paddingTop: "12px",
+                      color: "#556749",
+                    }}
+                  >
+                    <br />
+                    <CheckBoxIcon style={{ fontSize: "large" }} />
+                    <span>&nbsp;Type : {props.location.state.data.cloth_type} - Manly</span>
+                  </div>
+                  ): (<p></p>)}
                   {props.location.state.data.resourcetype ===
                   "ClothAdvertisement" ? (
                     <div
@@ -142,11 +180,13 @@ export default function BasicCard(props) {
                     >
                       <br />
                       <CheckBoxIcon style={{ fontSize: "large" }} />
-                      <span>&nbsp;Size : large</span>
+                      <span>&nbsp;Size : {props.location.state.data.cloth_size} </span>
                     </div>
                   ) : (
                     <p></p>
                   )}
+                  {props.location.state.data.resourcetype ===
+                  "ClothAdvertisement" ? (
                   <div
                     style={{
                       display: "flex",
@@ -157,8 +197,9 @@ export default function BasicCard(props) {
                   >
                     <br />
                     <CheckBoxIcon style={{ fontSize: "large" }} />
-                    <span>&nbsp;Status : not used and new</span>
+                    <span>&nbsp;Status : {props.location.state.data.cloth_status}</span>
                   </div>
+                  ) : (<p></p>)}
                 </CardContent>
                 <br />
                 <Grid container item xs={12}>
@@ -209,7 +250,7 @@ export default function BasicCard(props) {
             </Grid>
             <br />
             <Grid item xs={3}>
-              <Card container sx={{ maxWidth: 370, marginLeft: "30px" }}>
+              <Card container sx={{marginLeft: "30px" ,width:'370px' }}>
                 <CardContent style={{ textAlign: "left", lineHeight: "175%" }}>
                   <Typography
                     style={{
@@ -227,8 +268,8 @@ export default function BasicCard(props) {
 
                     <br />
                     <span style={{ fontSize: "14px" }}>
-                      It was a gift from my friend so it is new.It's fit to size
-                      meduim to large and a gift for you.
+                      
+                    {props.location.state.data.Description}
                     </span>
                   </Typography>
                 </CardContent>

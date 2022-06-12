@@ -158,7 +158,7 @@ function Ppage(props) {
     if (values.clothtype === "food") {
       myurl += "&ad_type=foodadvertisement";
     } else if (values.clothtype === "service") {
-      myurl += "&ad_type=seviceadvertisement";
+      myurl += "&ad_type=serviceadvertisement";
     } else if (values.clothtype === "cloth") {
       myurl += "&ad_type=clothadvertisement";
     }
@@ -312,14 +312,9 @@ function Ppage(props) {
               <Grid container spacing={6}>
                 {prodata.map((item, i) => (
                   <Grid item md={4}>
-                    <Link
-                      to={{
-                        pathname: "/jj",
-                        state: { data: item },
-                      }}
-                    >
+
                       <MediaControlCard data={item} key={i}></MediaControlCard>
-                    </Link>
+                    
                   </Grid>
                 ))}
 
