@@ -90,11 +90,13 @@ function Setting() {
 
   const formik = useFormik({
     initialValues: {
+        email: '',
         oldpassword: '',
         password: '',
         confirmpassword: '',
         switch1:'',
         switch2:'',
+        experience:'',
 
     },
     validationSchema: validationSchema,
@@ -150,8 +152,67 @@ function Setting() {
     }
     console.log('message ', message);
     console.log('openm ', openm);
+  } 
 
+  useEffect(() => {
+      axios.get(BASE_URL + '/account/user-profile/', {headers: headers})
+          .then(res => {
+              console.log(res.data);
+              formik.setValues({
+                email: res.data.email || '',
+                experience: res.data.experience|| '',
+              });
+          })
+          }, [])
+
+
+
+  const changeEmail = () => {
+    let filled = 
+    !Boolean(formik.errors.email) && formik.values.email !== '';
+    if (filled){
+      setLoadingE(true);
+    axios.put(BASE_URL + '/account/edit-profile/', 
+    { 
+      email: formik.values.email} , {headers})
+
+      .then (res => {
+        setLoadingE(false);
+        setMessage('Your email changed succesfully.');
+        setOpenm(true);
+        console.log(res);
+      })
+      .catch(err => {
+        setLoadingE(false);
+        setMessage('Please enter new email.');
+        setOpenm(true);
+      });
   }
+}
+
+const changeExp = () => {
+  let filled = 
+  !Boolean(formik.errors.email) && formik.values.email !== '';
+  if (filled){
+    setLoadingE(true);
+  axios.put(BASE_URL + '/account/edit-profile/', 
+  { 
+    experience: formik.values.experience} , {headers})
+
+    .then (res => {
+      setLoadingE(false);
+      setMessage('Your informations was updated successfully!');
+      setOpenm(true);
+      console.log(res);
+    })
+    .catch(err => {
+      setLoadingE(false);
+      setMessage('try again');
+      setOpenm(true);
+    });
+}
+}
+  
   return (
       <div>
       <Helmet bodyAttributes={{ style: 'background-color : #e5ecdf' }}></Helmet>
@@ -196,28 +257,34 @@ function Setting() {
                   <Grid item xs={12}>
                     <MyTextField
                       fullWidth
-                      autoComplete="given-name"
+                      autoComplete="email"
                       name="email"
                       id="email"
                       label="Email Address"
-                      value={formik.values.email}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      error={formik.touched.email && Boolean(formik.errors.email)}
-                      helperText={formik.touched.email && formik.errors.email}
-                      sx={{color: 'red'}}
-                    />
-                  </Grid>
-
+                      InputLabelProps={{
+            shrink: true,
+          }}
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.email && Boolean(formik.errors.email)}
+                  helperText={formik.touched.email && formik.errors.email}
+                />
+              </Grid>
 
                   <Grid item xs={12} textAlign="right">
-                    <Button type="submit"
+                    <Button type="submit" onClick={changeEmail}
                       variant="contained"
-                      style={{ backgroundColor: '#e6835a', color: '#FFFFFF', textTransform: 'unset',width:'150px' }}>
-                    {loadingE ? 
+                      style={{ backgroundColor:  '#e6835a', color: '#FFFFFF', textTransform: 'unset', width:'150px' }}>
+                    {loadingP ? 
                         <CircularProgress style={{color: "#fff"}}  size="1.5rem"/>
                         : "Change email"}
                   </Button>
+                  <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
+                  <Alert onClose={handleClose} variant="filled" severity="error" sx={{ width: '100%' }}>
+                    {message}
+                  </Alert>
+                  </Snackbar>
 
 
                   </Grid>
@@ -305,18 +372,21 @@ function Setting() {
                 <Grid item xs={12}>
                     <MyTextField
                       fullWidth
-                      placeholder="skill"
+                      placeholder="experience"
                       multiline
-                      autoComplete="given-name"
-                      name="skill"
-                      id="skill"
+                      autoComplete="experience"
+                      name="experience"
+                      id="experience"
                       label="About your experiences"
-                      value={formik.values.skill}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      error={formik.touched.skill && Boolean(formik.errors.skill)}
-                      helperText={formik.touched.skill && formik.errors.skill}
-                    />
+                      InputLabelProps={{
+            shrink: true,
+          }}
+                  value={formik.values.experience}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.experience && Boolean(formik.errors.experience)}
+                  helperText={formik.touched.experience && formik.errors.experience}
+                />
                   </Grid>
 
                 <Grid item xs={5}>
@@ -349,19 +419,20 @@ function Setting() {
 
               </Grid> 
 
-              {/* <Grid container justifyContent="flex-end">
-                    <Button
-                      type="submit"
+              <Grid item xs={12} textAlign="right">
+                    <Button type="submit" onClick={changeExp}
                       variant="contained"
-                      sx={{ mt: 2, mb: 2 }}
-                      onClick={handletag}
-                      style={{ backgroundColor:  '#e6835a', color: '#FFFFFF', textTransform: 'unset', width: '120px' }}>
-                    {loadingT ? 
-                        <CircularProgress style={{color: "#fff"}}  size="1.55rem"/>
+                      style={{ backgroundColor:  '#e6835a', color: '#FFFFFF', textTransform: 'unset', width:'150px' }}>
+                    {loadingP ? 
+                        <CircularProgress style={{color: "#fff"}}  size="1.5rem"/>
                         : "Submit"}
                   </Button>
-
-              </Grid> */}
+                  <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
+                  <Alert onClose={handleClose} variant="filled" severity="error" sx={{ width: '100%' }}>
+                    {message}
+                  </Alert>
+                  </Snackbar>
+                </Grid>
  
             </TabPanel>
           </Grid>
