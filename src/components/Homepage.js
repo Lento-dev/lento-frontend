@@ -92,16 +92,45 @@ import tabiat from "../assets/img/tabiat.jpg";
 import book from "../assets/img/books.jpg";
 import tashvigh from "../assets/img/tashvigh.jpg";
 import hamipic from "../assets/img/hamipic.jpg";
+import MyTextField from "./ModifiedTextField";
+import MyAutocomplete from "./ModifiedAutocom";
 
 const filterOptions = createFilterOptions({
   matchFrom: "start",
   stringify: (option: FilmOptionType) => option.label,
 });
 
-export default function Homepage() {
+export default function Homepage(props) {
   let history = useHistory();
+
+  const [countries, setCountries] = useState([]);
+  const [country, setCountry] = useState(null);
+
   const [myOptions, setMyOptions] = useState([]);
 
+  const changeCountry = (v) => {
+    setCountry(v);
+    console.log("country changed to", v);
+  };
+
+  useEffect(async () => {
+    await axios
+      .get(
+        "https://raw.githubusercontent.com/russ666/all-countries-and-cities-json/master/countries.json"
+      )
+      .then((res) => {
+        console.log("homepage", Object.keys(res.data));
+        setCountries(Object.keys(res.data));
+        // setCC(res.data);
+      });
+
+    await props
+      .getalljobs()
+      .then((res) => {
+        // setJobs(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   const getDataFromAPI = () => {
     console.log("Options Fetched from API");
 
@@ -167,9 +196,9 @@ export default function Homepage() {
             <br />
             <br />
 
-            <Autocomplete
+            {/* <MyAutocomplete
               id="filter-demo"
-              options={Provinces}
+              options={countries}
               getOptionLabel={(option) => option.label}
               filterOptions={filterOptions}
               sx={{ width: 600 }}
@@ -185,8 +214,49 @@ export default function Homepage() {
                     })
                   : console.log("not entered");
               }}
+            /> */}
+            <MyAutocomplete
+              style={{ display: "fix-inside" }}
+              onChange={(e, v) => {
+                // setCitiesWithCountry(v);
+                changeCountry(v);
+                console.log("change in country");
+                console.log("country : ", v);
+              }}
+              id="country-select-demo"
+              sx={{ width: "100%" }}
+              options={countries}
+              autoHighlight
+              value={country}
+              getOptionLabel={(option) => option}
+              renderOption={(props, option) => (
+                <Box
+                  component="li"
+                  sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                  {...props}
+                >
+                  {option}
+                </Box>
+              )}
+              renderInput={(params) => (
+                <MyTextField
+                  {...params}
+                  label="Choose a country"
+                  inputProps={{
+                    ...params.inputProps,
+                    autoComplete: "new-password", // disable autocomplete and autofill
+                  }}
+                />
+              )}
+              onKeyDown={(e) => {
+                e.key === "Enter"
+                  ? history.push({
+                      pathname: "/ppage",
+                      state: { data: e.target.value },
+                    })
+                  : console.log("not entered");
+              }}
             />
-
 
             <Grid item xs={12} textAlign="left" sx={{ marginTop: "12vh" }}>
               <Typography color="black" fontSize="1.3rem">
@@ -253,10 +323,10 @@ export default function Homepage() {
                   style={{
                     width: "100vh",
                     height: "100vh",
-                    marginLeft: '7vh',
+                    // marginLeft: "7vh",
                     // justifyContent: "center",
                     position: "sticky",
-                    zIndex:"-1",
+                    zIndex: "-1",
                   }}
                 />
               </Grid>
@@ -308,26 +378,18 @@ export default function Homepage() {
                   />
                   <h4></h4>
                 </Grid>
-                <Grid item xs={12} textAlign="left" sx={{ marginTop: "4vh" }}>
-                  <Typography color="black" fontSize="1.3rem">
+                <Grid item xs={12} textAlign="left">
+                  <Typography color="black" fontSize="1rem">
                     You can communicate with others.
                   </Typography>
                 </Grid>
                 <Grid item xs={12} textAlign="left">
-                  <Typography color="black" fontSize="1.3rem">
+                  <Typography color="black" fontSize="1rem">
                     You can share your experiences with our charity.
                   </Typography>
                 </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography color="black" fontSize="1.3rem">
-                    You can be helpful for the hurted animal.
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography color="black" fontSize="1.3rem">
-                    You can help people with what you don't need.
-                  </Typography>
-                </Grid>
+                <br></br>
+                <br></br>
               </Grid>
             </Card>
           </Grid>
@@ -362,7 +424,7 @@ export default function Homepage() {
                   />
                   <h4></h4>
                 </Grid>
-                <Grid item xs={12} textAlign="left" sx={{ marginTop: "4vh" }}>
+                {/* <Grid item xs={12} textAlign="left" sx={{ marginTop: "4vh" }}>
                   <Typography color="black" fontSize="1.3rem">
                     You can communicate with others.
                   </Typography>
@@ -371,17 +433,19 @@ export default function Homepage() {
                   <Typography color="black" fontSize="1.3rem">
                     You can share your experiences with our charity.
                   </Typography>
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12} textAlign="left">
-                  <Typography color="black" fontSize="1.3rem">
+                  <Typography color="black" fontSize="1rem">
                     You can be helpful for the hurted animal.
                   </Typography>
                 </Grid>
                 <Grid item xs={12} textAlign="left">
-                  <Typography color="black" fontSize="1.3rem">
+                  <Typography color="black" fontSize="1rem">
                     You can help people with what you don't need.
                   </Typography>
                 </Grid>
+                <br></br>
+                <br></br>
               </Grid>
             </Card>
           </Grid>
@@ -416,7 +480,7 @@ export default function Homepage() {
                   />
                   <h4></h4>
                 </Grid>
-                <Grid item xs={12} textAlign="left" sx={{ marginTop: "4vh" }}>
+                {/* <Grid item xs={12} textAlign="left" sx={{ marginTop: "4vh" }}>
                   <Typography color="black" fontSize="1.3rem">
                     You can communicate with others.
                   </Typography>
@@ -425,14 +489,14 @@ export default function Homepage() {
                   <Typography color="black" fontSize="1.3rem">
                     You can share your experiences with our charity.
                   </Typography>
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12} textAlign="left">
-                  <Typography color="black" fontSize="1.3rem">
+                  <Typography color="black" fontSize="1rem">
                     You can be helpful for the hurted animal.
                   </Typography>
                 </Grid>
                 <Grid item xs={12} textAlign="left">
-                  <Typography color="black" fontSize="1.3rem">
+                  <Typography color="black" fontSize="1rem">
                     You can help people with what you don't need.
                   </Typography>
                 </Grid>
@@ -525,7 +589,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold", paddingTop: "3rem" }}
                             >
                               In fact, good deeds and benevolence is a good
@@ -537,7 +601,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold" }}
                             >
                               A person who has not done a good deed and has not
@@ -548,7 +612,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold" }}
                             >
                               People who are mentally healthy are not only
@@ -556,7 +620,7 @@ export default function Homepage() {
                               to others. In fact, this love goes back to the
                               individual.
                             </Typography>
-                            <Typography
+                            {/* <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1.3rem"
@@ -567,8 +631,8 @@ export default function Homepage() {
                               of power, which this time positive and energy is
                               able to have good effects on the soul and psyche
                               of the volunteer and increase trust.
-                            </Typography>
-                            <Typography
+                            </Typography> */}
+                            {/* <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1.3rem"
@@ -592,7 +656,7 @@ export default function Homepage() {
                               reason, the soul and psyche are strengthened and
                               it is easier to try to solve the problem and
                               succeed.
-                            </Typography>
+                            </Typography> */}
                           </Grid>
                           <Grid
                             item
@@ -636,7 +700,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{
                                 fontWeight: "bold",
                                 paddingTop: "1.5rem",
@@ -647,7 +711,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold", paddingTop: "3rem" }}
                             >
                               In fact, good deeds and benevolence is a good
@@ -659,7 +723,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold" }}
                             >
                               A person who has not done a good deed and has not
@@ -670,7 +734,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold" }}
                             >
                               People who are mentally healthy are not only
@@ -678,7 +742,7 @@ export default function Homepage() {
                               to others. In fact, this love goes back to the
                               individual.
                             </Typography>
-                            <Typography
+                            {/* <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1.3rem"
@@ -689,8 +753,8 @@ export default function Homepage() {
                               of power, which this time positive and energy is
                               able to have good effects on the soul and psyche
                               of the volunteer and increase trust.
-                            </Typography>
-                            <Typography
+                            </Typography> */}
+                            {/* <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1.3rem"
@@ -714,7 +778,7 @@ export default function Homepage() {
                               reason, the soul and psyche are strengthened and
                               it is easier to try to solve the problem and
                               succeed.
-                            </Typography>
+                            </Typography> */}
                           </Grid>
                           <Grid
                             item
@@ -769,7 +833,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold", paddingTop: "3rem" }}
                             >
                               In fact, good deeds and benevolence is a good
@@ -781,7 +845,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold" }}
                             >
                               A person who has not done a good deed and has not
@@ -792,7 +856,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold" }}
                             >
                               People who are mentally healthy are not only
@@ -800,7 +864,7 @@ export default function Homepage() {
                               to others. In fact, this love goes back to the
                               individual.
                             </Typography>
-                            <Typography
+                            {/* <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1.3rem"
@@ -811,8 +875,8 @@ export default function Homepage() {
                               of power, which this time positive and energy is
                               able to have good effects on the soul and psyche
                               of the volunteer and increase trust.
-                            </Typography>
-                            <Typography
+                            </Typography> */}
+                            {/* <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1.3rem"
@@ -836,7 +900,7 @@ export default function Homepage() {
                               reason, the soul and psyche are strengthened and
                               it is easier to try to solve the problem and
                               succeed.
-                            </Typography>
+                            </Typography> */}
                           </Grid>
                           <Grid
                             item
@@ -891,7 +955,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold", paddingTop: "3rem" }}
                             >
                               In fact, good deeds and benevolence is a good
@@ -903,7 +967,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold" }}
                             >
                               A person who has not done a good deed and has not
@@ -914,7 +978,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold" }}
                             >
                               People who are mentally healthy are not only
@@ -922,7 +986,7 @@ export default function Homepage() {
                               to others. In fact, this love goes back to the
                               individual.
                             </Typography>
-                            <Typography
+                            {/* <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1.3rem"
@@ -933,8 +997,8 @@ export default function Homepage() {
                               of power, which this time positive and energy is
                               able to have good effects on the soul and psyche
                               of the volunteer and increase trust.
-                            </Typography>
-                            <Typography
+                            </Typography> */}
+                            {/* <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1.3rem"
@@ -958,7 +1022,7 @@ export default function Homepage() {
                               reason, the soul and psyche are strengthened and
                               it is easier to try to solve the problem and
                               succeed.
-                            </Typography>
+                            </Typography> */}
                           </Grid>
                           <Grid
                             item
@@ -1012,7 +1076,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold", paddingTop: "3rem" }}
                             >
                               In fact, good deeds and benevolence is a good
@@ -1024,7 +1088,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold" }}
                             >
                               A person who has not done a good deed and has not
@@ -1035,7 +1099,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold" }}
                             >
                               People who are mentally healthy are not only
@@ -1043,7 +1107,7 @@ export default function Homepage() {
                               to others. In fact, this love goes back to the
                               individual.
                             </Typography>
-                            <Typography
+                            {/* <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1.3rem"
@@ -1054,8 +1118,8 @@ export default function Homepage() {
                               of power, which this time positive and energy is
                               able to have good effects on the soul and psyche
                               of the volunteer and increase trust.
-                            </Typography>
-                            <Typography
+                            </Typography> */}
+                            {/* <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1.3rem"
@@ -1079,7 +1143,7 @@ export default function Homepage() {
                               reason, the soul and psyche are strengthened and
                               it is easier to try to solve the problem and
                               succeed.
-                            </Typography>
+                            </Typography> */}
                           </Grid>
                           <Grid
                             item
@@ -1134,7 +1198,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold", paddingTop: "3rem" }}
                             >
                               In fact, good deeds and benevolence is a good
@@ -1146,7 +1210,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold" }}
                             >
                               A person who has not done a good deed and has not
@@ -1157,7 +1221,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold" }}
                             >
                               People who are mentally healthy are not only
@@ -1165,7 +1229,7 @@ export default function Homepage() {
                               to others. In fact, this love goes back to the
                               individual.
                             </Typography>
-                            <Typography
+                            {/* <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1.3rem"
@@ -1176,8 +1240,8 @@ export default function Homepage() {
                               of power, which this time positive and energy is
                               able to have good effects on the soul and psyche
                               of the volunteer and increase trust.
-                            </Typography>
-                            <Typography
+                            </Typography> */}
+                            {/* <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1.3rem"
@@ -1201,7 +1265,7 @@ export default function Homepage() {
                               reason, the soul and psyche are strengthened and
                               it is easier to try to solve the problem and
                               succeed.
-                            </Typography>
+                            </Typography> */}
                           </Grid>
                           <Grid
                             item
@@ -1256,7 +1320,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold", paddingTop: "3rem" }}
                             >
                               In fact, good deeds and benevolence is a good
@@ -1268,7 +1332,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold" }}
                             >
                               A person who has not done a good deed and has not
@@ -1279,7 +1343,7 @@ export default function Homepage() {
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1.3rem"
+                              fontSize="1rem"
                               style={{ fontWeight: "bold" }}
                             >
                               People who are mentally healthy are not only
@@ -1287,7 +1351,7 @@ export default function Homepage() {
                               to others. In fact, this love goes back to the
                               individual.
                             </Typography>
-                            <Typography
+                            {/* <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1.3rem"
@@ -1298,8 +1362,8 @@ export default function Homepage() {
                               of power, which this time positive and energy is
                               able to have good effects on the soul and psyche
                               of the volunteer and increase trust.
-                            </Typography>
-                            <Typography
+                            </Typography> */}
+                            {/* <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1.3rem"
@@ -1323,7 +1387,7 @@ export default function Homepage() {
                               reason, the soul and psyche are strengthened and
                               it is easier to try to solve the problem and
                               succeed.
-                            </Typography>
+                            </Typography> */}
                           </Grid>
                           <Grid
                             item
@@ -1343,14 +1407,14 @@ export default function Homepage() {
           <Grid container spacing={1}>
             <Grid item xs={12} lg={12} md={12}>
               <Card
-                elevation={3}
-                sx={{ borderRadius: 0, display: "flex" }}
+                // elevation={3}
+                // sx={{ borderRadius: 0, display: "flex" }}
                 style={{
-                  marginTop: "7rem",
+                  marginTop: "3rem",
                   // marginBottom: "1rem",
                   // marginLeft: "4rem",
                   // marginRight: "3rem",
-                  padding: "2rem",
+                  padding: "1rem",
                 }}
               >
                 <Grid
@@ -1362,11 +1426,11 @@ export default function Homepage() {
                 >
                   <Grid item xs={12}>
                     <Grid item xs={12}>
-                      <Typography color="black" fontSize="1.3rem">
+                      <Typography color="black" fontSize="1rem">
                         follow us
                       </Typography>
                     </Grid>
-                    <br />
+                    {/* <br /> */}
                     <SocialMediaIconsReact
                       borderColor="rgba(46,107,15,0.25)"
                       borderWidth="5"
@@ -1374,10 +1438,10 @@ export default function Homepage() {
                       icon="twitter"
                       iconColor="rgba(251,253,249,1)"
                       backgroundColor="rgba(139,155,116,1)"
-                      iconSize="6"
+                      iconSize="2"
                       roundness="50%"
                       url="https://some-website.com/my-social-media-url"
-                      size="50"
+                      size="30"
                     />
                     &nbsp;&nbsp;
                     <SocialMediaIconsReact
@@ -1387,10 +1451,10 @@ export default function Homepage() {
                       icon="instagram"
                       iconColor="rgba(251,253,249,1)"
                       backgroundColor="rgba(139,155,116,1)"
-                      iconSize="6"
+                      iconSize="2"
                       roundness="50%"
                       url="https://some-website.com/my-social-media-url"
-                      size="50"
+                      size="30"
                     />
                     &nbsp;&nbsp;
                     <SocialMediaIconsReact
@@ -1400,10 +1464,10 @@ export default function Homepage() {
                       icon="linkedin"
                       iconColor="rgba(251,253,249,1)"
                       backgroundColor="rgba(139,155,116,1)"
-                      iconSize="6"
+                      iconSize="2"
                       roundness="50%"
                       url="https://some-website.com/my-social-media-url"
-                      size="50"
+                      size="30"
                     />
                     &nbsp;&nbsp;
                     <SocialMediaIconsReact
@@ -1413,13 +1477,13 @@ export default function Homepage() {
                       icon="github"
                       iconColor="rgba(251,253,249,1)"
                       backgroundColor="rgba(139,155,116,1)"
-                      iconSize="6"
+                      iconSize="2"
                       roundness="50%"
                       url="https://some-website.com/my-social-media-url"
-                      size="50"
+                      size="30"
                     />
                     <br />
-                    <br />
+                    {/* <br /> */}
                     <Grid container>
                       <Grid
                         container
@@ -1429,23 +1493,23 @@ export default function Homepage() {
                         justifyContent="center"
                       >
                         {/* <Grid item xs={12}> */}
-                        <Typography color="blue" fontSize="1.3rem">
+                        <Typography color="blue" fontSize="1rem">
                           info
                         </Typography>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Typography color="blue" fontSize="1.3rem">
+                        <Typography color="blue" fontSize="1rem">
                           support
                         </Typography>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Typography color="blue" fontSize="1.3rem">
+                        <Typography color="blue" fontSize="1rem">
                           marketing
                         </Typography>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Typography color="blue" fontSize="1.3rem">
+                        <Typography color="blue" fontSize="1rem">
                           privacy policy
                         </Typography>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Typography color="blue" fontSize="1.3rem">
+                        <Typography color="blue" fontSize="1rem">
                           term of use
                         </Typography>
                         {/* </Grid> */}

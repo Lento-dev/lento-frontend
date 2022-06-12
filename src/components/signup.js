@@ -26,6 +26,7 @@ import Alert from "@mui/material/Alert";
 import { clearMessage } from "../actions/message";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
+import MyTextField from './ModifiedTextField';
 
 import GoogleLogin from "react-google-login";
 import { FcGoogle } from "react-icons/fc";
@@ -217,7 +218,7 @@ function SignUp() {
             justifyContent: "center",
           }}
           style={{
-            marginTop: "1vh",
+            marginTop: "3vh",
             marginRight: "auto",
             marginLeft: "auto",
           }}
@@ -266,7 +267,7 @@ function SignUp() {
                     </Grid>
 
                     <Grid item xs={12} md={6}>
-                      <TextField
+                      <MyTextField
                         label="First Name"
                         name="firstname"
                         id="firstname"
@@ -280,7 +281,7 @@ function SignUp() {
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                      <TextField
+                      <MyTextField
                         label="Last Name"
                         name="lastname"
                         id="lastname"
@@ -294,7 +295,7 @@ function SignUp() {
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <TextField
+                      <MyTextField
                         label="Email"
                         name="email"
                         id="email"
@@ -309,7 +310,7 @@ function SignUp() {
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <TextField
+                      <MyTextField
                         label="User Name"
                         name="username"
                         id="username"
@@ -323,7 +324,7 @@ function SignUp() {
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <TextField
+                      <MyTextField
                         label="Password"
                         name="password"
                         id="password"
@@ -338,7 +339,7 @@ function SignUp() {
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <TextField
+                      <MyTextField
                         label="Confirm Password"
                         name="confirmpassword"
                         id="confirmpassword"
