@@ -155,7 +155,7 @@ function UserInfo(props) {
         gender: formik.values.gender,
         job: formik.values.job,
         experience: formik.values.experience,
-        image: imageUrl} , {headers})
+        image:selectedImage} , {headers})
         
         .then (res => {
           setLoading(false);
@@ -164,11 +164,13 @@ function UserInfo(props) {
           console.log(res);
         })
         .catch(err => {
+          console.log(imageUrl)
           setLoading(false);
           setMessage('try again');
           setOpenm(true);
         });
     }
+
 
   }  
 
@@ -178,7 +180,7 @@ function UserInfo(props) {
       <Container component="main" maxWidth="md">
         <CssBaseline />
 
-        <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ justifyContent: "center", padding: "3rem"}}>
+        <Paper elevation={3} sx={{ borderRadius: 4, display: 'flex' }} style={{ justifyContent: "center", padding: "3rem", marginTop: '1.2rem', marginBottom: '3rem'}}>
           <Grid container>
             <Grid container spacing={3}>
         

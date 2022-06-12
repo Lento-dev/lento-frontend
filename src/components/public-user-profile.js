@@ -13,7 +13,6 @@ import {
   } from "@mui/material";
   
   // import "../styles/verificate.css";
-  import Image from "./profile.jpg";
   import Paper from "@material-ui/core/Paper";
   import React, { useState, useEffect } from "react";
   import { useHistory, useParams } from "react-router-dom";
@@ -35,28 +34,49 @@ import {
   import ClearIcon from '@mui/icons-material/Clear';
   import CircularProgress from "@mui/material/CircularProgress";
   import PostCard from './myselfPostCard'
+  import Image from "../assets/illustrations/forbiddenProfile.svg";
 
   
   const PublicUserProfile = () => {
     const { id } = useParams();
-    const history = useHistory();
     const [data, setData] = useState(null);
     const BASE_URL = "http://172.17.3.154/api";
-
+    const token = localStorage.getItem("token");
+    const headers = { Authorization: `Token ${token}` };
+    const [status, setStatus] = useState(null);
     useEffect(() => {
-      axios
-        .get(BASE_URL + "/account/public-profile/" + id)
-        .then((res) => {
-          console.log(res.data);
-          setData(res.data);
-        })
-        .catch(err => {
-          console.log(err);
-        })
-    }, []);
+        if(token){
+            axios
+            .get(BASE_URL + "/account/public-profile/" + id, {headers})
+            .then((res) => {
+              console.log(res.data);
+              setData(res.data);
+            })
+            .catch(err => {
+                if(err.response.status === 403){
+                    setStatus(403);
+                }
+              console.log(err);
+            })
+        }
+        }
+, []);
   
   
-    return data ? (
+    return (status === 403 ? (
+        <div className="container">
+        <Helmet bodyAttributes={{ style: "background-color : #f0f5eb" }}></Helmet>
+        <Container component="main">
+        <Grid item xs={12}>
+            <img src={Image} width="300" height="300" className="profile-not-found" style={{marginTop:"10vh", marginBottom:"10vh",marginLeft:"30%",marginRight:"30%"}}/>
+            <Typography component="h1" variant="h5" align="center" style={{fontSize:"2vw"}}>
+                Oops...You can not access to this user's profile.
+            </Typography>
+        </Grid>
+    </Container>
+  </div>
+    ) 
+    :( data ? (
       <div>
         <Helmet bodyAttributes={{ style: "background-color : #f0f5eb" }}></Helmet>
         <Container component="main">
@@ -195,6 +215,8 @@ import {
           <CircularProgress size="3rem" style={{ color: "#8b9b74" }} />
         </Box>
       </div>
+    )
+    )
     );
   };
   

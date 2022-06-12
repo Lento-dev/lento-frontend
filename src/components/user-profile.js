@@ -85,7 +85,9 @@ const UserProfile = () => {
                     src={Image}
                   >
 
-                  </Avatar></Grid>
+                  </Avatar>
+                  
+                  </Grid>
 
 
                 <Card
@@ -159,6 +161,12 @@ const UserProfile = () => {
                           &nbsp;&nbsp;joined to Lento
                         </Typography>
                       </Grid>
+                      <Grid item xs={12} justifyContent= "center" >
+                  <Button fullWidth href="/edit-profile"           
+            sx={{ backgroundColor: "#8b9b74", color: "white", textTransform: 'unset', "&:hover": {backgroundColor: '#c0d4b3', color: 'black'}}}>
+                Edit profile
+              </Button>
+                </Grid>
                     </Grid>
                   </CardContent>
                 </Card>

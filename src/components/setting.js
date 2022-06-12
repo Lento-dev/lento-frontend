@@ -157,7 +157,7 @@ function Setting() {
       <Helmet bodyAttributes={{ style: 'background-color : #e5ecdf' }}></Helmet>
       <Container component="main" maxWidth="md">
         <CssBaseline />
-        <Paper elevation={3} sx={{borderRadius: 4, display: 'flex', marginTop: '3rem' }}>
+        <Paper elevation={3} sx={{borderRadius: 4, display: 'flex', marginTop: '1.2rem' }}>
             {/* <Tabs  textColor="secondary" 
               indicatorColor="secondary"
               onChange={handleChange} aria-label="secondary tabs example" value={value}>
