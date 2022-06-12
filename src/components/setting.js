@@ -26,15 +26,15 @@ import { alpha, styled } from '@mui/material/styles';
 import { orange } from '@mui/material/colors';
   
 
-const GreenSwitch = styled(Switch)(({ theme }) => ({
+const OrangeSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase.Mui-checked': {
-    color: orange[600],
+    color: '#e6835a',
     '&:hover': {
-      backgroundColor: alpha(orange[600], theme.palette.action.hoverOpacity),
+      backgroundColor: alpha('#e6835a', theme.palette.action.hoverOpacity),
     },
   },
   '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-    backgroundColor: orange[600],
+    backgroundColor: '#e6835a',
   },
 }));
 
@@ -68,14 +68,15 @@ function TabPanel(props) {
   }
 
 function Setting() {
-  const [loadingE, setLoadingE] = React.useState(false);
-  const [loadingP, setLoadingP] = React.useState(false);
-  const [message, setMessage] = React.useState('');
+  const [loadingE, setLoadingE] = useState(false);
+  const [loadingP, setLoadingP] = useState(false);
+  const [loadingChecked, setLoadingChecked] = useState(false);
+  const [message, setMessage] = useState('');
   const [openm, setOpenm] = useState(false);
   const token = localStorage.getItem('token');
   const headers = {"Authorization": `Token ${token}`};
-  const [checked1, setChecked1] = React.useState(false);
-  const [checked2, setChecked2] = React.useState(false);
+  const [phoneChecked, setPhoneChecked] = useState(false);
+  const [profileChecked, setProfileChecked] = useState(false);
   const [value, setValue] = useState(0);
   const BASE_URL ='http://172.17.3.154/api';
 
@@ -84,7 +85,6 @@ function Setting() {
     if (reason === 'clickaway') {
       return;
     }
-    setMessage('');
     setOpenm(false);
   };
 
@@ -103,12 +103,12 @@ function Setting() {
   });
 
 
-  const handleCheck1 = (event) => {
-    setChecked1(event.target.checked1);
+  const handlePhoneChecked = (event) => {
+    setPhoneChecked(!phoneChecked);
   };
 
-  const handleCheck2 = (event) => {
-    setChecked2(event.target.checked2);
+  const handleProfileChecked = (event) => {
+    setProfileChecked(!profileChecked);
   };
 
   const handleChange = (event, newValue) => {
@@ -147,7 +147,7 @@ function Setting() {
       })    
     }
     else{
-      setMessage('Please fill the fileds above.');
+      setMessage("Please fill the fileds above.");
       setOpenm(true);
     }
     console.log('message ', message);
@@ -159,8 +159,7 @@ function Setting() {
           .then(res => {
               console.log(res.data);
               formik.setValues({
-                email: res.data.email || '',
-                experience: res.data.experience|| '',
+                email: res.data.email || ''
               });
           })
           }, [])
@@ -184,35 +183,39 @@ function Setting() {
       })
       .catch(err => {
         setLoadingE(false);
-        setMessage('Please enter new email.');
+        setMessage(err.response.message);
         setOpenm(true);
       });
   }
 }
 
-const changeExp = () => {
-  let filled = 
-  !Boolean(formik.errors.email) && formik.values.email !== '';
-  if (filled){
-    setLoadingE(true);
-  axios.put(BASE_URL + '/account/edit-profile/', 
-  { 
-    experience: formik.values.experience} , {headers})
-
-    .then (res => {
-      setLoadingE(false);
-      setMessage('Your informations was updated successfully!');
+  const setPermissions = () => {
+    setLoadingChecked(true);
+    axios
+    .post(BASE_URL + "/account/access-profile/", profileChecked ,{ headers: headers })
+    .then((res) => {
+      console.log(res.data);
+      setMessage('Permissions updated successfully.');
       setOpenm(true);
-      console.log(res);
     })
     .catch(err => {
-      setLoadingE(false);
-      setMessage('try again');
+      console.log(err);
+    })
+
+    axios
+    .post(BASE_URL + "/account/access-phone/", phoneChecked ,{ headers: headers })
+    .then((res) => {
+      setMessage('Permissions updated successfully.');
       setOpenm(true);
-    });
-}
-}
-  
+      console.log(res.data);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    setLoadingChecked(false);
+
+  }
+
   return (
       <div>
       <Helmet bodyAttributes={{ style: 'background-color : #e5ecdf' }}></Helmet>
@@ -239,12 +242,12 @@ const changeExp = () => {
                 
                 >
               <Tab value={0} style={{marginLeft: "1rem", textTransform: 'unset'}} label="General" />
-              <Tab value={1} style={{textTransform: 'unset'}} label="Permission" />
+              <Tab value={1} style={{textTransform: 'unset'}} label="Permissions" />
                 </Tabs>
         </Paper>
-        <Paper elevation={3} sx={{ borderRadius: 6, display: 'flex' }} style={{ justifyContent: "center", marginTop: "1rem", marginBottom: "1rem", paddingLeft:'3rem' , paddingRight:'3rem', paddingBottom:'1rem'}}>
+        <Paper elevation={3} sx={{ borderRadius: 6}} style={{ marginTop: "1rem", marginBottom: "1rem", paddingLeft:'1rem' , paddingRight:'1rem', paddingBottom:'2rem', paddingTop: '1rem'}}>
           
-          <Grid container justifyContent="flex">
+          <Grid container>
             <TabPanel value={value} index={0}>
                 <Grid container spacing={2}>
 
@@ -274,11 +277,9 @@ const changeExp = () => {
 
                   <Grid item xs={12} textAlign="right">
                     <Button type="submit" onClick={changeEmail}
-                      variant="contained"
+                      variant="contained" disabled={loadingE}
                       style={{ backgroundColor:  '#e6835a', color: '#FFFFFF', textTransform: 'unset', width:'150px' }}>
-                    {loadingP ? 
-                        <CircularProgress style={{color: "#fff"}}  size="1.5rem"/>
-                        : "Change email"}
+                    Change email
                   </Button>
                   <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
                   <Alert onClose={handleClose} variant="filled" severity="error" sx={{ width: '100%' }}>
@@ -346,17 +347,10 @@ const changeExp = () => {
 
                   <Grid item xs={12} textAlign="right">
                     <Button type="submit" onClick={changePassword}
-                      variant="contained"
+                      variant="contained" disabled={loadingP}
                       style={{ backgroundColor:  '#e6835a', color: '#FFFFFF', textTransform: 'unset', width:'150px' }}>
-                    {loadingP ? 
-                        <CircularProgress style={{color: "#fff"}}  size="1.5rem"/>
-                        : "Change password"}
+                  Change password
                   </Button>
-                  <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
-                  <Alert onClose={handleClose} variant="filled" severity="error" sx={{ width: '100%' }}>
-                    {message}
-                  </Alert>
-                  </Snackbar>
 
                   </Grid>
                </Grid>
@@ -364,37 +358,14 @@ const changeExp = () => {
 
 
             <TabPanel value={value} index={1}>
-              <Grid container spacing={3} style={{marginTop: "-5px", marginBottom:"1rem"}}>
-              <Typography style={{ paddingTop: "0px", paddingLeft:'1.5rem' , paddingRight:'0.7rem', paddingBottom:'0.2rem' }}>
-                    Experiences acquired from this site
-                </Typography>
+              <Grid container spacing={3} >
 
-                <Grid item xs={12}>
-                    <MyTextField
-                      fullWidth
-                      placeholder="experience"
-                      multiline
-                      autoComplete="experience"
-                      name="experience"
-                      id="experience"
-                      label="About your experiences"
-                      InputLabelProps={{
-            shrink: true,
-          }}
-                  value={formik.values.experience}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.experience && Boolean(formik.errors.experience)}
-                  helperText={formik.touched.experience && formik.errors.experience}
-                />
-                  </Grid>
-
-                <Grid item xs={5}>
+                <Grid item xs={12} sx={{justifyContent: 'left', textAlign: 'left'}}>
                 <FormControlLabel
                   control={
-                    <GreenSwitch  
-                    checked1={checked1}
-                  onChange={handleCheck1}
+                    <OrangeSwitch  
+                    checked={phoneChecked}
+                  onChange={handlePhoneChecked}
                   inputProps={{ 'aria-label': 'controlled' }}
                 />
                   }
@@ -404,12 +375,12 @@ const changeExp = () => {
 
               <Divider style={{  color: '#fffff' ,width: '59%',marginLeft: "2.5rem", marginTop: "1rem",marginBottom:"0rem",alignItems: "center" }}/>
 
-              <Grid item xs={6}>
+              <Grid item xs={12} sx={{justifyContent: 'left', textAlign: 'left'}}>
                 <FormControlLabel
                   control={
-                    <GreenSwitch  
-                    checked2={checked2}
-                  onChange={handleCheck2}
+                    <OrangeSwitch  
+                    checked={profileChecked}
+                  onChange={handleProfileChecked}
                   inputProps={{ 'aria-label': 'controlled' }}
                 />
                   }
@@ -419,22 +390,23 @@ const changeExp = () => {
 
               </Grid> 
 
-              <Grid item xs={12} textAlign="right">
-                    <Button type="submit" onClick={changeExp}
+              <Grid item xs={12} textAlign="right" sx={{marginRight: '-10%'}}>
+          <Button type="submit" disabled={loadingChecked} onClick={setPermissions}
                       variant="contained"
                       style={{ backgroundColor:  '#e6835a', color: '#FFFFFF', textTransform: 'unset', width:'150px' }}>
-                    {loadingP ? 
-                        <CircularProgress style={{color: "#fff"}}  size="1.5rem"/>
-                        : "Submit"}
+                  Submit
                   </Button>
-                  <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
-                  <Alert onClose={handleClose} variant="filled" severity="error" sx={{ width: '100%' }}>
-                    {message}
-                  </Alert>
-                  </Snackbar>
+
                 </Grid>
  
             </TabPanel>
+            <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
+                  <Alert onClose={handleClose} variant="filled" 
+                  severity={message === "Please fill the fileds above." ? "error" : "success"}
+                   sx={{ width: '100%' }}>
+                    {message}
+                  </Alert>
+                  </Snackbar>
           </Grid>
         </Paper>
       </Container>

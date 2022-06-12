@@ -161,6 +161,7 @@ function UserInfo(props) {
           setLoading(false);
           setMessage('Your informations was updated successfully!');
           setOpenm(true);
+          history.push('/my-profile')
           console.log(res);
         })
         .catch(err => {
@@ -168,6 +169,8 @@ function UserInfo(props) {
           setLoading(false);
           setMessage('try again');
           setOpenm(true);
+          history.push('/my-profile')
+
         });
     }
 
