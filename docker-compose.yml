@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  lento-frontend:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/code/src
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true

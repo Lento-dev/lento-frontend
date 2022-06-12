@@ -1,0 +1,39 @@
+img {
+    position: unset;
+    margin-top: 4px;
+    /* margin-left: -8px; */
+    height: 62px;
+    width: 100px;
+   }
+
+.communicate:hover{
+     color: rgb(177, 12, 89);
+}
+
+.profile-not-found{
+    height: 30% !important;
+    width: 30% !important;
+    padding: 1rem;
+}
+
+.banner-image{
+    border-radius: 20px;
+    width: 100%;
+    height: auto;
+}
+   
+
+.card-profile-image{
+    background-color: #000066;
+    width: 100%;
+    height: auto;
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+}
+
+.contactinfo{
+    color: rgb(177, 12, 89);
+}
+.contactinfo:hover{
+    color:#000066;
+}
