@@ -23,6 +23,7 @@ import { height } from "@mui/system";
 
 export default function BasicCard(props) {
   console.log(props.location.state.data);
+
   return (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
@@ -129,18 +130,23 @@ export default function BasicCard(props) {
                     <CheckBoxIcon style={{ fontSize: "large" }} />
                     <span>&nbsp;Type : jackets/coats - Manly</span>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      flexWrap: "wrap",
-                      color: "#556749",
-                    }}
-                  >
-                    <br />
-                    <CheckBoxIcon style={{ fontSize: "large" }} />
-                    <span>&nbsp;Size : large</span>
-                  </div>
+                  {props.location.state.data.resourcetype ===
+                  "ClothAdvertisement" ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        flexWrap: "wrap",
+                        color: "#556749",
+                      }}
+                    >
+                      <br />
+                      <CheckBoxIcon style={{ fontSize: "large" }} />
+                      <span>&nbsp;Size : large</span>
+                    </div>
+                  ) : (
+                    <p></p>
+                  )}
                   <div
                     style={{
                       display: "flex",
@@ -173,9 +179,6 @@ export default function BasicCard(props) {
                     }}
                   >
                     Save
-                    {/* {loading ? 
-                        <CircularProgress style={{color: "#fff"}} size="1.6rem"/>
-                        : "Chat"}                  */}
                   </Button>
                 </Grid>
                 <Grid container item xs={12}>

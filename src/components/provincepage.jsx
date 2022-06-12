@@ -315,7 +315,7 @@ function Ppage(props) {
                     <Link
                       to={{
                         pathname: "/jj",
-                        state: { data: item.id },
+                        state: { data: item },
                       }}
                     >
                       <MediaControlCard data={item} key={i}></MediaControlCard>
