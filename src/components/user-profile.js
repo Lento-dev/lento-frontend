@@ -129,6 +129,19 @@ const UserProfile = () => {
                         </Typography>
                       </Grid>
 
+                      {data.phone && (
+                        <Grid item xs={12} justifyContent= "center"  sx={{ display: "inline-flex" }}>
+                        <LocalPhoneRoundedIcon
+                          sx={{ color: "#e6835a", marginRight: "1%" }}
+                        />
+
+                        <Typography
+                          sx={{ textAlign: "left", fontWeight: "bold" }}
+                        >
+                          {data.phone}
+                        </Typography>
+                        </Grid>
+                      )}
                       <Grid item xs={12} justifyContent= "center"  sx={{ display: "inline-flex" }}>
                         <CalendarTodayRoundedIcon
                           sx={{ color: "#e6835a", marginRight: "1%" }}

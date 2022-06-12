@@ -27,8 +27,8 @@ import Chat from './components/chat';
 import Homepage from "./components/Homepage";
 import Ppage from "./components/provincepage"
 import UserProfile from './components/user-profile'
-import { useState, useEffect } from "react";
 import Formstab from "./components/formstab"
+import PublicUserProfile from './components/public-user-profile'
 
 const theme = createTheme({
   typography: {
@@ -56,7 +56,8 @@ function App() {
               <Route exact path="/" component={Homepage} />
               <Route exact path="/signup" component={SignUp} />
               <Route exact path="/setting" component={Setting} /> 
-              <Route exact path="/user-profile" component={UserProfile} />
+              <Route exact path="/my-profile" component={UserProfile} />
+              <Route exact path="/user-profile/:id" component={PublicUserProfile} />
               <Route exact path="/signin" component={SignIn} />
               <Route exact path="/forgot-password" component={ForgotPassword} />
               <Route exact path="/verify-user" component={VerifyUser} />

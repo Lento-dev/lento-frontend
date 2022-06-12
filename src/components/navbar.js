@@ -89,7 +89,7 @@ function Navbar() {
 
   const handleProfileClick = () => {
     setOpen((prevOpen) => !prevOpen);
-    history.push("/user-profile");
+    history.push("/my-profile");
   };
   const handleSettingClick = () => {
     setOpen((prevOpen) => !prevOpen);
