@@ -36,11 +36,14 @@ import axios from "axios";
 import { FilePond, registerPlugin } from "react-filepond";
 // Import FilePond styles
 import ImageUploading from "react-images-uploading";
-
 import "filepond/dist/filepond.min.css";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+import MyTextField from "./ModifiedTextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import MyAutocomplete from "./ModifiedAutocom";
+
 const Input = styled("input")({
   display: "none",
 });
@@ -97,13 +100,13 @@ function Serviceadvertisement(props) {
 
   const [Countrry, setCountrry] = useState("");
 
-  const [city, setcity] = useState("");
+  // const [city, setcity] = useState("");
   const [formtitle, settitle] = useState("");
   const [neighborhoodaddrs, setaddress] = useState("");
   const [expiredate, setexpdate] = useState("");
   const [description, setdesc] = useState("");
 
-  const [cities, setcities] = useState([]);
+  // const [cities, setcities] = useState([]);
 
   const [file, setfile] = useState(null);
 
@@ -150,7 +153,7 @@ function Serviceadvertisement(props) {
     }
 
     switch (true) {
-      case !values.province:
+      case !country:
         tmpErrors["province"] = "Please select your province.";
         break;
       default:
@@ -158,7 +161,7 @@ function Serviceadvertisement(props) {
     }
 
     switch (true) {
-      case !values.city:
+      case !city:
         tmpErrors["city"] = "Please select your city.";
         break;
 
@@ -241,12 +244,54 @@ function Serviceadvertisement(props) {
     }
     setErrors(tmpErrors);
   };
+  const [cities, setCities] = useState(null);
+  const [cc, setCC] = useState([]);
+  const [countries, setCountries] = useState([]);
 
+  const [country, setCountry] = useState(null);
+  const [city, setCity] = useState("");
+
+  const setCitiesWithCountry = (countryName) => {
+    if (countryName != null) {
+      setCities(cc[countryName]);
+      console.log("****", cities);
+    } else {
+      setCities(null);
+      console.log("set cities empty");
+    }
+  };
+  const changeCity = (v) => {
+    setCity(v);
+    console.log("city changed to", v);
+  };
+  useEffect(async () => {
+    await axios
+      .get(
+        "https://raw.githubusercontent.com/russ666/all-countries-and-cities-json/master/countries.json"
+      )
+      .then((res) => {
+        console.log(Object.keys(res.data));
+        setCountries(Object.keys(res.data));
+        setCC(res.data);
+      });
+
+    await props
+      .getalljobs()
+      .then((res) => {
+        // setJobs(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const changeCountry = (v) => {
+    setCountry(v);
+    console.log("country changed to", v);
+  };
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
-    if (name === "province") {
-      setcities(mycities.filter((x) => x.procode == event.target.value));
-    }
+    // if (name === "province") {
+    //   setcities(mycities.filter((x) => x.procode == event.target.value));
+    // }
   };
   const onClickSubmit = () => {
     validate();
@@ -267,18 +312,19 @@ function Serviceadvertisement(props) {
       var fd = new FormData();
       fd.append("Title", values.formtitle);
       fd.append("Description", values.description);
-      fd.append("province", values.province);
-      fd.append("City", values.city);
+      fd.append("province", country);
+      fd.append("City", city);
       fd.append("Address", values.neighborhoodaddrs);
       fd.append("expiration_date", values.expiredate);
       fd.append("service_type", values.servicetype);
+      fd.append("resourcetype", "ServiceAdvertisement");
       // fd.append("Image",null);
       console.log(images[0], imageUrl);
       var config = {
         method: "post",
-        url: "http://127.0.0.1:8000/advertisement/addservice/",
+        url: "http://172.17.3.154/api/advertisement/addservice/",
         headers: {
-          Authorization: "Token " + "213b2e47bc472211c4fa19746271d0973f08a671",
+          Authorization: "Token " + token,
         },
         data: fd,
       };
@@ -335,7 +381,7 @@ function Serviceadvertisement(props) {
               >
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={12}>
-                    <TextField
+                    <MyTextField
                       autoFocus
                       required
                       fullWidth
@@ -353,7 +399,110 @@ function Serviceadvertisement(props) {
                   <br />
                   <br /> <br />
                   <br />
+                  <Grid item xs={12} sm={12}>
+                    <MyTextField
+                      fullWidth
+                      autoComplete="pseudonym"
+                      name="pseudonym"
+                      id="pseudonym"
+                      label="pseudonym"
+                      type="text"
+                      value={values.pseudonym}
+                      onChange={handleChange("pseudonym")}
+                      error={Boolean(errors["pseudonym"])}
+                      helperText={errors["pseudonym"]}
+                      multiline={true}
+                      rows={1}
+                    />
+                  </Grid>
+                  <br />
+                  <br />
+                  <br /> <br />
+                  <br />
                   <Grid item xs={12} sm={6}>
+                    <MyAutocomplete
+                      style={{ display: "fix-inside" }}
+                      onChange={(e, v) => {
+                        setCitiesWithCountry(v);
+                        changeCountry(v);
+                        console.log("change in country");
+                        console.log("country : ", v);
+                      }}
+                      id="country-select-demo"
+                      sx={{ width: "100%" }}
+                      options={countries}
+                      autoHighlight
+                      value={country}
+                      getOptionLabel={(option) => option}
+                      renderOption={(props, option) => (
+                        <Box
+                          component="li"
+                          sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                          {...props}
+                        >
+                          {option}
+                        </Box>
+                      )}
+                      renderInput={(params) => (
+                        <MyTextField
+                          {...params}
+                          label="Choose a country"
+                          inputProps={{
+                            ...params.inputProps,
+                            autoComplete: "new-password", // disable autocomplete and autofill
+                          }}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    {cities == null && (
+                      <Grid item xs={12} md={12} sx={{ paddingBottom: "5%" }}>
+                        <MyTextField
+                          sx={{ width: "100%" }}
+                          disabled
+                          id="outlined-disabled"
+                          label="Choose a city"
+                          defaultValue="First, please choose a country"
+                        />
+                      </Grid>
+                    )}
+                    {cities != null && (
+                      <Grid item xs={12} md={12} sx={{ paddingBottom: "5%" }}>
+                        <MyAutocomplete
+                          id="country-select-demo"
+                          sx={{ width: "100%" }}
+                          options={cities}
+                          value={city}
+                          autoHighlight
+                          onChange={(e, v) => {
+                            changeCity(v);
+                          }}
+                          getOptionLabel={(option) => option}
+                          renderOption={(props, option) => (
+                            <Box
+                              component="li"
+                              sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                              {...props}
+                            >
+                              {option}
+                            </Box>
+                          )}
+                          renderInput={(params) => (
+                            <MyTextField
+                              {...params}
+                              label="Choose a city"
+                              inputProps={{
+                                ...params.inputProps,
+                                autoComplete: "new-password", // disable autocomplete and autofill
+                              }}
+                            />
+                          )}
+                        />
+                      </Grid>
+                    )}
+                  </Grid>
+                  {/* <Grid item xs={12} sm={6}>
                     <Box sx={{ minWidth: 120 }}>
                       <FormControl fullWidth>
                         <InputLabel
@@ -403,13 +552,13 @@ function Serviceadvertisement(props) {
                         </Select>
                       </FormControl>
                     </Box>
-                  </Grid>
+                  </Grid> */}
                   <br />
                   <br />
                   <br /> <br />
                   <br />
                   <Grid item xs={12}>
-                    <TextField
+                    <MyTextField
                       fullWidth
                       autoComplete="address"
                       name="address"
@@ -427,8 +576,8 @@ function Serviceadvertisement(props) {
                   <br />
                   <br /> <br />
                   <br />
-                  <Grid item xs={12} sm={6}>
-                    <TextField
+                  <Grid item xs={12} sm={12}>
+                    <MyTextField
                       name="date_birth"
                       label="Expiration date"
                       type="date"
@@ -441,22 +590,10 @@ function Serviceadvertisement(props) {
                       helperText={errors["expiredate"]}
                     />
                   </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      fullWidth
-                      autoComplete="pseudonym"
-                      name="pseudonym"
-                      id="pseudonym"
-                      label="pseudonym"
-                      type="text"
-                      value={values.pseudonym}
-                      onChange={handleChange("pseudonym")}
-                      error={Boolean(errors["pseudonym"])}
-                      helperText={errors["pseudonym"]}
-                      multiline={true}
-                      rows={1}
-                    />
-                  </Grid>
+                  <br />
+                  <br />
+                  <br /> <br />
+                  <br />
                   <Grid item xs={12}>
                     <Box sx={{ minWidth: 120 }}>
                       <FormControl fullWidth>
@@ -490,8 +627,10 @@ function Serviceadvertisement(props) {
                   </Grid>
                   <br />
                   <br />
+                  <br /> <br />
+                  <br />
                   <Grid item xs={12}>
-                    <TextField
+                    <MyTextField
                       fullWidth
                       autoComplete="bio"
                       name="bio"

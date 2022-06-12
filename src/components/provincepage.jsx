@@ -26,6 +26,7 @@ import LocationCityIcon from "@mui/icons-material/LocationCity";
 import CategoryIcon from "@mui/icons-material/Category";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import EventNoteIcon from "@mui/icons-material/EventNote";
+import { Link } from "react-router-dom";
 
 const MenuItem = withStyles({
   root: {
@@ -115,14 +116,14 @@ function Ppage(props) {
     token.replaceAll('"', "");
     console.log(token);
     var myurl =
-      "http://172.17.3.154/api/advertisement/search?Province=" +
+      "http://172.17.3.154/api/advertisement/search?province=" +
       props.location.state.data;
     console.log(myurl);
     var config = {
       method: "get",
       url: myurl,
       headers: {
-        Authorization: "Token " + token
+        Authorization: "Token " + token,
       },
     };
 
@@ -142,8 +143,45 @@ function Ppage(props) {
       .catch(function (error) {
         console.log(error);
       });
-  });
+  }, []);
+  const handlesearch = (e) => {
+    console.log("handle search");
+    console.log("values => ", values.clothtype, values.formtitle);
 
+    var token = localStorage.getItem("token");
+    token.replaceAll('"', "");
+    console.log(token);
+    var myurl =
+      "http://172.17.3.154/api/advertisement/search" +
+      "?province=" +
+      props.location.state.data;
+    if (values.clothtype === "food") {
+      myurl += "&ad_type=foodadvertisement";
+    } else if (values.clothtype === "service") {
+      myurl += "&ad_type=seviceadvertisement";
+    } else if (values.clothtype === "cloth") {
+      myurl += "&ad_type=clothadvertisement";
+    }
+    console.log(myurl);
+    var config = {
+      method: "get",
+      url: myurl,
+      headers: {
+        Authorization: "Token " + token,
+      },
+    };
+
+    axios(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        setarray(Object.values(response.data));
+        console.log(Object.values(response.data));
+      })
+
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   function handleOnChange(value) {}
   // const c = prodata.map((item, i) => {
   //   // console.log(item, i);
@@ -204,17 +242,6 @@ function Ppage(props) {
                     <Grid container spacing={2}>
                       <Grid item xs={12} sm={5}>
                         <div>
-                          {/* <SearchBar>
-                    value={searchItem}
-                onChange={value => {
-                    setSearchItem(value);
-                }}
-                onRequestSearch={() => console.log("onRequestSearch")}
-                style={{
-                    margin: "0 auto",
-                    maxWidth: 800
-                }}
-              </SearchBar> */}
                           <Grid item xs={12} sm={12}>
                             <TextField
                               autoFocus
@@ -224,8 +251,6 @@ function Ppage(props) {
                               name="title"
                               id="title"
                               label="advertisement title"
-                              // value={formtitle}
-                              // onChange={e => {settitle(e.target.value)}}
                               value={values.formtitle}
                               onChange={handleChange("formtitle")}
                               error={Boolean(errors["formtitle"])}
@@ -269,6 +294,7 @@ function Ppage(props) {
                             borderRadius: "5px",
                           }}
                           variant="contained"
+                          onClick={handlesearch}
                         >
                           search
                         </Button>
@@ -282,38 +308,22 @@ function Ppage(props) {
             <br />
             <br />
 
-            <Grid item xs={12} d={12} lg={12}>
-              <Grid container>
-                {/* < Paper
-          sx={{
-            width:"100%",
-            backgroundColor: "#fff",
-            borderRadius: 4,
-            paddingTop:"20rem",
-            direction:"column",
-            justify:"center",
-            alignItems:"center",
-          }}
-          > */}
-                <Grid container spacing={6}>
-                  {prodata.map((item, i) => (
-                    <Grid item md={4}>
+            <Grid item xs={12}>
+              <Grid container spacing={6}>
+                {prodata.map((item, i) => (
+                  <Grid item md={4}>
+                    <Link
+                      to={{
+                        pathname: "/jj",
+                        state: { data: item },
+                      }}
+                    >
                       <MediaControlCard data={item} key={i}></MediaControlCard>
-                    </Grid>
-                  ))}
-                  {/* <Grid item md={4}>
-                    <MediaControlCard></MediaControlCard>
+                    </Link>
                   </Grid>
-                  <Grid item md={4}>
-                    <MediaControlCard></MediaControlCard>
-                  </Grid>
-                  <Grid item md={4}>
-                    <MediaControlCard></MediaControlCard>
-                  </Grid>
-                  <Grid item md={4}>
-                    <MediaControlCard></MediaControlCard>
-                  </Grid> */}
-                </Grid>
+                ))}
+
+                {/* </Grid> */}
               </Grid>
             </Grid>
           </Grid>

@@ -92,16 +92,45 @@ import tabiat from "../assets/img/tabiat.jpg";
 import book from "../assets/img/books.jpg";
 import tashvigh from "../assets/img/tashvigh.jpg";
 import hamipic from "../assets/img/hamipic.jpg";
+import MyTextField from "./ModifiedTextField";
+import MyAutocomplete from "./ModifiedAutocom";
 
 const filterOptions = createFilterOptions({
   matchFrom: "start",
   stringify: (option: FilmOptionType) => option.label,
 });
 
-export default function Homepage() {
+export default function Homepage(props) {
   let history = useHistory();
+
+  const [countries, setCountries] = useState([]);
+  const [country, setCountry] = useState(null);
+
   const [myOptions, setMyOptions] = useState([]);
 
+  const changeCountry = (v) => {
+    setCountry(v);
+    console.log("country changed to", v);
+  };
+
+  useEffect(async () => {
+    await axios
+      .get(
+        "https://raw.githubusercontent.com/russ666/all-countries-and-cities-json/master/countries.json"
+      )
+      .then((res) => {
+        console.log("homepage", Object.keys(res.data));
+        setCountries(Object.keys(res.data));
+        // setCC(res.data);
+      });
+
+    await props
+      .getalljobs()
+      .then((res) => {
+        // setJobs(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   const getDataFromAPI = () => {
     console.log("Options Fetched from API");
 
@@ -167,9 +196,9 @@ export default function Homepage() {
             <br />
             <br />
 
-            <Autocomplete
+            {/* <MyAutocomplete
               id="filter-demo"
-              options={Provinces}
+              options={countries}
               getOptionLabel={(option) => option.label}
               filterOptions={filterOptions}
               sx={{ width: 600 }}
@@ -177,6 +206,48 @@ export default function Homepage() {
                 <TextField {...params} label="Select province" />
               )}
               fullWidth
+              onKeyDown={(e) => {
+                e.key === "Enter"
+                  ? history.push({
+                      pathname: "/ppage",
+                      state: { data: e.target.value },
+                    })
+                  : console.log("not entered");
+              }}
+            /> */}
+            <MyAutocomplete
+              style={{ display: "fix-inside" }}
+              onChange={(e, v) => {
+                // setCitiesWithCountry(v);
+                changeCountry(v);
+                console.log("change in country");
+                console.log("country : ", v);
+              }}
+              id="country-select-demo"
+              sx={{ width: "100%" }}
+              options={countries}
+              autoHighlight
+              value={country}
+              getOptionLabel={(option) => option}
+              renderOption={(props, option) => (
+                <Box
+                  component="li"
+                  sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                  {...props}
+                >
+                  {option}
+                </Box>
+              )}
+              renderInput={(params) => (
+                <MyTextField
+                  {...params}
+                  label="Choose a country"
+                  inputProps={{
+                    ...params.inputProps,
+                    autoComplete: "new-password", // disable autocomplete and autofill
+                  }}
+                />
+              )}
               onKeyDown={(e) => {
                 e.key === "Enter"
                   ? history.push({
