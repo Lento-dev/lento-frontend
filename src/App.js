@@ -30,6 +30,7 @@ import Ppage from "./components/provincepage";
 // import BasicCard from "./components/advertisementpage";
 import Productdetail from "./components/advertisementpage";
 import BasicCard from "./components/adpage";
+import FormTabs from "./components/formstab"
 
 
 
@@ -75,6 +76,7 @@ function App() {
               {/* <Route exact path="/adpage" component={BasicCard}/> */}
               <Route exact path="/ab" component={Productdetail}/>
               <Route exact path="/jj" component={BasicCard}/>
+              <Route exact path="/formtabs" component={FormTabs}/>
               
 
             

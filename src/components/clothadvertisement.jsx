@@ -37,10 +37,12 @@ import axios from "axios";
 import { FilePond, registerPlugin } from "react-filepond";
 // Import FilePond styles
 import ImageUploading from "react-images-uploading";
-
+import MyTextField from "./ModifiedTextField";
+import MySelect from "./ModifiedSelect";
 import "filepond/dist/filepond.min.css";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import { makeStyles } from "@material-ui/core/styles";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 const Input = styled("input")({
   display: "none",
@@ -307,6 +309,10 @@ function Clothadvertisement(props) {
         });
     }
   };
+
+
+  
+
   return (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
@@ -363,7 +369,7 @@ function Clothadvertisement(props) {
 
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={12}>
-                    <TextField
+                    <MyTextField
                       autoFocus
                       required
                       fullWidth
@@ -375,6 +381,8 @@ function Clothadvertisement(props) {
                       onChange={handleChange("formtitle")}
                       error={Boolean(errors["formtitle"])}
                       helperText={errors["formtitle"]}
+                      
+                      
                     />
                   </Grid>
                   <br />
@@ -390,7 +398,7 @@ function Clothadvertisement(props) {
                         >
                           Province
                         </InputLabel>
-                        <Select
+                        <MySelect
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           label="Province"
@@ -402,7 +410,7 @@ function Clothadvertisement(props) {
                           {Provinces.map((c) => (
                             <MenuItem value={c.code}>{c.label} </MenuItem>
                           ))}
-                        </Select>
+                        </MySelect>
                       </FormControl>
                     </Box>
                   </Grid>
@@ -415,7 +423,7 @@ function Clothadvertisement(props) {
                         >
                           City
                         </InputLabel>
-                        <Select
+                        <MySelect
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           // value={formik.values.country}
@@ -428,7 +436,7 @@ function Clothadvertisement(props) {
                           {cities.map((c) => (
                             <MenuItem value={c.procode}>{c.lable} </MenuItem>
                           ))}
-                        </Select>
+                        </MySelect>
                       </FormControl>
                     </Box>
                   </Grid>
@@ -437,7 +445,7 @@ function Clothadvertisement(props) {
                   <br /> <br />
                   <br />
                   <Grid item xs={12}>
-                    <TextField
+                    <MyTextField
                       fullWidth
                       autoComplete="address"
                       name="address"
@@ -456,7 +464,7 @@ function Clothadvertisement(props) {
                   <br /> <br />
                   <br />
                   <Grid item xs={12} sm={6}>
-                    <TextField
+                    <MyTextField
                       name="date_birth"
                       label="Expiration date"
                       type="date"
@@ -478,7 +486,7 @@ function Clothadvertisement(props) {
                         >
                           cloth type
                         </InputLabel>
-                        <Select
+                        <MySelect
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           label="Select Marital Status"
@@ -496,7 +504,7 @@ function Clothadvertisement(props) {
                           <MenuItem value={"jackets/coats"}>
                             jackets/coats
                           </MenuItem>
-                        </Select>
+                        </MySelect>
                       </FormControl>
                     </Box>
                   </Grid>
@@ -509,7 +517,7 @@ function Clothadvertisement(props) {
                         >
                           cloth status
                         </InputLabel>
-                        <Select
+                        <MySelect
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           label="Select Marital Status"
@@ -526,7 +534,7 @@ function Clothadvertisement(props) {
                           <MenuItem value={"need to be repaired"}>
                             need to be repaired
                           </MenuItem>
-                        </Select>
+                        </MySelect>
                       </FormControl>
                     </Box>
                   </Grid>
@@ -539,7 +547,7 @@ function Clothadvertisement(props) {
                         >
                           cloth size
                         </InputLabel>
-                        <Select
+                        <MySelect
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
                           label="Select Marital Status"
@@ -555,7 +563,7 @@ function Clothadvertisement(props) {
                           <MenuItem value={"small"}>small</MenuItem>
                           <MenuItem value={"extra large"}>extra large</MenuItem>
                           <MenuItem value={"extra small"}>extra small</MenuItem>
-                        </Select>
+                        </MySelect>
                       </FormControl>
                     </Box>
                     <br />
@@ -596,7 +604,7 @@ function Clothadvertisement(props) {
                   <br />
                   <br />
                   <Grid item xs={12}>
-                    <TextField
+                    <MyTextField
                       fullWidth
                       autoComplete="bio"
                       name="bio"
