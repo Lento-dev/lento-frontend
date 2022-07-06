@@ -93,7 +93,7 @@ function SignIn() {
       formData.append("password", values.password);
 
       axios
-        .post(BASE_URL + "/account/login/", formData)
+        .post(BASE_URL + "account/login/", formData)
 
         .then((response) => {
           localStorage.setItem("user", JSON.stringify(response.data));
@@ -122,7 +122,7 @@ function SignIn() {
 
   const handleContinueWithGoogle = (response) => {
   axios
-  .post(`${BASE_URL}/social-auth/convert-token/`, {
+  .post(`${BASE_URL}social-auth/convert-token/`, {
     token: response.accessToken,
     backend: "google-oauth2",
     grant_type: "convert_token",
