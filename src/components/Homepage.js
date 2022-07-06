@@ -94,10 +94,20 @@ import tashvigh from "../assets/img/tashvigh.jpg";
 import hamipic from "../assets/img/hamipic.jpg";
 import MyTextField from "./ModifiedTextField";
 import MyAutocomplete from "./ModifiedAutocom";
+import { BackToTop } from "material-ui-back-to-top";
+import { ThemeProvider } from '@mui/material/styles';
 
 const filterOptions = createFilterOptions({
   matchFrom: "start",
   stringify: (option: FilmOptionType) => option.label,
+});
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#e6835a',
+    },
+  }
 });
 
 export default function Homepage(props) {
@@ -149,6 +159,7 @@ export default function Homepage(props) {
   return (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
+            <ThemeProvider theme={theme}>
       <Grid container>
         <Grid
           item
@@ -1531,6 +1542,8 @@ export default function Homepage(props) {
 
         <Grid xs={4} md={4}></Grid>
       </Container> */}
+      <BackToTop/>
+      </ThemeProvider>
     </div>
   );
 }

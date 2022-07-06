@@ -31,6 +31,7 @@ import Forms from "./formsdis";
 import Chat from "./chat";
 import axios from "axios";
 import Formtabs from "./formstab";
+import BASE_URL from './baseurl';
 
 const drawerWidth = 240;
 
@@ -113,7 +114,6 @@ function Userdrawer(props) {
   const history = useHistory();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const BASE_URL = "http://172.17.3.154/api";
   const token = localStorage.getItem("token");
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   const headers = { Authorization: `Token ${token}` };
@@ -130,7 +130,7 @@ function Userdrawer(props) {
   };
   const handleLogout = () => {
     axios
-      .post(BASE_URL + "/account/logout/", { revoke_token: true }, { headers })
+      .post(BASE_URL + "account/logout/", { revoke_token: true }, { headers })
       .then((res) => {
         localStorage.clear();
         console.log(res);

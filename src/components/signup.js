@@ -27,6 +27,7 @@ import { clearMessage } from "../actions/message";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
 import MyTextField from './ModifiedTextField';
+import BASE_URL from './baseurl';
 
 import GoogleLogin from "react-google-login";
 import { FcGoogle } from "react-icons/fc";
@@ -39,7 +40,6 @@ function SignUp() {
   const [openm, setOpenm] = useState(false);
   const [errors, setErrors] = useState({});
   const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-  const BASE_URL = "http://172.17.3.154/api";
 
   const [values, setValues] = useState({
     firstname: "",
@@ -175,7 +175,7 @@ function SignUp() {
       formData.append("password_confirm", values.confirmpassword);
 
       return axios
-        .post(BASE_URL + "/account/register/", formData)
+        .post(BASE_URL + "account/register/", formData)
         .then((res) => {
           setLoading(false);
           handleVerifyEmailDialogClickOpen();
