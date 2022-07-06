@@ -82,43 +82,42 @@ function SignIn() {
     setErrors(tmpErrors);
   };
   const handleSignInButton = (e) => {
-    console.log(BASE_URL);
-    // validate();
-    // let filled = Object.keys(errors).length === 0;
-    // console.log(filled);
-    // if (filled) {
-    //   console.log("we are in requesting to sign in");
-    //   setLoading(true);
-    //   var formData = new FormData();
-    //   formData.append("login", values.email);
-    //   formData.append("password", values.password);
+    validate();
+    let filled = Object.keys(errors).length === 0;
+    console.log(filled);
+    if (filled) {
+      console.log("we are in requesting to sign in");
+      setLoading(true);
+      var formData = new FormData();
+      formData.append("login", values.email);
+      formData.append("password", values.password);
 
-    //   axios
-    //     .post(BASE_URL + "/account/login/", formData)
+      axios
+        .post(BASE_URL + "/account/login/", formData)
 
-    //     .then((response) => {
-    //       localStorage.setItem("user", JSON.stringify(response.data));
-    //       localStorage.setItem("userType", JSON.stringify("user"));
-    //       localStorage.setItem("token", response.data.token);
-    //       localStorage.setItem("isLoggedIn", true);
+        .then((response) => {
+          localStorage.setItem("user", JSON.stringify(response.data));
+          localStorage.setItem("userType", JSON.stringify("user"));
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("isLoggedIn", true);
 
-    //       console.log("user", response.data);
-    //       console.log("login was succesfull");
-    //       setLoading(false);
-    //       history.push("/");
-    //     })
-    //     .catch((error) => {
-    //       setLoading(false);
-    //       if (error.response.status == 401) {
-    //         setMessage("Email or password is incorrect!");
-    //       }
+          console.log("user", response.data);
+          console.log("login was succesfull");
+          setLoading(false);
+          history.push("/");
+        })
+        .catch((error) => {
+          setLoading(false);
+          if (error.response.status == 401) {
+            setMessage("Email or password is incorrect!");
+          }
 
-    //       if (error.response.status == 400) {
-    //         setMessage("Email or password is invalid!");
-    //       }
-    //     });
+          if (error.response.status == 400) {
+            setMessage("Email or password is invalid!");
+          }
+        });
 
-    // }
+    }
   };
 
   const handleContinueWithGoogle = (response) => {
