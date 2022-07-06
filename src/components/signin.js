@@ -15,10 +15,8 @@ import Helmet from "react-helmet";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import Image from "../assets/illustrations/login.svg";
-import { register } from "../actions/auth";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { clearMessage } from "../actions/message";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
 import MyTextField from './ModifiedTextField';
@@ -49,7 +47,6 @@ function SignIn() {
       return;
     }
     setOpenm(false);
-    setMessage(null);
   };
 
   const validate = () => {
@@ -110,10 +107,12 @@ function SignIn() {
           setLoading(false);
           if (error.response.status == 401) {
             setMessage("Email or password is incorrect!");
+            setOpenm(true);
           }
 
           if (error.response.status == 400) {
-            setMessage("Email or password is invalid!");
+            setMessage("There is no valid account with this email.");
+            setOpenm(true);
           }
         });
 
@@ -312,8 +311,9 @@ function SignIn() {
                   </Grid>
                 </Grid>
               </Grid>
-              <Snackbar open={openm} autoHideDuration={4000} onClose={handleClose}>
-                  <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+              <Snackbar 
+              open={openm} autoHideDuration={4000} onClose={handleClose}>
+                  <Alert variant="filled" onClose={handleClose} severity="error" sx={{ width: '100%' }}>
                     {message}
                   </Alert>
                 </Snackbar>

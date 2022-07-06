@@ -5,7 +5,7 @@ import {
   TextField,
   Link,
   Grid,
-  Box,
+  Box, FormControl,
   Typography,
   Container,
   Divider, Dialog,
@@ -54,8 +54,6 @@ function SignUp() {
     if (reason === "clickaway") {
       return;
     }
-    setMessage(null);
-
     setOpenm(false);
   };
 
@@ -265,7 +263,6 @@ function SignUp() {
                         </Grid>
                       </Grid>
                     </Grid>
-
                     <Grid item xs={12} md={6}>
                       <MyTextField
                         label="First Name"
@@ -336,6 +333,8 @@ function SignUp() {
                         onChange={handleChange("password")}
                         error={Boolean(errors["password"])}
                         helperText={errors["password"]}
+                        autoComplete='tes'
+
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -411,11 +410,12 @@ function SignUp() {
                       />
                     </Grid>
                       <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
-                  <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                  <Alert variant="filled" onClose={handleClose} severity="error" sx={{ width: '100%' }}>
                     {message}
                   </Alert>
                 </Snackbar>
                   </Grid>
+                  
                 </Grid>
               </Grid>
             </Grid>
