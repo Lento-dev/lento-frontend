@@ -108,8 +108,8 @@ const MediaControlCard = (props) => {
       
       <CardMedia
         component="img"
-        
-        sx={{ width: 134 , justifyContent:'right'}}
+        style={{textAlign:'right',position:'sticky'}}
+        // sx={{ width: 134 }}
         image={image}
         
       />

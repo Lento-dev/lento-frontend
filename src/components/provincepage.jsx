@@ -117,7 +117,7 @@ function Ppage(props) {
     token.replaceAll('"', "");
     console.log(token);
     var myurl =
-      "http://172.17.3.154/api/advertisement/search?province=" +
+      "http://62.3.41.86/api/advertisement/search?province=" +
       props.location.state.data;
     console.log(myurl);
     var config = {
@@ -153,7 +153,7 @@ function Ppage(props) {
     token.replaceAll('"', "");
     console.log(token);
     var myurl =
-      "http://172.17.3.154/api/advertisement/search" +
+      "http://62.3.41.86/api/advertisement/search" +
       "?province=" +
       props.location.state.data;
     if (values.clothtype === "food") {

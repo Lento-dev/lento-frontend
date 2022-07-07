@@ -333,7 +333,7 @@ function Clothadvertisement(props) {
       console.log(images[0], imageUrl);
       var config = {
         method: "post",
-        url: "http://172.17.3.154/api/advertisement/addcloth/",
+        url: "http://62.3.41.86/api/advertisement/addcloth/",
         headers: {
           Authorization: "Token " + token,
         },

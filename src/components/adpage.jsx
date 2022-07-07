@@ -164,7 +164,7 @@ export default function BasicCard(props) {
                     }}
                   >
                     <br />
-                    <CheckBoxIcon style={{ fontSize: "large" }} />
+                    {/* <CheckBoxIcon style={{ fontSize: "large" }} /> */}
                     <span>&nbsp;Type : {props.location.state.data.cloth_type} - Manly</span>
                   </div>
                   ): (<p></p>)}
@@ -179,7 +179,7 @@ export default function BasicCard(props) {
                       }}
                     >
                       <br />
-                      <CheckBoxIcon style={{ fontSize: "large" }} />
+                      {/* <CheckBoxIcon style={{ fontSize: "large" }} /> */}
                       <span>&nbsp;Size : {props.location.state.data.cloth_size} </span>
                     </div>
                   ) : (
@@ -196,7 +196,7 @@ export default function BasicCard(props) {
                     }}
                   >
                     <br />
-                    <CheckBoxIcon style={{ fontSize: "large" }} />
+                    {/* <CheckBoxIcon style={{ fontSize: "large" }} /> */}
                     <span>&nbsp;Status : {props.location.state.data.cloth_status}</span>
                   </div>
                   ) : (<p></p>)}
@@ -270,6 +270,7 @@ export default function BasicCard(props) {
                     <span style={{ fontSize: "14px" }}>
                       
                     {props.location.state.data.Description}
+                    
                     </span>
                   </Typography>
                 </CardContent>

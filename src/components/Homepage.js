@@ -97,10 +97,10 @@ import MyAutocomplete from "./ModifiedAutocom";
 import { BackToTop } from "material-ui-back-to-top";
 import { ThemeProvider } from '@mui/material/styles';
 
-const filterOptions = createFilterOptions({
-  matchFrom: "start",
-  stringify: (option: FilmOptionType) => option.label,
-});
+// const filterOptions = createFilterOptions({
+//   matchFrom: "start",
+//   stringify: (option: FilmOptionType) => option.label,
+// });
 
 const theme = createTheme({
   palette: {
@@ -1548,10 +1548,10 @@ export default function Homepage(props) {
   );
 }
 
-interface FilmOptionType {
-  title: string;
-  year: number;
-}
+// interface FilmOptionType {
+//   title: string;
+//   year: number;
+// }
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const top100Films = [

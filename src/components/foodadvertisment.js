@@ -312,7 +312,7 @@ function Foodadvertisment(props) {
 
       var config = {
         method: "post",
-        url: "http://172.17.3.154/api/advertisement/addfood/",
+        url: "http://62.3.41.86/api/advertisement/addfood/",
         headers: {
           Authorization: "Token " + token,
         },
