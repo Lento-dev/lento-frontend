@@ -197,6 +197,7 @@ function Ppage(props) {
       .then((response) => {
         console.log(JSON.stringify(response.data));
         setarray(Object.values(response.data));
+        setpagearray(Object.values(response.data));
         console.log(Object.values(response.data));
       })
 

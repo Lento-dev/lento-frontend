@@ -97,6 +97,15 @@ import MyAutocomplete from "./ModifiedAutocom";
 import { BackToTop } from "material-ui-back-to-top";
 import { ThemeProvider } from '@mui/material/styles';
 import { color } from "@mui/system";
+import { useRef } from 'react';
+import SwiperCore, { Virtual } from 'swiper';
+
+
+
+
+
+// install Virtual module
+SwiperCore.use([Virtual, Navigation, Pagination]);
 
 
 // const filterOptions = createFilterOptions({
@@ -125,6 +134,34 @@ export default function Homepage(props) {
     console.log("country changed to", v);
   };
 
+  const [swiperRef, setSwiperRef] = useState(null);
+  const appendNumber = useRef(50);
+  const prependNumber = useRef(1);
+  // Create array with 500 slides
+  const [slides, setSlides] = useState(
+    Array.from({ length: 50 }).map((_, index) => `Slide ${index + 1}`)
+  );
+
+  const prepend = () => {
+    setSlides([
+      `Slide ${prependNumber.current - 2}`,
+      `Slide ${prependNumber.current - 1}`,
+      ...slides,
+    ]);
+    prependNumber.current = prependNumber.current - 2;
+    swiperRef.slideTo(swiperRef.activeIndex + 2, 0);
+  };
+
+  const append = () => {
+    setSlides([...slides, 'Slide ' + ++appendNumber.current]);
+  };
+
+  const slideTo = (index) => {
+    swiperRef.slideTo(index - 1, 0);
+  };
+
+  const [array , setarray] = useState([]);
+
  
 
   useEffect(async () => {
@@ -144,6 +181,38 @@ export default function Homepage(props) {
         // setJobs(res.data);
       })
       .catch((err) => console.log(err));
+      
+  
+ 
+  }, []);
+  useEffect(() => {
+    console.log("***********************");
+    var token = localStorage.getItem("token");
+    token.replaceAll('"', "");
+    console.log(token);
+    var myurl =
+      "http://62.3.41.86/api/advertisement/homepageads/" 
+    console.log(myurl);
+    var config = {
+      method: "get",
+      url: myurl,
+      headers: {
+        Authorization: "Token " + token,
+      },
+    };
+
+    axios(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        setarray(Object.values(response.data));
+        console.log(Object.values(response.data));
+    
+      })
+
+      .catch(function (error) {
+        console.log(error);
+      });
+      
   }, []);
   const getDataFromAPI = () => {
     console.log("Options Fetched from API");
@@ -528,7 +597,127 @@ export default function Homepage(props) {
               </Grid>
             </div>
           </Grid>
+          {/* <Grid>
+      <Swiper
+        onSwiper={setSwiperRef}
+        slidesPerView={5}
+        centeredSlides={true}
+        spaceBetween={30}
+        pagination={{
+          type: 'fraction',
+        }}
+        navigation={true}
+        virtual
+        // pagination={{ clickable: true }}
+        // scrollbar={{ draggable: true }}
+        // onSwiper={(swiper) => console.log(swiper)}
+        // onSlideChange={() => console.log("slide change")}
+      >
+        {slides.map((slideContent, index) => (
+          <SwiperSlide key={slideContent} virtualIndex={index}>
+            {slideContent}
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
+    </Grid> */}
+      <Swiper
+                    modules={[Navigation, Pagination, Scrollbar, A11y]}
+                    spaceBetween={50}
+                    slidesPerView={5}
+                    navigation
+                    pagination={{ clickable: true }}
+                    // scrollbar={{ draggable: true }}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    onSlideChange={() => console.log("slide change")}
+                    // style={{ paddingTop: "2rem" }}
+                  >
+
+                  {array.map((item, i) => (
+                                    <Grid item md={4}>
+
+                                        <SwiperSlide
+
+                                        style={{ color: "black", paddingBottom: "5rem" }}
+                                        >
+                                        {item.Title}
+                                        </SwiperSlide>
+                                        
+                                    </Grid>
+                                  ))}
+ 
+                    {/* <SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 2
+                    </SwiperSlide><SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 3
+                    </SwiperSlide><SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 4
+                    </SwiperSlide><SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 5
+                    </SwiperSlide>
+                    <SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 6
+                    </SwiperSlide><SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 7
+                    </SwiperSlide><SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 8
+                    </SwiperSlide>
+                    <SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 1
+                    </SwiperSlide><SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 1
+                    </SwiperSlide><SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 1
+                    </SwiperSlide><SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 1
+                    </SwiperSlide><SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 1
+                    </SwiperSlide><SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 1
+                    </SwiperSlide><SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 1
+                    </SwiperSlide><SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 1
+                    </SwiperSlide><SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 1
+                    </SwiperSlide><SwiperSlide
+                      style={{ color: "black", paddingBottom: "2rem" }}
+                    >
+                      item 1
+                    </SwiperSlide> */}
+</Swiper>
           
 
 
