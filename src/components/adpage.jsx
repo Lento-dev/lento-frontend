@@ -10,12 +10,18 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 // import PersonIcon from '@mui/icons-material/Person';
 import "../styles/Productdetail.css";
-
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import Helmet from "react-helmet";
+import MyTextField from "./ModifiedTextField";
+
 import {
   Button,
   Typography,
-  Container,
+  Container, Divider,
   Grid,
   Alert,
   CircularProgress,
@@ -31,10 +37,34 @@ export default function BasicCard(props) {
   } else {
     image = props.location.state.data.Image;
   }
+  const handleClick = () => {
+    console.log(props.location.state.data);
+  }
+  const [open, setOpen] = React.useState(false);
+  const [scroll, setScroll] = React.useState('paper');
 
+  const handleClickOpen = (scrollType) => () => {
+    setOpen(true);
+    setScroll(scrollType);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const descriptionElementRef = React.useRef(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
   return (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
+
       <Grid>
         <div class="slider" style={{ left: "290px", position: "absolute" }}>
           <input type="radio" name="slide_switch" id="id1" />
@@ -77,6 +107,7 @@ export default function BasicCard(props) {
            ): (<p></p>)} */}
         </div>
       </Grid>
+      
       <div style={{ display: "inline-block", position: "absolute" }}>
         <Grid item sx={12} sm={6}>
           <Container sx={{ paddingTop: "100px" }} component="main">
@@ -205,6 +236,7 @@ export default function BasicCard(props) {
                 <Grid container item xs={12}>
                   <Button
                     variant="contained"
+                    onClick={handleClick}
                     style={{ display: "inline-block" }}
                     // onClick={handleSubmitButton}
                     sx={{
@@ -226,7 +258,7 @@ export default function BasicCard(props) {
                   <Button
                     variant="contained"
                     style={{ display: "inline-block" }}
-                    // onClick={handleSubmitButton}
+                    onClick={handleClickOpen('paper')}
                     sx={{
                       backgroundColor: "#e6835a",
                       height: "40px",
@@ -240,11 +272,91 @@ export default function BasicCard(props) {
                       },
                     }}
                   >
-                    Chat
-                    {/* {loading ? 
-                        <CircularProgress style={{color: "#fff"}} size="1.6rem"/>
-                        : "Save"}                  */}
+                    Comments
+                 
                   </Button>
+                  <Dialog
+        open={open}
+        onClose={handleClose}
+        scroll={scroll}
+        aria-labelledby="scroll-dialog-title"
+        aria-describedby="scroll-dialog-description"
+      >
+        <DialogTitle id="scroll-dialog-title" style={{fontWeight: 'bold'}}>Comments</DialogTitle>
+        <DialogContent dividers={scroll === 'paper'}>
+          <DialogContentText
+            id="scroll-dialog-description"
+            ref={descriptionElementRef}
+            tabIndex={-1}
+          >
+          <Grid justifyContent="left" item xs zeroMinWidth>
+            <h4 style={{ margin: 0, textAlign: "left" }}>Michel Michel</h4>
+            <p style={{ textAlign: "justify" }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+              luctus ut est sed faucibus. Duis bibendum ac ex vehicula laoreet.
+              Suspendisse congue vulputate lobortis. {" "}
+            </p>
+            <p style={{ textAlign: "left", color: "gray", paddingTop: '0.5rem' }}>
+              posted 1 minute ago
+            </p>
+            <Divider sx={{paddingTop: '0.7rem', marginBottom: '0.7rem'}}/>
+            <h4 style={{ margin: 0, textAlign: "left" }}>Michel Michel</h4>
+            <p style={{ textAlign: "justify" }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+              luctus ut est sed faucibus. Duis bibendum ac ex vehicula laoreet.
+              Suspendisse congue vulputate lobortis. {" "}
+            </p>
+            <p style={{ textAlign: "left", color: "gray", paddingTop: '0.5rem' }}>
+              posted 1 minute ago
+            </p>
+            <Divider sx={{paddingTop: '0.7rem', marginBottom: '0.7rem'}}/>
+            <h4 style={{ margin: 0, textAlign: "left" }}>Michel Michel</h4>
+            <p style={{ textAlign: "justify" }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+              luctus ut est sed faucibus. Duis bibendum ac ex vehicula laoreet.
+              Suspendisse congue vulputate lobortis. {" "}
+            </p>
+            <p style={{ textAlign: "left", color: "gray", paddingTop: '0.5rem' }}>
+              posted 1 minute ago
+            </p>
+            <Divider sx={{paddingTop: '0.7rem', marginBottom: '0.7rem'}}/>
+            <h4 style={{ margin: 0, textAlign: "left" }}>Michel Michel</h4>
+            <p style={{ textAlign: "justify" }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+              luctus ut est sed faucibus. Duis bibendum ac ex vehicula laoreet.
+              Suspendisse congue vulputate lobortis. {" "}
+            </p>
+            <p style={{ textAlign: "left", color: "gray", paddingTop: '0.5rem' }}>
+              posted 1 minute ago
+            </p>
+            <Divider sx={{paddingTop: '0.7rem', marginBottom: '0.7rem'}}/>
+            <h4 style={{ margin: 0, textAlign: "left" }}>Michel Michel</h4>
+            <p style={{ textAlign: "justify" }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+              luctus ut est sed faucibus. Duis bibendum ac ex vehicula laoreet.
+              Suspendisse congue vulputate lobortis. {" "}
+            </p>
+            <p style={{ textAlign: "left", color: "gray", paddingTop: '0.5rem' }}>
+              posted 1 minute ago
+            </p>
+                      <Grid container sx={{paddingTop: '5rem'}}>
+                        <Grid item xs = {12}>
+                        <MyTextField
+                        multiline                 
+                        fullWidth/>
+                        </Grid>
+                      </Grid>
+
+            
+
+          </Grid>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Subscribe</Button>
+        </DialogActions>
+      </Dialog>
                 </Grid>
               </Card>
             </Grid>
@@ -277,8 +389,11 @@ export default function BasicCard(props) {
               </Card>
             </Grid>
           </Container>
+
         </Grid>
+
       </div>
+
     </div>
   );
 }
