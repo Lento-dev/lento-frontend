@@ -11,6 +11,12 @@ import Setting from '../components/setting';
 import Forms from "../components/forms";
 import Userpro from '../components/User_Profile';
 import UserProfile from '../components/user-profile';
+import MediaControlCard from '../components/adcard';
+import BasicCard from '../components/adpage';
+import Foodadvertisment from '../components/foodadvertisment';
+import Clothadvertisement from '../components/clothadvertisement';
+import Serviceadvertisement from '../components/Serviceadvertisement';
+import Formtabs from "../components/formstab";
 
 
 describe("Footer", () => {
@@ -728,6 +734,54 @@ it("should render correct username", async () => {
       )
     })
   })
+
+  describe("food form", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Foodadvertisment />
+      </BrowserRouter>
+      )
+    })
+  })
+  describe("cloth form", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Clothadvertisement />
+      </BrowserRouter>
+      )
+    })
+  })
+  describe("service form", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Serviceadvertisement />
+      </BrowserRouter>
+      )
+    })
+  })
+  describe("form tabs", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Formtabs />
+      </BrowserRouter>
+      )
+    })
+  })
+
+  describe("form tabs", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Formtabs />
+      </BrowserRouter>
+      )
+    })
+  })
+
 
 
 
