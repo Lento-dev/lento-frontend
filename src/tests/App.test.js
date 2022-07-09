@@ -11,6 +11,7 @@ import Setting from '../components/setting';
 import Forms from "../components/forms";
 import Userpro from '../components/User_Profile';
 import UserProfile from '../components/user-profile';
+import Navbar from '../components/navbar';
 
 
 describe("Footer", () => {
@@ -233,6 +234,185 @@ it('should render same text ', () => {
   expect(keyword.length).toBe(2);
 });
 
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/@/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/gmail/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/com/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/2022/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/©/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/This/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/is/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/a/i);
+  expect(keyword.length).toBe(2);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/site/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/charity/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/You/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/use/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/it/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/to/i);
+  expect(keyword.length).toBe(3);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/help/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/people/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/,/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/Copyright/i);
+  expect(keyword.length).toBe(1);
+});
 
 const mockedProfile = jest.fn();
 
@@ -598,6 +778,17 @@ it("should render correct username", async () => {
         <Setting genValue={null} setGenValue={mockedProfile} />
       </BrowserRouter>
     );
+    const emailElement = screen.getByLabelText(/Email Address/i);
+    fireEvent.select(emailElement, { target: { value: "Parmida@gmail.com" } });
+    expect(emailElement.value).toBe("Parmida@gmail.com");
+  });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <Setting genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
     const emailElement = screen.getByLabelText(/Old password/i);
     fireEvent.select(emailElement, { target: { value: "zahraa1380" } });
     expect(emailElement.value).toBe("zahraa1380");
@@ -610,8 +801,8 @@ it("should render correct username", async () => {
   //     </BrowserRouter>
   //   );
   //   const emailElement = screen.getByLabelText(/New password/i);
-  //   fireEvent.select(emailElement, { target: { value: "zahra1380" } });
-  //   expect(emailElement.value).toBe("zahra1380");
+  //   fireEvent.select(emailElement, { target: { value: "zahraa1381" } });
+  //   expect(emailElement.value).toBe("zahraa1381");
   // });
 
   it("should render correct username", async () => {
@@ -621,8 +812,8 @@ it("should render correct username", async () => {
       </BrowserRouter>
     );
     const emailElement = screen.getByLabelText(/Confirm new password/i);
-    fireEvent.select(emailElement, { target: { value: "zahra1380" } });
-    expect(emailElement.value).toBe("zahra1380");
+    fireEvent.select(emailElement, { target: { value: "zahra1381" } });
+    expect(emailElement.value).toBe("zahra1381");
   });
 
   describe("edit profile", () => {
@@ -718,6 +909,27 @@ it("should render correct username", async () => {
       )
     })
   })
+
+  describe("edit profile", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Navbar />
+      </BrowserRouter>
+      )
+    })
+  })
+
+  
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Navbar/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getAllByText(/LentoCharity/i);
+    expect(keyword.length).toBe(1);
+  });
 
   describe("edit profile", () => {
     it("should render the correct content", async () => {

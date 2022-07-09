@@ -70,6 +70,9 @@ const Alert = React.forwardRef(function Alert(props, ref) {
             className="communicate"
             onClick={() => { navigator.clipboard.writeText(email);
             handleCopiedClick(); }}> {email}</Link>
+        <Typography variant="body2">
+      {'This is a charity site, You can use it to help people'}
+    </Typography>
           </Typography>
           <Copyright />
         </Container>
