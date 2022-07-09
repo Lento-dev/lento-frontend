@@ -33,7 +33,7 @@ import PublicUserProfile from './components/public-user-profile'
 import Productdetail from "./components/advertisementpage";
 import BasicCard from "./components/adpage";
 import FormTabs from "./components/formstab";
-import Footer from './components/footer';
+// import Footer from './components/footer';
 
 const theme = createTheme({
   typography: {
@@ -64,7 +64,7 @@ function App() {
                 component={PublicUserProfile}
               />
               <Route exact path="/signin" component={SignIn} />
-              <Route exact path="/foot" component={Footer} />
+              {/* <Route exact path="/foot" component={Footer} /> */}
               <Route exact path="/forgot-password" component={ForgotPassword} />
               <Route exact path="/verify-user" component={VerifyUser} />
               <Route exact path="/reset-password" component={ResetPassword} />
