@@ -322,7 +322,7 @@ function Serviceadvertisement(props) {
       console.log(images[0], imageUrl);
       var config = {
         method: "post",
-        url: "http://172.17.3.154/api/advertisement/addservice/",
+        url: "http://62.3.41.86/api/advertisement/addservice/",
         headers: {
           Authorization: "Token " + token,
         },

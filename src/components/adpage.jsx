@@ -25,9 +25,9 @@ import { height } from "@mui/system";
 export default function BasicCard(props) {
   console.log(props.location.state.data);
   let resourcech = (props.location.state.data.resourcetype).replace("Advertisement","")
-  var image = "https://s6.uupload.ir/files/newwwww_3y3i.jpg";
+  var image = "http://www.upsara.com/images/g382390_.jpg";
   if (props.location.state.data.Image === null) {
-    image = "https://s6.uupload.ir/files/newwwww_3y3i.jpg";
+    image = "http://www.upsara.com/images/g382390_.jpg";
   } else {
     image = props.location.state.data.Image;
   }
@@ -164,7 +164,7 @@ export default function BasicCard(props) {
                     }}
                   >
                     <br />
-                    <CheckBoxIcon style={{ fontSize: "large" }} />
+                    {/* <CheckBoxIcon style={{ fontSize: "large" }} /> */}
                     <span>&nbsp;Type : {props.location.state.data.cloth_type} - Manly</span>
                   </div>
                   ): (<p></p>)}
@@ -179,7 +179,7 @@ export default function BasicCard(props) {
                       }}
                     >
                       <br />
-                      <CheckBoxIcon style={{ fontSize: "large" }} />
+                      {/* <CheckBoxIcon style={{ fontSize: "large" }} /> */}
                       <span>&nbsp;Size : {props.location.state.data.cloth_size} </span>
                     </div>
                   ) : (
@@ -196,23 +196,26 @@ export default function BasicCard(props) {
                     }}
                   >
                     <br />
-                    <CheckBoxIcon style={{ fontSize: "large" }} />
+                    {/* <CheckBoxIcon style={{ fontSize: "large" }} /> */}
                     <span>&nbsp;Status : {props.location.state.data.cloth_status}</span>
                   </div>
                   ) : (<p></p>)}
                 </CardContent>
                 <br />
+                {/* <Button>hi</Button> */}
                 <Grid container item xs={12}>
                   <Button
-                    variant="contained"
-                    style={{ display: "inline-block" }}
+                    // variant="contained"
+                    // style={{ display: "inline-block"}}
+                    
                     // onClick={handleSubmitButton}
                     sx={{
+                      color:'white',
                       backgroundColor: "#556749",
                       height: "40px",
                       width: "120px",
-                      display: "inline-block",
-                      marginLeft: "55px",
+                      // display: "inline-block",
+                      marginLeft: "125px",
 
                       ":hover": {
                         bgcolor: "#e6835a",
@@ -222,8 +225,9 @@ export default function BasicCard(props) {
                     Save
                   </Button>
                 </Grid>
+                <br/>
                 <Grid container item xs={12}>
-                  <Button
+                  {/* <Button
                     variant="contained"
                     style={{ display: "inline-block" }}
                     // onClick={handleSubmitButton}
@@ -241,10 +245,8 @@ export default function BasicCard(props) {
                     }}
                   >
                     Chat
-                    {/* {loading ? 
-                        <CircularProgress style={{color: "#fff"}} size="1.6rem"/>
-                        : "Save"}                  */}
-                  </Button>
+                                    
+                  </Button> */}
                 </Grid>
               </Card>
             </Grid>
@@ -270,6 +272,9 @@ export default function BasicCard(props) {
                     <span style={{ fontSize: "14px" }}>
                       
                     {props.location.state.data.Description}
+                    
+                    {console.log(props.location.state.data.owner)}
+                    
                     </span>
                   </Typography>
                 </CardContent>

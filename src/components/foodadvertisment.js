@@ -158,8 +158,8 @@ function Foodadvertisment(props) {
       case !values.formtitle:
         tmpErrors["formtitle"] = "Please enter your form title.";
         break;
-      case values.formtitle.length > 150:
-        tmpErrors["formtitle"] = "form title can be at most 150 characters.";
+      case values.formtitle.length > 11:
+        tmpErrors["formtitle"] = "form title can be at most 10 characters.";
         break;
       default:
         break;
@@ -312,7 +312,7 @@ function Foodadvertisment(props) {
 
       var config = {
         method: "post",
-        url: "http://172.17.3.154/api/advertisement/addfood/",
+        url: "http://62.3.41.86/api/advertisement/addfood/",
         headers: {
           Authorization: "Token " + token,
         },

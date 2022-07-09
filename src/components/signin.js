@@ -15,21 +15,18 @@ import Helmet from "react-helmet";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import Image from "../assets/illustrations/login.svg";
-import { register } from "../actions/auth";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { clearMessage } from "../actions/message";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
 import MyTextField from './ModifiedTextField';
-
+import BASE_URL from './baseurl';
 import GoogleLogin from "react-google-login";
 import { FcGoogle } from "react-icons/fc";
 
 function SignIn() {
   const drfClientId = process.env.REACT_APP_DRF_CLIENT_ID;
   const drfClientSecret = process.env.REACT_APP_DRF_CLIENT_SECRET;
-  const BASE_URL = "http://172.17.3.154/api";
 
   const history = useHistory();
   const [loading, setLoading] = React.useState(false);
@@ -50,7 +47,6 @@ function SignIn() {
       return;
     }
     setOpenm(false);
-    setMessage(null);
   };
 
   const validate = () => {
@@ -94,7 +90,7 @@ function SignIn() {
       formData.append("password", values.password);
 
       axios
-        .post(BASE_URL + "/account/login/", formData)
+        .post(BASE_URL + "account/login/", formData)
 
         .then((response) => {
           localStorage.setItem("user", JSON.stringify(response.data));
@@ -111,10 +107,12 @@ function SignIn() {
           setLoading(false);
           if (error.response.status == 401) {
             setMessage("Email or password is incorrect!");
+            setOpenm(true);
           }
 
           if (error.response.status == 400) {
-            setMessage("Email or password is invalid!");
+            setMessage("There is no valid account with this email.");
+            setOpenm(true);
           }
         });
 
@@ -123,7 +121,7 @@ function SignIn() {
 
   const handleContinueWithGoogle = (response) => {
   axios
-  .post(`${BASE_URL}/social-auth/convert-token/`, {
+  .post(`${BASE_URL}social-auth/convert-token/`, {
     token: response.accessToken,
     backend: "google-oauth2",
     grant_type: "convert_token",
@@ -313,8 +311,9 @@ function SignIn() {
                   </Grid>
                 </Grid>
               </Grid>
-              <Snackbar open={openm} autoHideDuration={4000} onClose={handleClose}>
-                  <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+              <Snackbar 
+              open={openm} autoHideDuration={4000} onClose={handleClose}>
+                  <Alert variant="filled" onClose={handleClose} severity="error" sx={{ width: '100%' }}>
                     {message}
                   </Alert>
                 </Snackbar>

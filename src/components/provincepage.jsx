@@ -28,6 +28,9 @@ import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import { Link } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
+import Pagination from '@mui/material/Pagination';
+
+
 
 const MenuItem = withStyles({
   root: {
@@ -108,8 +111,19 @@ function Ppage(props) {
       }
     }
   };
+  const [title, settitle] = useState("");
+ 
+
   const [prodata, setarray] = useState([]);
   let content = [];
+
+  const [page, setPage] = React.useState(1);
+  const [pagearray, setpagearray] = React.useState(prodata);
+  const handleChangePage = (event: ChangeEvent<unknown>, value: Integer) => {
+    setPage(value);
+    setpagearray(prodata.slice((page-1)*6,(page-1)*6 +6));
+    
+  };
 
   useEffect(() => {
     console.log("***********************");
@@ -117,21 +131,22 @@ function Ppage(props) {
     token.replaceAll('"', "");
     console.log(token);
     var myurl =
-      "http://172.17.3.154/api/advertisement/search?province=" +
+      "http://62.3.41.86/api/advertisement/search?province=" +
       props.location.state.data;
     console.log(myurl);
     var config = {
       method: "get",
       url: myurl,
-      headers: {
-        Authorization: "Token " + token,
-      },
+      // headers: {
+      //   Authorization: "Token " + token,
+      // },
     };
 
     axios(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
         setarray(Object.values(response.data));
+        setpagearray(Object.values(response.data.slice(0,6)));
         console.log(Object.values(response.data));
         content = prodata.map((item, i) => {
           console.log("content", item, i);
@@ -144,16 +159,17 @@ function Ppage(props) {
       .catch(function (error) {
         console.log(error);
       });
+      
   }, []);
   const handlesearch = (e) => {
     console.log("handle search");
-    console.log("values => ", values.clothtype, values.formtitle);
+    console.log("values => ", values.clothtype, title);
 
     var token = localStorage.getItem("token");
     token.replaceAll('"', "");
     console.log(token);
     var myurl =
-      "http://172.17.3.154/api/advertisement/search" +
+      "http://62.3.41.86/api/advertisement/search" +
       "?province=" +
       props.location.state.data;
     if (values.clothtype === "food") {
@@ -163,13 +179,18 @@ function Ppage(props) {
     } else if (values.clothtype === "cloth") {
       myurl += "&ad_type=clothadvertisement";
     }
+    if(title !== null)
+    {
+      myurl = myurl + "&search="+title;
+    }
+    console.log(title)
     console.log(myurl);
     var config = {
       method: "get",
       url: myurl,
-      headers: {
-        Authorization: "Token " + token,
-      },
+      // headers: {
+      //   Authorization: "Token " + token,
+      // },
     };
 
     axios(config)
@@ -252,8 +273,8 @@ function Ppage(props) {
                               name="title"
                               id="title"
                               label="advertisement title"
-                              value={values.formtitle}
-                              onChange={handleChange("formtitle")}
+                              value={title}
+                              onChange={(e) => settitle(e.target.value)}
                               error={Boolean(errors["formtitle"])}
                               helperText={errors["formtitle"]}
                             />
@@ -309,13 +330,14 @@ function Ppage(props) {
             <br />
             <br />
 
-              {prodata.length !== 0 && (
+              {pagearray.length !== 0 && (
                 <Grid item xs={12}>
               <Grid container spacing={6}>
-                {prodata.map((item, i) => (
+                {pagearray.map((item, i) => (
                   <Grid item md={4}>
 
                       <MediaControlCard data={item} key={i}></MediaControlCard>
+                      
                     
                   </Grid>
                 ))}
@@ -334,7 +356,10 @@ function Ppage(props) {
       >
         <CircularProgress size="3rem" style={{ color: "#8b9b74" }} />
       </Box>
+
               )}
+              <br/>
+              <Pagination count={Math.ceil(prodata.length/6)} page={page} onChange={handleChangePage} style={{color:'#465832'}} />
 
 
 

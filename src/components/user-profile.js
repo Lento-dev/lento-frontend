@@ -35,6 +35,7 @@ import WorkRoundedIcon from "@mui/icons-material/WorkRounded";
 import ClearIcon from '@mui/icons-material/Clear';
 import CircularProgress from "@mui/material/CircularProgress";
 import PostCard from './myselfPostCard'
+import BASE_URL from './baseurl';
 
 
 const UserProfile = () => {
@@ -43,13 +44,12 @@ const UserProfile = () => {
   const [data, setData] = useState(null);
   const [posts, setPosts] = useState(null);
 
-  const BASE_URL = "http://172.17.3.154/api";
   const token = localStorage.getItem("token");
   const headers = { Authorization: `Token ${token}` };
 
   useEffect(() => {
     axios
-      .get(BASE_URL + "/account/user-profile/", { headers: headers })
+      .get(BASE_URL + "account/user-profile/", { headers: headers })
       .then((res) => {
         console.log(res.data);
         setData(res.data);
@@ -61,7 +61,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     axios
-      .get(BASE_URL + "/advertisement/load-all/", { headers: headers })
+      .get(BASE_URL + "advertisement/load-all/", { headers: headers })
       .then((res) => {
         console.log(res.data);
         setPosts(res.data);
@@ -82,7 +82,7 @@ const UserProfile = () => {
           <Avatar 
                     variant="circular"
                     sx={{ bgcolor: "#f0f5eb", width: "200px", height: "200px"}}
-                    src={Image}
+                    src={data.image}
                   >
 
                   </Avatar>

@@ -246,6 +246,7 @@ it("should render correct username", async () => {
     fireEvent.select(emailElement, { target: { value: "zahramomeninezhad@gmail.com" } });
     expect(emailElement.value).toBe("zahramomeninezhad@gmail.com");
   });
+  
 
   it("should render correct username", async () => {
     render(
@@ -262,6 +263,17 @@ it("should render correct username", async () => {
     render(
       <BrowserRouter>
         <SignIn genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Email/i);
+    fireEvent.select(emailElement, { target: { value: "parmidaasanaye@gmail.com" } });
+    expect(emailElement.value).toBe("parmidaasanaye@gmail.com");
+  });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <SignUp genValue={null} setGenValue={mockedProfile} />
       </BrowserRouter>
     );
     const emailElement = screen.getByLabelText(/Email/i);
@@ -630,7 +642,7 @@ it("should render correct username", async () => {
       </BrowserRouter>
     );
     const keyword = screen.getAllByText(/food/i);
-    expect(keyword.length).toBe(3);
+    expect(keyword.length).toBe(1);
   });
 
   it('should render same text ', () => {

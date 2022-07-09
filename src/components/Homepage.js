@@ -94,10 +94,22 @@ import tashvigh from "../assets/img/tashvigh.jpg";
 import hamipic from "../assets/img/hamipic.jpg";
 import MyTextField from "./ModifiedTextField";
 import MyAutocomplete from "./ModifiedAutocom";
+import { BackToTop } from "material-ui-back-to-top";
+import { ThemeProvider } from '@mui/material/styles';
+import { color } from "@mui/system";
 
-const filterOptions = createFilterOptions({
-  matchFrom: "start",
-  stringify: (option: FilmOptionType) => option.label,
+
+// const filterOptions = createFilterOptions({
+//   matchFrom: "start",
+//   stringify: (option: FilmOptionType) => option.label,
+// });
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#e6835a',
+    },
+  }
 });
 
 export default function Homepage(props) {
@@ -112,6 +124,8 @@ export default function Homepage(props) {
     setCountry(v);
     console.log("country changed to", v);
   };
+
+ 
 
   useEffect(async () => {
     await axios
@@ -149,6 +163,7 @@ export default function Homepage(props) {
   return (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
+            <ThemeProvider theme={theme}>
       <Grid container>
         <Grid
           item
@@ -174,8 +189,9 @@ export default function Homepage(props) {
                 fontWeight="bold"
                 textAlign="left"
                 fontSize="2rem"
+                fontFamily='San Francisco'
               >
-                Welcome to
+                Welcome To
               </Typography>
             </Grid>
 
@@ -185,6 +201,7 @@ export default function Homepage(props) {
                 fontWeight="bold"
                 textAlign="left"
                 fontSize="2.5rem"
+                fontFamily='San Francisco'
               >
                 Lento Charity
               </Typography>
@@ -194,29 +211,10 @@ export default function Homepage(props) {
             <br />
             <br />
             <br />
-            <br />
 
-            {/* <MyAutocomplete
-              id="filter-demo"
-              options={countries}
-              getOptionLabel={(option) => option.label}
-              filterOptions={filterOptions}
-              sx={{ width: 600 }}
-              renderInput={(params) => (
-                <TextField {...params} label="Select province" />
-              )}
-              fullWidth
-              onKeyDown={(e) => {
-                e.key === "Enter"
-                  ? history.push({
-                      pathname: "/ppage",
-                      state: { data: e.target.value },
-                    })
-                  : console.log("not entered");
-              }}
-            /> */}
+
             <MyAutocomplete
-              style={{ display: "fix-inside" }}
+              style={{ display: "fix-inside" , fontFamily:'San Francisco'}}
               onChange={(e, v) => {
                 // setCitiesWithCountry(v);
                 changeCountry(v);
@@ -239,14 +237,18 @@ export default function Homepage(props) {
                 </Box>
               )}
               renderInput={(params) => (
+            
                 <MyTextField
                   {...params}
                   label="Choose a country"
+                  InputLabelProps={{style: {fontFamily:'San Francisco'}}}
                   inputProps={{
                     ...params.inputProps,
                     autoComplete: "new-password", // disable autocomplete and autofill
                   }}
                 />
+              
+        
               )}
               onKeyDown={(e) => {
                 e.key === "Enter"
@@ -258,29 +260,29 @@ export default function Homepage(props) {
               }}
             />
 
-            <Grid item xs={12} textAlign="left" sx={{ marginTop: "12vh" }}>
-              <Typography color="black" fontSize="1.3rem">
+            <Grid item xs={12} textAlign="left" sx={{ marginTop: "7vh" }}>
+              <Typography color="black" fontSize="1.3rem" style={{fontFamily:'San Francisco'}}>
                 You can communicate with others.
               </Typography>
             </Grid>
-            <Grid item xs={12} textAlign="left">
-              <Typography color="black" fontSize="1.3rem">
+            <Grid item xs={12} textAlign="left" >
+              <Typography color="black" fontSize="1.3rem" style={{fontFamily:'San Francisco'}}>
                 You can share your experiences with our charity.
               </Typography>
             </Grid>
             <Grid item xs={12} textAlign="left">
-              <Typography color="black" fontSize="1.3rem">
-                You can be helpful for the hurted animal.
+              <Typography color="black" fontSize="1.3rem" style={{fontFamily:'San Francisco'}}>
+                You can be helpful for the hurted animals.
               </Typography>
             </Grid>
             <Grid item xs={12} textAlign="left">
-              <Typography color="black" fontSize="1.3rem">
-                You can help people with what you don't need.
+              <Typography color="black" fontSize="1.3rem" style={{fontFamily:'San Francisco'}}>
+                You can help others with what you do not need.
               </Typography>
             </Grid>
             <Grid item xs={12} textAlign="left">
-              <Typography color="black" fontSize="1.8rem">
-                Enjoy using our app.
+              <Typography color="black" fontSize="1.8rem" style={{fontFamily:'San Francisco'}}>
+                Enjoy Lento.
               </Typography>
             </Grid>
             <br />
@@ -320,11 +322,13 @@ export default function Homepage(props) {
               >
                 <img
                   src={backg}
+                  // src={'http://www.upsara.com/images/k554754_.jpg'}
+                  // src={'http://www.upsara.com/images/k874425_.jpg'}
+                  // src={'http://www.upsara.com/images/t163606_.jpg'}
                   style={{
-                    width: "100vh",
-                    height: "100vh",
-                    // marginLeft: "7vh",
-                    // justifyContent: "center",
+                    width: "92.15vh",
+                    height: "96vh",
+                  
                     position: "sticky",
                     zIndex: "-1",
                   }}
@@ -348,14 +352,14 @@ export default function Homepage(props) {
 
         <Grid container spacing={1}>
           <Grid item xs={12} lg={4} md={4}>
-            <Card
+            <div
               elevation={3}
               sx={{ borderRadius: 6, display: "flex" }}
               style={{
                 marginTop: "7rem",
                 marginBottom: "1rem",
-                marginLeft: "4rem",
-                marginRight: "4rem",
+                marginLeft: "3rem",
+                marginRight: "2rem",
                 padding: "1rem",
               }}
             >
@@ -366,43 +370,53 @@ export default function Homepage(props) {
                     style={{ fontWeight: "bold" }}
                   ></Typography>
                   <img
-                    src={ci3}
+                    // src={ci3}
+                    src={'http://www.upsara.com/images/o021193_.jpg'}
                     style={{
-                      width: "100%",
-                      height: "20vh",
-                      // marginTop: "0rem",
-                      // marginBottom: "rem",
-                      // marginLeft: "0",
-                      // alignItems: "center",
+                      width: "118%",
+                      height: "30vh",
+                    
                     }}
                   />
                   <h4></h4>
                 </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography color="black" fontSize="1rem">
-                    You can communicate with others.
+                <Grid item xs={12} textAlign="center">
+                  <br/>
+                  <Typography color="#8b9b74" fontSize="15px" fontFamily={'San Francisco'}>
+                    AN UPDATE FROM CHARITY : FOOD
                   </Typography>
                 </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography color="black" fontSize="1rem">
-                    You can share your experiences with our charity.
+                <Grid item xs={12} textAlign="center">
+                  <Typography color="black" fontSize="1.5rem" fontFamily={'San Francisco'}>
+                    When We Are Well
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} textAlign="center">
+                  <Typography color="black" fontSize="1rem" fontFamily={'San Francisco'}>
+                  Learn about the burden of dirty food on mental health.
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} textAlign="center">
+                  <Typography  fontSize="1rem" fontFamily={'San Francisco'}>
+                    <a href="https://www.wfp.org/" style={{color:'#465832'}}>Continue To Article</a>
+                  
                   </Typography>
                 </Grid>
                 <br></br>
                 <br></br>
               </Grid>
-            </Card>
+            </div>
           </Grid>
 
           <Grid item xs={12} lg={4} md={4}>
-            <Card
+            <div
               elevation={3}
               sx={{ borderRadius: 6, display: "flex" }}
               style={{
                 marginTop: "7rem",
                 marginBottom: "1rem",
-                marginLeft: "4rem",
-                marginRight: "3rem",
+                marginLeft: "2.1rem",
+                marginRight: "3.1rem",
                 padding: "1rem",
               }}
             >
@@ -413,10 +427,11 @@ export default function Homepage(props) {
                     style={{ fontWeight: "bold" }}
                   ></Typography>
                   <img
-                    src={ci4}
+                    // src={ci4}
+                    src={'http://www.upsara.com/images/j971308_.jpg'}
                     style={{
-                      width: "100%",
-                      height: "20vh",
+                      width: "120%",
+                      height: "30vh",
                       // marginTop: "0rem",
                       // marginBottom: "rem",
                       alignItems: "center",
@@ -424,41 +439,45 @@ export default function Homepage(props) {
                   />
                   <h4></h4>
                 </Grid>
-                {/* <Grid item xs={12} textAlign="left" sx={{ marginTop: "4vh" }}>
-                  <Typography color="black" fontSize="1.3rem">
-                    You can communicate with others.
+                <Grid item xs={12} textAlign="center" style={{paddingLeft:'50px'}}>
+                  <br/>
+                  <Typography color="#8b9b74" fontSize="15px" fontFamily={'San Francisco'}>
+                    STORIES FROM THE FIELD
                   </Typography>
                 </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography color="black" fontSize="1.3rem">
-                    You can share your experiences with our charity.
-                  </Typography>
-                </Grid> */}
-                <Grid item xs={12} textAlign="left">
-                  <Typography color="black" fontSize="1rem">
-                    You can be helpful for the hurted animal.
+                <Grid item xs={12} textAlign="center" style={{paddingLeft:'50px'}}>
+                  <Typography color="black" fontSize="1.5rem" fontFamily={'San Francisco'}>
+                    What They Taught Us
                   </Typography>
                 </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography color="black" fontSize="1rem">
-                    You can help people with what you don't need.
+                <Grid item xs={12} textAlign="center" style={{paddingLeft:'35px'}}>
+                  <Typography color="black" fontSize="1rem" fontFamily={'San Francisco'}>
+                  Meet they, who talked about life in a way we’d never heard before.
                   </Typography>
                 </Grid>
+                <Grid item xs={12} textAlign="center">
+                  <Typography  fontSize="1rem" fontFamily={'San Francisco'} style={{paddingLeft:'50px'}}>
+                    <a href="https://www.un.org/en/global-issues/africa#" style={{color:'#465832'}}>Continue To Article</a>
+                  
+                  </Typography>
+                </Grid>
+           
+                
                 <br></br>
                 <br></br>
               </Grid>
-            </Card>
+            </div>
           </Grid>
 
           <Grid item xs={12} lg={4} md={4}>
-            <Card
+            <div
               elevation={3}
               sx={{ borderRadius: 6, display: "flex" }}
               style={{
                 marginTop: "7rem",
                 marginBottom: "1rem",
-                marginLeft: "5rem",
-                marginRight: "3rem",
+                marginLeft: "1rem",
+                marginRight: "6rem",
                 padding: "1rem",
               }}
             >
@@ -469,40 +488,49 @@ export default function Homepage(props) {
                     style={{ fontWeight: "bold" }}
                   ></Typography>
                   <img
-                    src={ci2}
+                    // src={ci2}
+                    src={'http://www.upsara.com/images/v245451_.jpg'}
                     style={{
-                      width: "100%",
-                      height: "20vh",
+                      width: "120%",
+                      height: "30vh",
                       marginTop: "0rem",
                       marginBottom: "rem",
                       alignItems: "center",
+                      
                     }}
                   />
                   <h4></h4>
                 </Grid>
-                {/* <Grid item xs={12} textAlign="left" sx={{ marginTop: "4vh" }}>
-                  <Typography color="black" fontSize="1.3rem">
-                    You can communicate with others.
+                  <Grid item xs={12} textAlign="center" style={{paddingLeft:'40px'}}>
+                  <br/>
+                  <Typography color="#8b9b74" fontSize="15px" fontFamily={'San Francisco'}>
+                    OUR NATURE
                   </Typography>
                 </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography color="black" fontSize="1.3rem">
-                    You can share your experiences with our charity.
-                  </Typography>
-                </Grid> */}
-                <Grid item xs={12} textAlign="left">
-                  <Typography color="black" fontSize="1rem">
-                    You can be helpful for the hurted animal.
+                <Grid item xs={12} textAlign="center" style={{paddingLeft:'27px'}}>
+                  <Typography color="black" fontSize="1.5rem" fontFamily={'San Francisco'}>
+                    For the People and the Planet
                   </Typography>
                 </Grid>
-                <Grid item xs={12} textAlign="left">
-                  <Typography color="black" fontSize="1rem">
-                    You can help people with what you don't need.
+                <Grid item xs={12} textAlign="center" style={{paddingLeft:'40px'}}>
+                  <Typography color="black" fontSize="1rem" fontFamily={'San Francisco'}>
+                  See how our local partners are setting new standards for sustainability.
                   </Typography>
                 </Grid>
+                <Grid item xs={12} textAlign="center" style={{paddingLeft:'40px'}}>
+                  <Typography  fontSize="1rem" fontFamily={'San Francisco'}>
+                    <a href="https://www.un.org/en/chronicle/article/planet-un" style={{color:'#465832'}}>Continue To Article</a>
+                  
+                  </Typography>
+                </Grid>
+                
+                
               </Grid>
-            </Card>
+            </div>
           </Grid>
+
+          
+
 
           <Grid
             item
@@ -550,7 +578,7 @@ export default function Homepage(props) {
                     >
                       <Card
                         elevation={3}
-                        sx={{ borderRadius: 6, display: "flex" }}
+                        sx={{ borderRadius: 6, display: "flex"  }}
                         style={{
                           marginTop: "7rem",
                           marginBottom: "1rem",
@@ -671,7 +699,7 @@ export default function Homepage(props) {
                       style={{ color: "black", paddingBottom: "2rem" }}
                     >
                       {" "}
-                      <Card
+                      <div
                         elevation={3}
                         sx={{ borderRadius: 6, display: "flex" }}
                         style={{
@@ -787,13 +815,13 @@ export default function Homepage(props) {
                             sx={{ marginTop: "4vh" }}
                           ></Grid>
                         </Grid>
-                      </Card>
+                      </div>
                     </SwiperSlide>
                     <SwiperSlide
                       style={{ color: "black", paddingBottom: "2rem" }}
                     >
                       {" "}
-                      <Card
+                      <div
                         elevation={3}
                         sx={{ borderRadius: 6, display: "flex" }}
                         style={{
@@ -909,13 +937,13 @@ export default function Homepage(props) {
                             sx={{ marginTop: "4vh" }}
                           ></Grid>
                         </Grid>
-                      </Card>
+                      </div>
                     </SwiperSlide>
                     <SwiperSlide
                       style={{ color: "black", paddingBottom: "2rem" }}
                     >
                       {" "}
-                      <Card
+                      <div
                         elevation={3}
                         sx={{ borderRadius: 6, display: "flex" }}
                         style={{
@@ -1031,13 +1059,13 @@ export default function Homepage(props) {
                             sx={{ marginTop: "4vh" }}
                           ></Grid>
                         </Grid>
-                      </Card>
+                      </div>
                     </SwiperSlide>
                     <SwiperSlide
                       style={{ color: "black", paddingBottom: "2rem" }}
                     >
                       {" "}
-                      <Card
+                      <div
                         elevation={3}
                         sx={{ borderRadius: 6, display: "flex" }}
                         style={{
@@ -1152,13 +1180,13 @@ export default function Homepage(props) {
                             sx={{ marginTop: "4vh" }}
                           ></Grid>
                         </Grid>
-                      </Card>
+                      </div>
                     </SwiperSlide>
                     <SwiperSlide
                       style={{ color: "black", paddingBottom: "2rem" }}
                     >
                       {" "}
-                      <Card
+                      <div
                         elevation={3}
                         sx={{ borderRadius: 6, display: "flex" }}
                         style={{
@@ -1274,13 +1302,13 @@ export default function Homepage(props) {
                             sx={{ marginTop: "4vh" }}
                           ></Grid>
                         </Grid>
-                      </Card>
+                      </div>
                     </SwiperSlide>
                     <SwiperSlide
                       style={{ color: "black", paddingBottom: "2rem" }}
                     >
                       {" "}
-                      <Card
+                      <div
                         elevation={3}
                         sx={{ borderRadius: 6, display: "flex" }}
                         style={{
@@ -1396,7 +1424,7 @@ export default function Homepage(props) {
                             sx={{ marginTop: "4vh" }}
                           ></Grid>
                         </Grid>
-                      </Card>
+                      </div>
                     </SwiperSlide>
                   </Swiper>
                 </Grid>
@@ -1406,7 +1434,7 @@ export default function Homepage(props) {
 
           <Grid container spacing={1}>
             <Grid item xs={12} lg={12} md={12}>
-              <Card
+              <div
                 // elevation={3}
                 // sx={{ borderRadius: 0, display: "flex" }}
                 style={{
@@ -1517,7 +1545,7 @@ export default function Homepage(props) {
                     </Grid>
                   </Grid>
                 </Grid>
-              </Card>
+              </div>
             </Grid>
           </Grid>
         </Grid>
@@ -1531,14 +1559,16 @@ export default function Homepage(props) {
 
         <Grid xs={4} md={4}></Grid>
       </Container> */}
+      <BackToTop/>
+      </ThemeProvider>
     </div>
   );
 }
 
-interface FilmOptionType {
-  title: string;
-  year: number;
-}
+// interface FilmOptionType {
+//   title: string;
+//   year: number;
+// }
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const top100Films = [
@@ -1749,7 +1779,7 @@ const Provinces = [
   <SwiperSlide style={{ paddingBottom: "2rem" }}>
     {" "}
     <Grid item xs={12}>
-      <Card
+      <div
         elevation={3}
         sx={{ borderRadius: 6, display: "flex" }}
         style={{
@@ -1800,13 +1830,13 @@ const Provinces = [
             </Typography>
           </Grid>
         </Grid>
-      </Card>
+      </div>
     </Grid>
   </SwiperSlide>
   <SwiperSlide style={{ paddingBottom: "2rem" }}>
     {" "}
     <Grid item xs={12}>
-      <Card
+      <div
         elevation={3}
         sx={{ borderRadius: 6, display: "flex" }}
         style={{
@@ -1861,13 +1891,13 @@ const Provinces = [
             </Typography>
           </Grid>
         </Grid>
-      </Card>
+      </div>
     </Grid>
   </SwiperSlide>
   <SwiperSlide style={{ paddingBottom: "2rem" }}>
     {" "}
     <Grid item xs={12}>
-      <Card
+      <div
         elevation={3}
         sx={{ borderRadius: 6, display: "flex" }}
         style={{
@@ -1922,13 +1952,13 @@ const Provinces = [
             </Typography>
           </Grid>
         </Grid>
-      </Card>
+      </div>
     </Grid>
   </SwiperSlide>
   <SwiperSlide style={{ paddingBottom: "2rem" }}>
     {" "}
     <Grid item xs={12}>
-      <Card
+      <div
         elevation={3}
         sx={{ borderRadius: 6, display: "flex" }}
         style={{
@@ -1983,13 +2013,13 @@ const Provinces = [
             </Typography>
           </Grid>
         </Grid>
-      </Card>
+      </div>
     </Grid>
   </SwiperSlide>
   <SwiperSlide style={{ paddingBottom: "2rem" }}>
     {" "}
     <Grid item xs={12}>
-      <Card
+      <div
         elevation={3}
         sx={{ borderRadius: 6, display: "flex" }}
         style={{
@@ -2044,13 +2074,13 @@ const Provinces = [
             </Typography>
           </Grid>
         </Grid>
-      </Card>
+      </div>
     </Grid>
   </SwiperSlide>
   <SwiperSlide style={{ paddingBottom: "2rem" }}>
     {" "}
     <Grid item xs={12}>
-      <Card
+      <div
         elevation={3}
         sx={{ borderRadius: 6, display: "flex" }}
         style={{
@@ -2105,13 +2135,13 @@ const Provinces = [
             </Typography>
           </Grid>
         </Grid>
-      </Card>
+      </div>
     </Grid>
   </SwiperSlide>
   <SwiperSlide style={{ paddingBottom: "2rem" }}>
     {" "}
     <Grid item xs={12}>
-      <Card
+      <div
         elevation={3}
         sx={{ borderRadius: 6, display: "flex" }}
         style={{
@@ -2166,7 +2196,7 @@ const Provinces = [
             </Typography>
           </Grid>
         </Grid>
-      </Card>
+      </div>
     </Grid>
   </SwiperSlide>
 </Swiper> */

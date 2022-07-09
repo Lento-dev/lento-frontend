@@ -3,6 +3,7 @@ import {
   Avatar, Button, CssBaseline, TextField,Link, Grid, Box,
   Typography, Container
 } from '@mui/material';
+import BASE_URL from './baseurl';
 
 import Helmet from 'react-helmet';
 import { useFormik } from 'formik';
@@ -68,7 +69,6 @@ function UserInfo(props) {
   const [phone, setPhone] = useState('');
   const [message, setMessage] = React.useState(null);
   const [openm, setOpenm] = useState(false);
-  const BASE_URL ='http://172.17.3.154/api';
 
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -109,7 +109,7 @@ function UserInfo(props) {
 
   useEffect(() => {
       console.log(token)
-      axios.get(BASE_URL + '/account/user-profile/', {headers: headers})
+      axios.get(BASE_URL + 'account/user-profile/', {headers: headers})
           .then(res => {
               console.log(res.data);
               formik.setValues({
@@ -143,7 +143,7 @@ function UserInfo(props) {
     console.log('filled: ' ,filled);
     if (filled){
       setLoading(true);
-    axios.put(BASE_URL + '/account/edit-profile/', 
+    axios.put(BASE_URL + 'account/edit-profile/', 
       { 
         first_name: formik.values.firstname,
         last_name: formik.values.lastname,

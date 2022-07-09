@@ -5,7 +5,7 @@ import {
   TextField,
   Link,
   Grid,
-  Box,
+  Box, FormControl,
   Typography,
   Container,
   Divider, Dialog,
@@ -27,6 +27,7 @@ import { clearMessage } from "../actions/message";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
 import MyTextField from './ModifiedTextField';
+import BASE_URL from './baseurl';
 
 import GoogleLogin from "react-google-login";
 import { FcGoogle } from "react-icons/fc";
@@ -39,7 +40,6 @@ function SignUp() {
   const [openm, setOpenm] = useState(false);
   const [errors, setErrors] = useState({});
   const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-  const BASE_URL = "http://172.17.3.154/api";
 
   const [values, setValues] = useState({
     firstname: "",
@@ -54,8 +54,6 @@ function SignUp() {
     if (reason === "clickaway") {
       return;
     }
-    setMessage(null);
-
     setOpenm(false);
   };
 
@@ -175,7 +173,7 @@ function SignUp() {
       formData.append("password_confirm", values.confirmpassword);
 
       return axios
-        .post(BASE_URL + "/account/register/", formData)
+        .post(BASE_URL + "account/register/", formData)
         .then((res) => {
           setLoading(false);
           handleVerifyEmailDialogClickOpen();
@@ -265,7 +263,6 @@ function SignUp() {
                         </Grid>
                       </Grid>
                     </Grid>
-
                     <Grid item xs={12} md={6}>
                       <MyTextField
                         label="First Name"
@@ -336,6 +333,8 @@ function SignUp() {
                         onChange={handleChange("password")}
                         error={Boolean(errors["password"])}
                         helperText={errors["password"]}
+                        autoComplete='tes'
+
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -411,11 +410,12 @@ function SignUp() {
                       />
                     </Grid>
                       <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
-                  <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                  <Alert variant="filled" onClose={handleClose} severity="error" sx={{ width: '100%' }}>
                     {message}
                   </Alert>
                 </Snackbar>
                   </Grid>
+                  
                 </Grid>
               </Grid>
             </Grid>

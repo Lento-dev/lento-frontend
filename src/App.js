@@ -70,7 +70,7 @@ function App() {
               <Route exact path="/dd" component={Dropdown} />
               <Route exact path="/cg" component={Forms} />
               <Route exact path="/forms" component={Formstab} />
-              {/* <Route exact path="/dashbpard/profile" component={Reprofile} /> */}
+              <Route exact path="/rr" component={Reprofile} />
               {/* <Route exact path="/setting" component={UserSetting} /> */}
               <Route exact path="/dashboard" component={PersistentDrawerLeft} />
               <Route exact path="/ppage" component={Ppage} />
