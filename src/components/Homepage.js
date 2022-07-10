@@ -94,7 +94,6 @@ import tashvigh from "../assets/img/tashvigh.jpg";
 import hamipic from "../assets/img/hamipic.jpg";
 import MyTextField from "./ModifiedTextField";
 import MyAutocomplete from "./ModifiedAutocom";
-import { BackToTop } from "material-ui-back-to-top";
 import { ThemeProvider } from '@mui/material/styles';
 
 // const filterOptions = createFilterOptions({
@@ -1542,7 +1541,6 @@ export default function Homepage(props) {
 
         <Grid xs={4} md={4}></Grid>
       </Container> */}
-      <BackToTop/>
       </ThemeProvider>
     </div>
   );
