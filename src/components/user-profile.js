@@ -35,8 +35,11 @@ import CalendarTodayRoundedIcon from "@mui/icons-material/CalendarTodayRounded";
 import WorkRoundedIcon from "@mui/icons-material/WorkRounded";
 import ClearIcon from '@mui/icons-material/Clear';
 import CircularProgress from "@mui/material/CircularProgress";
-import PostCard from './myselfPostCard'
+import PostCard from './myselfPostCard';
+import SavedAdCard from './savedAdCard';
+
 import BASE_URL from './baseurl';
+
 
 
 function TabPanel(props) {
@@ -54,7 +57,10 @@ const UserProfile = () => {
   const history = useHistory();
   const [data, setData] = useState(null);
   const [value, setValue] = useState(0);
+  const [saveDialog, setSaveDialog] = useState(false);
   const [posts, setPosts] = useState(null);
+  const [savedAdvertisementIDS, setSavedAdvertisementIDS] = useState(null);
+  const [savedAdvertisement, setSavedAdvertisement] = useState(null);
 
   const token = localStorage.getItem("token");
   const headers = { Authorization: `Token ${token}` };
@@ -83,6 +89,35 @@ const UserProfile = () => {
       })
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(BASE_URL + "advertisement/Savelist/", { headers: headers })
+      .then((res) => {
+        console.log(res.data);
+        setSavedAdvertisementIDS(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
+  }, []);
+  useEffect(() => {
+    for (let index = 0; index < setSavedAdvertisementIDS.length; index++) {
+      axios.get(BASE_URL + 'advertisement/retrieve/' + savedAdvertisementIDS[index].post_n, { headers: headers })
+      .then(res => {
+        setSavedAdvertisement(res.data)
+      })
+
+    }
+    console.log(savedAdvertisement)
+
+  }, setSavedAdvertisementIDS);
+
+  const handleSaveChange = () => {
+    
+
+  }
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -108,12 +143,17 @@ const UserProfile = () => {
         <Grid container justifyContent="center" sx={{marginTop: '-4rem'}}>
   {/* <Tabs value={value} style={{marginLeft:"10rem", color:"#B10C59"}}> */}
     {/* <Box sx={{ borderBottom: 1, borderColor: 'divider' }}> */}
-      <Tabs textColor="secondary"
-        indicatorColor="secondary"
+    <Tabs
+                  textColor="black"
+                  TabIndicatorProps={{
+                    style: {
+                      backgroundColor: "#e6835a",
+                    },
+                  }}
         centered
         onChange={handleChange} aria-label="secondary tabs example" value={value}>
         <Tab value={0} label="Profile" />
-        <Tab value={1} label="Save Advertisement" />
+        <Tab value={1} label="Saved Advertisements" />
         <Tab value={2} label="Posts" />
         {/* <Tab value={2} label="Gallery" /> */}
       </Tabs>
@@ -257,7 +297,31 @@ const UserProfile = () => {
 </TabPanel>
 
 
-<TabPanel value={value} index={1}></TabPanel>
+<TabPanel value={value} index={1}>
+<Card variant="outlined" style={{ marginTop: "3.1rem" }}>
+                <CardContent>
+              <Grid container spacing={4}>
+                    <Grid item xs={12} sx={{textAlign: 'justify'}}>
+                    {posts && (
+                      <Grid container spacing={2} justifyContent="center">
+                        {posts.map(p => (
+                          <Grid item xs={9}>
+                          <SavedAdCard post={p}/>
+                            </Grid>
+                        ))}
+                      </Grid>
+                    )}
+                    {!posts && (
+                      <Typography textAlign='center' >Nothing to show!</Typography>
+                    )}
+                </Grid>
+                
+                </Grid>
+
+              </CardContent>
+              </Card>
+
+</TabPanel>
 
 
 <TabPanel value={value} index={2}>
@@ -266,11 +330,6 @@ const UserProfile = () => {
               <Card variant="outlined" style={{ marginTop: "3.1rem" }}>
                 <CardContent>
               <Grid container spacing={4}>
-                    <Grid item xs={12}>
-                    <Typography variant="h6" fontWeight="bold"  textAlign='center'>
-                    Posts
-                  </Typography>
-                    </Grid>
                     <Grid item xs={12} sx={{textAlign: 'justify'}}>
                     {posts && (
                       <Grid container spacing={2} justifyContent="center">

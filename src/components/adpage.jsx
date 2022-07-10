@@ -17,7 +17,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Helmet from "react-helmet";
 import MyTextField from "./ModifiedTextField";
-
+import axios from 'axios';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Button,
   Typography,
@@ -27,8 +29,14 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { height } from "@mui/system";
+import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
+import BASE_URL from './baseurl';
 
 export default function BasicCard(props) {
+  const id = props.location.state.data.id;
+  const commentsIDs = props.location.state.data.comments;
+  const [comments, setComments] = React.useState([]);
+
   console.log(props.location.state.data);
   let resourcech = (props.location.state.data.resourcetype).replace("Advertisement","")
   var image = "https://s6.uupload.ir/files/newwwww_3y3i.jpg";
@@ -40,17 +48,53 @@ export default function BasicCard(props) {
   const handleClick = () => {
     console.log(props.location.state.data);
   }
+
+  useEffect(async () => {
+      await axios.get(BASE_URL + 'advertisement/commentposts/?post=' + id, {headers: headers})
+      .then(res => {
+          setComments(res.data);
+          console.log('comments', res.data)
+      })        
+    }, comments)
+        
+
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState('paper');
+  const [comment, setComment] = React.useState('');
+  const token = localStorage.getItem("token");
+  const headers = { Authorization: `Token ${token}` };
 
   const handleClickOpen = (scrollType) => () => {
     setOpen(true);
     setScroll(scrollType);
   };
 
+    const handleSaveAddvertisment = () => {
+      
+    }
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleCommentChange = (event) => {
+    setComment(event.target.value );
+  };
+
+  const addComment = () => {
+    var formData = new FormData();
+    formData.append("body", comment);
+    formData.append("post", id);
+    console.log(comment);
+    axios.post(BASE_URL + 'advertisement/comments/', formData, { headers: headers })
+    .then(res => {
+      console.log(res)
+      comments.push(comment)
+      console.log('jalal', comments)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
 
   const descriptionElementRef = React.useRef(null);
   React.useEffect(() => {
@@ -114,6 +158,8 @@ export default function BasicCard(props) {
             <Grid item xs={3}>
               <Card container sx={{ maxWidth: 370, marginLeft: "30px" }}>
                 <CardContent style={{ textAlign: "left", lineHeight: "175%" }}>
+                <Grid container>
+                  <Grid item xs={6}>
                   <Typography
                     style={{
                       display: "inline",
@@ -126,6 +172,14 @@ export default function BasicCard(props) {
                   >
                     &nbsp;{props.location.state.data.Title}&nbsp;
                   </Typography>
+                  </Grid>
+                  <Grid item xs={6} sx={{justifyContent: 'flex-end', display: 'flex'}}>
+                  <IconButton sx={{marginLeft: '4rem'}}>
+                    <BookmarkAddIcon/>
+                  </IconButton>
+                  </Grid>
+                </Grid>
+
                   <div
                     style={{
                       display: "flex",
@@ -234,7 +288,7 @@ export default function BasicCard(props) {
                 </CardContent>
                 <br />
                 <Grid container item xs={12}>
-                  <Button
+                  {/* <Button
                     variant="contained"
                     onClick={handleClick}
                     style={{ display: "inline-block" }}
@@ -252,24 +306,22 @@ export default function BasicCard(props) {
                     }}
                   >
                     Save
-                  </Button>
+                  </Button> */}
                 </Grid>
                 <Grid container item xs={12}>
                   <Button
-                    variant="contained"
+                    variant="outlined"
                     style={{ display: "inline-block" }}
                     onClick={handleClickOpen('paper')}
+                    fullWidth
                     sx={{
-                      backgroundColor: "#e6835a",
-                      height: "40px",
-                      width: "120px",
+                      borderColor: 'white',
+                      color: 'white',
+                      backgroundColor: '#e6835a',
                       display: "inline-block",
-                      top: "-40px",
-                      marginLeft: "200px",
+                        textTransform: 'none',
+                        "&:hover": {backgroundColor: '#eef5e4', color: '#5f6e4b', borderColor: 'white'}
 
-                      ":hover": {
-                        bgcolor: "#556749 ",
-                      },
                     }}
                   >
                     Comments
@@ -282,7 +334,22 @@ export default function BasicCard(props) {
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
-        <DialogTitle id="scroll-dialog-title" style={{fontWeight: 'bold'}}>Comments</DialogTitle>
+              <Grid container>
+                    <Grid item xs={6}>
+        <DialogTitle id="scroll-dialog-title" style={{fontWeight: 'bold'}}>Comments
+
+        </DialogTitle>
+        </Grid>
+        <Grid item xs={6}>
+        <DialogActions>
+
+<IconButton sx={{textAlign: 'right', color:'#e6835a'}} onClick={() => setOpen(false)}>
+<CloseIcon/>
+              </IconButton>
+</DialogActions>
+</Grid>
+</Grid>
+
         <DialogContent dividers={scroll === 'paper'}>
           <DialogContentText
             id="scroll-dialog-description"
@@ -290,61 +357,30 @@ export default function BasicCard(props) {
             tabIndex={-1}
           >
           <Grid justifyContent="left" item xs zeroMinWidth>
-            <h4 style={{ margin: 0, textAlign: "left" }}>Michel Michel</h4>
+          {comments.map(c => ( 
+            <div>
+            <h4 style={{ margin: 0, textAlign: "left" }}>{c.owner}</h4>
             <p style={{ textAlign: "justify" }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-              luctus ut est sed faucibus. Duis bibendum ac ex vehicula laoreet.
-              Suspendisse congue vulputate lobortis. {" "}
-            </p>
-            <p style={{ textAlign: "left", color: "gray", paddingTop: '0.5rem' }}>
-              posted 1 minute ago
+              {c.body} {" "}
             </p>
             <Divider sx={{paddingTop: '0.7rem', marginBottom: '0.7rem'}}/>
-            <h4 style={{ margin: 0, textAlign: "left" }}>Michel Michel</h4>
-            <p style={{ textAlign: "justify" }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-              luctus ut est sed faucibus. Duis bibendum ac ex vehicula laoreet.
-              Suspendisse congue vulputate lobortis. {" "}
-            </p>
-            <p style={{ textAlign: "left", color: "gray", paddingTop: '0.5rem' }}>
-              posted 1 minute ago
-            </p>
-            <Divider sx={{paddingTop: '0.7rem', marginBottom: '0.7rem'}}/>
-            <h4 style={{ margin: 0, textAlign: "left" }}>Michel Michel</h4>
-            <p style={{ textAlign: "justify" }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-              luctus ut est sed faucibus. Duis bibendum ac ex vehicula laoreet.
-              Suspendisse congue vulputate lobortis. {" "}
-            </p>
-            <p style={{ textAlign: "left", color: "gray", paddingTop: '0.5rem' }}>
-              posted 1 minute ago
-            </p>
-            <Divider sx={{paddingTop: '0.7rem', marginBottom: '0.7rem'}}/>
-            <h4 style={{ margin: 0, textAlign: "left" }}>Michel Michel</h4>
-            <p style={{ textAlign: "justify" }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-              luctus ut est sed faucibus. Duis bibendum ac ex vehicula laoreet.
-              Suspendisse congue vulputate lobortis. {" "}
-            </p>
-            <p style={{ textAlign: "left", color: "gray", paddingTop: '0.5rem' }}>
-              posted 1 minute ago
-            </p>
-            <Divider sx={{paddingTop: '0.7rem', marginBottom: '0.7rem'}}/>
-            <h4 style={{ margin: 0, textAlign: "left" }}>Michel Michel</h4>
-            <p style={{ textAlign: "justify" }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-              luctus ut est sed faucibus. Duis bibendum ac ex vehicula laoreet.
-              Suspendisse congue vulputate lobortis. {" "}
-            </p>
-            <p style={{ textAlign: "left", color: "gray", paddingTop: '0.5rem' }}>
-              posted 1 minute ago
-            </p>
+            </div>
+          ))}
+
                       <Grid container sx={{paddingTop: '5rem'}}>
+
                         <Grid item xs = {12}>
-                        <MyTextField
-                        multiline                 
+                        <MyTextField placeholder="Add a comment ..."
+                        multiline   minRows={3}
+                        value={comment} onChange={handleCommentChange}
                         fullWidth/>
                         </Grid>
+                        <Grid item xs = {12} sx={{paddingTop: '1rem'}}>
+                      <Button onClick={addComment}      
+                      sx={{ backgroundColor: "#8b9b74", color: "white", "&:hover": {backgroundColor: '#c0d4b3', color: 'black'}}}>
+                        Add comment
+                      </Button>
+                    </Grid>
                       </Grid>
 
             
@@ -352,10 +388,8 @@ export default function BasicCard(props) {
           </Grid>
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
-        </DialogActions>
+
+
       </Dialog>
                 </Grid>
               </Card>

@@ -32,6 +32,8 @@ import PublicUserProfile from './components/public-user-profile'
 import Productdetail from "./components/advertisementpage";
 import BasicCard from "./components/adpage";
 import FormTabs from "./components/formstab";
+import ChangeEmail from "./components/changeEmail";
+
 // import Footer from './components/footer';
 
 const theme = createTheme({
@@ -62,6 +64,8 @@ function App() {
                 path="/user-profile/:id"
                 component={PublicUserProfile}
               />
+              <Route exact path="/change-email" component={ChangeEmail} />
+
               <Route exact path="/signin" component={SignIn} />
               {/* <Route exact path="/foot" component={Footer} /> */}
               <Route exact path="/forgot-password" component={ForgotPassword} />
