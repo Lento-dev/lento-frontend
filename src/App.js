@@ -10,7 +10,6 @@ import store from "./store";
 import UserInfo from "./components/editprofile";
 import VerifyUser from "./components/verifyuser";
 import ComplexGrid from "./components/Gride";
-import User_Profile from "./components/User_Profile";
 import Foodadvertisment from "./components/foodadvertisment";
 import Dropdown from "./components/Gride";
 import Serviceadvertisement from "./components/Serviceadvertisement";
@@ -33,6 +32,7 @@ import PublicUserProfile from './components/public-user-profile'
 import Productdetail from "./components/advertisementpage";
 import BasicCard from "./components/adpage";
 import FormTabs from "./components/formstab";
+// import Footer from './components/footer';
 
 const theme = createTheme({
   typography: {
@@ -63,6 +63,7 @@ function App() {
                 component={PublicUserProfile}
               />
               <Route exact path="/signin" component={SignIn} />
+              {/* <Route exact path="/foot" component={Footer} /> */}
               <Route exact path="/forgot-password" component={ForgotPassword} />
               <Route exact path="/verify-user" component={VerifyUser} />
               <Route exact path="/reset-password" component={ResetPassword} />
