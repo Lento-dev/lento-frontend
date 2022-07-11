@@ -78,10 +78,12 @@ function App() {
               {/* <Route exact path="/setting" component={UserSetting} /> */}
               <Route exact path="/dashboard" component={PersistentDrawerLeft} />
               <Route exact path="/ppage" component={Ppage} />
-              <Route exact path="/jj" component={BasicCard} />
               <Route exact path="/formtabs" component={FormTabs} />
             </Switch>
             <Footer/>
+            <Switch>
+            <Route exact path="/jj" component={BasicCard} />
+            </Switch>
           </BrowserRouter>
         </div>
       </Provider>
