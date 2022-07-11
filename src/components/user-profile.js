@@ -178,7 +178,8 @@ const UserProfile = () => {
                         </Typography>
                       </Grid>
 
-                      <Grid item xs={12} justifyContent= "center" sx={{ display: "inline-flex" }}>
+                      {data.job && (
+                        <Grid item xs={12} justifyContent= "center" sx={{ display: "inline-flex" }}>
                         <WorkRoundedIcon
                           sx={{ color: "#e6835a", marginRight: "1%" }}
                         />
@@ -189,8 +190,10 @@ const UserProfile = () => {
                           {data.job}
                         </Typography>
                       </Grid>
+                      )}
 
-                      <Grid item xs={12} justifyContent= "center" sx={{ display: "inline-flex" }}>
+                        {data.country && data.city && (
+                          <Grid item xs={12} justifyContent= "center" sx={{ display: "inline-flex" }}>
                         <LocationOnRoundedIcon
                           sx={{ color: "#e6835a", marginRight: "1%" }}
                         />
@@ -200,6 +203,7 @@ const UserProfile = () => {
                           {data.country} - {data.city}
                         </Typography>
                       </Grid>
+                        )}
 
                       {data.phone && (
                         <Grid item xs={12} justifyContent= "center"  sx={{ display: "inline-flex" }}>
