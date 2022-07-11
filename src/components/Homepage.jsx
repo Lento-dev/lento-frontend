@@ -48,6 +48,13 @@ import hamipic from "../assets/img/hamipic.jpg";
 import MyTextField from "./ModifiedTextField";
 import MyAutocomplete from "./ModifiedAutocom";
 import { ThemeProvider } from '@mui/material/styles';
+import CardMedia from '@mui/material/CardMedia';
+import '../styles/swipstyle.css';
+import LocationCityIcon from "@mui/icons-material/LocationCity";
+import CategoryIcon from "@mui/icons-material/Category";
+import './titlehomepage.css';
+import { useRef } from 'react';
+import SwiperCore, { Virtual } from 'swiper';
 
 // const filterOptions = createFilterOptions({
 //   matchFrom: "start",

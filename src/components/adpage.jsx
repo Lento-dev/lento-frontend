@@ -13,7 +13,6 @@ import "../styles/Productdetail.css";
 import PersonIcon from '@mui/icons-material/Person';
 import axios from "axios";
 import { Link } from "react-router-dom";
-import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import { IconButton } from '@mui/material';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 
@@ -25,8 +24,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Helmet from "react-helmet";
 import MyTextField from "./ModifiedTextField";
-import axios from 'axios';
-import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import {
   Button,
@@ -280,30 +277,39 @@ export default function BasicCard(props) {
                   <Grid item xs={6}>
                   <Typography
                     style={{
-                      display: "inline",
-                      borderRadius: "4px",
-                      textShadow: "0 0 1px grey",
+                      // display: "inline",
+                      // borderRadius: "4px",
+                      // textShadow: "0 0 1px grey",
                       color: "#556749",
-                      fontSize: "30px",
-                      marginLeft: "-5px",
+                      fontSize: "25px",
+                      // marginLeft: "-5px", 
+                      display: "flex",
+                      flexWrap: "wrap",
+                      paddingTop: "10px",
+                      alignItems: "right",
                     }}
                   >
-                    &nbsp;{props.location.state.data.Title}
-                    <Grid item xs={6} textAlign="right" marginTop="-40px" >
-                    <IconButton onClick={handlesave}  >
+                                        
+                    
+                    {props.location.state.data.Title}
+                    <Grid item xs={15} textAlign="right" marginTop="-40px" >
+                    <IconButton   onClick={handlesave}  >
                       {save == "save"?  <BookmarkAddedIcon ></BookmarkAddedIcon> : 
 
                       <BookmarkAddIcon   ></BookmarkAddIcon>}
                     </IconButton>
                     </Grid>
                     
+
+                   
+                    
                   </Typography>
                   </Grid>
-                  <Grid item xs={6} sx={{justifyContent: 'flex-end', display: 'flex'}}>
+                  {/* <Grid item xs={6} sx={{justifyContent: 'flex-end', display: 'flex'}}>
                   <IconButton sx={{marginLeft: '4rem'}}>
                     <BookmarkAddIcon/>
                   </IconButton>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
 
                   <div

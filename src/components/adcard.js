@@ -120,7 +120,7 @@ const MediaControlCard = (props) => {
       
       <CardMedia
         component="img"
-        style={{textAlign:'right',position:'sticky'}}
+        style={{width:'50%',height:'200px',position:'sticky',textAlign:'right',display:'flex'}}
         // sx={{ width: 134 }}
         image={image}
         />
