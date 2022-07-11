@@ -59,8 +59,7 @@ const UserProfile = () => {
   const [value, setValue] = useState(0);
   const [saveDialog, setSaveDialog] = useState(false);
   const [posts, setPosts] = useState(null);
-  const [savedAdvertisementIDS, setSavedAdvertisementIDS] = useState(null);
-  const [savedAdvertisement, setSavedAdvertisement] = useState(null);
+  const [savedAdvertisements, setSavedAdvertisements] = useState(null);
 
   const token = localStorage.getItem("token");
   const headers = { Authorization: `Token ${token}` };
@@ -94,24 +93,14 @@ const UserProfile = () => {
       .get(BASE_URL + "advertisement/Savelist/", { headers: headers })
       .then((res) => {
         console.log(res.data);
-        setSavedAdvertisementIDS(res.data);
+        setSavedAdvertisements(res.data);
       })
       .catch(err => {
         console.log(err);
       })
 
   }, []);
-  useEffect(() => {
-    for (let index = 0; index < setSavedAdvertisementIDS.length; index++) {
-      axios.get(BASE_URL + 'advertisement/retrieve/' + savedAdvertisementIDS[index].post_n, { headers: headers })
-      .then(res => {
-        setSavedAdvertisement(res.data)
-      })
 
-    }
-    console.log(savedAdvertisement)
-
-  }, setSavedAdvertisementIDS);
 
   const handleSaveChange = () => {
     
@@ -302,16 +291,16 @@ const UserProfile = () => {
                 <CardContent>
               <Grid container spacing={4}>
                     <Grid item xs={12} sx={{textAlign: 'justify'}}>
-                    {posts && (
+                    {savedAdvertisements && (
                       <Grid container spacing={2} justifyContent="center">
-                        {posts.map(p => (
+                        {savedAdvertisements.map(ad => (
                           <Grid item xs={9}>
-                          <SavedAdCard post={p}/>
+                          <SavedAdCard ad={ad}/>
                             </Grid>
                         ))}
                       </Grid>
                     )}
-                    {!posts && (
+                    {!savedAdvertisements && (
                       <Typography textAlign='center' >Nothing to show!</Typography>
                     )}
                 </Grid>

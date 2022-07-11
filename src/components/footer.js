@@ -64,6 +64,9 @@ const Alert = React.forwardRef(function Alert(props, ref) {
         }}
       >
         <Container sx={{textAlign: 'center'}} maxWidth="sm">
+        <Typography variant="body1">
+        Contact us
+</Typography>
           <Typography variant="body1">
           <Link sx={{ color: 'black', cursor: 'pointer' }} 
             underline="hover" 
@@ -73,7 +76,9 @@ const Alert = React.forwardRef(function Alert(props, ref) {
         <Typography variant="body2">
       {'This is a charity site, You can use it to help people'}
     </Typography>
+
           </Typography>
+          
           <Copyright />
         </Container>
         <Snackbar

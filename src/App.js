@@ -34,7 +34,7 @@ import BasicCard from "./components/adpage";
 import FormTabs from "./components/formstab";
 import ChangeEmail from "./components/changeEmail";
 
-// import Footer from './components/footer';
+import Footer from './components/footer';
 
 const theme = createTheme({
   typography: {
@@ -67,7 +67,6 @@ function App() {
               <Route exact path="/change-email" component={ChangeEmail} />
 
               <Route exact path="/signin" component={SignIn} />
-              {/* <Route exact path="/foot" component={Footer} /> */}
               <Route exact path="/forgot-password" component={ForgotPassword} />
               <Route exact path="/verify-user" component={VerifyUser} />
               <Route exact path="/reset-password" component={ResetPassword} />
@@ -82,6 +81,7 @@ function App() {
               <Route exact path="/jj" component={BasicCard} />
               <Route exact path="/formtabs" component={FormTabs} />
             </Switch>
+            <Footer/>
           </BrowserRouter>
         </div>
       </Provider>

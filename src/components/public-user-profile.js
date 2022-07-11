@@ -83,7 +83,7 @@ import {
             <Avatar 
                       variant="circular"
                       sx={{ bgcolor: "#f0f5eb", width: "200px", height: "200px"}}
-                      src={Image}
+                      src={data.image}
                     >
   
                     </Avatar></Grid>

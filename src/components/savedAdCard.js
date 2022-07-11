@@ -62,13 +62,13 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function SavedAdCard({ post }) {
+export default function SavedAdCard({ ad }) {
     const classes = useStyles();
     const [dialogOpen, setDialogOpen] = useState(false);
     const [loadingYesButton, setLoadingYesButton] = useState(false);
     const token = localStorage.getItem("token");
     const headers = { Authorization: `Token ${token}` };
-    const postID = post.id;
+    const postID = ad.id;
 
     const unSavePost = () => {
         setLoadingYesButton(true);
@@ -102,7 +102,7 @@ export default function SavedAdCard({ post }) {
                   underline="none"
                   color="inherit"
                 >
-                  {post.Title}
+                  {ad.post_n.Title}
                 </Link>
               </Typography>
             }        
@@ -113,14 +113,14 @@ export default function SavedAdCard({ post }) {
                         />
                         <Typography className={classes.postAddress} sx={{minInlineSize: 'fit-content', paddingRight: '8%'}}
                         >
-                          {post.owner}
+                          {ad.post_n.owner}
                         </Typography>
                         <CalendarTodayIcon fontSize="small"
                           sx={{ color: "#e6835a", marginRight: "3%" }}
                         />
                         <Typography className={classes.postTime} sx={{minInlineSize: 'fit-content'}}
                         >
-                          {post.date_joined.slice(0,10)}
+                          {ad.post_n.date_joined.slice(0,10)}
                         </Typography>
 
                       </Grid>
@@ -128,21 +128,21 @@ export default function SavedAdCard({ post }) {
       />
       <CardContent sx={{paddingLeft: '1rem', paddingRight: '1rem', marginTop: '-1rem'}}>
 
-                        {post.resourcetype === "FoodAdvertisement" && (
+                        {ad.post_n.resourcetype === "FoodAdvertisement" && (
                             <Grid container sx={{marginTop :'1rem'}}>
-                        <Chip sx={{padding: '7px', backgroundColor: '#d2e4fa', fontWeight: '400', fontSize: '1rem'}} icon={<RestaurantMenuIcon />} label={post.resourcetype} />
+                        <Chip sx={{padding: '7px', backgroundColor: '#d2e4fa', fontWeight: '400', fontSize: '1rem'}} icon={<RestaurantMenuIcon />} label={ad.post_n.resourcetype} />
                         </Grid>
                         )}
 
-                        {post.resourcetype === "ClothAdvertisement" && (
+                        {ad.post_n.resourcetype === "ClothAdvertisement" && (
                             <Grid container sx={{marginTop :'1rem'}}>
-                        <Chip sx={{padding: '7px', backgroundColor: '#d2e4fa', fontWeight: '400', fontSize: '1rem'}} icon={<FaTshirt />} label={post.resourcetype} />
+                        <Chip sx={{padding: '7px', backgroundColor: '#d2e4fa', fontWeight: '400', fontSize: '1rem'}} icon={<FaTshirt />} label={ad.post_n.resourcetype} />
                         </Grid>
                         )}
 
-                        {post.resourcetype === "ServiceAdvertisement" && (
+                        {ad.post_n.resourcetype === "ServiceAdvertisement" && (
                             <Grid container sx={{marginTop :'1rem'}}>
-                        <Chip sx={{padding: '7px', backgroundColor: '#d2e4fa', fontWeight: '400', fontSize: '1rem'}} icon={<HomeRepairServiceIcon />} label={post.resourcetype} />
+                        <Chip sx={{padding: '7px', backgroundColor: '#d2e4fa', fontWeight: '400', fontSize: '1rem'}} icon={<HomeRepairServiceIcon />} label={ad.post_n.resourcetype} />
                         </Grid>
                         )}
 

@@ -44,6 +44,7 @@ export default function BasicCard(props) {
   const id = props.location.state.data.id;
   const commentsIDs = props.location.state.data.comments;
   const [comments, setComments] = React.useState([]);
+  const [loadingComment, setlLoadingComment] = React.useState(false);
 
   console.log(props.location.state.data);
   let resourcech = (props.location.state.data.resourcetype).replace("Advertisement","")
@@ -192,6 +193,7 @@ export default function BasicCard(props) {
   };
 
   const addComment = () => {
+    setlLoadingComment(true);
     var formData = new FormData();
     formData.append("body", comment);
     formData.append("post", id);
@@ -200,9 +202,11 @@ export default function BasicCard(props) {
     .then(res => {
       console.log(res)
       comments.push(comment)
-      console.log('jalal', comments)
+      setlLoadingComment(false);
+      setComment('');
     })
     .catch(err => {
+      setlLoadingComment(false);
       console.log(err)
     })
   }
@@ -292,19 +296,16 @@ export default function BasicCard(props) {
                                         
                     
                     {props.location.state.data.Title}
-                    <Grid item xs={15} textAlign="right" marginTop="-40px" >
+
+                  </Typography>
+                  </Grid>
+                  <Grid item xs={6} sx={{justifyContent: 'flex-end', display: 'flex'}}>
                     <IconButton   onClick={handlesave}  >
                       {save == "save"?  <BookmarkAddedIcon ></BookmarkAddedIcon> : 
 
                       <BookmarkAddIcon   ></BookmarkAddIcon>}
                     </IconButton>
                     </Grid>
-                    
-
-                   
-                    
-                  </Typography>
-                  </Grid>
                   {/* <Grid item xs={6} sx={{justifyContent: 'flex-end', display: 'flex'}}>
                   <IconButton sx={{marginLeft: '4rem'}}>
                     <BookmarkAddIcon/>
@@ -538,8 +539,10 @@ export default function BasicCard(props) {
                         </Grid>
                         <Grid item xs = {12} sx={{paddingTop: '1rem'}}>
                       <Button onClick={addComment}      
-                      sx={{ backgroundColor: "#8b9b74", color: "white", "&:hover": {backgroundColor: '#c0d4b3', color: 'black'}}}>
-                        Add comment
+                      sx={{ backgroundColor: "#8b9b74", width:'200px', color: "white", "&:hover": {backgroundColor: '#c0d4b3', color: 'black'}}}>
+                        {loadingComment ? 
+                        <CircularProgress style={{color: "#fff"}} size="1.6rem"/>
+                        : "Add comment"}                  
                       </Button>
                     </Grid>
                       </Grid>
