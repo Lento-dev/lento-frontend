@@ -708,9 +708,9 @@ export default function Homepage(props) {
                     >
                       <Card
                         elevation={3}
-                        sx={{ borderRadius: 6, display: "flex"  }}
+                        sx={{ borderRadius: 4, display: "flex"  }}
                         style={{
-                          marginTop: "7rem",
+                          marginTop: "3rem",
                           marginBottom: "1rem",
                           marginLeft: "4rem",
                           marginRight: "4rem",
@@ -721,12 +721,12 @@ export default function Homepage(props) {
                           {/* <Grid item xs={6}></Grid> */}
                           <Grid item xs={12} md={12} lg={4}>
                             <img
-                              src={kindmind}
+                              src={"http://www.upsara.com/images/y057517_.jpg"}
                               style={{
-                                paddingTop: "2rem",
+                                paddingTop: "1rem",
                                 // paddingRight: "15rem",
-                                width: "50%",
-                                height: "40vh",
+                                width: "47%",
+                                height: "28vh",
                                 position: "sticky",
                               }}
                             />
@@ -739,7 +739,8 @@ export default function Homepage(props) {
                               fontSize="1.3rem"
                               style={{
                                 fontWeight: "bold",
-                                paddingTop: "1.5rem",
+                                paddingTop: "1rem",
+                                fontFamily:'San Fransisco',                             
                               }}
                             >
                               The effects of good work on mental health
@@ -748,7 +749,7 @@ export default function Homepage(props) {
                               component="h3"
                               textAlign="left"
                               fontSize="1rem"
-                              style={{ fontWeight: "bold", paddingTop: "3rem" }}
+                              style={{ paddingTop: "1rem",fontFamily:'San Fransisco',color:'black' ,maxWidth:'800px'}}
                             >
                               In fact, good deeds and benevolence is a good
                               thing that more or less everyone wants to do, and
@@ -760,80 +761,31 @@ export default function Homepage(props) {
                               component="h3"
                               textAlign="left"
                               fontSize="1rem"
-                              style={{ fontWeight: "bold" }}
+                              style={{ paddingTop: "0.1rem",fontFamily:'San Fransisco',color:'black' ,maxWidth:'800px'}}
                             >
                               A person who has not done a good deed and has not
                               been a pioneer in it, is in fact oppressing
                               himself, which is considered oppression of himself
                               and his soul.
                             </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              People who are mentally healthy are not only
-                              recipients of love and kindness, but also do good
-                              to others. In fact, this love goes back to the
-                              individual.
-                            </Typography>
-                            {/* <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Psychologically, a person who loves and helps a
-                              poor and helpless person, gives him a good sense
-                              of power, which this time positive and energy is
-                              able to have good effects on the soul and psyche
-                              of the volunteer and increase trust.
-                            </Typography> */}
-                            {/* <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              To one's self and self-esteem. On the other hand,
-                              in these situations, facing the problems of others
-                              makes a person thank God at any time because of
-                              the peace he has in the moment and is so free of
-                              thought and action that he is even able to spend
-                              part of his time on things.
-                            </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Other people slow down to help them. Now, if a
-                              person does not face a problem in life for any
-                              reason, the soul and psyche are strengthened and
-                              it is easier to try to solve the problem and
-                              succeed.
-                            </Typography> */}
                           </Grid>
-                          <Grid
+                          {/* <Grid
                             item
                             xs={12}
                             textAlign="left"
                             sx={{ marginTop: "4vh" }}
-                          ></Grid>
+                          ></Grid> */}
                         </Grid>
                       </Card>
                     </SwiperSlide>
                     <SwiperSlide
                       style={{ color: "black", paddingBottom: "2rem" }}
                     >
-                      {" "}
-                      <div
+                      <Card
                         elevation={3}
-                        sx={{ borderRadius: 6, display: "flex" }}
+                        sx={{ borderRadius: 4, display: "flex"  }}
                         style={{
-                          marginTop: "7rem",
+                          marginTop: "3rem",
                           marginBottom: "1rem",
                           marginLeft: "4rem",
                           marginRight: "4rem",
@@ -844,24 +796,26 @@ export default function Homepage(props) {
                           {/* <Grid item xs={6}></Grid> */}
                           <Grid item xs={12} md={12} lg={4}>
                             <img
-                              src={donate}
+                              src={"http://www.upsara.com/images/x247903_.jpg"}
                               style={{
-                                paddingTop: "2rem",
+                                paddingTop: "1rem",
                                 // paddingRight: "15rem",
-                                width: "50%",
-                                height: "30vh",
+                                width: "47%",
+                                height: "28vh",
                                 position: "sticky",
                               }}
                             />
                           </Grid>
+
                           <Grid item xs={12} md={12} lg={8}>
                             <Typography
                               component="h3"
                               textAlign="left"
-                              fontSize="1rem"
+                              fontSize="1.3rem"
                               style={{
                                 fontWeight: "bold",
-                                paddingTop: "1.5rem",
+                                paddingTop: "1rem",
+                                fontFamily:'San Fransisco',                             
                               }}
                             >
                               Recognize authentic charity
@@ -870,93 +824,39 @@ export default function Homepage(props) {
                               component="h3"
                               textAlign="left"
                               fontSize="1rem"
-                              fontFamily="San Fransisco"
-                              style={{ fontWeight: "bold", paddingTop: "3rem"  }}
+                              style={{ paddingTop: "1rem",fontFamily:'San Fransisco',color:'black' ,maxWidth:'800px'}}
                             >
-                              In fact, good deeds and benevolence is a good
-                              thing that more or less everyone wants to do, and
-                              this is due to the good effect of good deeds on
-                              the human psyche.
+                              While you may or may not choose to get a receipt, having the option to get a receipt lets you know if you should even consider donating to the charity. If the individual or charity is willing to accept your donation but does not provide a professional looking receipt, this indicates that the organization may not be transparent about how it uses your funds
+                              
                             </Typography>
 
                             <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1rem"
-                              style={{ fontWeight: "bold" , fontFamily:'San Fransisco'}}
+                              style={{ paddingTop: "0.1rem",fontFamily:'San Fransisco',color:'black' ,maxWidth:'800px'}}
                             >
-                              A person who has not done a good deed and has not
-                              been a pioneer in it, is in fact oppressing
-                              himself, which is considered oppression of himself
-                              and his soul.
+                              just be a scammer trying to pocket some extra money. If an individual claims that he/she can’t give you a receipt, consider donating directly to the charity if it can give you one.
+                            
                             </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              People who are mentally healthy are not only
-                              recipients of love and kindness, but also do good
-                              to others. In fact, this love goes back to the
-                              individual.
-                            </Typography>
-                            {/* <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Psychologically, a person who loves and helps a
-                              poor and helpless person, gives him a good sense
-                              of power, which this time positive and energy is
-                              able to have good effects on the soul and psyche
-                              of the volunteer and increase trust.
-                            </Typography> */}
-                            {/* <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              To one's self and self-esteem. On the other hand,
-                              in these situations, facing the problems of others
-                              makes a person thank God at any time because of
-                              the peace he has in the moment and is so free of
-                              thought and action that he is even able to spend
-                              part of his time on things.
-                            </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Other people slow down to help them. Now, if a
-                              person does not face a problem in life for any
-                              reason, the soul and psyche are strengthened and
-                              it is easier to try to solve the problem and
-                              succeed.
-                            </Typography> */}
                           </Grid>
-                          <Grid
+                          {/* <Grid
                             item
                             xs={12}
                             textAlign="left"
                             sx={{ marginTop: "4vh" }}
-                          ></Grid>
+                          ></Grid> */}
                         </Grid>
-                      </div>
+                      </Card>
                     </SwiperSlide>
                     <SwiperSlide
                       style={{ color: "black", paddingBottom: "2rem" }}
                     >
-                      {" "}
-                      <div
+                      <Card
                         elevation={3}
-                        sx={{ borderRadius: 6, display: "flex" }}
+                        sx={{ borderRadius: 4, display: "flex"  }}
                         style={{
-                          marginTop: "7rem",
+                          marginTop: "3rem",
                           marginBottom: "1rem",
                           marginLeft: "4rem",
                           marginRight: "4rem",
@@ -967,16 +867,17 @@ export default function Homepage(props) {
                           {/* <Grid item xs={6}></Grid> */}
                           <Grid item xs={12} md={12} lg={4}>
                             <img
-                              src={kadoo}
+                              src={"https://imgurl.ir/uploads/e435503_aaaaa.jpg"}
                               style={{
-                                paddingTop: "2rem",
+                                paddingTop: "1rem",
                                 // paddingRight: "15rem",
-                                width: "50%",
-                                height: "30vh",
+                                width: "47%",
+                                height: "28vh",
                                 position: "sticky",
                               }}
                             />
                           </Grid>
+
                           <Grid item xs={12} md={12} lg={8}>
                             <Typography
                               component="h3"
@@ -984,101 +885,49 @@ export default function Homepage(props) {
                               fontSize="1.3rem"
                               style={{
                                 fontWeight: "bold",
-                                paddingTop: "1.5rem",
+                                paddingTop: "1rem",
+                                fontFamily:'San Fransisco',                             
                               }}
                             >
-                              Give gifts to the needy that you do not like
+                              Give gifts to the needy that you do not like 
                             </Typography>
                             <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1rem"
-                              style={{ fontWeight: "bold", paddingTop: "3rem" }}
+                              style={{ paddingTop: "1rem",fontFamily:'San Fransisco',color:'black' ,maxWidth:'800px'}}
                             >
-                              In fact, good deeds and benevolence is a good
-                              thing that more or less everyone wants to do, and
-                              this is due to the good effect of good deeds on
-                              the human psyche.
+                              Human beings are forgetting how to give gifts. Violations of the exchange-principle have something mad and unbelievable about them; here and there even children size up the gift-giver mistrustfully.
+                              
                             </Typography>
 
                             <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1rem"
-                              style={{ fontWeight: "bold" }}
+                              style={{ paddingTop: "0.1rem",fontFamily:'San Fransisco',color:'black' ,maxWidth:'800px'}}
                             >
-                              A person who has not done a good deed and has not
-                              been a pioneer in it, is in fact oppressing
-                              himself, which is considered oppression of himself
-                              and his soul.
+                              In its organized bustle, the human impulse no longer has any room, indeed even donations to the needy are necessarily connected with the humiliation of delivery, the correct measure, in short through the treatment of the recipient as an object. 
+                            
                             </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              People who are mentally healthy are not only
-                              recipients of love and kindness, but also do good
-                              to others. In fact, this love goes back to the
-                              individual.
-                            </Typography>
-                            {/* <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Psychologically, a person who loves and helps a
-                              poor and helpless person, gives him a good sense
-                              of power, which this time positive and energy is
-                              able to have good effects on the soul and psyche
-                              of the volunteer and increase trust.
-                            </Typography> */}
-                            {/* <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              To one's self and self-esteem. On the other hand,
-                              in these situations, facing the problems of others
-                              makes a person thank God at any time because of
-                              the peace he has in the moment and is so free of
-                              thought and action that he is even able to spend
-                              part of his time on things.
-                            </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Other people slow down to help them. Now, if a
-                              person does not face a problem in life for any
-                              reason, the soul and psyche are strengthened and
-                              it is easier to try to solve the problem and
-                              succeed.
-                            </Typography> */}
                           </Grid>
-                          <Grid
+                          {/* <Grid
                             item
                             xs={12}
                             textAlign="left"
                             sx={{ marginTop: "4vh" }}
-                          ></Grid>
+                          ></Grid> */}
                         </Grid>
-                      </div>
+                      </Card>
                     </SwiperSlide>
                     <SwiperSlide
                       style={{ color: "black", paddingBottom: "2rem" }}
                     >
-                      {" "}
-                      <div
+                      <Card
                         elevation={3}
-                        sx={{ borderRadius: 6, display: "flex" }}
+                        sx={{ borderRadius: 4, display: "flex"  }}
                         style={{
-                          marginTop: "7rem",
+                          marginTop: "3rem",
                           marginBottom: "1rem",
                           marginLeft: "4rem",
                           marginRight: "4rem",
@@ -1089,16 +938,17 @@ export default function Homepage(props) {
                           {/* <Grid item xs={6}></Grid> */}
                           <Grid item xs={12} md={12} lg={4}>
                             <img
-                              src={tabiat}
+                              src={"https://imgurl.ir/uploads/b14149_iiiii.jpg"}
                               style={{
-                                paddingTop: "2rem",
+                                paddingTop: "1rem",
                                 // paddingRight: "15rem",
-                                width: "50%",
-                                height: "30vh",
+                                width: "47%",
+                                height: "28vh",
                                 position: "sticky",
                               }}
                             />
                           </Grid>
+
                           <Grid item xs={12} md={12} lg={8}>
                             <Typography
                               component="h3"
@@ -1106,457 +956,46 @@ export default function Homepage(props) {
                               fontSize="1.3rem"
                               style={{
                                 fontWeight: "bold",
-                                paddingTop: "1.5rem",
+                                paddingTop: "1rem",
+                                fontFamily:'San Fransisco',                             
                               }}
                             >
-                              The vow of nature
+                              Encourage others to do charity works
                             </Typography>
                             <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1rem"
-                              style={{ fontWeight: "bold", paddingTop: "3rem" }}
+                              style={{ paddingTop: "1rem",fontFamily:'San Fransisco',color:'black' ,maxWidth:'800px'}}
                             >
-                              In fact, good deeds and benevolence is a good
-                              thing that more or less everyone wants to do, and
-                              this is due to the good effect of good deeds on
-                              the human psyche.
+                              We tend to have a difficult time identifying with members of traditionally stigmatized groups, even when face to face with an individual person in need, likely because we fear the emotional costs that might be incurred from helping the person.
+                              
                             </Typography>
 
                             <Typography
                               component="h3"
                               textAlign="left"
                               fontSize="1rem"
-                              style={{ fontWeight: "bold" }}
+                              style={{ paddingTop: "0.1rem",fontFamily:'San Fransisco',color:'black' ,maxWidth:'800px'}}
                             >
-                              A person who has not done a good deed and has not
-                              been a pioneer in it, is in fact oppressing
-                              himself, which is considered oppression of himself
-                              and his soul.
+                              his suggests that organizations that help traditionally stigmatized populations may be able to elicit more generosity from a wider group of people by carefully framing their solicitations in a positive light. 
+                            
                             </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              People who are mentally healthy are not only
-                              recipients of love and kindness, but also do good
-                              to others. In fact, this love goes back to the
-                              individual.
-                            </Typography>
-                            {/* <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Psychologically, a person who loves and helps a
-                              poor and helpless person, gives him a good sense
-                              of power, which this time positive and energy is
-                              able to have good effects on the soul and psyche
-                              of the volunteer and increase trust.
-                            </Typography> */}
-                            {/* <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              To one's self and self-esteem. On the other hand,
-                              in these situations, facing the problems of others
-                              makes a person thank God at any time because of
-                              the peace he has in the moment and is so free of
-                              thought and action that he is even able to spend
-                              part of his time on things.
-                            </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Other people slow down to help them. Now, if a
-                              person does not face a problem in life for any
-                              reason, the soul and psyche are strengthened and
-                              it is easier to try to solve the problem and
-                              succeed.
-                            </Typography> */}
                           </Grid>
-                          <Grid
+                          {/* <Grid
                             item
                             xs={12}
                             textAlign="left"
                             sx={{ marginTop: "4vh" }}
-                          ></Grid>
+                          ></Grid> */}
                         </Grid>
-                      </div>
+                      </Card>
                     </SwiperSlide>
-                    <SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      {" "}
-                      <div
-                        elevation={3}
-                        sx={{ borderRadius: 6, display: "flex" }}
-                        style={{
-                          marginTop: "7rem",
-                          marginBottom: "1rem",
-                          marginLeft: "4rem",
-                          marginRight: "4rem",
-                          padding: "1rem",
-                        }}
-                      >
-                        <Grid container style={{ padding: "6px" }}>
-                          <Grid item xs={12} md={12} lg={4}>
-                            <img
-                              src={book}
-                              style={{
-                                paddingTop: "2rem",
-                                // paddingRight: "15rem",
-                                width: "50%",
-                                height: "30vh",
-                                position: "sticky",
-                              }}
-                            />
-                          </Grid>
-                          <Grid item xs={12} md={12} lg={8}>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{
-                                fontWeight: "bold",
-                                paddingTop: "1.5rem",
-                              }}
-                            >
-                              Book donation, thought donation
-                            </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1rem"
-                              style={{ fontWeight: "bold", paddingTop: "3rem" }}
-                            >
-                              In fact, good deeds and benevolence is a good
-                              thing that more or less everyone wants to do, and
-                              this is due to the good effect of good deeds on
-                              the human psyche.
-                            </Typography>
 
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              A person who has not done a good deed and has not
-                              been a pioneer in it, is in fact oppressing
-                              himself, which is considered oppression of himself
-                              and his soul.
-                            </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              People who are mentally healthy are not only
-                              recipients of love and kindness, but also do good
-                              to others. In fact, this love goes back to the
-                              individual.
-                            </Typography>
-                            {/* <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Psychologically, a person who loves and helps a
-                              poor and helpless person, gives him a good sense
-                              of power, which this time positive and energy is
-                              able to have good effects on the soul and psyche
-                              of the volunteer and increase trust.
-                            </Typography> */}
-                            {/* <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              To one's self and self-esteem. On the other hand,
-                              in these situations, facing the problems of others
-                              makes a person thank God at any time because of
-                              the peace he has in the moment and is so free of
-                              thought and action that he is even able to spend
-                              part of his time on things.
-                            </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Other people slow down to help them. Now, if a
-                              person does not face a problem in life for any
-                              reason, the soul and psyche are strengthened and
-                              it is easier to try to solve the problem and
-                              succeed.
-                            </Typography> */}
-                          </Grid>
-                          <Grid
-                            item
-                            xs={12}
-                            textAlign="left"
-                            sx={{ marginTop: "4vh" }}
-                          ></Grid>
-                        </Grid>
-                      </div>
-                    </SwiperSlide>
-                    <SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      {" "}
-                      <div
-                        elevation={3}
-                        sx={{ borderRadius: 6, display: "flex" }}
-                        style={{
-                          marginTop: "7rem",
-                          marginBottom: "1rem",
-                          marginLeft: "4rem",
-                          marginRight: "4rem",
-                          padding: "1rem",
-                        }}
-                      >
-                        <Grid container style={{ padding: "6px" }}>
-                          {/* <Grid item xs={6}></Grid> */}
-                          <Grid item xs={12} md={12} lg={4}>
-                            <img
-                              src={tashvigh}
-                              style={{
-                                paddingTop: "2rem",
-                                // paddingRight: "15rem",
-                                width: "50%",
-                                height: "30vh",
-                                position: "sticky",
-                              }}
-                            />
-                          </Grid>
-                          <Grid item xs={12} md={12} lg={8}>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{
-                                fontWeight: "bold",
-                                paddingTop: "1.5rem",
-                              }}
-                            >
-                              Encourage others to do charity work
-                            </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1rem"
-                              style={{ fontWeight: "bold", paddingTop: "3rem" }}
-                            >
-                              In fact, good deeds and benevolence is a good
-                              thing that more or less everyone wants to do, and
-                              this is due to the good effect of good deeds on
-                              the human psyche.
-                            </Typography>
 
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              A person who has not done a good deed and has not
-                              been a pioneer in it, is in fact oppressing
-                              himself, which is considered oppression of himself
-                              and his soul.
-                            </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              People who are mentally healthy are not only
-                              recipients of love and kindness, but also do good
-                              to others. In fact, this love goes back to the
-                              individual.
-                            </Typography>
-                            {/* <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Psychologically, a person who loves and helps a
-                              poor and helpless person, gives him a good sense
-                              of power, which this time positive and energy is
-                              able to have good effects on the soul and psyche
-                              of the volunteer and increase trust.
-                            </Typography> */}
-                            {/* <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              To one's self and self-esteem. On the other hand,
-                              in these situations, facing the problems of others
-                              makes a person thank God at any time because of
-                              the peace he has in the moment and is so free of
-                              thought and action that he is even able to spend
-                              part of his time on things.
-                            </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Other people slow down to help them. Now, if a
-                              person does not face a problem in life for any
-                              reason, the soul and psyche are strengthened and
-                              it is easier to try to solve the problem and
-                              succeed.
-                            </Typography> */}
-                          </Grid>
-                          <Grid
-                            item
-                            xs={12}
-                            textAlign="left"
-                            sx={{ marginTop: "4vh" }}
-                          ></Grid>
-                        </Grid>
-                      </div>
-                    </SwiperSlide>
-                    <SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      {" "}
-                      <div
-                        elevation={3}
-                        sx={{ borderRadius: 6, display: "flex" }}
-                        style={{
-                          marginTop: "7rem",
-                          marginBottom: "1rem",
-                          marginLeft: "4rem",
-                          marginRight: "4rem",
-                          padding: "1rem",
-                        }}
-                      >
-                        <Grid container style={{ padding: "6px" }}>
-                          {/* <Grid item xs={6}></Grid> */}
-                          <Grid item xs={12} md={12} lg={4}>
-                            <img
-                              src={hamipic}
-                              style={{
-                                paddingTop: "2rem",
-                                // paddingRight: "15rem",
-                                width: "50%",
-                                height: "30vh",
-                                position: "sticky",
-                              }}
-                            />
-                          </Grid>
-                          <Grid item xs={12} md={12} lg={8}>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{
-                                fontWeight: "bold",
-                                paddingTop: "1.5rem",
-                              }}
-                            >
-                              Recognize authentic charity
-                            </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1rem"
-                              style={{ fontWeight: "bold", paddingTop: "3rem" }}
-                            >
-                              In fact, good deeds and benevolence is a good
-                              thing that more or less everyone wants to do, and
-                              this is due to the good effect of good deeds on
-                              the human psyche.
-                            </Typography>
+ 
 
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              A person who has not done a good deed and has not
-                              been a pioneer in it, is in fact oppressing
-                              himself, which is considered oppression of himself
-                              and his soul.
-                            </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              People who are mentally healthy are not only
-                              recipients of love and kindness, but also do good
-                              to others. In fact, this love goes back to the
-                              individual.
-                            </Typography>
-                            {/* <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Psychologically, a person who loves and helps a
-                              poor and helpless person, gives him a good sense
-                              of power, which this time positive and energy is
-                              able to have good effects on the soul and psyche
-                              of the volunteer and increase trust.
-                            </Typography> */}
-                            {/* <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              To one's self and self-esteem. On the other hand,
-                              in these situations, facing the problems of others
-                              makes a person thank God at any time because of
-                              the peace he has in the moment and is so free of
-                              thought and action that he is even able to spend
-                              part of his time on things.
-                            </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Other people slow down to help them. Now, if a
-                              person does not face a problem in life for any
-                              reason, the soul and psyche are strengthened and
-                              it is easier to try to solve the problem and
-                              succeed.
-                            </Typography> */}
-                          </Grid>
-                          <Grid
-                            item
-                            xs={12}
-                            textAlign="left"
-                            sx={{ marginTop: "4vh" }}
-                          ></Grid>
-                        </Grid>
-                      </div>
-                    </SwiperSlide>
+         
                   </Swiper>
                 </Grid>
               </Grid>

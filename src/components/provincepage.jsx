@@ -69,9 +69,9 @@ function Ppage(props) {
 
   useEffect(() => {
     console.log("***********************");
-    var token = localStorage.getItem("token");
-    token.replaceAll('"', "");
-    console.log(token);
+    // var token = localStorage.getItem("token");
+    // token.replaceAll('"', "");
+    // console.log(token);
     var myurl =
       "http://62.3.41.86/api/advertisement/search?province=" +
       props.location.state.data;
@@ -107,9 +107,9 @@ function Ppage(props) {
     console.log("handle search");
     console.log("values => ", values.clothtype, title);
 
-    var token = localStorage.getItem("token");
-    token.replaceAll('"', "");
-    console.log(token);
+    // var token = localStorage.getItem("token");
+    // token.replaceAll('"', "");
+    // console.log(token);
     var myurl =
       "http://62.3.41.86/api/advertisement/search" +
       "?province=" +

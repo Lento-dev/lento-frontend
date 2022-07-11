@@ -288,7 +288,7 @@ function Navbar() {
                   color: "black",
                   paddingLeft: "10px",
                   paddingRight: "10px",
-                  marginLeft: "77%", marginRight: "1%", 
+                  marginLeft: "74%", marginRight: "1%", 
                   "&:hover": {backgroundColor: '#eef5e4'}
                   
                 }}

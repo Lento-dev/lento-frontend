@@ -141,9 +141,9 @@ const UserProfile = () => {
                   }}
         centered
         onChange={handleChange} aria-label="secondary tabs example" value={value}>
-        <Tab value={0} label="Profile" />
-        <Tab value={1} label="Saved Advertisements" />
-        <Tab value={2} label="Posts" />
+        <Tab value={0} style={{textTransform: 'unset'}} label="Profile" />
+        <Tab value={1} style={{textTransform: 'unset'}} label="Saved Advertisements" />
+        <Tab value={2} style={{textTransform: 'unset'}} label="Posts" />
         {/* <Tab value={2} label="Gallery" /> */}
       </Tabs>
       </Grid>
@@ -291,7 +291,7 @@ const UserProfile = () => {
 
 
 <TabPanel value={value} index={1}>
-<Card variant="outlined" style={{ marginTop: "3.1rem" }}>
+  <Card variant="outlined" style={{ marginTop: "3.1rem" }}>
                 <CardContent>
               <Grid container spacing={4}>
                     <Grid item xs={12} sx={{textAlign: 'justify'}}>
@@ -318,9 +318,9 @@ const UserProfile = () => {
 
 
 <TabPanel value={value} index={2}>
-{/* 
-              <Card variant="outlined"> */}
-              <Card variant="outlined" style={{ marginTop: "3.1rem" }}>
+
+
+  <Card variant="outlined" style={{ marginTop: "3.1rem" }}>
                 <CardContent>
               <Grid container spacing={4}>
                     <Grid item xs={12} sx={{textAlign: 'justify'}}>

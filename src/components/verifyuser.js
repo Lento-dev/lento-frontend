@@ -29,7 +29,6 @@ const handleVerifyEmailDialogClickOpen = () => {
 
   const handleVerifyEmailDialogClose = () => {
     setVerifyEmailDialogOpen(false);
-    setMessage(null);
   };
 
   const verifyemail = () => {
@@ -44,14 +43,14 @@ const handleVerifyEmailDialogClickOpen = () => {
           // console.log('base url', BASE_URL)
           // console.log('response.data', response.data)
           setMessage("Your Account has been verified successfully.");
-          handleVerifyEmailDialogClickOpen();
+          handleVerifyEmailDialogClose();
 
         })
         .catch((error) => {
           // console.log('base url', BASE_URL)
 
           setMessage("Validation link is invalid.");
-          handleVerifyEmailDialogClickOpen();
+          handleVerifyEmailDialogClose();
           // console.log(error.data)
         }
         );
