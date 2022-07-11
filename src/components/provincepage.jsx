@@ -3,45 +3,29 @@ import { Button, TextField, Grid, Box, Container } from "@mui/material";
 import Helmet from "react-helmet";
 import axios from "axios";
 import FormControl from "@mui/material/FormControl";
-import "react-phone-input-2/lib/style.css";
+// import "react-phone-input-2/lib/style.css";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { useHistory } from "react-router-dom";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import "date-fns";
-import { registerPlugin } from "react-filepond";
-import "filepond/dist/filepond.min.css";
-import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
-import MuiMenuItem from "@material-ui/core/MenuItem";
+import MenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
 import MediaControlCard from "./adcard";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import LocationCityIcon from "@mui/icons-material/LocationCity";
-import CategoryIcon from "@mui/icons-material/Category";
-import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
-import EventNoteIcon from "@mui/icons-material/EventNote";
-import { Link } from "react-router-dom";
+// import Card from "@mui/material/Card";
+// import CardContent from "@mui/material/CardContent";
+// import CardMedia from "@mui/material/CardMedia";
+// import Typography from "@mui/material/Typography";
+// import LocationCityIcon from "@mui/icons-material/LocationCity";
+// import CategoryIcon from "@mui/icons-material/Category";
+// import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
+// import EventNoteIcon from "@mui/icons-material/EventNote";
+// import { Link } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
+import Pagination from '@mui/material/Pagination';
 
-const MenuItem = withStyles({
-  root: {
-    justifyContent: "flex-end",
-  },
-})(MuiMenuItem);
 
-const Input = styled("input")({
-  display: "none",
-});
-
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
-
-const PROXY_PORT = 8080;
 
 function Ppage(props) {
   console.log(props.location.state.data);
@@ -54,25 +38,7 @@ function Ppage(props) {
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const [searchItem, setSearchItem] = useState("");
-  const [fchecked, setfChecked] = React.useState(true);
-  const [schecked, setsChecked] = React.useState(false);
-  const [cchecked, setcChecked] = React.useState(false);
 
-  const ftoggleChecked = () => {
-    setfChecked((prev) => !prev);
-    setsChecked(false);
-    setcChecked(false);
-  };
-  const stoggleChecked = () => {
-    setsChecked((prev) => !prev);
-    setfChecked(false);
-    setcChecked(false);
-  };
-  const ctoggleChecked = () => {
-    setcChecked((prev) => !prev);
-    setfChecked(false);
-    setsChecked(false);
-  };
 
   const [errors, setErrors] = useState({});
 
@@ -86,52 +52,43 @@ function Ppage(props) {
   };
 
   let tmpErrors = {};
-  const validate = () => {
-    switch (true) {
-      case !values.formtitle:
-        tmpErrors["formtitle"] = "Please enter your form title.";
-        break;
-      case values.formtitle.length > 150:
-        tmpErrors["formtitle"] = "form title can be at most 150 characters.";
-        break;
-      default:
-        break;
-    }
 
-    if (cchecked) {
-      switch (true) {
-        case !values.clothtype:
-          tmpErrors["clothtype"] = "Please enter your clothtype.";
-          break;
-        default:
-          break;
-      }
-    }
-  };
+  const [title, settitle] = useState("");
+ 
+
   const [prodata, setarray] = useState([]);
   let content = [];
 
+  const [page, setPage] = React.useState(1);
+  const [pagearray, setpagearray] = React.useState(prodata);
+  const handleChangePage = (event, value) => {
+    setPage(value);
+    setpagearray(prodata.slice((page-1)*6,(page-1)*6 +6));
+    
+  };
+
   useEffect(() => {
     console.log("***********************");
-    var token = localStorage.getItem("token");
-    token.replaceAll('"', "");
-    console.log(token);
+    // var token = localStorage.getItem("token");
+    // token.replaceAll('"', "");
+    // console.log(token);
     var myurl =
-      "http://172.17.3.154/api/advertisement/search?province=" +
+      "http://62.3.41.86/api/advertisement/search?province=" +
       props.location.state.data;
     console.log(myurl);
     var config = {
       method: "get",
       url: myurl,
-      headers: {
-        Authorization: "Token " + token,
-      },
+      // headers: {
+      //   Authorization: "Token " + token,
+      // },
     };
 
     axios(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
         setarray(Object.values(response.data));
+        setpagearray(Object.values(response.data.slice(0,6)));
         console.log(Object.values(response.data));
         content = prodata.map((item, i) => {
           console.log("content", item, i);
@@ -144,16 +101,17 @@ function Ppage(props) {
       .catch(function (error) {
         console.log(error);
       });
+      
   }, []);
   const handlesearch = (e) => {
     console.log("handle search");
-    console.log("values => ", values.clothtype, values.formtitle);
+    console.log("values => ", values.clothtype, title);
 
-    var token = localStorage.getItem("token");
-    token.replaceAll('"', "");
-    console.log(token);
+    // var token = localStorage.getItem("token");
+    // token.replaceAll('"', "");
+    // console.log(token);
     var myurl =
-      "http://172.17.3.154/api/advertisement/search" +
+      "http://62.3.41.86/api/advertisement/search" +
       "?province=" +
       props.location.state.data;
     if (values.clothtype === "food") {
@@ -163,19 +121,25 @@ function Ppage(props) {
     } else if (values.clothtype === "cloth") {
       myurl += "&ad_type=clothadvertisement";
     }
+    if(title !== null)
+    {
+      myurl = myurl + "&search="+title;
+    }
+    console.log(title)
     console.log(myurl);
     var config = {
       method: "get",
       url: myurl,
-      headers: {
-        Authorization: "Token " + token,
-      },
+      // headers: {
+      //   Authorization: "Token " + token,
+      // },
     };
 
     axios(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
         setarray(Object.values(response.data));
+        setpagearray(Object.values(response.data));
         console.log(Object.values(response.data));
       })
 
@@ -252,8 +216,8 @@ function Ppage(props) {
                               name="title"
                               id="title"
                               label="advertisement title"
-                              value={values.formtitle}
-                              onChange={handleChange("formtitle")}
+                              value={title}
+                              onChange={(e) => settitle(e.target.value)}
                               error={Boolean(errors["formtitle"])}
                               helperText={errors["formtitle"]}
                             />
@@ -261,34 +225,40 @@ function Ppage(props) {
                         </div>
                       </Grid>
 
-                      <Grid item xs={12} sm={5}>
+                      <Grid item xs={12} sm={5} textAlign="left">
                         <Box sx={{ minWidth: 120 }}>
                           <FormControl fullWidth>
                             <InputLabel
                               id="demo-simple-select-label"
-                              name="marital_status"
                             >
                               select the category
                             </InputLabel>
+                            
                             <Select
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
                               label="Select Marital Status"
-                              textAlign="left"
                               value={values.clothtype}
                               onChange={handleChange("clothtype")}
                               error={Boolean(errors["clothtype"])}
                               helperText={errors["clothtype"]}
+                              
                             >
-                              <MenuItem value={"food"}>food</MenuItem>
-                              <MenuItem value={"service"}>service</MenuItem>
-                              <MenuItem value={"cloth"}>cloth</MenuItem>
+                              
+                                <MenuItem value={"food"} >food</MenuItem>
+                                <MenuItem value={"service"}>service</MenuItem>
+                                <MenuItem value={"cloth"}>cloth</MenuItem>
+                              
                             </Select>
+                            
                           </FormControl>
+                          
+                 
+                          
                         </Box>
                       </Grid>
                       <Grid container item xs={12} sm={2}>
-                        <Button
+                      <Button
                           style={{
                             height: "53px",
                             backgroundColor: "#e6835a",
@@ -299,23 +269,27 @@ function Ppage(props) {
                         >
                           search
                         </Button>
+                    
+
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
               </Grid>
             </Paper>
+            
             <br />
             <br />
             <br />
 
-              {prodata.length !== 0 && (
+              {pagearray.length !== 0 && (
                 <Grid item xs={12}>
               <Grid container spacing={6}>
-                {prodata.map((item, i) => (
+                {pagearray.map((item, i) => (
                   <Grid item md={4}>
 
                       <MediaControlCard data={item} key={i}></MediaControlCard>
+                      
                     
                   </Grid>
                 ))}
@@ -334,7 +308,10 @@ function Ppage(props) {
       >
         <CircularProgress size="3rem" style={{ color: "#8b9b74" }} />
       </Box>
+
               )}
+              <br/>
+              <Pagination count={Math.ceil(prodata.length/6)} page={page} onChange={handleChangePage} style={{color:'#465832'}} />
 
 
 

@@ -9,6 +9,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 import axios from "axios";
+import BASE_URL from './baseurl';
 
 
 function VerifyEmail() {
@@ -21,7 +22,6 @@ const signature = new URLSearchParams(search).get("signature");
 const [verifyEmailDialogOpen, setVerifyEmailDialogOpen] = useState(false);
 const [message, setMessage] = useState(null);
 
-const BASE_URL = "http://172.17.3.154/api";
 
 const handleVerifyEmailDialogClickOpen = () => {
     setVerifyEmailDialogOpen(true);
@@ -29,7 +29,6 @@ const handleVerifyEmailDialogClickOpen = () => {
 
   const handleVerifyEmailDialogClose = () => {
     setVerifyEmailDialogOpen(false);
-    setMessage(null);
   };
 
   const verifyemail = () => {
@@ -38,20 +37,20 @@ const handleVerifyEmailDialogClickOpen = () => {
     formData.append("timestamp", timestamp);
     formData.append("signature", signature);
   
-    return axios.post(BASE_URL + '/account/verify_registration'+ '/' , formData)
+    return axios.post(BASE_URL + 'account/verify_registration'+ '/' , formData)
       .then(
         (response) => {
           // console.log('base url', BASE_URL)
           // console.log('response.data', response.data)
           setMessage("Your Account has been verified successfully.");
-          handleVerifyEmailDialogClickOpen();
+          handleVerifyEmailDialogClose();
 
         })
         .catch((error) => {
           // console.log('base url', BASE_URL)
 
           setMessage("Validation link is invalid.");
-          handleVerifyEmailDialogClickOpen();
+          handleVerifyEmailDialogClose();
           // console.log(error.data)
         }
         );

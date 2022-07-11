@@ -25,7 +25,8 @@ import {
   import cardImage from '../assets/img/barfi.jpg'
   import Divider from "@mui/material/Divider";
   // import { BackToTop } from "material-ui-back-to-top";
-  
+  import BASE_URL from './baseurl';
+
   import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
   import LocalPhoneRoundedIcon from "@mui/icons-material/LocalPhoneRounded";
   import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
@@ -40,22 +41,18 @@ import {
   const PublicUserProfile = () => {
     const { id } = useParams();
     const [data, setData] = useState(null);
-    const BASE_URL = "http://172.17.3.154/api";
     const token = localStorage.getItem("token");
     const headers = { Authorization: `Token ${token}` };
     const [status, setStatus] = useState(null);
     useEffect(() => {
         if(token){
             axios
-            .get(BASE_URL + "/account/public-profile/" + id, {headers})
+            .get(BASE_URL + "account/public-profile/" + id, {headers})
             .then((res) => {
               console.log(res.data);
               setData(res.data);
             })
             .catch(err => {
-                if(err.response.status === 403){
-                    setStatus(403);
-                }
               console.log(err);
             })
         }
@@ -86,7 +83,7 @@ import {
             <Avatar 
                       variant="circular"
                       sx={{ bgcolor: "#f0f5eb", width: "200px", height: "200px"}}
-                      src={Image}
+                      src={data.image}
                     >
   
                     </Avatar></Grid>
@@ -141,7 +138,7 @@ import {
                           <Typography
                             sx={{ textAlign: "left", fontWeight: "bold" }}
                           >
-                            {data.date_joined.slice(0, 10)}
+                            {/* {data.date_joined.slice(0, 10)} */}
                           </Typography>
   
                           <Typography

@@ -10,7 +10,6 @@ import store from "./store";
 import UserInfo from "./components/editprofile";
 import VerifyUser from "./components/verifyuser";
 import ComplexGrid from "./components/Gride";
-import User_Profile from "./components/User_Profile";
 import Foodadvertisment from "./components/foodadvertisment";
 import Dropdown from "./components/Gride";
 import Serviceadvertisement from "./components/Serviceadvertisement";
@@ -30,9 +29,12 @@ import UserProfile from './components/user-profile'
 import Formstab from "./components/formstab"
 import PublicUserProfile from './components/public-user-profile'
 // import BasicCard from "./components/advertisementpage";
-import Productdetail from "./components/advertisementpage";
+// import Productdetail from "./components/advertisementpage";
 import BasicCard from "./components/adpage";
 import FormTabs from "./components/formstab";
+import ChangeEmail from "./components/changeEmail";
+
+import Footer from './components/footer';
 
 const theme = createTheme({
   typography: {
@@ -62,6 +64,8 @@ function App() {
                 path="/user-profile/:id"
                 component={PublicUserProfile}
               />
+              <Route exact path="/change-email" component={ChangeEmail} />
+
               <Route exact path="/signin" component={SignIn} />
               <Route exact path="/forgot-password" component={ForgotPassword} />
               <Route exact path="/verify-user" component={VerifyUser} />
@@ -70,14 +74,12 @@ function App() {
               <Route exact path="/dd" component={Dropdown} />
               <Route exact path="/cg" component={Forms} />
               <Route exact path="/forms" component={Formstab} />
-              {/* <Route exact path="/dashbpard/profile" component={Reprofile} /> */}
+              <Route exact path="/rr" component={Reprofile} />
               {/* <Route exact path="/setting" component={UserSetting} /> */}
               <Route exact path="/dashboard" component={PersistentDrawerLeft} />
               <Route exact path="/ppage" component={Ppage} />
-              {/* <Route exact path="/adpage" component={BasicCard}/> */}
-              <Route exact path="/ab" component={Productdetail} />
-              <Route exact path="/jj" component={BasicCard} />
               <Route exact path="/formtabs" component={FormTabs} />
+            <Route exact path="/jj" component={BasicCard} />
             </Switch>
           </BrowserRouter>
         </div>

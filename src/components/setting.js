@@ -18,6 +18,7 @@ import Switch from '@mui/material/Switch';
 import { connect } from "react-redux";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from "@mui/material/Alert";
+import BASE_URL from './baseurl';
 
 import { useHistory } from 'react-router-dom';
 import { CircularProgress } from "@mui/material";
@@ -78,7 +79,6 @@ function Setting() {
   const [phoneChecked, setPhoneChecked] = useState(false);
   const [profileChecked, setProfileChecked] = useState(false);
   const [value, setValue] = useState(0);
-  const BASE_URL ='http://172.17.3.154/api';
 
 
   const handleClose = (event, reason) => {
@@ -94,10 +94,8 @@ function Setting() {
         oldpassword: '',
         password: '',
         confirmpassword: '',
-        switch1:'',
-        switch2:'',
-        experience:'',
-
+        phoneChecked:'',
+        profileChecked:''
     },
     validationSchema: validationSchema,
   });
@@ -127,10 +125,10 @@ function Setting() {
       formData.append("password", formik.values.password);
       formData.append("password_confirm", formik.values.confirmpassword);
       console.log(formData)
-      axios.post(BASE_URL + '/account/change_password/', formData, {headers})
+      axios.post(BASE_URL + 'account/change_password/', formData, {headers})
       .then(res => {
         setLoadingP(false);
-        setMessage('Your password changed succesfully.');
+        setMessage("Your password changed succesfully.");
         setOpenm(true);
         console.log(res);
       })
@@ -155,12 +153,15 @@ function Setting() {
   } 
 
   useEffect(() => {
-      axios.get(BASE_URL + '/account/user-profile/', {headers: headers})
+      axios.get(BASE_URL + 'account/user-profile/', {headers: headers})
           .then(res => {
               console.log(res.data);
+              console.log('phoneee', res.data.access_phone)
               formik.setValues({
                 email: res.data.email || ''
               });
+              setPhoneChecked(res.data.access_phone);
+              setProfileChecked(res.data.access_profile);
           })
           }, [])
 
@@ -171,19 +172,16 @@ function Setting() {
     !Boolean(formik.errors.email) && formik.values.email !== '';
     if (filled){
       setLoadingE(true);
-    axios.put(BASE_URL + '/account/edit-profile/', 
-    { 
-      email: formik.values.email} , {headers})
-
+    axios.get(BASE_URL + 'account/verify-newemail/?email=' + formik.values.email, {headers: headers})
       .then (res => {
         setLoadingE(false);
-        setMessage('Your email changed succesfully.');
+        setMessage("Check your new email inbox to verify it.");
         setOpenm(true);
         console.log(res);
       })
       .catch(err => {
         setLoadingE(false);
-        setMessage(err.response.message);
+        setMessage("Something went wrong! Try again.");
         setOpenm(true);
       });
   }
@@ -192,29 +190,16 @@ function Setting() {
   const setPermissions = () => {
     setLoadingChecked(true);
     axios
-    .post(BASE_URL + "/account/access-profile/", {"Profile_Access": profileChecked} ,{ headers: headers })
+    .put(BASE_URL + "account/edit-profile/", {"access_phone": phoneChecked, "access_profile": profileChecked } ,{ headers: headers })
     .then((res) => {
+      setLoadingChecked(false);
       console.log(res.data);
-      setMessage('Permissions updated successfully.');
+      setMessage("Permissions updated successfully.");
       setOpenm(true);
     })
     .catch(err => {
-      console.log(err);
-    })
-
-    axios
-    .post(BASE_URL + "/account/access-phone/", {"Phone_Access": phoneChecked} ,{ headers: headers })
-    .then((res) => {
-      setMessage('Permissions updated successfully.');
-      setOpenm(true);
-      console.log(res.data);
       setLoadingChecked(false);
-
-    })
-    .catch(err => {
       console.log(err);
-      setLoadingChecked(false);
-
     })
 
   }
@@ -224,7 +209,7 @@ function Setting() {
       <Helmet bodyAttributes={{ style: 'background-color : #e5ecdf' }}></Helmet>
       <Container component="main" maxWidth="md">
         <CssBaseline />
-        <Paper elevation={3} sx={{borderRadius: 4,marginTop: '1.2rem' }}>
+        <Paper elevation={3} sx={{borderRadius: 4,marginTop: '3rem' }}>
             {/* <Tabs  textColor="secondary" 
               indicatorColor="secondary"
               onChange={handleChange} aria-label="secondary tabs example" value={value}>
@@ -398,7 +383,8 @@ function Setting() {
             </TabPanel>
             <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
                   <Alert onClose={handleClose} variant="filled" 
-                  severity={message === "Please fill the fileds above." ? "error" : "success"}
+                  severity={message === "Please fill the fileds above."
+                   || "Something went wrong! Try again." ? "error" : "success"}
                    sx={{ width: '100%' }}>
                     {message}
                   </Alert>

@@ -23,6 +23,7 @@ import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Grow from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
+import BASE_URL from './baseurl';
 
 import Popper from "@mui/material/Popper";
 import MenuList from "@mui/material/MenuList";
@@ -38,7 +39,6 @@ function Navbar() {
 
   const anchorRef = React.useRef(null);
   const history = useHistory();
-  const BASE_URL = "http://172.17.3.154/api";
   const token = localStorage.getItem('token');
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const headers = {"Authorization": `Token ${token}`};
@@ -100,7 +100,7 @@ function Navbar() {
   const handleLogOutClick = async () => {
     setOpenBD(true);
     setOpen((prevOpen) => !prevOpen);
-    await axios.post(BASE_URL + '/account/logout/', {revoke_token: true},{headers} )
+    await axios.post(BASE_URL + 'account/logout/', {revoke_token: true},{headers} )
     .then(res => {
       localStorage.clear();
       setOpenBD(false);
@@ -288,7 +288,7 @@ function Navbar() {
                   color: "black",
                   paddingLeft: "10px",
                   paddingRight: "10px",
-                  marginLeft: "77%", marginRight: "1%", 
+                  marginLeft: "74%", marginRight: "1%", 
                   "&:hover": {backgroundColor: '#eef5e4'}
                   
                 }}

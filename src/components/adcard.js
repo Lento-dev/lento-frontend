@@ -17,9 +17,9 @@ const MediaControlCard = (props) => {
   // props
   let resourcex = (props.data.resourcetype).replace("Advertisement","")
   console.log(props.data);
-  var image = "https://s6.uupload.ir/files/newwwww_3y3i.jpg";
+  var image = "http://www.upsara.com/images/g382390_.jpg";
   if (props.data.Image === null) {
-    image = "https://s6.uupload.ir/files/newwwww_3y3i.jpg";
+    image = "http://www.upsara.com/images/g382390_.jpg";
   } else {
     image = props.data.Image;
   }
@@ -46,7 +46,7 @@ const MediaControlCard = (props) => {
                       }}
                     >
                       
-          <Typography component="div" variant="h6">
+          <Typography component="div" variant="h6" >
             {props.data.Title}
           </Typography>
           </Link>
@@ -103,16 +103,30 @@ const MediaControlCard = (props) => {
               {props.data.expiration_date}
             </span>
           </div>
+{/* 
+          <span>
+            <div>
+            
+            </div>
+          </span> */}
+          
+       
+          
         </CardContent>
+
       </Box>
+
+   
       
       <CardMedia
         component="img"
-        
-        sx={{ width: 134 , justifyContent:'right'}}
+        style={{width:'50%',height:'200px',position:'sticky',textAlign:'right',display:'flex'}}
+        // sx={{ width: 134 }}
         image={image}
-        
-      />
+        />
+   
+          
+       
     </Card>
   );
 };

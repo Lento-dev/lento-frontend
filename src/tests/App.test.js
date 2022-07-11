@@ -4,13 +4,16 @@ import { BrowserRouter } from "react-router-dom";
 import Footer from "../components/footer";
 import Signup from "../components/signup";
 import SignIn from '../components/signin';
-import { login } from "../actions/auth";
 import SignUp from "../components/signup";
 import UserInfo from '../components/editprofile';
 import Setting from '../components/setting';
 import Forms from "../components/forms";
-import Userpro from '../components/User_Profile';
-import UserProfile from '../components/user-profile';
+import MediaControlCard from '../components/adcard';
+import Foodadvertisment from '../components/foodadvertisment';
+import Clothadvertisement from '../components/clothadvertisement';
+import Serviceadvertisement from '../components/Serviceadvertisement';
+import Formtabs from "../components/formstab";
+import Navbar from '../components/navbar';
 
 
 describe("Footer", () => {
@@ -21,6 +24,27 @@ describe("Footer", () => {
       </BrowserRouter>
     );
   });
+});
+
+describe("Footer", () => {
+  it("should render the correct content", async () => {
+    render(
+      <BrowserRouter>
+        <Footer />
+      </BrowserRouter>
+    );
+  });
+});
+
+
+it('should render same text ', () => {
+  render(
+    <BrowserRouter>
+      <Navbar/>
+    </BrowserRouter>
+  );
+  const keyword = screen.getAllByText(/LentoCharity/i);
+  expect(keyword.length).toBe(1);
 });
 
 describe("Signup", () => {
@@ -229,10 +253,262 @@ it('should render same text ', () => {
 			<Footer />
 		</BrowserRouter>
 	);
-	const keyword = screen.getAllByText(/Lento/i);
+	const keyword = screen.getAllByText(/Contact/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/@/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/gmail/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/com/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/2022/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/©/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/Iran/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/is/i);
+  expect(keyword.length).toBe(1);
+});
+
+// it('should render same text ', () => {
+// 	render(
+// 		<BrowserRouter>
+// 			<Footer />
+// 		</BrowserRouter>
+// 	);
+// 	const keyword = screen.getAllByText(/a/i);
+//   expect(keyword.length).toBe(2);
+// });
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/Tehran/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/Univeristy/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/of/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/use/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/technology/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/and/i);
   expect(keyword.length).toBe(2);
 });
 
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/science/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/to/i);
+  expect(keyword.length).toBe(3);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/help/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/people/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/enjoy/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/Use/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/helping/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/people/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/098/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/09912366384/i);
+  expect(keyword.length).toBe(1);
+});
+
+
+
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/Copyright/i);
+  expect(keyword.length).toBe(1);
+});
 
 const mockedProfile = jest.fn();
 
@@ -246,6 +522,7 @@ it("should render correct username", async () => {
     fireEvent.select(emailElement, { target: { value: "zahramomeninezhad@gmail.com" } });
     expect(emailElement.value).toBe("zahramomeninezhad@gmail.com");
   });
+  
 
   it("should render correct username", async () => {
     render(
@@ -262,6 +539,17 @@ it("should render correct username", async () => {
     render(
       <BrowserRouter>
         <SignIn genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Email/i);
+    fireEvent.select(emailElement, { target: { value: "parmidaasanaye@gmail.com" } });
+    expect(emailElement.value).toBe("parmidaasanaye@gmail.com");
+  });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <SignUp genValue={null} setGenValue={mockedProfile} />
       </BrowserRouter>
     );
     const emailElement = screen.getByLabelText(/Email/i);
@@ -488,6 +776,17 @@ it("should render correct username", async () => {
     expect(emailElement.value).toBe("09123846632");
   });
 
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <UserInfo genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Phone Number/i);
+    fireEvent.select(emailElement, { target: { value: "0983333333" } });
+    expect(emailElement.value).toBe("0983333333");
+  });
+
   describe("edit profile", () => {
     it("should render the correct content", async () => {
       render(
@@ -497,6 +796,29 @@ it("should render correct username", async () => {
       )
     })
   })
+
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <UserInfo genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Phone Number/i);
+    fireEvent.select(emailElement, { target: { value: "87654321" } });
+    expect(emailElement.value).toBe("87654321");
+  });
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Setting/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getByText(/General/i);
+    expect(keyword).toBeInTheDocument();
+  });
+
 
   it('should render same text ', () => {
     render(
@@ -555,6 +877,16 @@ it("should render correct username", async () => {
         <Setting/>
       </BrowserRouter>
     );
+    const keyword = screen.getAllByText(/Change/i);
+    expect(keyword.length).toBe(4);
+  });
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Setting/>
+      </BrowserRouter>
+    );
     const keyword = screen.getAllByText(/address/i);
     expect(keyword.length).toBe(3);
   });
@@ -586,6 +918,17 @@ it("should render correct username", async () => {
         <Setting genValue={null} setGenValue={mockedProfile} />
       </BrowserRouter>
     );
+    const emailElement = screen.getByLabelText(/Email Address/i);
+    fireEvent.select(emailElement, { target: { value: "Parmida@gmail.com" } });
+    expect(emailElement.value).toBe("Parmida@gmail.com");
+  });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <Setting genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
     const emailElement = screen.getByLabelText(/Old password/i);
     fireEvent.select(emailElement, { target: { value: "zahraa1380" } });
     expect(emailElement.value).toBe("zahraa1380");
@@ -598,8 +941,8 @@ it("should render correct username", async () => {
   //     </BrowserRouter>
   //   );
   //   const emailElement = screen.getByLabelText(/New password/i);
-  //   fireEvent.select(emailElement, { target: { value: "zahra1380" } });
-  //   expect(emailElement.value).toBe("zahra1380");
+  //   fireEvent.select(emailElement, { target: { value: "zahraa1381" } });
+  //   expect(emailElement.value).toBe("zahraa1381");
   // });
 
   it("should render correct username", async () => {
@@ -609,8 +952,8 @@ it("should render correct username", async () => {
       </BrowserRouter>
     );
     const emailElement = screen.getByLabelText(/Confirm new password/i);
-    fireEvent.select(emailElement, { target: { value: "zahra1380" } });
-    expect(emailElement.value).toBe("zahra1380");
+    fireEvent.select(emailElement, { target: { value: "zahra1381" } });
+    expect(emailElement.value).toBe("zahra1381");
   });
 
   describe("edit profile", () => {
@@ -630,7 +973,7 @@ it("should render correct username", async () => {
       </BrowserRouter>
     );
     const keyword = screen.getAllByText(/food/i);
-    expect(keyword.length).toBe(3);
+    expect(keyword.length).toBe(1);
   });
 
   it('should render same text ', () => {
@@ -697,25 +1040,97 @@ it("should render correct username", async () => {
   });
 
 
-  describe("edit profile", () => {
+  // describe("user pro", () => {
+  //   it("should render the correct content", async () => {
+  //     render(
+  //       <BrowserRouter>
+  //       <UserProfile />
+  //     </BrowserRouter>
+  //     )
+  //   })
+  // })
+
+  // describe("edit profile", () => {
+  //   it("should render the correct content", async () => {
+  //     render(
+  //       <BrowserRouter>
+  //       <Navbar />
+  //     </BrowserRouter>
+  //     )
+  //   })
+  // })
+
+  describe("food form", () => {
     it("should render the correct content", async () => {
       render(
         <BrowserRouter>
-        <UserProfile />
+        <Foodadvertisment />
       </BrowserRouter>
       )
     })
   })
 
-  describe("edit profile", () => {
+
+
+
+
+  describe("cloth form", () => {
     it("should render the correct content", async () => {
       render(
         <BrowserRouter>
-        <Userpro />
+        <Clothadvertisement />
       </BrowserRouter>
       )
     })
   })
+  describe("service form", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Serviceadvertisement />
+      </BrowserRouter>
+      )
+    })
+  })
+  describe("form tabs", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Formtabs />
+      </BrowserRouter>
+      )
+    })
+  })
+
+  describe("form tabs", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Formtabs />
+      </BrowserRouter>
+      )
+    })
+  })
+
+  test('renders adcard', () => {
+    render(<BrowserRouter>
+      <MediaControlCard data={{Image : null , Title: 'blue' ,province:'Tehran',resourcetype:'cloth',expiration_date:'04.02.2022'}} key={2} />
+    </BrowserRouter>);
+    const linkElement = screen.getByText( /Tehran/i);
+    expect(linkElement).toBeInTheDocument();
+  })
+
+  
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Navbar/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getAllByText(/LentoCharity/i);
+    expect(keyword.length).toBe(1);
+  });
+
 
 
 
