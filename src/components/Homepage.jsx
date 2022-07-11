@@ -708,9 +708,9 @@ export default function Homepage(props) {
                     >
                       <Card
                         elevation={3}
-                        sx={{ borderRadius: 6, display: "flex"  }}
+                        sx={{ borderRadius: 4, display: "flex"  }}
                         style={{
-                          marginTop: "7rem",
+                          marginTop: "3rem",
                           marginBottom: "1rem",
                           marginLeft: "4rem",
                           marginRight: "4rem",
@@ -721,12 +721,12 @@ export default function Homepage(props) {
                           {/* <Grid item xs={6}></Grid> */}
                           <Grid item xs={12} md={12} lg={4}>
                             <img
-                              src={kindmind}
+                              src={"http://www.upsara.com/images/y057517_.jpg"}
                               style={{
-                                paddingTop: "2rem",
+                                paddingTop: "1rem",
                                 // paddingRight: "15rem",
-                                width: "50%",
-                                height: "40vh",
+                                width: "47%",
+                                height: "28vh",
                                 position: "sticky",
                               }}
                             />
@@ -739,7 +739,8 @@ export default function Homepage(props) {
                               fontSize="1.3rem"
                               style={{
                                 fontWeight: "bold",
-                                paddingTop: "1.5rem",
+                                paddingTop: "1rem",
+                                fontFamily:'San Fransisco',                             
                               }}
                             >
                               The effects of good work on mental health
@@ -748,7 +749,7 @@ export default function Homepage(props) {
                               component="h3"
                               textAlign="left"
                               fontSize="1rem"
-                              style={{ fontWeight: "bold", paddingTop: "3rem" }}
+                              style={{ paddingTop: "1rem",fontFamily:'San Fransisco',color:'black' ,maxWidth:'800px'}}
                             >
                               In fact, good deeds and benevolence is a good
                               thing that more or less everyone wants to do, and
@@ -760,61 +761,13 @@ export default function Homepage(props) {
                               component="h3"
                               textAlign="left"
                               fontSize="1rem"
-                              style={{ fontWeight: "bold" }}
+                              style={{ paddingTop: "0.1rem",fontFamily:'San Fransisco',color:'black' ,maxWidth:'800px'}}
                             >
                               A person who has not done a good deed and has not
                               been a pioneer in it, is in fact oppressing
                               himself, which is considered oppression of himself
                               and his soul.
                             </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              People who are mentally healthy are not only
-                              recipients of love and kindness, but also do good
-                              to others. In fact, this love goes back to the
-                              individual.
-                            </Typography>
-                            {/* <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Psychologically, a person who loves and helps a
-                              poor and helpless person, gives him a good sense
-                              of power, which this time positive and energy is
-                              able to have good effects on the soul and psyche
-                              of the volunteer and increase trust.
-                            </Typography> */}
-                            {/* <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              To one's self and self-esteem. On the other hand,
-                              in these situations, facing the problems of others
-                              makes a person thank God at any time because of
-                              the peace he has in the moment and is so free of
-                              thought and action that he is even able to spend
-                              part of his time on things.
-                            </Typography>
-                            <Typography
-                              component="h3"
-                              textAlign="left"
-                              fontSize="1.3rem"
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Other people slow down to help them. Now, if a
-                              person does not face a problem in life for any
-                              reason, the soul and psyche are strengthened and
-                              it is easier to try to solve the problem and
-                              succeed.
-                            </Typography> */}
                           </Grid>
                           <Grid
                             item

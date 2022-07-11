@@ -131,27 +131,27 @@ export default function BasicCard(props) {
   };
 
   useEffect(() => {
-    console.log("***********************");
+    console.log("*********");
     var token = localStorage.getItem("token");
     token.replaceAll('"', "");
     console.log(token);
     var fd = new FormData();
     fd.append("post_n",props.location.state.data.id);
     fd.append("user_n",props.location.state.data.owner);
-    var myurl = "http://62.3.41.86/api/advertisement/Saves/";
+    var myurl = "http://62.3.41.86/api/advertisement/Save_condition/?post=" + props.location.state.data.id ;
     console.log(myurl) ;
     var config = {
-      method: "post",
+      method: "get",
       url: myurl,
       headers: {
         Authorization: "Token " + token,
       },
-      data : fd,
+     
     };
   
     axios(config)
       .then((response) => {
-        setsave(response.date.save)
+        setsave(response.data.save_condition)
     
       })
   
@@ -160,7 +160,6 @@ export default function BasicCard(props) {
       });
       
   }, []);
-
   useEffect(async () => {
       await axios.get(BASE_URL + 'advertisement/commentposts/?post=' + id, {headers: headers})
       .then(res => {
