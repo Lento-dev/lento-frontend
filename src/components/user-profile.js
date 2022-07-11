@@ -26,7 +26,6 @@ import Helmet from "react-helmet";
 import cardImage from '../assets/img/barfi.jpg'
 import Divider from "@mui/material/Divider";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-// import { BackToTop } from "material-ui-back-to-top";
 
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import LocalPhoneRoundedIcon from "@mui/icons-material/LocalPhoneRounded";
@@ -324,7 +323,7 @@ const UserProfile = () => {
                 <CardContent>
               <Grid container spacing={4}>
                     <Grid item xs={12} sx={{textAlign: 'justify'}}>
-                    {posts && (
+                    {(posts !== null) && (
                       <Grid container spacing={2} justifyContent="center">
                         {posts.map(p => (
                           <Grid item xs={9}>

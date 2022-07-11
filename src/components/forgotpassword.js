@@ -11,10 +11,8 @@ import {
 import { makeStyles } from "@mui/styles";
 import Helmet from "react-helmet";
 import Image from "../assets/img/forgotpassword.png";
-import { connect } from 'react-redux';
-import { forgotpassword } from "../actions/auth";
-import { clearMessage } from '../actions/message';
-
+import BASE_URL from './baseurl';
+import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   Title: {
@@ -28,11 +26,14 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-function ForgotPassword(props) {
+function ForgotPassword() {
   const classes = useStyles();
   const history = useHistory();
+  const [message, setMessage] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [errors, setErrors] = useState({});
+  const [openm, setOpenm] = useState(false);
+
   const [values, setValues] = useState({
     email: ''
   });
@@ -45,9 +46,12 @@ function ForgotPassword(props) {
       return;
     }
     
-    props.clearMessage();
+    setOpenm(false);
 
   };
+
+
+
   const validate = () => {
     let tmpErrors = {};
 
@@ -67,24 +71,34 @@ function ForgotPassword(props) {
     
     setErrors(tmpErrors);
   }
-  
-  const handleSubmitButton = (e) => {
+
+  const submitForgotPassword = () => {
     validate();
     let filled = Object.keys(errors).length === 0;
-
     if  (filled) 
     {
       setLoading(true);
-      props.forgotpassword(values.email)
-      .then(res => {
-        setLoading(false);
-      })
-      .catch(err => {
-        setLoading(false);
-      })
+      axios.post(BASE_URL + 'account/send_reset_password_link/', { "login": values.email })
+      .then(
+        (response) => {
+          setMessage('Reset password link has been sent to your email address.');
+          setOpenm(true);
+          console.log(response);
+          setLoading(false);
+
+        })
+        .catch((error) => {
+  
+          console.log(error);
+          setMessage('This email has not been registered.');
+          setOpenm(true);
+          setLoading(false);
+
+        })
     }
-    
+
   }
+  
   return (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
@@ -144,7 +158,7 @@ function ForgotPassword(props) {
                     fullWidth
                     size="large"
                     
-                    onClick={handleSubmitButton}
+                    onClick={submitForgotPassword}
                     sx={{
                       textTransform: "unset",
                       backgroundColor: "#556749",
@@ -160,25 +174,11 @@ function ForgotPassword(props) {
                         <CircularProgress style={{color: "#fff"}} size="1.6rem"/>
                         : "Submit"}                  </Button>
                 </Grid>
-                <Snackbar
-                      open={props.openMessage}
-                      autoHideDuration={4000}
-                      onClose={handleClose}
-                      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                    >
-                      <Alert
-                        onClose={handleClose}
-                        variant="filled"
-                        severity={
-                          props.message === "Reset password link has been sent to your email address." 
-                            ? "success"
-                            : "error"
-                        }
-                        sx={{ width: "100%" }}
-                      >
-                        {props.message}
-                      </Alert>
-                    </Snackbar>
+                <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
+                  <Alert variant="filled" onClose={handleClose} severity={message === 'Reset password link has been sent to your email address.' ? "success" : "error"} sx={{ width: '100%' }}>
+                    {message}
+                  </Alert>
+                </Snackbar>
               </Grid>
             </Grid>
 
@@ -196,12 +196,4 @@ function ForgotPassword(props) {
   );
 }
 
-const mapDispatchToProps = { forgotpassword, clearMessage };
-const mapStateToProps = ( state ) => {
-  return{
-    message: state.message.message,
-    openMessage: state.message.openMessage,
-  }
-}
-
-export default connect(mapStateToProps ,mapDispatchToProps)(ForgotPassword);
+export default ForgotPassword;

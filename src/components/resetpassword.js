@@ -15,9 +15,9 @@ import {
   DialogActions,
   DialogTitle,
 } from "@mui/material";
-import { connect } from "react-redux";
-import { resetpassword } from "../actions/auth";
-import { clearMessage } from "../actions/message";
+import BASE_URL from './baseurl';
+import axios from "axios";
+
 import Helmet from "react-helmet";
 import { makeStyles } from "@mui/styles";
 
@@ -34,12 +34,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ResetPassword(props) {
-  const classes = useStyles();
+function ResetPassword() {
 
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const [message, setMessage] = React.useState(null);
+  const [openm, setOpenm] = useState(false);
+  const [forgotPassDialogOpen, setForgotPassDialogOpen] = useState(false);
+
   const [values, setValues] = useState({
     password: "",
   });
@@ -48,7 +51,6 @@ function ResetPassword(props) {
   const user_id = new URLSearchParams(search).get("user_id");
   const timestamp = new URLSearchParams(search).get("timestamp");
   const signature = new URLSearchParams(search).get("signature");
-  const [forgotPassDialogOpen, setForgotPassDialogOpen] = useState(false);
 
   const handleForgotPassDialogClickOpen = () => {
     setForgotPassDialogOpen(true);
@@ -56,7 +58,7 @@ function ResetPassword(props) {
 
   const handleForgotPassDialogClose = () => {
     setForgotPassDialogOpen(false);
-    props.clearMessage();
+    setOpenm(false);
     history.push("/signin");
   };
 
@@ -72,30 +74,34 @@ function ResetPassword(props) {
     setErrors(tmpErrors);
   };
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    props.clearMessage();
-  };
-
   const handleSubmitButton = (e) => {
     validate();
     let filled = Object.keys(errors).length === 0;
 
     if (filled) {
       setLoading(true);
-      props.resetpassword(values.password,user_id, timestamp, signature)
-      .then(res => {
-        handleForgotPassDialogClickOpen();
-      })
-      .catch (err => {
-        handleForgotPassDialogClose();
-      })
-      }
+      var formData = new FormData();
+      formData.append("user_id", user_id);
+      formData.append("timestamp", timestamp);
+      formData.append("signature", signature);
+      formData.append("password", values.password);
+    
+      return axios.post(BASE_URL + 'account/reset_password/', formData)
+        .then(
+          (response) => {
+            setMessage('Password has changed successfully.');
+            handleForgotPassDialogClickOpen();
+          })
+        .catch((error) => {
+          setMessage('Unknown error.');
+          handleForgotPassDialogClose();
+
+          }
+          );
 
     console.log(values);
   };
+}
 
   return (
     <div>
@@ -232,12 +238,12 @@ function ResetPassword(props) {
             >
               <DialogTitle
                 color={
-                  props.message === "Password has changed successfully."
+                  message === "Password has changed successfully."
                     ? "green"
                     : "red"
                 }
               >
-                {props.message}
+                {message}
               </DialogTitle>
 
               <DialogActions>
@@ -246,7 +252,7 @@ function ResetPassword(props) {
                     variant="contained"
                     onClick={handleForgotPassDialogClose}
                     color={
-                      props.message === "Password has changed successfully."
+                      message === "Password has changed successfully."
                         ? "success"
                         : "warning"
                     }
@@ -263,12 +269,4 @@ function ResetPassword(props) {
   );
 }
 
-const mapDispatchToProps = { resetpassword, clearMessage };
-const mapStateToProps = (state) => {
-  return {
-    message: state.message.message,
-    openMessage: state.message.openMessage,
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ResetPassword);
+export default ResetPassword;
