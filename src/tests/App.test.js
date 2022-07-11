@@ -4,18 +4,17 @@ import { BrowserRouter } from "react-router-dom";
 import Footer from "../components/footer";
 import Signup from "../components/signup";
 import SignIn from '../components/signin';
-import { login } from "../actions/auth";
 import SignUp from "../components/signup";
 import UserInfo from '../components/editprofile';
 import Setting from '../components/setting';
 import Forms from "../components/forms";
-import UserProfile from '../components/user-profile';
 import MediaControlCard from '../components/adcard';
 import Foodadvertisment from '../components/foodadvertisment';
 import Clothadvertisement from '../components/clothadvertisement';
 import Serviceadvertisement from '../components/Serviceadvertisement';
 import Formtabs from "../components/formstab";
 import Navbar from '../components/navbar';
+import Footer from '../components/footer'
 
 
 describe("Footer", () => {
@@ -308,15 +307,15 @@ it('should render same text ', () => {
   expect(keyword.length).toBe(1);
 });
 
-it('should render same text ', () => {
-	render(
-		<BrowserRouter>
-			<Footer />
-		</BrowserRouter>
-	);
-	const keyword = screen.getAllByText(/a/i);
-  expect(keyword.length).toBe(2);
-});
+// it('should render same text ', () => {
+// 	render(
+// 		<BrowserRouter>
+// 			<Footer />
+// 		</BrowserRouter>
+// 	);
+// 	const keyword = screen.getAllByText(/a/i);
+//   expect(keyword.length).toBe(2);
+// });
 
 it('should render same text ', () => {
 	render(
@@ -640,16 +639,16 @@ it("should render correct username", async () => {
   });
   
   
-  // it("should render correct birthdate", async () => {
-  //   render(
-  //     <BrowserRouter>
-  //       <UserInfo birthdate={null} setBirthdate={mockedProfile} />
-  //     </BrowserRouter>
-  //   );
-  //   const ProfileElement = screen.getByLabelText(/Birthdate/i);
-  //   fireEvent.select(ProfileElement, { target: { value: "05/13/2022" } });
-  //   expect(ProfileElement.value).toBe("05/13/2022");
-  // });
+  it("should render correct birthdate", async () => {
+    render(
+      <BrowserRouter>
+        <UserInfo birthdate={null} setBirthdate={mockedProfile} />
+      </BrowserRouter>
+    );
+    const ProfileElement = screen.getByLabelText(/Birthdate/i);
+    fireEvent.select(ProfileElement, { target: { value: "05/13/2022" } });
+    expect(ProfileElement.value).toBe("05/13/2022");
+  });
   
   // it("should render correct gender", async () => {
   //   render(
@@ -904,25 +903,25 @@ it("should render correct username", async () => {
   });
 
 
-  describe("edit profile", () => {
-    it("should render the correct content", async () => {
-      render(
-        <BrowserRouter>
-        <UserProfile />
-      </BrowserRouter>
-      )
-    })
-  })
+  // describe("user pro", () => {
+  //   it("should render the correct content", async () => {
+  //     render(
+  //       <BrowserRouter>
+  //       <UserProfile />
+  //     </BrowserRouter>
+  //     )
+  //   })
+  // })
 
-  describe("edit profile", () => {
-    it("should render the correct content", async () => {
-      render(
-        <BrowserRouter>
-        <Navbar />
-      </BrowserRouter>
-      )
-    })
-  })
+  // describe("edit profile", () => {
+  //   it("should render the correct content", async () => {
+  //     render(
+  //       <BrowserRouter>
+  //       <Navbar />
+  //     </BrowserRouter>
+  //     )
+  //   })
+  // })
 
   describe("food form", () => {
     it("should render the correct content", async () => {
