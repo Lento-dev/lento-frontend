@@ -106,7 +106,8 @@ import {
                             {data.first_name} {data.last_name}
                           </Typography>
                         </Grid>
-  
+                      {data.job && (
+                          
                         <Grid item xs={12} justifyContent= "center" sx={{ display: "inline-flex" }}>
                           <WorkRoundedIcon
                             sx={{ color: "#e6835a", marginRight: "1%" }}
@@ -118,8 +119,10 @@ import {
                             {data.job}
                           </Typography>
                         </Grid>
+                      )}
   
-                        <Grid item xs={12} justifyContent= "center" sx={{ display: "inline-flex" }}>
+                          {data.country && data.city && (
+                            <Grid item xs={12} justifyContent= "center" sx={{ display: "inline-flex" }}>
                           <LocationOnRoundedIcon
                             sx={{ color: "#e6835a", marginRight: "1%" }}
                           />
@@ -129,24 +132,21 @@ import {
                             {data.country} - {data.city}
                           </Typography>
                         </Grid>
+                          )}
   
+                          {"phone" in data && (
                         <Grid item xs={12} justifyContent= "center"  sx={{ display: "inline-flex" }}>
-                          <CalendarTodayRoundedIcon
-                            sx={{ color: "#e6835a", marginRight: "1%" }}
-                          />
-  
-                          <Typography
-                            sx={{ textAlign: "left", fontWeight: "bold" }}
-                          >
-                            {/* {data.date_joined.slice(0, 10)} */}
-                          </Typography>
-  
-                          <Typography
-                            sx={{ textAlign: "left", display: "contents" }}
-                          >
-                            &nbsp;&nbsp;joined to Lento
-                          </Typography>
+                        <LocalPhoneRoundedIcon
+                          sx={{ color: "#e6835a", marginRight: "1%" }}
+                        />
+
+                        <Typography
+                          sx={{ textAlign: "left", fontWeight: "bold" }}
+                        >
+                          {data.phone}
+                        </Typography>
                         </Grid>
+                      )}
                       </Grid>
                     </CardContent>
                   </Card>

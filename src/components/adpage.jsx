@@ -42,9 +42,9 @@ import BASE_URL from './baseurl';
 
 export default function BasicCard(props) {
   const id = props.location.state.data.id;
-  const commentsIDs = props.location.state.data.comments;
   const [comments, setComments] = React.useState([]);
   const [loadingComment, setlLoadingComment] = React.useState(false);
+  const [commentsIDs, setCommentsIDs] = React.useState([]);
 
   console.log(props.location.state.data);
   let resourcech = (props.location.state.data.resourcetype).replace("Advertisement","")
@@ -164,9 +164,24 @@ export default function BasicCard(props) {
       await axios.get(BASE_URL + 'advertisement/commentposts/?post=' + id, {headers: headers})
       .then(res => {
           setComments(res.data);
-          console.log('comments', res.data)
       })        
+
     }, comments)
+
+    useEffect(() => {
+      for (let index = 0; index < comments.length; index++) {
+        axios.get(BASE_URL + 'advertisement/userview' + comments.owner, {headers: headers})
+        .then(res => {
+            commentsIDs.push(res.data);
+            console.log('commentsIDs', res.data)
+        })     
+        .catch(err => {
+          console.log(err)
+        })           
+      }      
+
+    }, [])
+
         
 
   const [open, setOpen] = React.useState(false);
@@ -520,7 +535,9 @@ export default function BasicCard(props) {
           <Grid justifyContent="left" item xs zeroMinWidth>
           {comments.map(c => ( 
             <div>
-            <h4 style={{ margin: 0, textAlign: "left" }}>{c.owner}</h4>
+            <h4 style={{ margin: 0, textAlign: "left" }}>
+            {c.owner}
+            </h4>
             <p style={{ textAlign: "justify" }}>
               {c.body} {" "}
             </p>
