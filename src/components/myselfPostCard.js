@@ -29,6 +29,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import axios from "axios";
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
+import BASE_URL from './baseurl';
 
 const useStyles = makeStyles(theme => ({
     postTitle: {
@@ -65,14 +66,13 @@ export default function PostCard({ post }) {
     const classes = useStyles();
     const [clearDialog, setClearDialog] = useState(false);
     const [loadingYesButton, setLoadingYesButton] = useState(false);
-    const BASE_URL = "http://172.17.3.154/api";
     const token = localStorage.getItem("token");
     const headers = { Authorization: `Token ${token}` };
     const postID = post.id;
 
     const clearPost = () => {
         setLoadingYesButton(true);
-        axios.delete(BASE_URL + '/advertisement/delete/' + postID, {headers})
+        axios.delete(BASE_URL + 'advertisement/delete/' + postID, {headers})
         .then (res => {
             setLoadingYesButton(false);
             setClearDialog(false);

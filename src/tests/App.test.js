@@ -11,6 +11,11 @@ import Setting from '../components/setting';
 import Forms from "../components/forms";
 import Userpro from '../components/User_Profile';
 import UserProfile from '../components/user-profile';
+import MediaControlCard from '../components/adcard';
+import Foodadvertisment from '../components/foodadvertisment';
+import Clothadvertisement from '../components/clothadvertisement';
+import Serviceadvertisement from '../components/Serviceadvertisement';
+import Formtabs from "../components/formstab";
 
 
 describe("Footer", () => {
@@ -246,6 +251,7 @@ it("should render correct username", async () => {
     fireEvent.select(emailElement, { target: { value: "zahramomeninezhad@gmail.com" } });
     expect(emailElement.value).toBe("zahramomeninezhad@gmail.com");
   });
+  
 
   it("should render correct username", async () => {
     render(
@@ -262,6 +268,17 @@ it("should render correct username", async () => {
     render(
       <BrowserRouter>
         <SignIn genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Email/i);
+    fireEvent.select(emailElement, { target: { value: "parmidaasanaye@gmail.com" } });
+    expect(emailElement.value).toBe("parmidaasanaye@gmail.com");
+  });
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <SignUp genValue={null} setGenValue={mockedProfile} />
       </BrowserRouter>
     );
     const emailElement = screen.getByLabelText(/Email/i);
@@ -630,7 +647,7 @@ it("should render correct username", async () => {
       </BrowserRouter>
     );
     const keyword = screen.getAllByText(/food/i);
-    expect(keyword.length).toBe(3);
+    expect(keyword.length).toBe(1);
   });
 
   it('should render same text ', () => {
@@ -716,6 +733,73 @@ it("should render correct username", async () => {
       )
     })
   })
+
+  describe("food form", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Foodadvertisment />
+      </BrowserRouter>
+      )
+    })
+  })
+
+
+
+
+
+  describe("cloth form", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Clothadvertisement />
+      </BrowserRouter>
+      )
+    })
+  })
+  describe("service form", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Serviceadvertisement />
+      </BrowserRouter>
+      )
+    })
+  })
+  describe("form tabs", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Formtabs />
+      </BrowserRouter>
+      )
+    })
+  })
+
+  describe("form tabs", () => {
+    it("should render the correct content", async () => {
+      render(
+        <BrowserRouter>
+        <Formtabs />
+      </BrowserRouter>
+      )
+    })
+  })
+
+  test('renders adcard', () => {
+    render(<BrowserRouter>
+      <MediaControlCard data={{Image : null , Title: 'blue' ,province:'Tehran',resourcetype:'cloth',expiration_date:'04.02.2022'}} key={2} />
+    </BrowserRouter>);
+    const linkElement = screen.getByText( /Tehran/i);
+    expect(linkElement).toBeInTheDocument();
+  })
+ 
+ 
+
+
+
+
+
 
 
 

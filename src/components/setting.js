@@ -18,6 +18,7 @@ import Switch from '@mui/material/Switch';
 import { connect } from "react-redux";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from "@mui/material/Alert";
+import BASE_URL from './baseurl';
 
 import { useHistory } from 'react-router-dom';
 import { CircularProgress } from "@mui/material";
@@ -78,7 +79,6 @@ function Setting() {
   const [phoneChecked, setPhoneChecked] = useState(false);
   const [profileChecked, setProfileChecked] = useState(false);
   const [value, setValue] = useState(0);
-  const BASE_URL ='http://172.17.3.154/api';
 
 
   const handleClose = (event, reason) => {
@@ -127,7 +127,7 @@ function Setting() {
       formData.append("password", formik.values.password);
       formData.append("password_confirm", formik.values.confirmpassword);
       console.log(formData)
-      axios.post(BASE_URL + '/account/change_password/', formData, {headers})
+      axios.post(BASE_URL + 'account/change_password/', formData, {headers})
       .then(res => {
         setLoadingP(false);
         setMessage('Your password changed succesfully.');
@@ -155,7 +155,7 @@ function Setting() {
   } 
 
   useEffect(() => {
-      axios.get(BASE_URL + '/account/user-profile/', {headers: headers})
+      axios.get(BASE_URL + 'account/user-profile/', {headers: headers})
           .then(res => {
               console.log(res.data);
               formik.setValues({
@@ -171,7 +171,7 @@ function Setting() {
     !Boolean(formik.errors.email) && formik.values.email !== '';
     if (filled){
       setLoadingE(true);
-    axios.put(BASE_URL + '/account/edit-profile/', 
+    axios.put(BASE_URL + 'account/edit-profile/', 
     { 
       email: formik.values.email} , {headers})
 
@@ -192,7 +192,7 @@ function Setting() {
   const setPermissions = () => {
     setLoadingChecked(true);
     axios
-    .post(BASE_URL + "/account/access-profile/", {"Profile_Access": profileChecked} ,{ headers: headers })
+    .post(BASE_URL + "account/access-profile/", {"Profile_Access": profileChecked} ,{ headers: headers })
     .then((res) => {
       console.log(res.data);
       setMessage('Permissions updated successfully.');
@@ -203,7 +203,7 @@ function Setting() {
     })
 
     axios
-    .post(BASE_URL + "/account/access-phone/", {"Phone_Access": phoneChecked} ,{ headers: headers })
+    .post(BASE_URL + "account/access-phone/", {"Phone_Access": phoneChecked} ,{ headers: headers })
     .then((res) => {
       setMessage('Permissions updated successfully.');
       setOpenm(true);
