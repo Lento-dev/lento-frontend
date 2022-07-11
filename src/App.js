@@ -79,9 +79,6 @@ function App() {
               <Route exact path="/dashboard" component={PersistentDrawerLeft} />
               <Route exact path="/ppage" component={Ppage} />
               <Route exact path="/formtabs" component={FormTabs} />
-            </Switch>
-            <Footer/>
-            <Switch>
             <Route exact path="/jj" component={BasicCard} />
             </Switch>
           </BrowserRouter>

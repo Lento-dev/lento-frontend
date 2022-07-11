@@ -32,6 +32,7 @@ import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 import PersonIcon from '@mui/icons-material/Person';
 import BASE_URL from './baseurl';
 
+
 const useStyles = makeStyles(theme => ({
     postTitle: {
         color: 'black',
@@ -68,15 +69,17 @@ export default function SavedAdCard({ ad }) {
     const [loadingYesButton, setLoadingYesButton] = useState(false);
     const token = localStorage.getItem("token");
     const headers = { Authorization: `Token ${token}` };
-    const postID = ad.id;
+    const postID = ad.post_n.id;
+    useEffect(() => {
+  
+    }, ad);
 
     const unSavePost = () => {
         setLoadingYesButton(true);
-        axios.delete(BASE_URL + 'advertisement/delete/' + postID, {headers})
+        axios.post(BASE_URL + 'advertisement/Saves/' ,{"post_n": postID}, {headers})
         .then (res => {
             setLoadingYesButton(false);
             setDialogOpen(false);
-            window.location.reload();
             console.log(res);
         })
         .catch (err => {
@@ -113,7 +116,7 @@ export default function SavedAdCard({ ad }) {
                         />
                         <Typography className={classes.postAddress} sx={{minInlineSize: 'fit-content', paddingRight: '8%'}}
                         >
-                          {ad.post_n.owner}
+                          {ad.post_n.owner.username}
                         </Typography>
                         <CalendarTodayIcon fontSize="small"
                           sx={{ color: "#e6835a", marginRight: "3%" }}

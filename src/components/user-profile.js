@@ -141,9 +141,9 @@ const UserProfile = () => {
                   }}
         centered
         onChange={handleChange} aria-label="secondary tabs example" value={value}>
-        <Tab value={0} label="Profile" />
-        <Tab value={1} label="Saved Advertisements" />
-        <Tab value={2} label="Posts" />
+        <Tab value={0} style={{textTransform: 'unset'}} label="Profile" />
+        <Tab value={1} style={{textTransform: 'unset'}} label="Saved Advertisements" />
+        <Tab value={2} style={{textTransform: 'unset'}} label="Posts" />
         {/* <Tab value={2} label="Gallery" /> */}
       </Tabs>
       </Grid>
@@ -178,7 +178,8 @@ const UserProfile = () => {
                         </Typography>
                       </Grid>
 
-                      <Grid item xs={12} justifyContent= "center" sx={{ display: "inline-flex" }}>
+                      {data.job && (
+                        <Grid item xs={12} justifyContent= "center" sx={{ display: "inline-flex" }}>
                         <WorkRoundedIcon
                           sx={{ color: "#e6835a", marginRight: "1%" }}
                         />
@@ -189,8 +190,10 @@ const UserProfile = () => {
                           {data.job}
                         </Typography>
                       </Grid>
+                      )}
 
-                      <Grid item xs={12} justifyContent= "center" sx={{ display: "inline-flex" }}>
+                        {data.country && data.city && (
+                          <Grid item xs={12} justifyContent= "center" sx={{ display: "inline-flex" }}>
                         <LocationOnRoundedIcon
                           sx={{ color: "#e6835a", marginRight: "1%" }}
                         />
@@ -200,6 +203,7 @@ const UserProfile = () => {
                           {data.country} - {data.city}
                         </Typography>
                       </Grid>
+                        )}
 
                       {data.phone && (
                         <Grid item xs={12} justifyContent= "center"  sx={{ display: "inline-flex" }}>

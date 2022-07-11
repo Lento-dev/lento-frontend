@@ -10,6 +10,8 @@ import EmailIcon from "@mui/icons-material/Email";
 import LocalPhoneRoundedIcon from "@mui/icons-material/LocalPhoneRounded";
 import BusinessIcon from '@mui/icons-material/Business';
 import { Avatar, Grid, Button, IconButton } from "@mui/material";
+
+
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary">
@@ -51,6 +53,7 @@ function Footer() {
       sx={{
         display: "flex",
         flexDirection: "column",
+        minHeight: '50vh'
       }}
     >
       <CssBaseline />

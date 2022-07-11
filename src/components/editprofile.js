@@ -25,7 +25,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import Alert from '@mui/material/Alert';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { CircularProgress } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
@@ -40,23 +40,6 @@ const validationSchema = yup.object({
     .max(25, 'Must be 25 characters or less')
     .min(2, 'Must be at least 2 characters')
     .required('Please fill this field.')
-    ,
-
-  date_birth: yup.string()
-  .required('Please fill this field.')
-  ,
-  gender: yup.string()
-  .required('Please fill this field.')
-  ,
-  country: yup.string()
-  .required('Please fill this field.')
-  ,
-  city: yup.string()
-  .required('Please fill this field.')
-  ,
-
-  job: yup.string()
-    .required('Please fill this field.')
 });
 
 
@@ -70,24 +53,19 @@ function UserInfo(props) {
   const [message, setMessage] = React.useState(null);
   const [openm, setOpenm] = useState(false);
 
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
 
     setOpenm(false);
-    setMessage(null);
   };
 
   const formik = useFormik({
     initialValues: {
       firstname: '',
       lastname: '',
-      gender: "", 
+      gender: '', 
       date_birth: '',
       country: '',
       city: '',
@@ -97,12 +75,6 @@ function UserInfo(props) {
     },
     validationSchema: validationSchema,
   });
-
-
-
-  const FileInput = () => {
-    return <input accept="image/*" type="file" id="select-image" />;
-  };
 
   const token = localStorage.getItem('token');
   const headers = {"Authorization": `Token ${token}`};
@@ -137,10 +109,8 @@ function UserInfo(props) {
 
   const onClickSubmit = () => {
     let filled = 
-    !Boolean(formik.errors.firstname) && !Boolean(formik.errors.lastname) && !Boolean(formik.errors.city) &&
-    !Boolean(formik.errors.country) && !Boolean(formik.errors.gender) && !Boolean(formik.errors.date_birth)
-    && !Boolean(formik.errors.job);
-    console.log('filled: ' ,filled);
+    !Boolean(formik.errors.firstname) && !Boolean(formik.errors.lastname);
+    console.log('filled: ',filled);
     if (filled){
       setLoading(true);
     axios.put(BASE_URL + 'account/edit-profile/', 
@@ -160,7 +130,6 @@ function UserInfo(props) {
           setLoading(false);
           setMessage('Your informations was updated successfully!');
           setOpenm(true);
-          history.push('/my-profile')
           console.log(res);
         })
         .catch(err => {
@@ -171,6 +140,10 @@ function UserInfo(props) {
           // history.push('/my-profile')
 
         });
+    }
+    else {
+      setMessage('Fill the blank fields above.');
+      setOpenm(true);
     }
 
 
@@ -213,7 +186,7 @@ function UserInfo(props) {
                   autoFocus
                   required
                   fullWidth
-                  autoComplete="firstmane"
+                  autoComplete="firstname"
                   name="firstname"
                   id="firstname"
                   label="First Name"
@@ -260,9 +233,8 @@ function UserInfo(props) {
           InputLabelProps={{
             shrink: true,
           }}
-          onBlur={formik.handleBlur}
-                  error={formik.touched.gender && Boolean(formik.errors.gender)}
-                  helperText={formik.touched.gender && formik.errors.gender}
+          onChange={formik.handleChange}
+
         >
           <MenuItem value={"female"}>Female</MenuItem>
           <MenuItem value={"male"}>Male</MenuItem>
@@ -282,18 +254,14 @@ function UserInfo(props) {
             shrink: true,
           }}
                   style={{ width: '100%' }}
-                  required
                   value={formik.values.date_birth}
                   onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.date_birth && Boolean(formik.errors.date_birth)}
-                  helperText={formik.touched.date_birth && formik.errors.date_birth}
+
                 />
               </Grid>
 
               <Grid item xs={12} sm={6}>
                   <MuiPhoneNumber
-                    required
                     fullWidth
                     defaultCountry={'us'}
                     name="phone"
@@ -322,9 +290,7 @@ function UserInfo(props) {
           value={formik.values.country}
           label="Country"
           onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.country && Boolean(formik.errors.country)}
-          helperText={formik.touched.country && formik.errors.country}
+
         >
         {countries.map((c) => (
           <MenuItem value={c.label}>{c.label}  ({c.code})</MenuItem>
@@ -337,7 +303,6 @@ function UserInfo(props) {
 
               <Grid item xs={6}>
                 <TextField
-                  required
                   fullWidth
                   autoComplete="given-city"
                   name="city"
@@ -348,9 +313,7 @@ function UserInfo(props) {
           }}
                   value={formik.values.city}
                   onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.city && Boolean(formik.errors.city)}
-                  helperText={formik.touched.city && formik.errors.city}
+
                 />
               </Grid> 
 
@@ -367,9 +330,7 @@ function UserInfo(props) {
           }}
                   value={formik.values.job}
                   onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.job && Boolean(formik.errors.job)}
-                  helperText={formik.touched.job && formik.errors.job}
+
                 />
               </Grid>
 
@@ -388,9 +349,7 @@ function UserInfo(props) {
           }}
                   value={formik.values.bio}
                   onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.bio && Boolean(formik.errors.bio)}
-                  helperText={formik.touched.bio && formik.errors.bio}
+
                 />
               </Grid>
               <Grid item xs={12}>
@@ -407,9 +366,7 @@ function UserInfo(props) {
           }}
                   value={formik.values.experience}
                   onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.experience && Boolean(formik.errors.experience)}
-                  helperText={formik.touched.experience && formik.errors.experience}
+
                 />
               </Grid>
 
@@ -438,7 +395,7 @@ function UserInfo(props) {
                   </Button>
 
                 <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
-                  <Alert onClose={handleClose} severity={message === "Your informations was updated successfully!" ? "success" : "error"} sx={{ width: '100%' }}>
+                  <Alert variant="filled" onClose={handleClose} severity={message === "Your informations was updated successfully!" ? "success" : "error"} sx={{ width: '100%' }}>
                     {message}
                   </Alert>
                 </Snackbar>
