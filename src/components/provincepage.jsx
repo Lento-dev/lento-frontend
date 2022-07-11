@@ -221,7 +221,6 @@ function Ppage(props) {
 
   return (
     <div>
-    <Navbar/>
       <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
 
       <Container sx={{ padding: "4%" }} component="main">
