@@ -53,9 +53,6 @@ import {
               setData(res.data);
             })
             .catch(err => {
-                if(err.response.status === 403){
-                    setStatus(403);
-                }
               console.log(err);
             })
         }
@@ -141,7 +138,7 @@ import {
                           <Typography
                             sx={{ textAlign: "left", fontWeight: "bold" }}
                           >
-                            {data.date_joined.slice(0, 10)}
+                            {/* {data.date_joined.slice(0, 10)} */}
                           </Typography>
   
                           <Typography

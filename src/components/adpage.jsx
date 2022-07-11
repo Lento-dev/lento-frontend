@@ -18,11 +18,20 @@ import { IconButton } from '@mui/material';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 
 
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import Helmet from "react-helmet";
+import MyTextField from "./ModifiedTextField";
+import axios from 'axios';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Button,
   Typography,
-  Container,
+  Container, Divider,
   Grid,
   Alert,
   CircularProgress,
@@ -31,8 +40,14 @@ import { height } from "@mui/system";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
 
 
+import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
+import BASE_URL from './baseurl';
 
 export default function BasicCard(props) {
+  const id = props.location.state.data.id;
+  const commentsIDs = props.location.state.data.comments;
+  const [comments, setComments] = React.useState([]);
+
   console.log(props.location.state.data);
   let resourcech = (props.location.state.data.resourcetype).replace("Advertisement","")
   var image = "http://www.upsara.com/images/g382390_.jpg";
@@ -148,9 +163,66 @@ export default function BasicCard(props) {
       
   }, []);
 
+  useEffect(async () => {
+      await axios.get(BASE_URL + 'advertisement/commentposts/?post=' + id, {headers: headers})
+      .then(res => {
+          setComments(res.data);
+          console.log('comments', res.data)
+      })        
+    }, comments)
+        
+
+  const [open, setOpen] = React.useState(false);
+  const [scroll, setScroll] = React.useState('paper');
+  const [comment, setComment] = React.useState('');
+  const token = localStorage.getItem("token");
+  const headers = { Authorization: `Token ${token}` };
+
+  const handleClickOpen = (scrollType) => () => {
+    setOpen(true);
+    setScroll(scrollType);
+  };
+
+    const handleSaveAddvertisment = () => {
+      
+    }
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleCommentChange = (event) => {
+    setComment(event.target.value );
+  };
+
+  const addComment = () => {
+    var formData = new FormData();
+    formData.append("body", comment);
+    formData.append("post", id);
+    console.log(comment);
+    axios.post(BASE_URL + 'advertisement/comments/', formData, { headers: headers })
+    .then(res => {
+      console.log(res)
+      comments.push(comment)
+      console.log('jalal', comments)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  const descriptionElementRef = React.useRef(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
   return (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
+
       <Grid>
 
 
@@ -197,12 +269,15 @@ export default function BasicCard(props) {
            ): (<p></p>)} */}
         </div>
       </Grid>
+      
       <div style={{ display: "inline-block", position: "absolute" }}>
         <Grid item sx={12} sm={6}>
           <Container sx={{ paddingTop: "100px" }} component="main">
             <Grid item sx={3}>
               <Card container sx={{ maxWidth: 370, marginLeft: "30px" }}>
                 <CardContent style={{ textAlign: "left", lineHeight: "175%" }}>
+                <Grid container>
+                  <Grid item xs={6}>
                   <Typography
                     style={{
                       display: "inline",
@@ -223,6 +298,14 @@ export default function BasicCard(props) {
                     </Grid>
                     
                   </Typography>
+                  </Grid>
+                  <Grid item xs={6} sx={{justifyContent: 'flex-end', display: 'flex'}}>
+                  <IconButton sx={{marginLeft: '4rem'}}>
+                    <BookmarkAddIcon/>
+                  </IconButton>
+                  </Grid>
+                </Grid>
+
                   <div
                     style={{
                       display: "flex",
@@ -381,26 +464,88 @@ export default function BasicCard(props) {
                 </Grid>
                 <br/>
                 <Grid container item xs={12}>
-                  {/* <Button
-                    variant="contained"
+                  <Button
+                    variant="outlined"
                     style={{ display: "inline-block" }}
-                    // onClick={handleSubmitButton}
+                    onClick={handleClickOpen('paper')}
+                    fullWidth
                     sx={{
-                      backgroundColor: "#e6835a",
-                      height: "40px",
-                      width: "120px",
+                      borderColor: 'white',
+                      color: 'white',
+                      backgroundColor: '#e6835a',
                       display: "inline-block",
-                      top: "-40px",
-                      marginLeft: "200px",
+                        textTransform: 'none',
+                        "&:hover": {backgroundColor: '#eef5e4', color: '#5f6e4b', borderColor: 'white'}
 
-                      ":hover": {
-                        bgcolor: "#556749 ",
-                      },
                     }}
                   >
-                    Chat
-                                    
-                  </Button> */}
+                    Comments
+                 
+                  </Button>
+                  <Dialog
+        open={open}
+        onClose={handleClose}
+        scroll={scroll}
+        aria-labelledby="scroll-dialog-title"
+        aria-describedby="scroll-dialog-description"
+      >
+              <Grid container>
+                    <Grid item xs={6}>
+        <DialogTitle id="scroll-dialog-title" style={{fontWeight: 'bold'}}>Comments
+
+        </DialogTitle>
+        </Grid>
+        <Grid item xs={6}>
+        <DialogActions>
+
+<IconButton sx={{textAlign: 'right', color:'#e6835a'}} onClick={() => setOpen(false)}>
+<CloseIcon/>
+              </IconButton>
+</DialogActions>
+</Grid>
+</Grid>
+
+        <DialogContent dividers={scroll === 'paper'}>
+          <DialogContentText
+            id="scroll-dialog-description"
+            ref={descriptionElementRef}
+            tabIndex={-1}
+          >
+          <Grid justifyContent="left" item xs zeroMinWidth>
+          {comments.map(c => ( 
+            <div>
+            <h4 style={{ margin: 0, textAlign: "left" }}>{c.owner}</h4>
+            <p style={{ textAlign: "justify" }}>
+              {c.body} {" "}
+            </p>
+            <Divider sx={{paddingTop: '0.7rem', marginBottom: '0.7rem'}}/>
+            </div>
+          ))}
+
+                      <Grid container sx={{paddingTop: '5rem'}}>
+
+                        <Grid item xs = {12}>
+                        <MyTextField placeholder="Add a comment ..."
+                        multiline   minRows={3}
+                        value={comment} onChange={handleCommentChange}
+                        fullWidth/>
+                        </Grid>
+                        <Grid item xs = {12} sx={{paddingTop: '1rem'}}>
+                      <Button onClick={addComment}      
+                      sx={{ backgroundColor: "#8b9b74", color: "white", "&:hover": {backgroundColor: '#c0d4b3', color: 'black'}}}>
+                        Add comment
+                      </Button>
+                    </Grid>
+                      </Grid>
+
+            
+
+          </Grid>
+          </DialogContentText>
+        </DialogContent>
+
+
+      </Dialog>
                 </Grid>
               </Card>
             </Grid>
@@ -427,16 +572,17 @@ export default function BasicCard(props) {
                       
                     {props.location.state.data.Description}
                     
-                    {/* {console.log(props.location.state.data.owner)} */}
-                    
                     </span>
                   </Typography>
                 </CardContent>
               </Card>
             </Grid>
           </Container>
+
         </Grid>
+
       </div>
+
     </div>
   );
 }

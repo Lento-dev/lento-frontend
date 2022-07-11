@@ -25,6 +25,7 @@ import axios from "axios";
 import Helmet from "react-helmet";
 import cardImage from '../assets/img/barfi.jpg'
 import Divider from "@mui/material/Divider";
+import Breadcrumbs from '@mui/material/Breadcrumbs';
 // import { BackToTop } from "material-ui-back-to-top";
 
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
@@ -34,15 +35,32 @@ import CalendarTodayRoundedIcon from "@mui/icons-material/CalendarTodayRounded";
 import WorkRoundedIcon from "@mui/icons-material/WorkRounded";
 import ClearIcon from '@mui/icons-material/Clear';
 import CircularProgress from "@mui/material/CircularProgress";
-import PostCard from './myselfPostCard'
+import PostCard from './myselfPostCard';
+import SavedAdCard from './savedAdCard';
+
 import BASE_URL from './baseurl';
 
+
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div {...other}>
+      {value === index && <Box p={3}>{children}</Box>}
+    </div>
+  );
+}
 
 const UserProfile = () => {
 
   const history = useHistory();
   const [data, setData] = useState(null);
+  const [value, setValue] = useState(0);
+  const [saveDialog, setSaveDialog] = useState(false);
   const [posts, setPosts] = useState(null);
+  const [savedAdvertisementIDS, setSavedAdvertisementIDS] = useState(null);
+  const [savedAdvertisement, setSavedAdvertisement] = useState(null);
 
   const token = localStorage.getItem("token");
   const headers = { Authorization: `Token ${token}` };
@@ -71,31 +89,94 @@ const UserProfile = () => {
       })
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(BASE_URL + "advertisement/Savelist/", { headers: headers })
+      .then((res) => {
+        console.log(res.data);
+        setSavedAdvertisementIDS(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
+  }, []);
+  useEffect(() => {
+    for (let index = 0; index < setSavedAdvertisementIDS.length; index++) {
+      axios.get(BASE_URL + 'advertisement/retrieve/' + savedAdvertisementIDS[index].post_n, { headers: headers })
+      .then(res => {
+        setSavedAdvertisement(res.data)
+      })
+
+    }
+    console.log(savedAdvertisement)
+
+  }, setSavedAdvertisementIDS);
+
+  const handleSaveChange = () => {
+    
+
+  }
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return data ? (
     <div>
       <Helmet bodyAttributes={{ style: "background-color : #f0f5eb" }}></Helmet>
       <Container component="main">
-        <Grid container justifyContent="center" sx={{marginBottom: '4rem'}}>
-          <Grid item xs={8} md={8} lg={8}  justifyContent="center">
-          <Grid container justifyContent="center" sx={{marginTop:'2rem'}}>                  
-          <Avatar 
+      <Grid container justifyContent="center" sx={{marginBottom: '-8.4rem'}}>
+          <Grid item xs={9} md={9} lg={7.5}  justifyContent="center">
+          <Grid container justifyContent="center" sx={{marginTop:'1rem', marginBottom:'-6.5rem'}}> 
+                      <Avatar 
                     variant="circular"
                     sx={{ bgcolor: "#f0f5eb", width: "200px", height: "200px"}}
                     src={data.image}
                   >
-
                   </Avatar>
-                  
                   </Grid>
+          <Card
+                  variant="outlined"
+                  style={{ paddingTop: "11.5rem", marginTop: '0rem' }}
+                >
+        <Grid container justifyContent="center" sx={{marginTop: '-4rem'}}>
+  {/* <Tabs value={value} style={{marginLeft:"10rem", color:"#B10C59"}}> */}
+    {/* <Box sx={{ borderBottom: 1, borderColor: 'divider' }}> */}
+    <Tabs
+                  textColor="black"
+                  TabIndicatorProps={{
+                    style: {
+                      backgroundColor: "#e6835a",
+                    },
+                  }}
+        centered
+        onChange={handleChange} aria-label="secondary tabs example" value={value}>
+        <Tab value={0} label="Profile" />
+        <Tab value={1} label="Saved Advertisements" />
+        <Tab value={2} label="Posts" />
+        {/* <Tab value={2} label="Gallery" /> */}
+      </Tabs>
+      </Grid>
+      </Card>
+  </Grid>
+
+  </Grid>
+
+
+
+        <Grid container justifyContent="center" sx={{marginBottom: '4rem', marginTop:'4rem'}}>
+
+          <Grid item xs={8} md={8} lg={8}  justifyContent="center">
+          <TabPanel value={value} index={0}>
 
 
                 <Card
                   variant="outlined"
-                  style={{ paddingTop: "6rem", marginTop: '-6rem' }}
+                  style={{ paddingTop: "6rem", marginTop: '3.1rem' }}
                 >
                   <CardContent>
-                    <Grid container style={{ padding: "1rem" }} spacing={3}>
+                    <Grid container style={{ padding: "1rem", marginTop:'-6.5rem' }} spacing={3}>
                       <Grid item xs={12} justifyContent= "center"  sx={{ display: "inline-flex" }}>
                         <AccountCircleRoundedIcon
                           sx={{ color: "#e6835a", marginRight: "1%" }}
@@ -213,15 +294,42 @@ const UserProfile = () => {
 
               </CardContent>
               </Card>
+</TabPanel>
 
-              <Card variant="outlined">
+
+<TabPanel value={value} index={1}>
+<Card variant="outlined" style={{ marginTop: "3.1rem" }}>
                 <CardContent>
               <Grid container spacing={4}>
-                    <Grid item xs={12}>
-                    <Typography variant="h6" fontWeight="bold"  textAlign='center'>
-                    Posts
-                  </Typography>
-                    </Grid>
+                    <Grid item xs={12} sx={{textAlign: 'justify'}}>
+                    {posts && (
+                      <Grid container spacing={2} justifyContent="center">
+                        {posts.map(p => (
+                          <Grid item xs={9}>
+                          <SavedAdCard post={p}/>
+                            </Grid>
+                        ))}
+                      </Grid>
+                    )}
+                    {!posts && (
+                      <Typography textAlign='center' >Nothing to show!</Typography>
+                    )}
+                </Grid>
+                
+                </Grid>
+
+              </CardContent>
+              </Card>
+
+</TabPanel>
+
+
+<TabPanel value={value} index={2}>
+{/* 
+              <Card variant="outlined"> */}
+              <Card variant="outlined" style={{ marginTop: "3.1rem" }}>
+                <CardContent>
+              <Grid container spacing={4}>
                     <Grid item xs={12} sx={{textAlign: 'justify'}}>
                     {posts && (
                       <Grid container spacing={2} justifyContent="center">
@@ -241,6 +349,7 @@ const UserProfile = () => {
 
               </CardContent>
               </Card>
+              </TabPanel>
 
 
               </Grid>

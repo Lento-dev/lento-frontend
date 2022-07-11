@@ -31,6 +31,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from '@mui/material/Pagination';
 
 
+import Navbar from "../components/navbar";
 
 const MenuItem = withStyles({
   root: {
@@ -220,6 +221,7 @@ function Ppage(props) {
 
   return (
     <div>
+    <Navbar/>
       <Helmet bodyAttributes={{ style: "background-color : #ecf2e8" }} />
 
       <Container sx={{ padding: "4%" }} component="main">

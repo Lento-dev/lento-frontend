@@ -47,26 +47,7 @@ import tashvigh from "../assets/img/tashvigh.jpg";
 import hamipic from "../assets/img/hamipic.jpg";
 import MyTextField from "./ModifiedTextField";
 import MyAutocomplete from "./ModifiedAutocom";
-import { BackToTop } from "material-ui-back-to-top";
 import { ThemeProvider } from '@mui/material/styles';
-import { color } from "@mui/system";
-import { useRef } from 'react';
-import SwiperCore, { Virtual } from 'swiper';
-import CardActions from '@mui/material/CardActions';
-import CardMedia from '@mui/material/CardMedia';
-import '../styles/swipstyle.css';
-import LocationCityIcon from "@mui/icons-material/LocationCity";
-import CategoryIcon from "@mui/icons-material/Category";
-import './titlehomepage.css';
-
-
-
-
-
-
-// install Virtual module
-SwiperCore.use([Virtual, Navigation, Pagination]);
-
 
 // const filterOptions = createFilterOptions({
 //   matchFrom: "start",
@@ -1702,7 +1683,6 @@ export default function Homepage(props) {
 
         <Grid xs={4} md={4}></Grid>
       </Container> */}
-      <BackToTop/>
       </ThemeProvider>
     </div>
   );
