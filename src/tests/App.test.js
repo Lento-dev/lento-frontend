@@ -14,7 +14,6 @@ import Clothadvertisement from '../components/clothadvertisement';
 import Serviceadvertisement from '../components/Serviceadvertisement';
 import Formtabs from "../components/formstab";
 import Navbar from '../components/navbar';
-import Footer from '../components/footer'
 
 
 describe("Footer", () => {
@@ -25,6 +24,27 @@ describe("Footer", () => {
       </BrowserRouter>
     );
   });
+});
+
+describe("Footer", () => {
+  it("should render the correct content", async () => {
+    render(
+      <BrowserRouter>
+        <Footer />
+      </BrowserRouter>
+    );
+  });
+});
+
+
+it('should render same text ', () => {
+  render(
+    <BrowserRouter>
+      <Navbar/>
+    </BrowserRouter>
+  );
+  const keyword = screen.getAllByText(/LentoCharity/i);
+  expect(keyword.length).toBe(1);
 });
 
 describe("Signup", () => {
@@ -233,8 +253,8 @@ it('should render same text ', () => {
 			<Footer />
 		</BrowserRouter>
 	);
-	const keyword = screen.getAllByText(/Lento/i);
-  expect(keyword.length).toBe(2);
+	const keyword = screen.getAllByText(/Contact/i);
+  expect(keyword.length).toBe(1);
 });
 
 it('should render same text ', () => {
@@ -293,7 +313,7 @@ it('should render same text ', () => {
 			<Footer />
 		</BrowserRouter>
 	);
-	const keyword = screen.getAllByText(/This/i);
+	const keyword = screen.getAllByText(/Iran/i);
   expect(keyword.length).toBe(1);
 });
 
@@ -323,7 +343,7 @@ it('should render same text ', () => {
 			<Footer />
 		</BrowserRouter>
 	);
-	const keyword = screen.getAllByText(/site/i);
+	const keyword = screen.getAllByText(/Tehran/i);
   expect(keyword.length).toBe(1);
 });
 
@@ -333,7 +353,7 @@ it('should render same text ', () => {
 			<Footer />
 		</BrowserRouter>
 	);
-	const keyword = screen.getAllByText(/charity/i);
+	const keyword = screen.getAllByText(/Univeristy/i);
   expect(keyword.length).toBe(1);
 });
 
@@ -343,7 +363,7 @@ it('should render same text ', () => {
 			<Footer />
 		</BrowserRouter>
 	);
-	const keyword = screen.getAllByText(/You/i);
+	const keyword = screen.getAllByText(/of/i);
   expect(keyword.length).toBe(1);
 });
 
@@ -363,7 +383,27 @@ it('should render same text ', () => {
 			<Footer />
 		</BrowserRouter>
 	);
-	const keyword = screen.getAllByText(/it/i);
+	const keyword = screen.getAllByText(/technology/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/and/i);
+  expect(keyword.length).toBe(2);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/science/i);
   expect(keyword.length).toBe(1);
 });
 
@@ -403,9 +443,62 @@ it('should render same text ', () => {
 			<Footer />
 		</BrowserRouter>
 	);
-	const keyword = screen.getAllByText(/,/i);
+	const keyword = screen.getAllByText(/enjoy/i);
   expect(keyword.length).toBe(1);
 });
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/Use/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/helping/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/people/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/098/i);
+  expect(keyword.length).toBe(1);
+});
+
+it('should render same text ', () => {
+	render(
+		<BrowserRouter>
+			<Footer />
+		</BrowserRouter>
+	);
+	const keyword = screen.getAllByText(/09912366384/i);
+  expect(keyword.length).toBe(1);
+});
+
+
+
 
 it('should render same text ', () => {
 	render(
@@ -639,16 +732,16 @@ it("should render correct username", async () => {
   });
   
   
-  it("should render correct birthdate", async () => {
-    render(
-      <BrowserRouter>
-        <UserInfo birthdate={null} setBirthdate={mockedProfile} />
-      </BrowserRouter>
-    );
-    const ProfileElement = screen.getByLabelText(/Birthdate/i);
-    fireEvent.select(ProfileElement, { target: { value: "05/13/2022" } });
-    expect(ProfileElement.value).toBe("05/13/2022");
-  });
+  // it("should render correct birthdate", async () => {
+  //   render(
+  //     <BrowserRouter>
+  //       <UserInfo birthdate={null} setBirthdate={mockedProfile} />
+  //     </BrowserRouter>
+  //   );
+  //   const ProfileElement = screen.getByLabelText(/Birthdate/i);
+  //   fireEvent.select(ProfileElement, { target: { value: "05/13/2022" } });
+  //   expect(ProfileElement.value).toBe("05/13/2022");
+  // });
   
   // it("should render correct gender", async () => {
   //   render(
@@ -683,6 +776,17 @@ it("should render correct username", async () => {
     expect(emailElement.value).toBe("09123846632");
   });
 
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <UserInfo genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Phone Number/i);
+    fireEvent.select(emailElement, { target: { value: "0983333333" } });
+    expect(emailElement.value).toBe("0983333333");
+  });
+
   describe("edit profile", () => {
     it("should render the correct content", async () => {
       render(
@@ -692,6 +796,29 @@ it("should render correct username", async () => {
       )
     })
   })
+
+
+  it("should render correct username", async () => {
+    render(
+      <BrowserRouter>
+        <UserInfo genValue={null} setGenValue={mockedProfile} />
+      </BrowserRouter>
+    );
+    const emailElement = screen.getByLabelText(/Phone Number/i);
+    fireEvent.select(emailElement, { target: { value: "87654321" } });
+    expect(emailElement.value).toBe("87654321");
+  });
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Setting/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getByText(/General/i);
+    expect(keyword).toBeInTheDocument();
+  });
+
 
   it('should render same text ', () => {
     render(
@@ -741,6 +868,16 @@ it("should render correct username", async () => {
       </BrowserRouter>
     );
     const keyword = screen.getAllByText(/email/i);
+    expect(keyword.length).toBe(4);
+  });
+
+  it('should render same text ', () => {
+    render(
+      <BrowserRouter>
+        <Setting/>
+      </BrowserRouter>
+    );
+    const keyword = screen.getAllByText(/Change/i);
     expect(keyword.length).toBe(4);
   });
 
@@ -982,12 +1119,6 @@ it("should render correct username", async () => {
     const linkElement = screen.getByText( /Tehran/i);
     expect(linkElement).toBeInTheDocument();
   })
- 
- 
-
-
-
-
 
   
   it('should render same text ', () => {
@@ -999,6 +1130,7 @@ it("should render correct username", async () => {
     const keyword = screen.getAllByText(/LentoCharity/i);
     expect(keyword.length).toBe(1);
   });
+
 
 
 
