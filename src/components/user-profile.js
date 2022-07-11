@@ -291,7 +291,7 @@ const UserProfile = () => {
 
 
 <TabPanel value={value} index={1}>
-<Card variant="outlined" style={{ marginTop: "3.1rem" }}>
+  <Card variant="outlined" style={{ marginTop: "3.1rem" }}>
                 <CardContent>
               <Grid container spacing={4}>
                     <Grid item xs={12} sx={{textAlign: 'justify'}}>
@@ -318,9 +318,9 @@ const UserProfile = () => {
 
 
 <TabPanel value={value} index={2}>
-{/* 
-              <Card variant="outlined"> */}
-              <Card variant="outlined" style={{ marginTop: "3.1rem" }}>
+
+
+  <Card variant="outlined" style={{ marginTop: "3.1rem" }}>
                 <CardContent>
               <Grid container spacing={4}>
                     <Grid item xs={12} sx={{textAlign: 'justify'}}>
