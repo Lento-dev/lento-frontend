@@ -55,7 +55,7 @@ import CategoryIcon from "@mui/icons-material/Category";
 import './titlehomepage.css';
 import { useRef } from 'react';
 import SwiperCore, { Virtual } from 'swiper';
-
+import Footer from './footer';
 // const filterOptions = createFilterOptions({
 //   matchFrom: "start",
 //   stringify: (option: FilmOptionType) => option.label,
@@ -1563,122 +1563,6 @@ export default function Homepage(props) {
             </Grid>
           </Grid>
 
-          <Grid container spacing={1}>
-            <Grid item xs={12} lg={12} md={12}>
-              <div
-                // elevation={3}
-                // sx={{ borderRadius: 0, display: "flex" }}
-                style={{
-                  marginTop: "3rem",
-                  // marginBottom: "1rem",
-                  // marginLeft: "4rem",
-                  // marginRight: "3rem",
-                  padding: "1rem",
-                }}
-              >
-                <Grid
-                  container
-                  spacing={0}
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  <Grid item xs={12}>
-                    <Grid item xs={12}>
-                      <Typography color="black" fontSize="1rem">
-                        follow us
-                      </Typography>
-                    </Grid>
-                    {/* <br /> */}
-                    <SocialMediaIconsReact
-                      borderColor="rgba(46,107,15,0.25)"
-                      borderWidth="5"
-                      // borderStyle="dashed"
-                      icon="twitter"
-                      iconColor="rgba(251,253,249,1)"
-                      backgroundColor="rgba(139,155,116,1)"
-                      iconSize="2"
-                      roundness="50%"
-                      url="https://some-website.com/my-social-media-url"
-                      size="30"
-                    />
-                    &nbsp;&nbsp;
-                    <SocialMediaIconsReact
-                      borderColor="rgba(46,107,15,0.25)"
-                      borderWidth="5"
-                      // borderStyle="dashed"
-                      icon="instagram"
-                      iconColor="rgba(251,253,249,1)"
-                      backgroundColor="rgba(139,155,116,1)"
-                      iconSize="2"
-                      roundness="50%"
-                      url="https://some-website.com/my-social-media-url"
-                      size="30"
-                    />
-                    &nbsp;&nbsp;
-                    <SocialMediaIconsReact
-                      borderColor="rgba(46,107,15,0.25)"
-                      borderWidth="5"
-                      // borderStyle="dashed"
-                      icon="linkedin"
-                      iconColor="rgba(251,253,249,1)"
-                      backgroundColor="rgba(139,155,116,1)"
-                      iconSize="2"
-                      roundness="50%"
-                      url="https://some-website.com/my-social-media-url"
-                      size="30"
-                    />
-                    &nbsp;&nbsp;
-                    <SocialMediaIconsReact
-                      borderColor="rgba(46,107,15,0.25)"
-                      borderWidth="5"
-                      // borderStyle="dashed"
-                      icon="github"
-                      iconColor="rgba(251,253,249,1)"
-                      backgroundColor="rgba(139,155,116,1)"
-                      iconSize="2"
-                      roundness="50%"
-                      url="https://some-website.com/my-social-media-url"
-                      size="30"
-                    />
-                    <br />
-                    {/* <br /> */}
-                    <Grid container>
-                      <Grid
-                        container
-                        spacing={0}
-                        direction="row"
-                        alignItems="center"
-                        justifyContent="center"
-                      >
-                        {/* <Grid item xs={12}> */}
-                        <Typography color="blue" fontSize="1rem">
-                          info
-                        </Typography>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Typography color="blue" fontSize="1rem">
-                          support
-                        </Typography>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Typography color="blue" fontSize="1rem">
-                          marketing
-                        </Typography>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Typography color="blue" fontSize="1rem">
-                          privacy policy
-                        </Typography>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <Typography color="blue" fontSize="1rem">
-                          term of use
-                        </Typography>
-                        {/* </Grid> */}
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </div>
-            </Grid>
-          </Grid>
         </Grid>
       </Grid>
 
@@ -1691,6 +1575,8 @@ export default function Homepage(props) {
         <Grid xs={4} md={4}></Grid>
       </Container> */}
       </ThemeProvider>
+      <Footer/>
+
     </div>
   );
 }
