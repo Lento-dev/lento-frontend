@@ -53,7 +53,7 @@ import {
               setData(res.data);
             })
             .catch(err => {
-              console.log(err);
+              setStatus(err.response.status);
             })
         }
         }

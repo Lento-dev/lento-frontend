@@ -72,7 +72,7 @@ function Setting() {
   const [loadingE, setLoadingE] = useState(false);
   const [loadingP, setLoadingP] = useState(false);
   const [loadingChecked, setLoadingChecked] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(null);
   const [openm, setOpenm] = useState(false);
   const token = localStorage.getItem('token');
   const headers = {"Authorization": `Token ${token}`};
@@ -128,7 +128,7 @@ function Setting() {
       axios.post(BASE_URL + 'account/change_password/', formData, {headers})
       .then(res => {
         setLoadingP(false);
-        setMessage("Your password changed succesfully.");
+        setMessage('Your password changed succesfully.');
         setOpenm(true);
         console.log(res);
       })
@@ -145,7 +145,7 @@ function Setting() {
       })    
     }
     else{
-      setMessage("Please fill the fileds above.");
+      setMessage('Please fill the fileds above.');
       setOpenm(true);
     }
     console.log('message ', message);
@@ -175,13 +175,13 @@ function Setting() {
     axios.get(BASE_URL + 'account/verify-newemail/?email=' + formik.values.email, {headers: headers})
       .then (res => {
         setLoadingE(false);
-        setMessage("Check your new email inbox to verify it.");
+        setMessage('Check your new email inbox to verify it.');
         setOpenm(true);
         console.log(res);
       })
       .catch(err => {
         setLoadingE(false);
-        setMessage("Something went wrong! Try again.");
+        setMessage('Something went wrong! Try again.');
         setOpenm(true);
       });
   }
@@ -194,7 +194,7 @@ function Setting() {
     .then((res) => {
       setLoadingChecked(false);
       console.log(res.data);
-      setMessage("Permissions updated successfully.");
+      setMessage('Permissions updated successfully.');
       setOpenm(true);
     })
     .catch(err => {
@@ -383,8 +383,9 @@ function Setting() {
             </TabPanel>
             <Snackbar open={openm} autoHideDuration={2000} onClose={handleClose}>
                   <Alert onClose={handleClose} variant="filled" 
-                  severity={message === "Please fill the fileds above."
-                   || "Something went wrong! Try again." ? "error" : "success"}
+                  severity={message === "Permissions updated successfully." 
+                  || "Check your new email inbox to verify it." 
+                  || "Your password changed succesfully." ? "success" : "error"}
                    sx={{ width: '100%' }}>
                     {message}
                   </Alert>
