@@ -769,12 +769,12 @@ export default function Homepage(props) {
                               and his soul.
                             </Typography>
                           </Grid>
-                          <Grid
+                          {/* <Grid
                             item
                             xs={12}
                             textAlign="left"
                             sx={{ marginTop: "4vh" }}
-                          ></Grid>
+                          ></Grid> */}
                         </Grid>
                       </Card>
                     </SwiperSlide>
@@ -840,12 +840,12 @@ export default function Homepage(props) {
                             
                             </Typography>
                           </Grid>
-                          <Grid
+                          {/* <Grid
                             item
                             xs={12}
                             textAlign="left"
                             sx={{ marginTop: "4vh" }}
-                          ></Grid>
+                          ></Grid> */}
                         </Grid>
                       </Card>
                     </SwiperSlide>
@@ -911,12 +911,12 @@ export default function Homepage(props) {
                             
                             </Typography>
                           </Grid>
-                          <Grid
+                          {/* <Grid
                             item
                             xs={12}
                             textAlign="left"
                             sx={{ marginTop: "4vh" }}
-                          ></Grid>
+                          ></Grid> */}
                         </Grid>
                       </Card>
                     </SwiperSlide>
@@ -982,12 +982,12 @@ export default function Homepage(props) {
                             
                             </Typography>
                           </Grid>
-                          <Grid
+                          {/* <Grid
                             item
                             xs={12}
                             textAlign="left"
                             sx={{ marginTop: "4vh" }}
-                          ></Grid>
+                          ></Grid> */}
                         </Grid>
                       </Card>
                     </SwiperSlide>
