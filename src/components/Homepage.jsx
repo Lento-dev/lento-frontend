@@ -141,18 +141,18 @@ export default function Homepage(props) {
   }, []);
   useEffect(() => {
     console.log("***********************");
-    var token = localStorage.getItem("token");
-    token.replaceAll('"', "");
-    console.log(token);
+    // var token = localStorage.getItem("token");
+    // token.replaceAll('"', "");
+    // console.log(token);
     var myurl =
       "http://62.3.41.86/api/advertisement/homepageads/" 
     console.log(myurl);
     var config = {
       method: "get",
       url: myurl,
-      headers: {
-        Authorization: "Token " + token,
-      },
+      // headers: {
+      //   Authorization: "Token " + token,
+      // },
     };
 
     axios(config)
