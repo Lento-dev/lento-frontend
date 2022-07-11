@@ -6,70 +6,23 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-  Link,
   Grid,
   Box,
   Typography,
   Container,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { createTheme } from "@mui/material/styles";
 import Helmet from "react-helmet";
 import { Formik, useFormik } from "formik";
 import axios from "axios";
-import * as yup from "yup";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import Autocomplete from "@mui/material/Autocomplete";
-import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import Paper from "@mui/material/Paper";
-import Divider from "@mui/material/Divider";
-import MuiPhoneNumber from "material-ui-phone-number";
-import { useTheme } from "@mui/material/styles";
-import { styled } from "@mui/material/styles";
-import IconButton from "@mui/material/IconButton";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import Stack from "@mui/material/Stack";
-import SendIcon from "@mui/icons-material/Send";
-import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
-import LoadingButton from "@mui/lab/LoadingButton";
-import { CircularProgress } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import "date-fns";
-import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
-import { FilePond, registerPlugin } from "react-filepond";
-import ImageUploading from "react-images-uploading";
-import Alert from "@mui/material/Alert";
 import "filepond/dist/filepond.min.css";
-import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
-import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
-import { FlareSharp, SettingsAccessibility } from "@mui/icons-material";
-import Switch from "@material-ui/core/Switch";
-import FormGroup from "@material-ui/core/FormGroup";
-import Foodadvertisment from "./foodadvertisment";
-import Serviceadvertisement from "./Serviceadvertisement";
-import Clothadvertisement from "./clothadvertisement";
-import { makeStyles } from "@mui/styles";
-import MuiMenuItem from "@material-ui/core/MenuItem";
-import { withStyles } from "@material-ui/core/styles";
 import backg from "../assets/img/charity.jpg";
 import ImageBackground from "react";
 // import SearchBar from "material-ui-search-bar";
-import { createFilterOptions } from "@mui/material/Autocomplete";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import cardimg2 from "../assets/img/charitycard2.jpg";
@@ -99,6 +52,13 @@ import { ThemeProvider } from '@mui/material/styles';
 import { color } from "@mui/system";
 import { useRef } from 'react';
 import SwiperCore, { Virtual } from 'swiper';
+import CardActions from '@mui/material/CardActions';
+import CardMedia from '@mui/material/CardMedia';
+import '../styles/swipstyle.css';
+import LocationCityIcon from "@mui/icons-material/LocationCity";
+import CategoryIcon from "@mui/icons-material/Category";
+import './titlehomepage.css';
+
 
 
 
@@ -124,6 +84,7 @@ const theme = createTheme({
 export default function Homepage(props) {
   let history = useHistory();
 
+  
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState(null);
 
@@ -142,6 +103,7 @@ export default function Homepage(props) {
     Array.from({ length: 50 }).map((_, index) => `Slide ${index + 1}`)
   );
 
+ 
   const prepend = () => {
     setSlides([
       `Slide ${prependNumber.current - 2}`,
@@ -161,6 +123,10 @@ export default function Homepage(props) {
   };
 
   const [array , setarray] = useState([]);
+
+ 
+  
+
 
  
 
@@ -597,127 +563,114 @@ export default function Homepage(props) {
               </Grid>
             </div>
           </Grid>
-          {/* <Grid>
-      <Swiper
-        onSwiper={setSwiperRef}
-        slidesPerView={5}
-        centeredSlides={true}
-        spaceBetween={30}
-        pagination={{
-          type: 'fraction',
-        }}
-        navigation={true}
-        virtual
-        // pagination={{ clickable: true }}
-        // scrollbar={{ draggable: true }}
-        // onSwiper={(swiper) => console.log(swiper)}
-        // onSlideChange={() => console.log("slide change")}
-      >
-        {slides.map((slideContent, index) => (
-          <SwiperSlide key={slideContent} virtualIndex={index}>
-            {slideContent}
-          </SwiperSlide>
-        ))}
-      </Swiper>
 
-    </Grid> */}
+          <Grid>
+            <br/><br/><br/><br/>
+
+          <Typography class="dynamic-text-shadow" style={{fontFamily:'San Fransisco',paddingLeft:'585px',fontSize:'27px'}}> The Latest Advertisements</Typography>
+          
+          {/* <Typography style={{fontFamily:'San Francisco',fontSize:'22px', marginLeft: "3rem",marginRight: "2rem",paddingTop:'70px'}}>The latest advertisements</Typography> */}
+          </Grid>
+    
+                    
       <Swiper
                     modules={[Navigation, Pagination, Scrollbar, A11y]}
                     spaceBetween={50}
                     slidesPerView={5}
                     navigation
                     pagination={{ clickable: true }}
-                    // scrollbar={{ draggable: true }}
-                    onSwiper={(swiper) => console.log(swiper)}
-                    onSlideChange={() => console.log("slide change")}
-                    // style={{ paddingTop: "2rem" }}
+                    // scrollbar={{ draggable: false }}
+                    // onSwiper={(swiper) => console.log(swiper)}
+                    // onSlideChange={() => console.log("slide change")}
+                    style={{ paddingTop: "2rem" }}
                   >
 
+
+
                   {array.map((item, i) => (
+
                                     <Grid item md={4}>
 
+                                      
+
                                         <SwiperSlide
+                                        className="swipercl"
 
                                         style={{ color: "black", paddingBottom: "5rem" }}
                                         >
-                                        {item.Title}
+
+                                        <Card sx={{ maxWidth: 345 }}>
+                                          <CardMedia
+                                            component="img"
+                                            height="250px"
+                                            
+                                            image={item.Image !== null? item.Image:'http://www.upsara.com/images/g382390_.jpg'}
+                                            alt="ad image"
+                                          />
+                                          <CardContent>
+                                            <Typography variant="body2" color="text.secondary" style={{textAlign:'left',fontFamily:'San Fransisco',fontSize:'22px',color:'#465832'}}>
+                                              {item.Title}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary" style={{textAlign:'left',fontFamily:'San Fransisco',fontSize:'15px',fontSize:'17px'}}>
+                                            <div
+                                                style={{
+                                                  display: "flex",
+                                                  alignItems: "center",
+                                                  flexWrap: "wrap",
+                                                }}
+                                              >
+                                                <CategoryIcon style={{ fontSize: "large" }} />
+                                                <span style={{ color: "grey", lineHeight: "160%" }}>
+                                                  {item.resourcetype}
+                                                </span>
+                                              </div>
+                                              
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary" style={{textAlign:'left',fontFamily:'San Fransisco',fontSize:'17px'}}>
+                                              
+                                              <div
+                                                  style={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    flexWrap: "wrap",
+                                                  }}
+                                                >
+                                                  
+                                                  <LocationCityIcon style={{ fontSize: "large" }} />
+                                                  <span style={{ color: "grey", lineHeight: "160%" }}>
+                                                  {item.province} 
+                                                  </span>
+                                                </div>
+                                            </Typography>
+                                            <Link
+                                                      style={{color:'#8b9b74',marginRight:'135px'}}
+                                                      to={{
+                                                        pathname: "/jj",
+                                                        state: { data: item },
+                                                      }}
+                                                    >
+                                                      Read more
+                                                      </Link>
+  
+                                            
+                                            
+                                             
+                                          </CardContent>
+          
+                                                      
+        
+                                          
+                                        </Card>
+                                        
+
                                         </SwiperSlide>
                                         
                                     </Grid>
                                   ))}
  
-                    {/* <SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 2
-                    </SwiperSlide><SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 3
-                    </SwiperSlide><SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 4
-                    </SwiperSlide><SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 5
-                    </SwiperSlide>
-                    <SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 6
-                    </SwiperSlide><SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 7
-                    </SwiperSlide><SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 8
-                    </SwiperSlide>
-                    <SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 1
-                    </SwiperSlide><SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 1
-                    </SwiperSlide><SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 1
-                    </SwiperSlide><SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 1
-                    </SwiperSlide><SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 1
-                    </SwiperSlide><SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 1
-                    </SwiperSlide><SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 1
-                    </SwiperSlide><SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 1
-                    </SwiperSlide><SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 1
-                    </SwiperSlide><SwiperSlide
-                      style={{ color: "black", paddingBottom: "2rem" }}
-                    >
-                      item 1
-                    </SwiperSlide> */}
+                   
 </Swiper>
+
           
 
 
@@ -929,7 +882,8 @@ export default function Homepage(props) {
                               component="h3"
                               textAlign="left"
                               fontSize="1rem"
-                              style={{ fontWeight: "bold", paddingTop: "3rem" }}
+                              fontFamily="San Fransisco"
+                              style={{ fontWeight: "bold", paddingTop: "3rem"  }}
                             >
                               In fact, good deeds and benevolence is a good
                               thing that more or less everyone wants to do, and
@@ -941,7 +895,7 @@ export default function Homepage(props) {
                               component="h3"
                               textAlign="left"
                               fontSize="1rem"
-                              style={{ fontWeight: "bold" }}
+                              style={{ fontWeight: "bold" , fontFamily:'San Fransisco'}}
                             >
                               A person who has not done a good deed and has not
                               been a pioneer in it, is in fact oppressing

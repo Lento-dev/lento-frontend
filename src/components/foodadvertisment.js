@@ -86,6 +86,8 @@ function Foodadvertisment(props) {
 
   const [images, setImages] = React.useState([]);
   const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl1, setImageUrl1] = useState("");
+  const [imageUrl2, setImageUrl2] = useState("");
   const maxNumber = 69;
 
   const onChange = (imageList, addUpdateIndex) => {
@@ -95,6 +97,8 @@ function Foodadvertisment(props) {
     setImages(imageList);
 
     setImageUrl(imageList[0].file);
+    setImageUrl1(imageList[1].file);
+    setImageUrl2(imageList[2].file);
   };
 
   const history = useHistory();
@@ -305,6 +309,8 @@ function Foodadvertisment(props) {
       fd.append("Address", values.neighborhoodaddrs);
       fd.append("expiration_date", values.expiredate);
       fd.append("Image", imageUrl);
+      fd.append("Image1", imageUrl1);
+      fd.append("Image2", imageUrl2);
 
       fd.append("resourcetype", "FoodAdvertisement");
 
@@ -495,6 +501,7 @@ function Foodadvertisment(props) {
                       <Grid item xs={12} md={12} sx={{ paddingBottom: "5%" }}>
                         <MyAutocomplete
                           id="country-select-demo"
+                          data-testid="add-word-input"
                           sx={{ width: "100%" }}
                           options={cities}
                           value={city}

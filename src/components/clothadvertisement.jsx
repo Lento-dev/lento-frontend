@@ -67,6 +67,8 @@ function Clothadvertisement(props) {
 
   const [images, setImages] = React.useState([]);
   const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl1, setImageUrl1] = useState(null);
+  const [imageUrl2, setImageUrl2] = useState(null);
   const maxNumber = 69;
 
   const onChange = (imageList, addUpdateIndex) => {
@@ -76,6 +78,8 @@ function Clothadvertisement(props) {
     setImages(imageList);
 
     setImageUrl(imageList[0].file);
+    setImageUrl1(imageList[1].file);
+    setImageUrl2(imageList[2].file);
   };
 
   const history = useHistory();
@@ -323,6 +327,8 @@ function Clothadvertisement(props) {
       fd.append("cloth_status", values.clothstatus);
       fd.append("cloth_size", values.clothsize);
       fd.append("Image", imageUrl);
+      fd.append("Image1", imageUrl1);
+      fd.append("Image2", imageUrl2);
       // fd.append("owner",values.pseudonym)
       // fd.append("for_men",);
       // fd.append("for_women",);

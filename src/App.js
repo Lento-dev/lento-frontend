@@ -30,7 +30,7 @@ import UserProfile from './components/user-profile'
 import Formstab from "./components/formstab"
 import PublicUserProfile from './components/public-user-profile'
 // import BasicCard from "./components/advertisementpage";
-import Productdetail from "./components/advertisementpage";
+// import Productdetail from "./components/advertisementpage";
 import BasicCard from "./components/adpage";
 import FormTabs from "./components/formstab";
 
@@ -74,8 +74,6 @@ function App() {
               {/* <Route exact path="/setting" component={UserSetting} /> */}
               <Route exact path="/dashboard" component={PersistentDrawerLeft} />
               <Route exact path="/ppage" component={Ppage} />
-              {/* <Route exact path="/adpage" component={BasicCard}/> */}
-              <Route exact path="/ab" component={Productdetail} />
               <Route exact path="/jj" component={BasicCard} />
               <Route exact path="/formtabs" component={FormTabs} />
             </Switch>

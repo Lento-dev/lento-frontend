@@ -1,0 +1,24 @@
+.swiper-button-next { color: #465832; }
+.swiper-button-prev {color: #465832; }
+
+ /* change the size of the bullet and active color */
+
+ .swiper-pagination-bullet {
+    background-color: #465832;
+    display: inline-block;
+    width: 0.6rem;
+    height: 0.6rem;
+}
+
+/* change color of next 2 bullets in sequence to white*/
+
+.swiper-pagination-bullet-active-next, .swiper-pagination-bullet-active-next-next {
+background-color: white;
+}
+
+/* change color of previous bullet to white*/
+
+.swiper-pagination-bullet-active-prev {
+background-color: white;
+}
+  

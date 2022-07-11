@@ -3,7 +3,7 @@ import { Button, TextField, Grid, Box, Container } from "@mui/material";
 import Helmet from "react-helmet";
 import axios from "axios";
 import FormControl from "@mui/material/FormControl";
-import "react-phone-input-2/lib/style.css";
+// import "react-phone-input-2/lib/style.css";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { useHistory } from "react-router-dom";
@@ -11,22 +11,22 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import "date-fns";
 import { registerPlugin } from "react-filepond";
-import "filepond/dist/filepond.min.css";
+// import "filepond/dist/filepond.min.css";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+// import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import MuiMenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
 import MediaControlCard from "./adcard";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import LocationCityIcon from "@mui/icons-material/LocationCity";
-import CategoryIcon from "@mui/icons-material/Category";
-import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
-import EventNoteIcon from "@mui/icons-material/EventNote";
-import { Link } from "react-router-dom";
+// import Card from "@mui/material/Card";
+// import CardContent from "@mui/material/CardContent";
+// import CardMedia from "@mui/material/CardMedia";
+// import Typography from "@mui/material/Typography";
+// import LocationCityIcon from "@mui/icons-material/LocationCity";
+// import CategoryIcon from "@mui/icons-material/Category";
+// import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
+// import EventNoteIcon from "@mui/icons-material/EventNote";
+// import { Link } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from '@mui/material/Pagination';
 
@@ -292,25 +292,33 @@ function Ppage(props) {
                             >
                               select the category
                             </InputLabel>
+                            
                             <Select
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
                               label="Select Marital Status"
-                              textAlign="left"
+                              textAlign="center"
                               value={values.clothtype}
                               onChange={handleChange("clothtype")}
                               error={Boolean(errors["clothtype"])}
                               helperText={errors["clothtype"]}
+                              
                             >
-                              <MenuItem value={"food"}>food</MenuItem>
-                              <MenuItem value={"service"}>service</MenuItem>
-                              <MenuItem value={"cloth"}>cloth</MenuItem>
+                              
+                                <MenuItem value={"food"} >food</MenuItem>
+                                <MenuItem value={"service"}>service</MenuItem>
+                                <MenuItem value={"cloth"}>cloth</MenuItem>
+                              
                             </Select>
+                            
                           </FormControl>
+                          
+                 
+                          
                         </Box>
                       </Grid>
                       <Grid container item xs={12} sm={2}>
-                        <Button
+                      <Button
                           style={{
                             height: "53px",
                             backgroundColor: "#e6835a",
@@ -321,12 +329,15 @@ function Ppage(props) {
                         >
                           search
                         </Button>
+                    
+
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
               </Grid>
             </Paper>
+            
             <br />
             <br />
             <br />
